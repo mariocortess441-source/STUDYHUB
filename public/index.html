@@ -219,6 +219,7 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 .calendar-card{padding:22px}
 .calendar-toolbar{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
 .calendar-toolbar h3{min-width:180px;text-align:center;font:800 18px Manrope;margin:0}
+.calendar-mode{display:flex;gap:4px}.calendar-mode .active{border-color:var(--accent);color:#fff;background:#282448}
 .calendar-weekdays,.calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
 .calendar-weekdays span{text-align:center;color:var(--muted);font-size:11px;font-weight:700;padding:8px 0}
 .calendar-day{min-height:92px;border:1px solid var(--line);border-radius:12px;background:#0e1420;color:var(--text);padding:8px;text-align:left;display:flex;flex-direction:column;gap:5px;min-width:0}
@@ -240,6 +241,7 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
  .calendar-toolbar{gap:6px;margin-bottom:12px}
  .calendar-toolbar h3{min-width:0;flex:1;font-size:15px}
  .calendar-toolbar .btn{padding:8px 10px;min-height:38px}
+ .calendar-mode{gap:2px}.calendar-mode .btn{padding:7px 8px;font-size:10px}
  .calendar-weekdays,.calendar-days{gap:3px}
  .calendar-weekdays span{font-size:10px;padding:5px 0}
  .calendar-day{min-height:65px;padding:4px;border-radius:8px;gap:3px}
@@ -342,7 +344,7 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 <section class="view" id="calendar">
     <div class="intro"><h2>Tu calendario académico</h2><p>Consulta tus exámenes, entregas y tareas con fecha en una vista mensual.</p></div>
     <div class="card calendar-card">
-      <div class="calendar-toolbar"><button class="btn secondary" id="calendarPrev" aria-label="Mes anterior">←</button><h3 id="calendarMonth">Mes</h3><button class="btn secondary" id="calendarNext" aria-label="Mes siguiente">→</button><button class="btn ghost" id="calendarToday">Hoy</button></div>
+      <div class="calendar-toolbar"><button class="btn secondary" id="calendarPrev" aria-label="Mes anterior">←</button><h3 id="calendarMonth">Mes</h3><button class="btn secondary" id="calendarNext" aria-label="Mes siguiente">→</button><button class="btn ghost" id="calendarToday">Hoy</button><div class="calendar-mode"><button class="btn secondary active" id="calendarMonthMode">Mes</button><button class="btn secondary" id="calendarWeekMode">Semana</button></div></div>
       <div class="calendar-weekdays"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div>
       <div class="calendar-days" id="calendarDays"></div>
       <div class="divider"></div><div class="calendar-selected"><h3 id="calendarSelectedTitle">Selecciona un día</h3><div id="calendarSelectedItems" class="empty">Aquí aparecerán tus exámenes, entregas y tareas.</div></div>
@@ -669,7 +671,7 @@ if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle
 
 
 /* AULIVRA calendar and personal dashboard */
-let calendarCursor=new Date(),calendarSelected=new Date();
+let calendarCursor=new Date(),calendarSelected=new Date(),calendarViewMode="month";
 const dateKey=d=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
 const dateFromKey=k=>{const [y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d)};
 function allCalendarItems(){
@@ -682,23 +684,28 @@ function renderCalendar(){
  const year=calendarCursor.getFullYear(),month=calendarCursor.getMonth();
  $("#calendarMonth").textContent=new Intl.DateTimeFormat("es-ES",{month:"long",year:"numeric"}).format(calendarCursor);
  const first=new Date(year,month,1),start=(first.getDay()+6)%7;
- const startDate=new Date(year,month,1-start),items=allCalendarItems();
+ const weekStart=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),calendarSelected.getDate());weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));
+ const startDate=calendarViewMode==="week"?weekStart:new Date(year,month,1-start),items=allCalendarItems();
+ $("#calendarMonthMode").classList.toggle("active",calendarViewMode==="month");$("#calendarWeekMode").classList.toggle("active",calendarViewMode==="week");
+ $("#calendarMonth").textContent=calendarViewMode==="week"?new Intl.DateTimeFormat("es-ES",{day:"numeric",month:"short"}).format(startDate)+" – "+new Intl.DateTimeFormat("es-ES",{day:"numeric",month:"short",year:"numeric"}).format(new Date(startDate.getFullYear(),startDate.getMonth(),startDate.getDate()+6)):new Intl.DateTimeFormat("es-ES",{month:"long",year:"numeric"}).format(calendarCursor);
  let html="";
- for(let i=0;i<42;i++){
+ for(let i=0;i<(calendarViewMode==="week"?7:42);i++){
   const day=new Date(startDate);day.setDate(startDate.getDate()+i);
   const key=dateKey(day),dayItems=items.filter(x=>(x.date||x.due)===key);
   const classes=["calendar-day",day.getMonth()!==month?"muted-day":"",key===dateKey(new Date())?"today":"",key===dateKey(calendarSelected)?"selected":""].filter(Boolean).join(" ");
   html+='<button class="'+classes+'" data-calendar-day="'+key+'"><span class="calendar-day-number">'+day.getDate()+'</span>'+dayItems.slice(0,2).map(x=>'<span class="calendar-dot '+(x.kind==="task"?"task-dot":"")+'">'+esc(x.title)+'</span>').join("")+(dayItems.length>2?'<span class="tiny">+'+(dayItems.length-2)+' más</span>':"")+'</button>';
  }
  grid.innerHTML=html;
- grid.querySelectorAll("[data-calendar-day]").forEach(b=>b.onclick=()=>{calendarSelected=dateFromKey(b.dataset.calendarDay);renderCalendar()});
+ grid.querySelectorAll("[data-calendar-day]").forEach(b=>b.onclick=()=>{calendarSelected=dateFromKey(b.dataset.calendarDay);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()});
  const key=dateKey(calendarSelected),selected=items.filter(x=>(x.date||x.due)===key);
  $("#calendarSelectedTitle").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long"}).format(calendarSelected);
  $("#calendarSelectedItems").innerHTML=selected.length?selected.map(x=>'<div class="calendar-event-line"><span class="stat-icon" style="width:30px;height:30px;font-size:13px">'+(x.kind==="task"?"✓":"▦")+'</span><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+(x.kind==="task"?" · Pendiente":" · Examen o entrega")+'</small></span></div>').join(""):'<div class="empty">No hay nada programado para este día.</div>';
 }
-$("#calendarPrev").onclick=()=>{calendarCursor.setMonth(calendarCursor.getMonth()-1);renderCalendar()};
-$("#calendarNext").onclick=()=>{calendarCursor.setMonth(calendarCursor.getMonth()+1);renderCalendar()};
+$("#calendarPrev").onclick=()=>{if(calendarViewMode==="week")calendarSelected.setDate(calendarSelected.getDate()-7);else calendarCursor.setMonth(calendarCursor.getMonth()-1);if(calendarViewMode==="week")calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
+$("#calendarNext").onclick=()=>{if(calendarViewMode==="week")calendarSelected.setDate(calendarSelected.getDate()+7);else calendarCursor.setMonth(calendarCursor.getMonth()+1);if(calendarViewMode==="week")calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
 $("#calendarToday").onclick=()=>{calendarCursor=new Date();calendarSelected=new Date();renderCalendar()};
+$("#calendarMonthMode").onclick=()=>{calendarViewMode="month";calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
+$("#calendarWeekMode").onclick=()=>{calendarViewMode="week";calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
 function refreshCalendarSubjects(){
  const sel=$("#calendarEventSubject");if(sel)sel.innerHTML='<option value="">Selecciona asignatura</option>'+subjectsData().map(s=>'<option value="'+esc(s.id)+'">'+esc(s.name)+'</option>').join("");
 }
