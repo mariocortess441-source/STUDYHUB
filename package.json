@@ -1,8 +1,8 @@
 {
-  "name": "aulivra",
+  "name": "mancave",
   "version": "1.0.0",
   "private": true,
-  "description": "AULIVRA - online study planner and student tools",
+  "description": "MANCAVE - online study planner and student tools",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
