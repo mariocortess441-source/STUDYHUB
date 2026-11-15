@@ -988,8 +988,8 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
 <aside class="sidebar">
   <div class="brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div class="brandtext"><strong>AULIVRA</strong><small>YOUR ACADEMIC SPACE</small></div></div>
   <div class="nav-label">TU ESPACIO</div><nav class="nav" id="nav" aria-label="Navegación principal">
-  <button class="active" data-view="study" aria-label="Estudio" title="Estudio" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
-  <div class="nav-entry"><button data-view="entrepreneurship" aria-label="Emprendimiento" title="Emprendimiento" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext" id="businessNavLabel">Emprendimiento</span></button><button class="rename-area" id="renameBusinessArea" type="button" title="Cambiar nombre" aria-label="Cambiar nombre">✎</button></div>
+  <button data-view="study" aria-label="Estudio" title="Estudio" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
+  <div class="nav-entry"><button data-view="entrepreneurship" aria-label="Emprendimiento" title="Emprendimiento" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext" id="businessNavLabel">Emprendimiento</span></button></div>
   <button data-view="economy" aria-label="Economía" title="Economía" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 15h2M7 5V3h10v2"/></svg></span><span class="navtext">Economía</span></button>
 </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
@@ -2076,13 +2076,7 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
 })();
 </script>
 <script id="aulivra-navigation-polish">
-(()=>{
- const topToggle=document.getElementById("sidebarToggleTop");
- if(topToggle){topToggle.setAttribute("aria-label","Mostrar u ocultar menú");topToggle.setAttribute("title","Mostrar u ocultar menú");}
- const label=document.getElementById("businessNavLabel"),rename=document.getElementById("renameBusinessArea"),key="aulivra_business_area_name";
- if(label){const saved=localStorage.getItem(key);if(saved){label.textContent=saved;const b=label.closest("button");if(b){b.title=saved;b.setAttribute("aria-label",saved)}}}
- if(rename)rename.addEventListener("click",()=>{const current=label?.textContent||"Emprendimiento";const value=prompt("¿Qué nombre quiere poner a esta área?",current);if(value===null)return;const clean=value.trim().slice(0,32);if(!clean)return alert("Escriba un nombre válido.");localStorage.setItem(key,clean);if(label)label.textContent=clean;const b=label?.closest("button");if(b){b.title=clean;b.setAttribute("aria-label",clean)}});
-})();
+(()=>{const label=document.getElementById("businessNavLabel"),key="aulivra_business_area_name";if(label){const saved=localStorage.getItem(key);if(saved){label.textContent=saved;const b=label.closest("button");if(b){b.title=saved;b.setAttribute("aria-label",saved)}}}})();
 </script>
 
 <script id="aulivra-workspace-v3">
