@@ -138,6 +138,24 @@ app.post("/api/auth/logout", (req, res) => {
   }
   res.clearCookie("sh_session", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" }).json({ ok: true });
 });
+// Per-account academic data. On-disk persistence requires a persistent volume in production.
+const STUDY_DATA_FILE = path.join(DATA_DIR, "study-data.json");
+app.get("/api/study-data", requireAuth, (req,res) => {
+  const all = readJson(STUDY_DATA_FILE, {});
+  res.json({ data: all[req.user.id] || {} });
+});
+app.put("/api/study-data/:key", requireAuth, (req,res) => {
+  const key = String(req.params.key || "");
+  if (!/^[a-zA-Z0-9_-]{1,80}$/.test(key)) return res.status(400).json({error:"Clave no válida."});
+  const raw = JSON.stringify(req.body.value);
+  if (raw.length > 500000) return res.status(413).json({error:"El contenido supera el límite permitido."});
+  const all = readJson(STUDY_DATA_FILE, {});
+  all[req.user.id] = all[req.user.id] || {};
+  all[req.user.id][key] = req.body.value;
+  writeJson(STUDY_DATA_FILE, all);
+  res.json({ok:true});
+});
+
 // El acceso es opcional: las funciones de conversión y compartir también están disponibles como invitado.
 
 app.get("/api/health", (_, res) => res.json({ ok: true, service: "AULIVRA", version: "1.0.0" }));
