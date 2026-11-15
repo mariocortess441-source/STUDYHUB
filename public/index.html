@@ -80,6 +80,9 @@ label{color:#58657b;font-size:13px}
 .auth-tabs button.active{background:#fff;color:#3458d1;box-shadow:0 2px 8px #1c315010}
 .auth-error{color:#c63f54;background:#fff0f2;border-radius:10px;padding:10px 12px;font-size:13px;display:none;margin:12px 0}
 .auth-submit{width:100%;margin-top:12px}.auth-foot{font-size:12px;color:#8490a4;margin-top:18px;text-align:center}
+.social-divider{display:flex;align-items:center;gap:12px;margin:18px 0 12px;color:#8994a8;font-size:11px}.social-divider:before,.social-divider:after{content:"";height:1px;background:#e7ebf2;flex:1}
+.social-auth{display:grid;grid-template-columns:1fr 1fr;gap:10px}.social-btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:1px solid #dfe4ed;border-radius:11px;background:#fff;color:#263247;font-weight:700;font-size:12px;cursor:pointer}.social-btn:hover{background:#f7f8fb;border-color:#c7cfdd}.google-g{font:800 18px Arial;color:#4285f4}.apple-mark{font-size:17px;color:#111}.social-note{font-size:11px;color:#8792a4;text-align:center;margin-top:10px;line-height:1.4}
+@media(max-width:420px){.social-auth{grid-template-columns:1fr}}
 .user-chip{display:flex;align-items:center;gap:10px}.user-chip span{font-size:13px;color:#58657b}
 @media(max-width:900px){.app{grid-template-columns:76px 1fr}.app.sidebar-hidden{grid-template-columns:0 1fr}.card{padding:20px}}
 @media(max-width:560px){.app{display:block}.app.sidebar-hidden .sidebar{display:none}.sidebar{height:auto}.home-actions{grid-template-columns:1fr}.home-actions .quick{min-height:100px}.auth-card{padding:27px}.top{align-items:flex-start}}
@@ -842,7 +845,13 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
     <button id="legalReview" class="legal-review" type="button" hidden>Volver a revisar</button>
   </section>
 </div>
-<div class="auth-screen" id="authScreen" style="display:none"><div class="auth-card"><button class="btn ghost" id="closeAuth" type="button" style="float:right">Continuar como invitado</button><div class="auth-brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div><strong style="font:800 18px Manrope;letter-spacing:1px">AULIVRA</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión o crea una cuenta si quieres usar tu espacio personal. También puedes continuar como invitado.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit" type="submit">Entrar en AULIVRA</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div>
+<div class="auth-screen" id="authScreen" style="display:none"><div class="auth-card"><button class="btn ghost" id="closeAuth" type="button" style="float:right">Continuar como invitado</button><div class="auth-brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div><strong style="font:800 18px Manrope;letter-spacing:1px">AULIVRA</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión o crea una cuenta si quieres usar tu espacio personal. También puedes continuar como invitado.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit" type="submit">Entrar en AULIVRA</button></form>
+<div class="social-divider"><span>O continúa con</span></div>
+<div class="social-auth">
+ <button type="button" class="social-btn" id="googleSignIn"><span class="google-g">G</span><span>Continuar con Google</span></button>
+ <button type="button" class="social-btn" id="appleSignIn"><span class="apple-mark">●</span><span>Continuar con Apple</span></button>
+</div>
+<div class="social-note" id="socialAuthNote">Los accesos externos estarán disponibles cuando se configuren sus credenciales.</div><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div>
 <button type="button" class="personal-agenda-launch" id="personalAgendaLaunch" aria-label="Abrir agenda personal" title="Abrir calendario personal">▦</button>
 <div class="personal-agenda-modal" id="personalAgendaModal" aria-hidden="true">
  <section class="personal-agenda-card" role="dialog" aria-modal="true" aria-labelledby="personalAgendaTitle">
@@ -1219,6 +1228,17 @@ renderGrades();renderHome();renderSessions();
 let authMode="login";
 function setAuthMode(mode){authMode=mode;$("#loginTab").classList.toggle("active",mode==="login");$("#registerTab").classList.toggle("active",mode==="register");$("#nameField").style.display=mode==="register"?"block":"none";$("#authTitle").textContent=mode==="login"?"Bienvenido de nuevo":"Crea tu cuenta";$("#authDescription").textContent=mode==="login"?"Inicia sesión para entrar en tu espacio de estudio.":"Regístrate para guardar tu espacio personal.";$("#authSubmit").textContent=mode==="login"?"Entrar en AULIVRA":"Crear mi cuenta";$("#authPassword").autocomplete=mode==="login"?"current-password":"new-password";$("#authError").style.display="none"}
 $("#loginTab").onclick=()=>setAuthMode("login");$("#registerTab").onclick=()=>setAuthMode("register");
+async function refreshSocialButtons(){
+ try{
+  const r=await fetch("/api/auth/providers",{cache:"no-store"}),p=await r.json();
+  $("#googleSignIn").disabled=!p.google;$("#appleSignIn").disabled=!p.apple;
+  $("#socialAuthNote").textContent=(p.google||p.apple)?"Elige una cuenta para acceder de forma segura.":"Para activar estos botones hay que configurar Google y Apple en el servidor.";
+ }catch{$("#socialAuthNote").textContent="No se pudo comprobar la disponibilidad de los accesos externos."}
+}
+$("#googleSignIn").onclick=()=>{location.href="/api/auth/google/start"};
+$("#appleSignIn").onclick=()=>{location.href="/api/auth/apple/start"};
+refreshSocialButtons();
+
 async function checkAuth(){try{const r=await fetch("/api/auth/me");const j=await r.json();if(j.user)enterApp(j.user)}catch{}}
 async function enterApp(user){
  activeUser=user||null;
