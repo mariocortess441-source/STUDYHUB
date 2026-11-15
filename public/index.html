@@ -580,7 +580,7 @@ $("#loginBtn").onclick=()=>{$("#authScreen").style.display="grid";setAuthMode("l
 function toggleSidebar(){const hidden=$("#appShell").classList.toggle("sidebar-hidden");["#sidebarToggle","#sidebarToggleTop"].forEach(sel=>{const b=$(sel);b.setAttribute("aria-expanded",String(!hidden));b.title=hidden?"Mostrar menú":"Ocultar menú";b.setAttribute("aria-label",b.title)})}
 $("#sidebarToggle").onclick=toggleSidebar;$("#sidebarToggleTop").onclick=toggleSidebar;
 $("#appShell").style.display="grid";enterApp(null);checkAuth();
-if(typeof renderSubjects==="function"){renderSubjects();renderEvents();renderHome()}
+
 const homeAd=document.querySelector(".ad-container .adsbygoogle");
 if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle||[]).push({});homeAd.dataset.initialized="true";}
 
@@ -775,6 +775,9 @@ const oldRenderHome=renderHome;
 renderHome=function(){oldRenderHome();const subs=subjectsData();$("#homeSubjects").textContent=subs.length;};
 const oldGo=go;
 go=function(id){oldGo(id);if(id==="subjects"){renderSubjects();renderEvents()}};
+
+/* Inicialización académica después de declarar todo el estado */
+renderSubjects();renderEvents();renderCalendar();renderHome();
 
 </script>
 </body></html>
