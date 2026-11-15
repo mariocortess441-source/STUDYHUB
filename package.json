@@ -1,8 +1,8 @@
 {
-  "name": "studyhub",
+  "name": "aulivra",
   "version": "1.0.0",
   "private": true,
-  "description": "STUDYHUB - academic productivity SaaS starter",
+  "description": "AULIVRA - online study planner and student tools",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
