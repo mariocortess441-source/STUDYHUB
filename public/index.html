@@ -851,7 +851,7 @@ input,select,textarea{background:#091117;border:1px solid #294149;color:#e9f8f8}
 .wallet-save-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:#92a9ad;font-size:11px}.wallet-edit{margin-top:8px}.wallet-edit input{font-size:10px;padding:7px;width:100%}
 .savings-forecast{display:grid;gap:12px;margin-top:18px}.savings-forecast-item{display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center;padding:18px;border:1px solid #23383f;border-radius:14px;background:#0b1419}.savings-gauge{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#1bd4cd var(--progress),#24343a 0);position:relative}.savings-gauge:before{content:"";position:absolute;inset:12px;background:#10191f;border-radius:50%}.savings-gauge div{position:relative;text-align:center}.savings-gauge strong{display:block;font:800 25px Manrope}.savings-gauge small{font-size:9px;color:#8ea5a8}.savings-forecast p{font-size:12px;color:#a5babc;line-height:1.6}
 .journal-entries{display:grid;gap:8px;margin-top:12px}.journal-entry{padding:12px;border:1px solid #263b42;border-radius:10px;background:#0d171c}.journal-entry b{font-size:11px;color:#4ddbd4}.journal-entry p{white-space:pre-wrap;font-size:12px;color:#c3d3d5;margin:7px 0 0}.personal-upcoming-list{margin-top:14px;display:grid;gap:8px}
-.calendar-mode{display:flex!important}.calendar-mode button:not(#calendarMonthMode){display:none!important}.calendar-card{overflow:hidden}
+.calendar-mode{display:flex!important;gap:6px;flex-wrap:wrap}.calendar-card{overflow:hidden}
 @media(max-width:1050px){.study-block-form{grid-template-columns:repeat(4,minmax(0,1fr))}.study-block-form button{grid-column:auto}.study-split{grid-template-columns:1fr}.study-exams-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.app{grid-template-columns:210px minmax(0,1fr)}.sidebar{padding:18px 12px}.study-heading{align-items:flex-start;flex-direction:column}.study-course-tools{flex-wrap:wrap}.study-reader-split{grid-template-columns:1fr}.study-document-pane iframe{height:320px}.study-jake-pane{min-height:240px}.study-week-calendar{grid-template-columns:48px repeat(7,100px)}.study-block-form{grid-template-columns:repeat(2,minmax(0,1fr))}.study-exams-grid{grid-template-columns:1fr}.savings-forecast-item{grid-template-columns:1fr;justify-items:center;text-align:center}.home-jake-landing{min-height:60vh;padding:24px}.home-personal-shortcut{flex-wrap:wrap}.home-personal-shortcut p{margin-left:0}}
 @media(max-width:560px){.app{display:block}.sidebar{position:fixed;left:0;top:0;bottom:0;width:245px;height:100dvh;z-index:80;transform:translateX(0);transition:transform .23s;box-shadow:18px 0 50px #0008}.app.sidebar-hidden .sidebar{transform:translateX(-105%);display:flex;width:245px;padding:22px 15px;border-right:1px solid #20383e}.app.sidebar-hidden{display:block}main{padding:16px 13px 45px}.top{margin:12px 0 23px}.top-brand #pageTitle{font-size:19px}}
@@ -1018,6 +1018,26 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .toast{will-change:opacity,transform}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
+<style>
+/* MANCAVE restoration pass: keep the requested planning and personal areas visible. */
+.nav .ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.economy-grid,.economy-overview,.economy-mini,.economy-balance,.saving-item,.savings-forecast-item{min-width:0}
+.economy-overview>*,.economy-mini>*{min-width:0;overflow-wrap:anywhere}
+.economy-mini span,.economy-mini strong,.economy-balance span,.economy-balance strong{max-width:100%;overflow-wrap:anywhere;word-break:normal}
+.economy-movement-copy{min-width:0;overflow-wrap:anywhere}
+.economy-movement-copy small{display:block;overflow-wrap:anywhere}
+.savings-forecast-item{grid-template-columns:minmax(110px,150px) minmax(0,1fr)}
+.home-personal-unified{margin-top:30px}
+.home-personal-unified-head{margin-bottom:16px}
+.home-personal-unified-head h2{font:800 25px Manrope;margin:5px 0;color:var(--text)}
+.home-personal-unified-head p{color:var(--muted);font-size:13px;line-height:1.5;margin:0}
+.home-personal-unified-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.home-personal-unified-grid>.home-personal-card:first-child{grid-row:span 2}
+.home-personal-unified-grid>.home-personal-card{min-width:0}
+.home-personal-unified-grid #personalJournalCalendar{margin:0}
+.home-personal-unified-grid .journal-book{min-width:0}
+@media(max-width:850px){.home-personal-unified-grid{grid-template-columns:1fr}.home-personal-unified-grid>.home-personal-card:first-child{grid-row:auto}.savings-forecast-item{grid-template-columns:1fr;justify-items:start}}
+</style>
 </head>
 <body>
 
@@ -1071,6 +1091,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <button data-view="home" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span><span class="navtext">Inicio</span></button>
   <button data-view="study" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
   <div class="nav-entry"><button data-view="entrepreneurship" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext" id="businessNavLabel">Emprendimiento</span></button></div>
+  <button data-view="calendar" type="button"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3M8 17h6"/></svg></span><span class="navtext">Calendario</span></button>
   <button data-view="economy" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 15h2M7 5V3h10v2"/></svg></span><span class="navtext">Economía</span></button>
 </nav><div class="sidebar-account"><span class="sidebar-account-label">CUENTA</span><span id="sidebarUserName">Invitado</span><button class="btn secondary" id="sidebarLoginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="sidebarLogoutBtn" type="button" hidden>Cerrar sesión</button></div><div class="side-bottom">MANCAVE · MC</div>
 </aside>
@@ -1876,22 +1897,37 @@ renderEntrepreneurship();
 })();
 </script>
 
-<script>
-(()=>{const byId=id=>document.getElementById(id),money=n=>Number(n||0).toLocaleString("es-ES",{style:"currency",currency:"EUR"}),get=()=>store.get("aulivra_economy",{movements:[],savings:[]}),save=d=>store.set("aulivra_economy",d);
-const now=new Date();byId("economyDate").value=[now.getFullYear(),String(now.getMonth()+1).padStart(2,"0"),String(now.getDate()).padStart(2,"0")].join("-");
-function render(){const d=get(),list=(d.movements||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)),inc=list.filter(x=>x.type==="income").reduce((a,x)=>a+x.amount,0),out=list.filter(x=>x.type==="expense").reduce((a,x)=>a+x.amount,0);
-byId("economyBalance").textContent=money(inc-out);byId("economyIncome").textContent=money(inc);byId("economyExpense").textContent=money(out);
-const months=[];for(let i=5;i>=0;i--){const dt=new Date(now.getFullYear(),now.getMonth()-i,1);months.push({key:dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0"),label:dt.toLocaleDateString("es-ES",{month:"short"})})}
-let running=0;const vals=months.map(m=>{running+=list.filter(x=>x.date.slice(0,7)===m.key).reduce((a,x)=>a+(x.type==="income"?x.amount:-x.amount),0);return{...m,value:running}}),max=Math.max(1,...vals.map(x=>Math.abs(x.value)));
-byId("economyChart").innerHTML=vals.map(x=>'<div class="economy-month"><span class="economy-month-value">'+money(x.value)+'</span><div class="economy-month-bar" style="height:'+Math.max(3,Math.abs(x.value)/max*115)+'px"></div><span class="economy-month-label">'+x.label+'</span></div>').join("");
-byId("economyMovements").innerHTML=list.length?list.map(x=>'<div class="economy-movement '+x.type+'"><span class="economy-movement-icon">'+(x.type==="income"?"↗":"↘")+'</span><span class="economy-movement-copy"><b>'+esc(x.reason)+'</b><small>'+esc(x.date)+(x.note?" · "+esc(x.note):"")+'</small></span><strong class="economy-movement-amount">'+(x.type==="income"?"+":"−")+money(x.amount)+'</strong><button type="button" data-economy-delete="'+esc(x.id)+'">×</button></div>').join(""):'<div class="empty">Todavía no has añadido movimientos.</div>';
-byId("savingsList").innerHTML=(d.savings||[]).length?d.savings.map(x=>'<div class="saving-item"><div class="saving-top"><b>'+esc(x.name)+'</b><button class="saving-delete" data-saving-delete="'+esc(x.id)+'" type="button">×</button></div><div class="saving-progress"><i style="width:'+Math.min(100,x.current/x.target*100)+'%"></i></div><div class="saving-meta"><span>'+money(x.current)+' ahorrados</span><span>'+money(x.target)+' objetivo</span></div></div>').join(""):'<div class="empty">Crea tu primer objetivo.</div>'}
-byId("economyForm").addEventListener("submit",e=>{e.preventDefault();const amount=Number(byId("economyAmount").value),reason=byId("economyReason").value.trim(),date=byId("economyDate").value;if(amount<=0||!reason||!date)return toast("Comprueba los datos del movimiento.");const d=get();d.movements.push({id:crypto.randomUUID(),type:byId("economyType").value,amount,reason,note:byId("economyNote").value.trim(),date,channel:byId("economyChannel")?.value||"digital"});save(d);e.target.reset();byId("economyDate").value=date;render();toast("Movimiento guardado.")});
-byId("economyMovements").addEventListener("click",e=>{const b=e.target.closest("[data-economy-delete]");if(!b)return;const d=get();d.movements=d.movements.filter(x=>x.id!==b.dataset.economyDelete);save(d);render()});
-byId("savingsForm").addEventListener("submit",e=>{e.preventDefault();const name=byId("savingName").value.trim(),target=Number(byId("savingTarget").value),current=Number(byId("savingCurrent").value||0);if(!name||target<=0||current<0)return toast("Comprueba el objetivo de ahorro.");const d=get();d.savings.push({id:crypto.randomUUID(),name,target,current});save(d);e.target.reset();byId("savingCurrent").value="0";render();toast("Objetivo creado.")});
-byId("savingsList").addEventListener("click",e=>{const b=e.target.closest("[data-saving-delete]");if(!b)return;const d=get();d.savings=d.savings.filter(x=>x.id!==b.dataset.savingDelete);save(d);render()});
-window.renderEconomy=render;render()})();
-</script>
+<script>(()=>{
+ const $=id=>document.getElementById(id),money=n=>Number(n||0).toLocaleString("es-ES",{style:"currency",currency:"EUR"}),today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")};
+ const get=()=>{const d=store.get("aulivra_economy",{movements:[],savings:[]});d.movements=Array.isArray(d.movements)?d.movements:[];d.savings=Array.isArray(d.savings)?d.savings:[];d.cash=Number(d.cash??d.walletCash??0)||0;d.digital=Number(d.digital??d.walletDigital??0)||0;return d},save=d=>store.set("aulivra_economy",d);
+ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const signed=(d,channel)=>d.movements.filter(x=>(x.channel||"digital")===channel).reduce((a,x)=>a+(x.type==="income"?1:-1)*Number(x.amount||0),0);
+ const totals=d=>({cash:d.cash+signed(d,"cash"),digital:d.digital+signed(d,"digital")});
+ const date=$("economyDate");if(date&&!date.value)date.value=today();
+ function render(){
+  const d=get(),list=d.movements.slice().sort((a,b)=>(b.date||"").localeCompare(a.date||"")),sum=totals(d),inc=list.filter(x=>x.type==="income").reduce((a,x)=>a+Number(x.amount||0),0),out=list.filter(x=>x.type==="expense").reduce((a,x)=>a+Number(x.amount||0),0),balance=sum.cash+sum.digital;
+  if($("economyBalance"))$("economyBalance").textContent=money(balance);
+  if($("economyCash"))$("economyCash").textContent=money(sum.cash);
+  if($("economyDigital"))$("economyDigital").textContent=money(sum.digital);
+  if($("economyIncome"))$("economyIncome").textContent=money(inc);
+  if($("economyExpense"))$("economyExpense").textContent=money(out);
+  if($("walletCash"))$("walletCash").value=d.cash;
+  if($("walletDigital"))$("walletDigital").value=d.digital;
+  const now=new Date(),months=[];for(let i=5;i>=0;i--){const dt=new Date(now.getFullYear(),now.getMonth()-i,1);months.push({key:dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0"),label:dt.toLocaleDateString("es-ES",{month:"short"})})}
+  let running=d.cash+d.digital;const vals=months.map(m=>{running+=list.filter(x=>(x.date||"").slice(0,7)===m.key).reduce((a,x)=>a+(x.type==="income"?1:-1)*Number(x.amount||0),0);return{...m,value:running}}),max=Math.max(1,...vals.map(x=>Math.abs(x.value)));
+  if($("economyChart"))$("economyChart").innerHTML=vals.map(x=>'<div class="economy-month"><span class="economy-month-value">'+money(x.value)+'</span><div class="economy-month-bar" style="height:'+Math.max(3,Math.abs(x.value)/max*115)+'px"></div><span class="economy-month-label">'+esc(x.label)+'</span></div>').join("");
+  if($("economyMovements"))$("economyMovements").innerHTML=list.length?list.map(x=>'<div class="economy-movement '+(x.type==="income"?"income":"expense")+'"><span class="economy-movement-icon">'+(x.type==="income"?"↗":"↘")+'</span><span class="economy-movement-copy"><b>'+esc(x.reason)+'</b><small>'+esc(x.date)+(x.channel?" · "+(x.channel==="cash"?"Efectivo":"Digital"):"")+(x.note?" · "+esc(x.note):"")+'</small></span><strong class="economy-movement-amount">'+(x.type==="income"?"+":"−")+money(x.amount)+'</strong><button type="button" data-economy-delete="'+esc(x.id)+'" aria-label="Eliminar movimiento">×</button></div>').join(""):'<div class="empty">Todavía no has añadido movimientos.</div>';
+  if($("savingsList"))$("savingsList").innerHTML=d.savings.length?d.savings.map(x=>{const pct=x.target>0?Math.max(0,Math.min(100,Number(x.current||0)/Number(x.target)*100)):0;return '<div class="saving-item"><div class="saving-top"><b>'+esc(x.name)+'</b><button class="saving-delete" data-saving-add="'+esc(x.id)+'" type="button" title="Añadir dinero">＋</button><button class="saving-delete" data-saving-delete="'+esc(x.id)+'" type="button" aria-label="Eliminar objetivo">×</button></div><div class="saving-progress"><i style="width:'+pct+'%"></i></div><div class="saving-meta"><span>'+money(x.current)+' ahorrados · '+pct.toFixed(0)+'%</span><span>'+money(x.target)+' objetivo</span></div></div>'}).join(""):'<div class="empty">Crea tu primer objetivo de ahorro.</div>';
+  if($("savingsForecast"))$("savingsForecast").innerHTML=d.savings.length?d.savings.map(x=>{const pct=x.target>0?Math.max(0,Math.min(100,Number(x.current||0)/Number(x.target)*100)):0,remaining=Math.max(0,Number(x.target||0)-Number(x.current||0));return '<div class="savings-forecast-item"><div class="savings-gauge" style="--progress:'+pct+'%"><div><strong>'+pct.toFixed(0)+'%</strong><small>COMPLETADO</small></div></div><div><b>'+esc(x.name)+'</b><p>Te faltan <strong>'+money(remaining)+'</strong> para alcanzar tu objetivo. '+(remaining===0?"¡Objetivo conseguido!":"Sigue registrando tus aportaciones para ver tu progreso.")+'</p></div></div>'}).join(""):"";
+  const wheel=$("mcEconomyWheel");if(wheel){const total=Math.max(0,sum.cash)+Math.max(0,sum.digital),deg=total?Math.max(0,Math.min(360,Math.max(0,sum.cash)/total*360)):180;wheel.style.background='conic-gradient(#38bdf8 0deg '+deg+'deg,#a78bfa '+deg+'deg 360deg)';if($("mcEconomyTotal"))$("mcEconomyTotal").textContent=money(balance);if($("mcWheelCash"))$("mcWheelCash").textContent=money(sum.cash);if($("mcWheelDigital"))$("mcWheelDigital").textContent=money(sum.digital)}
+ }
+ $("saveWallet")?.addEventListener("click",()=>{const d=get();d.cash=Math.max(0,Number($("walletCash")?.value)||0);d.digital=Math.max(0,Number($("walletDigital")?.value)||0);save(d);render();toast("Saldos iniciales guardados.")});
+ $("economyForm")?.addEventListener("submit",e=>{e.preventDefault();const amount=Number($("economyAmount")?.value),reason=$("economyReason")?.value.trim(),date=$("economyDate")?.value;if(!(amount>0)||!reason||!date)return toast("Comprueba los datos del movimiento.");const d=get();d.movements.push({id:crypto.randomUUID(),type:$("economyType").value,amount,reason,note:$("economyNote")?.value.trim()||"",date,channel:$("economyChannel")?.value||"digital"});save(d);e.target.reset();$("economyDate").value=date;render();toast("Movimiento guardado.")});
+ $("economyMovements")?.addEventListener("click",e=>{const b=e.target.closest("[data-economy-delete]");if(!b)return;const d=get();d.movements=d.movements.filter(x=>x.id!==b.dataset.economyDelete);save(d);render();toast("Movimiento eliminado.")});
+ $("savingsForm")?.addEventListener("submit",e=>{e.preventDefault();const name=$("savingName").value.trim(),target=Number($("savingTarget").value),current=Number($("savingCurrent").value||0);if(!name||!(target>0)||current<0)return toast("Comprueba el objetivo de ahorro.");const d=get();d.savings.push({id:crypto.randomUUID(),name,target,current});save(d);e.target.reset();$("savingCurrent").value="0";render();toast("Objetivo de ahorro creado.")});
+ $("savingsList")?.addEventListener("click",e=>{const del=e.target.closest("[data-saving-delete]"),add=e.target.closest("[data-saving-add]");if(del){const d=get();d.savings=d.savings.filter(x=>x.id!==del.dataset.savingDelete);save(d);render();return}if(add){const d=get(),goal=d.savings.find(x=>x.id===add.dataset.savingAdd);if(!goal)return;const amount=Number(prompt("¿Cuánto quieres añadir a "+goal.name+"?"));if(!(amount>0))return;goal.current=Number(goal.current||0)+amount;save(d);render();toast("Aportación añadida al ahorro.")}});
+ window.renderEconomy=render;render();
+})();</script>
 
 <script>
 /* Resumen diario: se muestra una vez al día y solo con permiso explícito del usuario */
@@ -2437,7 +2473,7 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
  if(briefForm){briefForm.insertAdjacentHTML("afterbegin",'<div class="mc-project-tabs"><button type="button" class="active" data-project-tab="idea">01 · IDEA</button><button type="button" data-project-tab="plan">02 · PLANIFICACIÓN</button></div>');briefForm.querySelectorAll(".field").forEach(field=>{const name=field.querySelector("[name]")?.name;field.dataset.projectStep=["name","sector","audience","idea"].includes(name)?"idea":"plan"});const setBriefTab=tab=>{briefForm.querySelectorAll("[data-project-tab]").forEach(b=>b.classList.toggle("active",b.dataset.projectTab===tab));briefForm.querySelectorAll(".field[data-project-step]").forEach(field=>field.hidden=field.dataset.projectStep!==tab)};briefForm.addEventListener("click",e=>{const b=e.target.closest("[data-project-tab]");if(b)setBriefTab(b.dataset.projectTab)});setBriefTab("idea")}
 
  let creatingFromBrief=false;
- document.addEventListener("click",e=>{const create=e.target.closest("#createProjectBtn,[data-create-first-project]");if(!create)return;if(creatingFromBrief)return;e.preventDefault();e.stopImmediatePropagation();openModal("mcProjectBriefModal")},true);
+ // El alta utiliza el creador nativo para abrir el proyecto inmediatamente; el asistente de briefing queda opcional.
  $("#mcProjectBriefModal")?.addEventListener("click",e=>{if(e.target.closest("[data-close]"))closeModal("mcProjectBriefModal")});
  $("#mcProjectBriefForm")?.addEventListener("submit",e=>{e.preventDefault();const v=Object.fromEntries(new FormData(e.target).entries());const btn=$("#createProjectBtn");if(!btn)return;creatingFromBrief=true;btn.click();creatingFromBrief=false;const title=$("#projectTitleInput");if(!title)return;title.value=v.name;$("#projectDescriptionInput").value=v.idea;$("#projectDeadline").value=v.deadline||"";$("#projectStatus").value="Planificación";$("#saveProjectDetails")?.click();const legacy=$(".legacy-brand-section");if(legacy)legacy.hidden=true;hideProjectChrome(true);
   const days=v.deadline?Math.max(1,Math.ceil((new Date(v.deadline+"T00:00:00")-new Date(today()+"T00:00:00"))/86400000)):null;
@@ -2601,9 +2637,7 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
 (()=>{
  const $=s=>document.querySelector(s),home=$("#home"),study=$("#study");if(!home||!study)return;
  // The study section no longer owns a second calendar. The global calendar remains available from the main navigation.
- ["#study .study-planned-card","#study .study-week-card"].forEach(sel=>$(sel)?.remove());
- const lower=$("#study .study-lower-links");if(lower){lower.querySelector('[data-go="calendar"]')?.remove();if(!lower.children.length)lower.remove()}
- $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámenes");
+$("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámenes");
  const examsNote=$("#studyUpcomingExams")?.querySelector(".empty");if(examsNote)examsNote.textContent="Todavía no hay exámenes próximos. Añádelos desde el calendario general.";
  // Put the existing journal form on the home page (same form and storage, no duplicate IDs or lost entries).
  const journalForm=$("#journalForm"),journalCard=journalForm?.closest(".card");
@@ -2695,9 +2729,7 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
 (()=>{
  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
  // Remove the second study calendar and its duplicate weekly-planning chart. Study keeps subjects, tasks, exams and Deep Work.
- $("#study .study-planned-card")?.remove();$("#study .study-week-card")?.remove();
- $("#study .study-section-label").forEach(el=>{if(/PLANIFICACIÓN SEMANAL|CALENDARIO SEMANAL/i.test(el.textContent))el.remove()});
- // The calendar remains a single shared source of truth; each workspace links to that same calendar.
+// The calendar remains a single shared source of truth; each workspace links to that same calendar.
  const shortcut=(label,detail)=>{const el=document.createElement("div");el.className="shared-calendar-shortcut";el.innerHTML='<div class="sc-copy"><b>'+label+'</b><small>'+detail+'</small></div><button type="button" data-open-shared-calendar>Ver calendario ↗</button>';return el};
  const targets=[
   [$("#home"),$("#home .home-jake-greeting")],
@@ -2824,7 +2856,7 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
  let monthCursor=new Date();monthCursor.setDate(1);let selectedDate=new Date().toLocaleDateString("en-CA");
  const esc=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
  const allProjects=()=>{const k="sh_"+(typeof activeUser!=="undefined"&&activeUser?.id||"guest")+"_aulivra_projects";try{const d=JSON.parse(localStorage.getItem(k)||"{}");return {key:k,data:d}}catch{return null}};
- const active=()=>{const p=allProjects();if(!p)return null;const name=q1("#projectBreadcrumbName")?.textContent;return p.data.projects.find(x=>x.name===name)||p.data.projects.find(x=>x.id===window.__mancaveCurrentProjectId)||null};
+ const active=()=>{const p=allProjects();if(!p)return null;const name=q1("#projectBreadcrumbName")?.textContent;return p.data.projects.find(x=>x.id===window.__mancaveCurrentProjectId)||p.data.projects.find(x=>x.name===name)||null};
  const persist=(p)=>{const d=allProjects();if(!d||!p)return;p.updatedAt=new Date().toISOString();d.data.projects=d.data.projects.map(x=>x.id===p.id?p:x);localStorage.setItem(d.key,JSON.stringify(d.data));updateProjectLabel()};
  const renderTools=()=>{
   const p=active();if(!p)return;
@@ -3101,4 +3133,17 @@ main,.view,#home{min-width:0;max-width:100%}
 })();
 </script>
 
+<script id="mancave-restored-calendar-personal-projects-economy-v7">(()=>{
+ const home=document.getElementById("home"),personal=document.getElementById("personal");if(!home||!personal||document.getElementById("homePersonalUnified"))return;
+ const journal=document.getElementById("journalForm")?.closest(".card"),calendar=document.getElementById("personalJournalCalendar"),events=document.getElementById("personalOpenAgenda")?.closest(".card");
+ if(!journal&&!calendar&&!events)return;
+ const section=document.createElement("section");section.id="homePersonalUnified";section.className="home-personal-unified";
+ section.innerHTML='<div class="home-personal-unified-head"><div><span class="home-section-kicker">TU ESPACIO PRIVADO</span><h2>Espacio personal</h2><p>Diario, calendario de journaling, checklist y fechas importantes en un único lugar.</p></div></div><div class="home-personal-unified-grid" id="homePersonalUnifiedGrid"></div>';
+ const grid=section.querySelector("#homePersonalUnifiedGrid");
+ [journal,calendar,events].filter(Boolean).forEach((card,i)=>{card.classList.add("home-personal-card");card.classList.remove("span-7","span-5");card.style.gridColumn="auto";grid.append(card)});
+ home.querySelector("#home-personal-shortcut")?.remove();home.querySelector(".home-personal-entry")?.remove();home.querySelector("#homeJournalHeading")?.remove();home.querySelector(".home-journal-heading")?.remove();
+ home.append(section);
+ const oldIntro=personal.querySelector(".intro");if(oldIntro)oldIntro.hidden=true;
+ const oldGrid=personal.querySelector(".grid");if(oldGrid)oldGrid.hidden=true;
+})();</script>
 </body></html>
