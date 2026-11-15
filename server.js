@@ -358,7 +358,7 @@ app.get("/api/google/events",requireAuth,async(req,res)=>{
 app.post("/api/google/events",requireAuth,async(req,res)=>{
   try{
     const title=String(req.body.title||"").trim().slice(0,180),date=String(req.body.date||""),time=String(req.body.time||""),end=String(req.body.end||"");
-    if(!title||!/^\\d{4}-\\d{2}-\\d{2}$/.test(date)||!/^\\d{2}:\\d{2}$/.test(time)||!/^\\d{2}:\\d{2}$/.test(end)||end<=time)return res.status(400).json({error:"Compruebe título, fecha y horas del evento."});
+    if(!title||!/^\d{4}-\d{2}-\d{2}$/.test(date)||!/^\d{2}:\d{2}$/.test(time)||!/^\d{2}:\d{2}$/.test(end)||end<=time)return res.status(400).json({error:"Compruebe título, fecha y horas del evento."});
     const body={summary:title,start:{dateTime:date+"T"+time+":00",timeZone:"Europe/Madrid"},end:{dateTime:date+"T"+end+":00",timeZone:"Europe/Madrid"}};
     const id=String(req.body.googleEventId||"");
     const url=id?"https://www.googleapis.com/calendar/v3/calendars/primary/events/"+encodeURIComponent(id):"https://www.googleapis.com/calendar/v3/calendars/primary/events";
