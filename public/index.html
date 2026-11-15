@@ -170,6 +170,28 @@ input:focus,select:focus{border-color:#a78bfa;box-shadow:0 0 0 3px #a78bfa22}
 .assistant-note{padding:0 15px 12px;color:#a99aba;font-size:10px}
 @media(max-width:560px){.assistant-launcher{right:14px;bottom:14px;padding:12px 15px}.assistant-panel{right:14px;bottom:75px;max-height:calc(100vh - 95px)}}
 
+
+/* Visual refresh: stronger typography and original STUDYHUB illustrations */
+h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!important;letter-spacing:-.35px}
+.intro h2{font-size:clamp(24px,2.4vw,30px);font-weight:800!important;letter-spacing:-.8px}
+.card h3{font-size:16px;font-weight:800!important}
+.welcome-banner{position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:218px;margin:0 0 24px;padding:27px 34px;overflow:hidden;border:1px solid #594078;border-radius:24px;background:radial-gradient(circle at 82% 35%,#6545a844,transparent 34%),linear-gradient(115deg,#211831,#171124 62%,#2a1d43);box-shadow:0 18px 42px #09051035}
+.welcome-copy{position:relative;z-index:1;max-width:510px}
+.welcome-kicker{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;color:#d4c4ff;font-size:10px;font-weight:800;letter-spacing:1.7px}
+.welcome-kicker:before{content:"";width:22px;height:2px;border-radius:2px;background:#b99cff}
+.welcome-banner h2{margin:0 0 9px;color:#fff;font:800 clamp(24px,3vw,35px) Manrope;letter-spacing:-1px}
+.welcome-banner p{max-width:430px;margin:0;color:#c0b3d7;font-size:13px;line-height:1.65}
+.welcome-points{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
+.welcome-points span{padding:7px 10px;border:1px solid #594078;border-radius:20px;background:#ffffff0b;color:#e5d9ff;font-size:10px;font-weight:700}
+.welcome-art{display:block;width:min(42%,390px);height:auto;max-height:220px;object-fit:contain;filter:drop-shadow(0 14px 24px #05030d55)}
+.quick-illustration{width:66px;height:66px;flex:none;object-fit:contain;filter:drop-shadow(0 8px 16px #07040f30)}
+.home-actions .quick{min-height:132px;padding:20px;gap:16px}
+.home-actions .quick b{font-size:15px;line-height:1.35}
+.home-actions .quick small{display:block;margin-top:5px;line-height:1.5}
+.view .intro{margin-bottom:22px}
+@media(max-width:700px){.welcome-banner{padding:22px;min-height:0}.welcome-art{width:34%;max-height:150px}.welcome-banner h2{font-size:24px}.welcome-banner p{font-size:12px}}
+@media(max-width:480px){.welcome-banner{align-items:flex-start}.welcome-art{position:absolute;right:5px;bottom:0;width:42%;opacity:.62}.welcome-copy{max-width:75%}.welcome-points{gap:5px}.welcome-points span{font-size:9px;padding:6px 8px}.quick-illustration{width:52px;height:52px}.home-actions .quick{min-height:116px;padding:14px;gap:10px}}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
@@ -190,6 +212,8 @@ input:focus,select:focus{border-color:#a78bfa;box-shadow:0 0 0 3px #a78bfa22}
 
   <section class="view active" id="home">
     <div class="intro"><h2>Bienvenido a STUDYHUB.</h2><p>Organiza tus documentos, controla tus notas y aprovecha cada bloque de estudio.</p></div>
+    <section class="welcome-banner" aria-label="Bienvenida a STUDYHUB"><div class="welcome-copy"><div class="welcome-kicker">TU ESPACIO PARA AVANZAR</div><h2>Cada sesión cuenta.</h2><p>Organiza tus tareas, mejora tus resultados y convierte tus objetivos en pequeños avances diarios.</p><div class="welcome-points"><span>✦ Enfócate</span><span>✓ Organízate</span><span>↗ Progresa</span></div></div><img class="welcome-art" src="/studyhub-hero.svg" alt="Ilustración de cuaderno, lista de tareas y lápiz"></section>
+
     <div class="ad-container" aria-label="Publicidad" style="margin:24px 0;padding:12px 0;min-width:0;width:100%;text-align:center"><div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#8a95a8;margin-bottom:8px">Publicidad</div><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="ca-pub-1955364701775135" data-ad-slot="2073225375" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
     <div class="grid">
@@ -197,10 +221,10 @@ input:focus,select:focus{border-color:#a78bfa;box-shadow:0 0 0 3px #a78bfa22}
       <div class="card span-4"><div class="stat"><div class="stat-icon">◷</div><div><strong id="homeSessions">0</strong><small>Minutos de estudio hoy</small></div></div></div>
       <div class="card span-4"><div class="stat"><div class="stat-icon">★</div><div><strong id="homeAverage">—</strong><small>Media de notas guardadas</small></div></div></div>
       <div class="card span-12"><h3 style="font-size:21px;margin-bottom:8px">Tu menú principal</h3><p style="margin-bottom:20px">Cuatro espacios para tener todo lo importante a mano.</p><div class="home-actions">
-        <button class="quick" data-go="timer"><span class="stat-icon">◷</span><span><b>Estudio y concentración</b><small>Temporizador, Pomodoro y sesiones</small></span></button>
-        <button class="quick" data-go="grades"><span class="stat-icon">▦</span><span><b>Notas y calificaciones</b><small>Calcula medias y controla resultados</small></span></button>
-        <button class="quick" data-go="files"><span class="stat-icon">⇄</span><span><b>Archivos y documentos</b><small>Convertir, compartir y organizar</small></span></button>
-        <button class="quick" data-go="library"><span class="stat-icon">▤</span><span><b>Biblioteca académica</b><small>Recursos para tus asignaturas</small></span></button>
+        <button class="quick" data-go="timer"><img class="quick-illustration" src="/studyhub-study.svg" alt=""><span><b>Estudio y concentración</b><small>Temporizador, Pomodoro y sesiones</small></span></button>
+        <button class="quick" data-go="grades"><img class="quick-illustration" src="/studyhub-grades.svg" alt=""><span><b>Notas y calificaciones</b><small>Calcula medias y controla resultados</small></span></button>
+        <button class="quick" data-go="files"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Archivos y documentos</b><small>Convertir, compartir y organizar</small></span></button>
+        <button class="quick" data-go="library"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Biblioteca académica</b><small>Recursos para tus asignaturas</small></span></button>
       </div></div>
       <div class="card span-5"><h3>Tu próximo bloque</h3><p>Configura un temporizador y registra tus minutos de concentración.</p><div class="divider"></div><div style="display:flex;align-items:center;justify-content:space-between"><div><div style="font:800 26px Manrope">25:00</div><small class="muted">Pomodoro clásico</small></div><button class="btn" data-go="timer">Abrir timer →</button></div></div>
       <div class="card span-12"><h3>Tu espacio, tus reglas.</h3><p>Los datos de notas y sesiones se guardan localmente en este navegador. Para sincronizarlos entre dispositivos necesitarás habilitar cuentas y una base de datos.</p></div>
@@ -208,8 +232,8 @@ input:focus,select:focus{border-color:#a78bfa;box-shadow:0 0 0 3px #a78bfa22}
   </section>
 
 <section class="view" id="files"><div class="intro"><h2>Archivos y documentos</h2><p>Tus herramientas para trabajar con documentos desde un solo lugar.</p></div><div class="home-actions">
-<button class="quick" data-go="convert"><span class="stat-icon">⇄</span><span><b>Conversor de archivos</b><small>PDF, Word, Excel y más formatos</small></span></button>
-<button class="quick" data-go="share"><span class="stat-icon">↗</span><span><b>Compartir archivos</b><small>Crear enlaces de descarga temporales</small></span></button>
+<button class="quick" data-go="convert"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Conversor de archivos</b><small>PDF, Word, Excel y más formatos</small></span></button>
+<button class="quick" data-go="share"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Compartir archivos</b><small>Crear enlaces de descarga temporales</small></span></button>
 <button class="quick" data-go="library"><span class="stat-icon">▤</span><span><b>Biblioteca académica</b><small>Recursos y apuntes por asignatura</small></span></button>
 </div></section>
 
