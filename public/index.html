@@ -127,6 +127,48 @@ input,select{background:#0d0f18;border-color:#343247;color:var(--text)}input::pl
 .logo-img{display:block;width:42px;height:42px;object-fit:contain;flex:none;filter:drop-shadow(0 5px 12px #7655e855)}
 .auth-brand .logo-img{width:50px;height:50px}
 @media(max-width:560px){.sidebar{background:#0c0d15}}
+
+/* Identidad morada reforzada: mantiene el tema oscuro, con el violeta como color principal */
+:root{color-scheme:dark;--bg:#0b0913;--panel:#151121;--panel2:#1d1730;--line:#332747;--text:#f6f1ff;--muted:#aaa0bd;--accent:#a78bfa;--accent2:#8055e8;--purple-soft:#2b2042;--purple-line:#594078;--purple-text:#ddccff}
+body{background:radial-gradient(ellipse at 78% -12%,#39245f 0,transparent 42%),radial-gradient(ellipse at 0% 35%,#211536 0,transparent 35%),var(--bg);color:var(--text)}
+.sidebar{background:#100c1b;border-color:#38294f}
+.nav button:hover,.nav button.active{background:#2b2042;color:#f2eaff}
+.nav button.active{box-shadow:inset 3px 0 #a78bfa}
+.card{background:linear-gradient(145deg,#1b1529,#13101e);border-color:#38294f}
+.quick{background:#1b1529;border-color:#38294f}
+.quick:hover{border-color:#a78bfa;box-shadow:0 12px 28px #8b5cf633}
+.stat-icon,.subject-tag{background:#302247;color:#d5c2ff}
+.btn{background:linear-gradient(135deg,#a78bfa,#7445d4);box-shadow:0 7px 20px #8b5cf640}
+.btn.secondary{background:#302247;border-color:#594078;color:#eadfff}
+.btn.ghost{border-color:#49385f;color:#e2d8f2}
+input,select{background:#100d19;border-color:#49385f}
+input:focus,select:focus{border-color:#a78bfa;box-shadow:0 0 0 3px #a78bfa22}
+.drop{background:#171124;border-color:#594078}
+.grade-result{background:#2b2042;border-color:#594078}
+.grade-result strong{color:#c7adff}
+.timer-mode button.active{background:#39265b;border-color:#a78bfa;color:#f5edff}
+.progress>i{background:linear-gradient(90deg,#a78bfa,#7445d4)}
+.sidebar-toggle{background:#211831;border-color:#594078;color:#e4d4ff}
+.ad-container>div{color:#b8a8d2!important}
+.assistant-launcher{position:fixed;right:24px;bottom:24px;z-index:30;border:0;border-radius:999px;padding:14px 19px;background:linear-gradient(135deg,#a78bfa,#7445d4);color:#fff;font-weight:800;box-shadow:0 10px 35px #0008;display:flex;align-items:center;gap:9px}
+.assistant-panel{position:fixed;right:24px;bottom:88px;width:min(390px,calc(100vw - 28px));max-height:min(590px,calc(100vh - 120px));z-index:31;display:none;flex-direction:column;overflow:hidden;border:1px solid #594078;border-radius:20px;background:#171124;box-shadow:0 20px 70px #000b}
+.assistant-panel.open{display:flex}
+.assistant-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;background:linear-gradient(120deg,#39265b,#211831);border-bottom:1px solid #594078}
+.assistant-head strong{font:800 15px Manrope;color:#fff}
+.assistant-head small{display:block;color:#d4c5ef;font-size:11px;margin-top:3px}
+.assistant-close{border:0;background:transparent;color:#fff;font-size:22px;padding:3px 8px}
+.assistant-messages{padding:15px;overflow:auto;display:flex;flex-direction:column;gap:10px;min-height:180px}
+.assistant-msg{max-width:92%;padding:11px 13px;border-radius:14px;font-size:12px;line-height:1.55;white-space:pre-wrap}
+.assistant-msg.bot{align-self:flex-start;background:#282039;border:1px solid #45345f;color:#eee7fa}
+.assistant-msg.user{align-self:flex-end;background:#6845b5;color:#fff}
+.assistant-quick{display:flex;flex-wrap:wrap;gap:7px;padding:0 14px 12px}
+.assistant-quick button{border:1px solid #594078;background:#211831;color:#dfd0fa;border-radius:18px;padding:7px 10px;font-size:10px}
+.assistant-form{display:flex;gap:8px;padding:12px;border-top:1px solid #38294f}
+.assistant-form input{flex:1;min-width:0;padding:11px;border-radius:12px}
+.assistant-form button{border:0;border-radius:11px;padding:0 14px;background:#8055e8;color:#fff;font-weight:700}
+.assistant-note{padding:0 15px 12px;color:#a99aba;font-size:10px}
+@media(max-width:560px){.assistant-launcher{right:14px;bottom:14px;padding:12px 15px}.assistant-panel{right:14px;bottom:75px;max-height:calc(100vh - 95px)}}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
@@ -244,6 +286,16 @@ input,select{background:#0d0f18;border-color:#343247;color:var(--text)}input::pl
 </main>
 </div>
 <div class="toast" id="toast"></div>
+
+<div class="assistant-panel" id="studyAssistant" role="dialog" aria-label="Asistente de ayuda guiada">
+  <div class="assistant-head"><div><strong>Asistente STUDYHUB</strong><small>Ayuda guiada · funciona sin API ni coste</small></div><button class="assistant-close" id="assistantClose" aria-label="Cerrar">×</button></div>
+  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">¡Hola! Soy la ayuda guiada de STUDYHUB. Puedo explicarte cómo usar cada apartado. ¿Qué necesitas?</div></div>
+  <div class="assistant-quick" id="assistantQuick"><button type="button" data-help="¿Cómo uso el temporizador?">Temporizador</button><button type="button" data-help="¿Cómo guardo mis notas?">Mis notas</button><button type="button" data-help="¿Cómo convierto un archivo?">Archivos</button><button type="button" data-help="¿Cómo comparto un archivo?">Compartir</button></div>
+  <form class="assistant-form" id="assistantForm"><input id="assistantInput" autocomplete="off" placeholder="Escribe tu duda…" aria-label="Escribe tu duda"><button type="submit">Enviar</button></form>
+  <div class="assistant-note">Respuestas predefinidas dentro de la web. No envía tus mensajes a ningún servicio externo.</div>
+</div>
+<button class="assistant-launcher" id="assistantLauncher" type="button" aria-expanded="false"><span>✦</span> Ayuda STUDYHUB</button>
+
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script>
 const $ = s => document.querySelector(s);
@@ -322,5 +374,31 @@ $("#sidebarToggle").onclick=toggleSidebar;$("#sidebarToggleTop").onclick=toggleS
 $("#appShell").style.display="grid";enterApp(null);checkAuth();
 const homeAd=document.querySelector(".ad-container .adsbygoogle");
 if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle||[]).push({});homeAd.dataset.initialized="true";}
+
+/* Asistente guiado local: no usa servicios externos ni claves API */
+(()=>{
+ const panel=document.getElementById("studyAssistant"),launcher=document.getElementById("assistantLauncher");
+ const messages=document.getElementById("assistantMessages"),form=document.getElementById("assistantForm"),input=document.getElementById("assistantInput");
+ if(!panel||!launcher||!messages||!form||!input)return;
+ const answers=[
+  {keys:["temporizador","pomodoro","concentr","descanso","timer"],text:"Entra en «Estudio» desde el menú. Elige un bloque (por ejemplo, 25/5 o 50/10), selecciona la asignatura y pulsa «Empezar». Puedes pausar o reiniciar cuando quieras. Al terminar un bloque de trabajo, STUDYHUB registra la sesión en las estadísticas."},
+  {keys:["nota","media","calificacion","calificación","examen"],text:"Abre «Mis notas». Añade cada evaluación con su nombre, nota y ponderación si está disponible. La página calcula la media a partir de los datos que guardes. Recuerda comprobar que las ponderaciones reflejen las de tu profesor."},
+  {keys:["convert","pdf","formato","documento"],text:"Ve a «Archivos» y abre el conversor. Selecciona el archivo, elige el formato de destino y pulsa convertir. La conversión del servidor necesita que LibreOffice esté instalado; si no está disponible, aparecerá un aviso."},
+  {keys:["compart","enlace","enviar archivo"],text:"Entra en «Compartir», selecciona el archivo y el tiempo de caducidad. STUDYHUB genera un enlace para que puedas enviarlo. El envío automático por correo solo funciona si el servidor tiene configurado un servicio SMTP."},
+  {keys:["biblioteca","recurso","asignatura","apuntes"],text:"Abre «Biblioteca» para encontrar recursos organizados por asignaturas. Selecciona el enlace del recurso que te interese; se abrirá en otra pestaña."},
+  {keys:["invitado","cuenta","sesion","sesión","login","registr"],text:"Puedes usar STUDYHUB como invitado sin registrarte. Si quieres iniciar sesión o crear una cuenta, utiliza el botón de la parte superior. Algunas funciones guardan datos localmente en el navegador."},
+  {keys:["menu","barra","ocultar","plegar"],text:"Pulsa el botón ☰ situado junto al título de la página para ocultar o volver a mostrar el menú lateral y ganar espacio."},
+  {keys:["guardar","datos","donde"],text:"Los datos de estudio y notas se guardan en el almacenamiento local de este navegador. Si borras los datos del sitio o cambias de dispositivo/navegador, podrían no estar disponibles."}
+ ];
+ function add(text,who){const el=document.createElement("div");el.className="assistant-msg "+who;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight}
+ function reply(q){const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");const found=answers.find(a=>a.keys.some(k=>clean.includes(k.normalize("NFD").replace(/[\u0300-\u036f]/g,""))));return found?found.text:"Puedo ayudarte con el temporizador, las notas, el conversor, compartir archivos, la biblioteca, el acceso como invitado o el menú lateral. Prueba a preguntarme por uno de esos apartados."}
+ function ask(q){const value=String(q||"").trim();if(!value)return;add(value,"user");add(reply(value),"bot");input.value="";input.focus()}
+ function toggle(open){panel.classList.toggle("open",open);launcher.setAttribute("aria-expanded",String(open));if(open)input.focus()}
+ launcher.addEventListener("click",()=>toggle(!panel.classList.contains("open")));
+ document.getElementById("assistantClose").addEventListener("click",()=>toggle(false));
+ form.addEventListener("submit",e=>{e.preventDefault();ask(input.value)});
+ document.getElementById("assistantQuick").addEventListener("click",e=>{const b=e.target.closest("[data-help]");if(b)ask(b.dataset.help)});
+})();
+
 </script>
 </body></html>
