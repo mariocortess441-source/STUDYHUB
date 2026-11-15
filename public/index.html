@@ -1604,7 +1604,7 @@ function renderCalendar(){
  const colorFor=x=>x.color|| (x.kind==="task"?"#159b80":x.kind==="personal"?(x.type==="birthday"?"#d85d72":"#8a63d2"):"#1769df");
  if(calendarViewMode==="day"){
   grid.hidden=true;schedule.hidden=false;const weekdays=document.querySelector(".calendar-weekdays");if(weekdays)weekdays.hidden=true;
-  const key=dateKey(calendarSelected),dayItems=items.filter(x=>(x.date||x.due)===key).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+  const key=dateKey(calendarSelected);schedule.dataset.date=key;const dayItems=items.filter(x=>(x.date||x.due)===key).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
   schedule.innerHTML=Array.from({length:24},(_,h)=>{const hh=String(h).padStart(2,"0"),matches=dayItems.filter(x=>(x.time||"").slice(0,2)===hh),cards=matches.map(x=>'<button type="button" class="calendar-timed-event" style="--event-color:'+colorFor(x)+'" '+(x.kind==="personal"?'data-personal-edit="'+esc(x.sourceId||"")+'"':'')+'><b>'+esc(x.title)+'</b><small>'+(x.time?esc(x.time):"Todo el día")+(x.end?" – "+esc(x.end):"")+' · '+esc(x.subjectName||"Tarea")+'</small></button>').join("");
    return '<div class="calendar-hour-row"><span>'+hh+':00</span><button type="button" class="calendar-hour-slot" data-calendar-hour="'+hh+'"></button><div class="calendar-hour-events">'+cards+'</div></div>'}).join("");
   schedule.querySelectorAll("[data-calendar-hour]").forEach(b=>b.onclick=()=>{const d=$("#personalAgendaDate");if(d)d.value=key;$("#personalAgendaStart").value=b.dataset.calendarHour+":00";$("#personalAgendaAllDay").checked=false;$("#personalAgendaModal").classList.add("open");$("#personalAgendaModal").setAttribute("aria-hidden","false");$("#personalAgendaName").focus()});
@@ -2641,6 +2641,92 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
  }
  update();document.addEventListener("visibilitychange",()=>{if(!document.hidden)update()});
  document.addEventListener("click",e=>{if(e.target.closest(".nav button,[data-go]"))setTimeout(update,180)});
+})();
+</script>
+
+<style id="mancave-shared-calendar-home-v3">
+/* MANCAVE_SHARED_CALENDAR_HOME_V3 */
+.sidebar{padding-top:30px!important}.sidebar .brand{margin-top:12px}
+.app.sidebar-hidden .sidebar{padding-top:30px!important}.app.sidebar-hidden .brand{min-height:46px;margin-top:12px}
+.top-right-tools{margin-left:auto;display:flex;align-items:center;justify-content:flex-end;gap:14px}
+#loginBtn,#logoutBtn,#userName{display:none!important}
+#appearanceToggle{margin-left:auto}
+#study .study-planned-card,#study .study-week-card{display:none!important}
+#study .study-section-label:has(+.study-planned-card){display:none!important}
+#study .study-section-label:has(+.study-week-card){display:none!important}
+.shared-calendar-shortcut{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:14px 0 20px;padding:13px 16px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(110deg,var(--panel),var(--panel2));}
+.shared-calendar-shortcut .sc-copy{min-width:0}.shared-calendar-shortcut b{display:block;font-size:12px}.shared-calendar-shortcut small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.shared-calendar-shortcut button{flex:none;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text);padding:9px 12px;font-size:11px;font-weight:800;transition:transform .2s,border-color .2s}
+.shared-calendar-shortcut button:hover{transform:translateY(-2px);border-color:var(--accent)}
+#home .home-insight-grid{margin-bottom:22px}
+#home .home-journal-heading{margin:25px 0 10px}
+#home .journal-book{width:100%;grid-column:1/-1}
+#home .journal-book textarea,#home .journal-book input,#home .journal-book select,
+#calendar input,#calendar select,#calendar textarea,
+#study input,#study select,#study textarea,
+#entrepreneurship input,#entrepreneurship select,#entrepreneurship textarea,
+#personal input,#personal select,#personal textarea,
+#economy input,#economy select,#economy textarea{
+ background:var(--panel2)!important;color:var(--text)!important;border:1px solid var(--line)!important;color-scheme:dark
+}
+#home .journal-book{background:linear-gradient(105deg,#d4bf94 0%,#e8d7b1 5%,#f2e5c6 13%,#ead9b2 100%);color:#403626;border:1px solid #bda77c;border-radius:8px 18px 18px 8px;box-shadow:inset 8px 0 14px #735a3022,0 16px 40px #0002;padding:25px 28px;position:relative}
+#home .journal-book:before{content:"";position:absolute;left:15px;top:0;bottom:0;width:1px;background:#b99f70}
+#home .journal-book h3,#home .journal-book p,#home .journal-book label{color:#55452e}
+#home .journal-book input,#home .journal-book select,#home .journal-book textarea{background:#f8efd9!important;color:#3f3424!important;border:1px solid #cbb88f!important;color-scheme:light}
+#home .journal-book .btn{background:#55452e;color:#f8efd9}
+#calendar .calendar-hour-row{min-height:64px}
+#calendar .calendar-hour-slot{min-height:56px;border:1px dashed transparent;background:transparent;touch-action:pan-y}
+#calendar .calendar-hour-slot:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,transparent)}
+.calendar-drag-hint{font-size:10px;color:var(--muted);margin:0 0 10px}
+@media(max-width:650px){.shared-calendar-shortcut{align-items:flex-start}.shared-calendar-shortcut button{white-space:nowrap}#home .journal-book{padding:22px 20px 22px 28px}}
+</style>
+<script id="mancave-shared-calendar-home-v3-script">
+(()=>{
+ const $=s=>document.querySelector(s),$=s=>[...document.querySelectorAll(s)];
+ // Remove the second study calendar and its duplicate weekly-planning chart. Study keeps subjects, tasks, exams and Deep Work.
+ $("#study .study-planned-card")?.remove();$("#study .study-week-card")?.remove();
+ $("#study .study-section-label").forEach(el=>{if(/PLANIFICACIÓN SEMANAL|CALENDARIO SEMANAL/i.test(el.textContent))el.remove()});
+ // The calendar remains a single shared source of truth; each workspace links to that same calendar.
+ const shortcut=(label,detail)=>{const el=document.createElement("div");el.className="shared-calendar-shortcut";el.innerHTML='<div class="sc-copy"><b>'+label+'</b><small>'+detail+'</small></div><button type="button" data-open-shared-calendar>Ver calendario ↗</button>';return el};
+ const targets=[
+  [$("#home"),$("#home .home-jake-greeting")],
+  [$("#study"),$("#study .study-heading")],
+  [$("#entrepreneurship"),$("#entrepreneurship .projects-heading")],
+  [$("#personal"),$("#personal .intro")]
+ ];
+ targets.forEach(([host,anchor])=>{if(!host||host.querySelector(".shared-calendar-shortcut"))return;const el=shortcut("Calendario compartido","Los mismos bloques, exámenes y recordatorios en todos tus espacios.");if(anchor)anchor.insertAdjacentElement("afterend",el);else host.prepend(el)});
+ document.addEventListener("click",e=>{if(e.target.closest("[data-open-shared-calendar]")){window.go?.("calendar");}});
+ // Move the existing journal form to the bottom of Inicio. It keeps its original storage and entry history.
+ const home=$("#home"),form=$("#journalForm"),book=form?.closest(".card");
+ if(home&&book){
+  $("#home .home-personal-shortcut")?.remove();
+  let heading=$("#homeJournalHeading");if(!heading){heading=document.createElement("div");heading.id="homeJournalHeading";heading.className="home-journal-heading";heading.innerHTML='<h2>Espacio personal</h2><span>Tu diario privado</span>'}
+  book.classList.add("journal-book");
+  let date=$("#homeJournalDate");if(!date){date=document.createElement("div");date.id="homeJournalDate";date.className="journal-date-heading"}
+  date.textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());
+  const h=book.querySelector("h3");if(h)h.textContent="Diario personal";
+  book.prepend(date);home.append(heading,book);
+ }
+ // Make the existing global day timeline support click-and-drag block creation.
+ const schedule=$("#calendarDaySchedule");let dragStart=null;
+ document.addEventListener("pointerdown",e=>{const slot=e.target.closest("#calendarDaySchedule [data-calendar-hour]");if(!slot)return;dragStart={hour:Number(slot.dataset.calendarHour),date:$("#calendarDaySchedule").dataset.date||""};});
+ document.addEventListener("pointerup",e=>{
+  if(!dragStart)return;
+  const finish=e.target.closest("#calendarDaySchedule [data-calendar-hour]"),start=dragStart;dragStart=null;if(!finish||!start.date)return;
+  const a=start.hour,b=Number(finish.dataset.calendarHour),from=Math.min(a,b),to=Math.max(a,b)+1;
+  const fmt=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
+  const startMin=from*60,endMin=Math.min(24*60,to*60);const title=$("#calendarEventTitle"),date=$("#calendarEventDate"),time=$("#calendarEventTime"),end=$("#calendarEventEnd");
+  if(!title||!date||!time||!end)return;
+  date.value=start.date;time.value=fmt(startMin);end.value=fmt(endMin===1440?23*60+30:endMin);
+  title.focus();title.scrollIntoView({behavior:"smooth",block:"center"});
+  const hint=$("#calendarDragHint");if(hint)hint.textContent="Bloque seleccionado: "+date.value+" · "+time.value+"–"+end.value+". Escribe el título y guarda.";
+ });
+ // Re-attach date to the timeline whenever the original renderer refreshes it.
+ const cal=$("#calendarDaySchedule");if(cal){const observer=new MutationObserver(()=>{const h=$("#calendarMonth")?.textContent||"";cal.dataset.date=$("#calendar-day-placeholder").length?cal.dataset.date:cal.dataset.date});observer.observe(cal,{childList:true,subtree:true})}
+ // Existing calendar reminder selector is retained and applied when saving; clarify the real notification status.
+ const hint=document.createElement("p");hint.id="calendarDragHint";hint.className="calendar-drag-hint";hint.textContent="En vista Día, arrastra desde una hora hasta otra para preparar un bloque.";$("#calendarDaySchedule")?.before(hint);
+ // Keep all form controls visually consistent with MANCAVE dark surfaces.
+ $("input,select,textarea").forEach(el=>{if(!el.closest("#home .journal-book")){el.style.colorScheme="dark"}});
 })();
 </script>
 </body></html>
