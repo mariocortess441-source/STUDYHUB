@@ -28,25 +28,67 @@ input,select{background:#0c111c;border:1px solid #2a3448;border-radius:10px;colo
 .empty{padding:22px;text-align:center;color:var(--muted);font-size:12px}
 @media(max-width:900px){.app{grid-template-columns:76px 1fr}.sidebar{padding:20px 9px}.brand{justify-content:center;padding:0 0 25px}.brand .brandtext,.nav-label,.nav button .navtext,.side-bottom{display:none}.nav button{justify-content:center;padding:13px}.nav .ico{font-size:18px}.span-8,.span-7,.span-6,.span-5,.span-4{grid-column:span 12}}
 @media(max-width:560px){.app{display:block}.sidebar{height:auto;position:sticky;z-index:5;top:0;flex-direction:row;padding:8px;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto}.brand{padding:0 8px}.brand .brandtext{display:none}.nav{display:flex}.nav button{padding:10px}.nav .ico{font-size:17px}.top{margin:20px 0 25px}.date{display:none}main{padding:16px 14px 45px}.card{padding:16px}.row{flex-wrap:wrap}.row>*{flex-basis:100%}.grade-result{align-items:flex-start;flex-direction:column}.clock{letter-spacing:-3px}}
+
+/* STUDYHUB light redesign */
+:root{--bg:#f4f6fb;--panel:#fff;--panel2:#f8faff;--line:#e3e8f1;--text:#172033;--muted:#69758b;--accent:#4569e8;--accent2:#3155d4;--green:#159568;--red:#d84d61;--radius:22px}
+body{background:var(--bg);color:var(--text)}
+.app{grid-template-columns:270px 1fr;transition:grid-template-columns .25s}
+.sidebar{background:#fff;border-right:1px solid var(--line);padding:25px 18px}
+.brand strong{color:#172033}.brand small{color:#7b879b}
+.nav-label{color:#8a95a8}.nav button{color:#59657a;padding:14px;border-radius:13px;font-size:14px}
+.nav button:hover,.nav button.active{background:#edf2ff;color:#294fc8}.nav button.active{box-shadow:inset 3px 0 var(--accent)}
+.side-bottom{color:#8993a5}
+main{max-width:1600px;padding:34px clamp(22px,4vw,68px) 70px}
+.top{margin-bottom:40px}.top h1{font-size:clamp(32px,3.4vw,46px);letter-spacing:-1.7px;color:#172033}
+.eyebrow{color:#4569e8}.date{background:#fff;color:#647087;border-color:#e3e8f1}
+.card{background:#fff;border:1px solid #e5eaf2;box-shadow:0 8px 28px #1d31500a;padding:26px}
+.card h3{font-size:17px;color:#202b40}.card p,.intro p{color:#69758b;font-size:14px}
+.intro h2{font-size:28px;color:#172033}
+.stat strong{font-size:30px;color:#172033}.stat-icon{background:#edf2ff;color:#4569e8;width:52px;height:52px;font-size:22px}
+.quick{background:#fff;border:1px solid #e4e9f2;color:#1d2940;padding:22px;border-radius:17px;min-height:112px}
+.quick:hover{border-color:#9aafff;box-shadow:0 12px 26px #4569e81a}.quick b{font-size:16px}.quick small{font-size:13px}
+.btn{background:var(--accent);border-radius:12px;font-size:14px;padding:13px 19px;box-shadow:0 6px 16px #4569e829}
+.btn.secondary{background:#eef2ff;border:1px solid #dce5ff;color:#3455c3}.btn.ghost{border-color:#e0e6ef;color:#536078}
+input,select{background:#fff;border:1px solid #dce3ed;color:#172033;font-size:14px;padding:13px}
+label{color:#58657b;font-size:13px}
+.drop{background:#f8faff;border-color:#cbd5e5}
+.table td{border-color:#edf0f5}.table th{border-color:#e4e9f1}
+.subject{background:#f9fbff;border-color:#e4eaf4}.subject-tag{background:#edf2ff;color:#4569e8}
+.grade-result{background:#f0f3ff;border-color:#dce4ff}.grade-result strong{color:#4569e8}
+.timer-mode button{background:#f4f6fb;color:#667187;border-color:#e2e7f0}.timer-mode button.active{background:#eaf0ff;border-color:#b8c8ff;color:#3155d4}
+.progress{background:#e8edf5}.toast{background:#172033}
+.sidebar-toggle{border:1px solid #e1e7f0;background:#fff;color:#40506a;border-radius:12px;width:42px;height:42px;font-size:20px}
+.app.sidebar-hidden{grid-template-columns:0 1fr}.sidebar-hidden .sidebar{padding:0;width:0;overflow:hidden;border:0}
+.home-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.home-actions .quick{min-height:150px;padding:26px;gap:18px}.home-actions .stat-icon{width:62px;height:62px;font-size:27px}
+.auth-screen{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,#f4f7ff,#eaf0ff);display:grid;place-items:center;padding:22px}
+.auth-card{width:min(100%,480px);background:#fff;border:1px solid #e2e8f3;border-radius:26px;padding:38px;box-shadow:0 24px 80px #24385b18}
+.auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:30px}.auth-brand .logo{width:48px;height:48px}
+.auth-card h1{font:800 30px Manrope;margin:0 0 8px;color:#172033}.auth-card>p{color:#738097;margin:0 0 24px;line-height:1.6}
+.auth-tabs{display:flex;gap:8px;background:#f1f4fa;padding:5px;border-radius:12px;margin-bottom:22px}
+.auth-tabs button{flex:1;border:0;background:transparent;padding:11px;border-radius:9px;color:#68758c;font-weight:700}
+.auth-tabs button.active{background:#fff;color:#3458d1;box-shadow:0 2px 8px #1c315010}
+.auth-error{color:#c63f54;background:#fff0f2;border-radius:10px;padding:10px 12px;font-size:13px;display:none;margin:12px 0}
+.auth-submit{width:100%;margin-top:12px}.auth-foot{font-size:12px;color:#8490a4;margin-top:18px;text-align:center}
+.user-chip{display:flex;align-items:center;gap:10px}.user-chip span{font-size:13px;color:#58657b}
+@media(max-width:900px){.app{grid-template-columns:76px 1fr}.app.sidebar-hidden{grid-template-columns:0 1fr}.card{padding:20px}}
+@media(max-width:560px){.app{display:block}.app.sidebar-hidden .sidebar{display:none}.sidebar{height:auto}.home-actions{grid-template-columns:1fr}.home-actions .quick{min-height:100px}.auth-card{padding:27px}.top{align-items:flex-start}}
 </style>
 </head>
 <body>
-<div class="app">
-<aside class="sidebar">
+<div class="auth-screen" id="authScreen"><div class="auth-card"><div class="auth-brand"><div class="logo">S</div><div><strong style="font:800 18px Manrope;letter-spacing:1px">STUDYHUB</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión para entrar en tu espacio de estudio.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit">Entrar en STUDYHUB</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div><div class="app" id="appShell">
+<aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú">☰</button>
   <div class="brand"><div class="logo">S</div><div class="brandtext"><strong>STUDYHUB</strong><small>YOUR ACADEMIC SPACE</small></div></div>
   <div class="nav-label">WORKSPACE</div>
   <nav class="nav" id="nav">
     <button class="active" data-view="home"><span class="ico">⌂</span><span class="navtext">Inicio</span></button>
-    <button data-view="convert"><span class="ico">⇄</span><span class="navtext">Conversor</span></button>
-    <button data-view="grades"><span class="ico">▦</span><span class="navtext">Calculadora de notas</span></button>
-    <button data-view="share"><span class="ico">↗</span><span class="navtext">Compartir archivos</span></button>
-    <button data-view="library"><span class="ico">▤</span><span class="navtext">Biblioteca</span></button>
-    <button data-view="timer"><span class="ico">◷</span><span class="navtext">Temporizador</span></button>
-  </nav>
-  <div class="side-bottom">Hecho para estudiar mejor.<br><b>STUDYHUB</b> · v1.0</div>
+    <button data-view="timer"><span class="ico">◷</span><span class="navtext">Estudio</span></button>
+    <button data-view="grades"><span class="ico">▦</span><span class="navtext">Mis notas</span></button>
+    <button data-view="files"><span class="ico">▤</span><span class="navtext">Archivos</span></button>
+  </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>STUDYHUB</b> · v1.0</div>
 </aside>
 <main>
-  <header class="top"><div><div class="eyebrow">TU ESPACIO DE PRODUCTIVIDAD</div><h1 id="pageTitle">Todo en un mismo lugar.</h1></div><div class="date" id="today"></div></header>
+  <header class="top"><div style="display:flex;align-items:center;gap:14px"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú">☰</button><div><div class="eyebrow">TU ESPACIO DE PRODUCTIVIDAD</div><h1 id="pageTitle">Todo en un mismo lugar.</h1></div></div><div class="user-chip"><span id="userName"></span><button class="btn ghost" id="logoutBtn">Salir</button><div class="date" id="today"></div></div></header>
 
   <section class="view active" id="home">
     <div class="intro"><h2>Bienvenido a STUDYHUB.</h2><p>Organiza tus documentos, controla tus notas y aprovecha cada bloque de estudio.</p></div>
@@ -54,16 +96,22 @@ input,select{background:#0c111c;border:1px solid #2a3448;border-radius:10px;colo
       <div class="card span-4"><div class="stat"><div class="stat-icon">▦</div><div><strong id="homeSubjects">0</strong><small>Asignaturas guardadas</small></div></div></div>
       <div class="card span-4"><div class="stat"><div class="stat-icon">◷</div><div><strong id="homeSessions">0</strong><small>Minutos de estudio hoy</small></div></div></div>
       <div class="card span-4"><div class="stat"><div class="stat-icon">★</div><div><strong id="homeAverage">—</strong><small>Media de notas guardadas</small></div></div></div>
-      <div class="card span-7"><h3>Acceso rápido</h3><p style="margin-bottom:14px">Abre directamente la herramienta que necesitas.</p><div class="grid">
-        <div class="span-6"><button class="quick" data-go="convert"><span class="stat-icon">⇄</span><span><b>Convertir archivo</b><small>PDF y otros formatos</small></span></button></div>
-        <div class="span-6"><button class="quick" data-go="grades"><span class="stat-icon">▦</span><span><b>Calcular nota</b><small>Medias ponderadas</small></span></button></div>
-        <div class="span-6"><button class="quick" data-go="share"><span class="stat-icon">↗</span><span><b>Enviar archivo</b><small>Compartir por enlace</small></span></button></div>
-        <div class="span-6"><button class="quick" data-go="timer"><span class="stat-icon">◷</span><span><b>Empezar a estudiar</b><small>Pomodoro y cronómetro</small></span></button></div>
+      <div class="card span-12"><h3 style="font-size:21px;margin-bottom:8px">Tu menú principal</h3><p style="margin-bottom:20px">Cuatro espacios para tener todo lo importante a mano.</p><div class="home-actions">
+        <button class="quick" data-go="timer"><span class="stat-icon">◷</span><span><b>Estudio y concentración</b><small>Temporizador, Pomodoro y sesiones</small></span></button>
+        <button class="quick" data-go="grades"><span class="stat-icon">▦</span><span><b>Notas y calificaciones</b><small>Calcula medias y controla resultados</small></span></button>
+        <button class="quick" data-go="files"><span class="stat-icon">⇄</span><span><b>Archivos y documentos</b><small>Convertir, compartir y organizar</small></span></button>
+        <button class="quick" data-go="library"><span class="stat-icon">▤</span><span><b>Biblioteca académica</b><small>Recursos para tus asignaturas</small></span></button>
       </div></div>
       <div class="card span-5"><h3>Tu próximo bloque</h3><p>Configura un temporizador y registra tus minutos de concentración.</p><div class="divider"></div><div style="display:flex;align-items:center;justify-content:space-between"><div><div style="font:800 26px Manrope">25:00</div><small class="muted">Pomodoro clásico</small></div><button class="btn" data-go="timer">Abrir timer →</button></div></div>
       <div class="card span-12"><h3>Tu espacio, tus reglas.</h3><p>Los datos de notas y sesiones se guardan localmente en este navegador. Para sincronizarlos entre dispositivos necesitarás habilitar cuentas y una base de datos.</p></div>
     </div>
   </section>
+
+<section class="view" id="files"><div class="intro"><h2>Archivos y documentos</h2><p>Tus herramientas para trabajar con documentos desde un solo lugar.</p></div><div class="home-actions">
+<button class="quick" data-go="convert"><span class="stat-icon">⇄</span><span><b>Conversor de archivos</b><small>PDF, Word, Excel y más formatos</small></span></button>
+<button class="quick" data-go="share"><span class="stat-icon">↗</span><span><b>Compartir archivos</b><small>Crear enlaces de descarga temporales</small></span></button>
+<button class="quick" data-go="library"><span class="stat-icon">▤</span><span><b>Biblioteca académica</b><small>Recursos y apuntes por asignatura</small></span></button>
+</div></section>
 
   <section class="view" id="convert">
     <div class="intro"><h2>Conversor de archivos</h2><p>Convierte documentos entre formatos habituales. Para conversiones avanzadas en servidor se requiere LibreOffice instalado.</p></div>
@@ -143,14 +191,14 @@ input,select{background:#0c111c;border:1px solid #2a3448;border-radius:10px;colo
 <script>
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
-const store = {
- get(k,d){try{return JSON.parse(localStorage.getItem("sh_"+k)) ?? d}catch{return d}},
- set(k,v){localStorage.setItem("sh_"+k,JSON.stringify(v))}
+let activeUser=null;const store = {
+ get(k,d){try{return JSON.parse(localStorage.getItem("sh_"+(activeUser?.id||"guest")+"_"+k)) ?? d}catch{return d}},
+ set(k,v){localStorage.setItem("sh_"+(activeUser?.id||"guest")+"_"+k,JSON.stringify(v))}
 };
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
-const titles={home:"Todo en un mismo lugar.",convert:"Conversor de archivos.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez."};
-function go(id){$$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));$("#pageTitle").textContent=titles[id];if(id==="grades")renderGrades();if(id==="timer")renderSessions();if(id==="home")renderHome();window.scrollTo({top:0,behavior:"smooth"})}
-$$(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.view));$$("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+const titles={files:"Tus documentos, organizados.",home:"Todo en un mismo lugar.",convert:"Conversor de archivos.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez."};
+function go(id){$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));$("#pageTitle").textContent=titles[id];if(id==="files"){}if(id==="grades")renderGrades();if(id==="timer")renderSessions();if(id==="home")renderHome();window.scrollTo({top:0,behavior:"smooth"})}
+$(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.view));document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)go(b.dataset.go)});
 $("#today").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"short",day:"numeric",month:"short"}).format(new Date());
 function formatSize(n){if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";return (n/1048576).toFixed(1)+" MB"}
 
@@ -204,5 +252,16 @@ function renderSessions(){const all=store.get("sessions",[]),today=new Date().to
 function renderHome(){const h=store.get("grades",[]),t=store.get("templates",[]),today=new Date().toLocaleDateString("en-CA"),mins=store.get("sessions",[]).filter(s=>s.date===today).reduce((a,s)=>a+s.minutes,0);$("#homeSubjects").textContent=t.length;$("#homeSessions").textContent=mins;$("#homeAverage").textContent=h.length?(h.reduce((a,x)=>a+x.score,0)/h.length).toFixed(2):"—"}
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 renderGrades();renderHome();renderSessions();
+
+let authMode="login";
+function setAuthMode(mode){authMode=mode;$("#loginTab").classList.toggle("active",mode==="login");$("#registerTab").classList.toggle("active",mode==="register");$("#nameField").style.display=mode==="register"?"block":"none";$("#authTitle").textContent=mode==="login"?"Bienvenido de nuevo":"Crea tu cuenta";$("#authDescription").textContent=mode==="login"?"Inicia sesión para entrar en tu espacio de estudio.":"Regístrate para guardar tu espacio personal.";$("#authSubmit").textContent=mode==="login"?"Entrar en STUDYHUB":"Crear mi cuenta";$("#authPassword").autocomplete=mode==="login"?"current-password":"new-password";$("#authError").style.display="none"}
+$("#loginTab").onclick=()=>setAuthMode("login");$("#registerTab").onclick=()=>setAuthMode("register");
+async function checkAuth(){try{const r=await fetch("/api/auth/me");const j=await r.json();if(j.user)enterApp(j.user)}catch{}}
+function enterApp(user){activeUser=user;$("#authScreen").style.display="none";$("#appShell").style.display="grid";$("#userName").textContent=user.name;renderHome();renderGrades();renderSessions()}
+$("#authForm").onsubmit=async e=>{e.preventDefault();const b=$("#authSubmit");b.disabled=true;b.textContent="Un momento…";$("#authError").style.display="none";try{const payload={email:$("#authEmail").value,password:$("#authPassword").value};if(authMode==="register")payload.name=$("#authName").value;const r=await fetch("/api/auth/"+(authMode==="login"?"login":"register"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const j=await r.json();if(!r.ok)throw Error(j.error||"No se pudo acceder.");enterApp(j.user)}catch(err){$("#authError").textContent=err.message;$("#authError").style.display="block"}finally{b.disabled=false;b.textContent=authMode==="login"?"Entrar en STUDYHUB":"Crear mi cuenta"}};
+$("#logoutBtn").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"});activeUser=null;$("#appShell").style.display="none";$("#authScreen").style.display="grid";$("#authPassword").value=""};
+function toggleSidebar(){$("#appShell").classList.toggle("sidebar-hidden")}
+$("#sidebarToggle").onclick=toggleSidebar;$("#sidebarToggleTop").onclick=toggleSidebar;
+$("#appShell").style.display="none";checkAuth();
 </script>
 </body></html>
