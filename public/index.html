@@ -626,7 +626,7 @@ if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle
  const clamp=(x,y)=>{const r=fly.getBoundingClientRect();return{x:Math.max(6,Math.min(innerWidth-r.width-6,x)),y:Math.max(6,Math.min(innerHeight-r.height-6,y))}};
  function place(x,y,save=true){const p=clamp(x,y);fly.style.position="fixed";fly.style.left=p.x+"px";fly.style.top=p.y+"px";fly.style.right="auto";fly.style.bottom="auto";if(save){try{localStorage.setItem(KEY,JSON.stringify(p))}catch{}}}
  try{const p=JSON.parse(localStorage.getItem(KEY)||"null");if(p&&Number.isFinite(p.x)&&Number.isFinite(p.y))place(p.x,p.y,false)}catch{}
- fly.addEventListener("pointerdown",e=>{if(e.isPrimary===false||(e.pointerType==="mouse"&&e.button!==0))return;id=e.pointerId;sx=e.clientX;sy=e.clientY;const r=fly.getBoundingClientRect();ox=r.left;oy=r.top;moved=false;fly.classList.add("dragging");e.preventDefault()});
+ fly.addEventListener("pointerdown",e=>{if(e.isPrimary===false||(e.pointerType==="mouse"&&e.button!==0))return;id=e.pointerId;sx=e.clientX;sy=e.clientY;const r=fly.getBoundingClientRect();ox=r.left;oy=r.top;moved=false;fly.classList.add("dragging")});
  window.addEventListener("pointermove",e=>{if(id===null||e.pointerId!==id)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.hypot(dx,dy)>4)moved=true;if(moved){e.preventDefault();place(ox+dx,oy+dy)}},{passive:false});
  function end(e){if(id===null||(e&&e.pointerId!==id))return;id=null;fly.classList.remove("dragging");if(moved){suppress=true;setTimeout(()=>suppress=false,450)}}
  window.addEventListener("pointerup",end);window.addEventListener("pointercancel",end);fly.addEventListener("click",e=>{if(suppress){e.preventDefault();e.stopImmediatePropagation();suppress=false}},true);
