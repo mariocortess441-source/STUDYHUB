@@ -1327,7 +1327,7 @@ function queueCloudSave(key,value){
 }
 const store = {
  get(k,d){try{return JSON.parse(localStorage.getItem("sh_"+(activeUser?.id||"guest")+"_"+k)) ?? d}catch{return d}},
- set(k,v){const key="sh_"+(activeUser?.id||"guest")+"_"+k;localStorage.setItem(key,JSON.stringify(v));return activeUser?queueCloudSave(k,v):Promise.resolve(false)}
+ set(k,v){const key="sh_"+(activeUser?.id||"guest")+"_"+k;localStorage.setItem(key,JSON.stringify(v));return Promise.resolve(true)}
 };
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
 const titles={study:"Tu espacio de estudio.",economy:"Tu dinero, a tu manera.",subjects:"Tus asignaturas, a tu manera.",files:"Tus documentos, organizados.",home:"Tu día, bajo control.",convert:"Conversor de archivos.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez.",calendar:"Tu calendario, siempre a mano.",entrepreneurship:"Tu próximo proyecto empieza aquí."};
@@ -3057,7 +3057,7 @@ main,.view,#home{min-width:0;max-width:100%}
  };
  const openSetup=()=>{fillSetup();setup.classList.add("open");document.body.style.overflow="hidden"};
  const closeSetup=()=>{setup.classList.remove("open");document.body.style.overflow=""};
- $("#startDeepWork")?.addEventListener("click",e=>{e.preventDefault();e.stopImmediatePropagation();openSetup()},true);
+ $("#startDeepWork")?.addEventListener("click",e=>{if(e.currentTarget.dataset.mancaveLaunch==="1")return;e.preventDefault();e.stopImmediatePropagation();openSetup()},true);
  $("#deepSetupClose").onclick=$("#deepSetupCancel").onclick=closeSetup;
  $("#deepSetupWork").addEventListener("change",()=>{$("#deepSetupCustomWrap").hidden=$("#deepSetupWork").value!=="custom"});
  let activeSession=null,deepCountdown=null,restMode=false;
