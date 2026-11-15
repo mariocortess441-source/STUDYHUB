@@ -105,8 +105,6 @@ label{color:#58657b;font-size:13px}
 .app{grid-template-columns:270px minmax(0,1fr)}
 .app.sidebar-hidden{grid-template-columns:0 minmax(0,1fr)}
 .app.sidebar-hidden .sidebar{width:0;min-width:0;padding:0;overflow:hidden;border:0}
-.ad-container{display:block;box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:90px;margin-left:auto;margin-right:auto;text-align:center}
-.ad-container ins.adsbygoogle{display:block;width:100%;max-width:100%;min-width:0;margin:0 auto;overflow:visible}
 @media(max-width:560px){
  .app.sidebar-hidden .sidebar{display:none}
  .app.sidebar-hidden{display:block}
@@ -159,7 +157,7 @@ input:focus,select:focus{border-color:#a78bfa;box-shadow:0 0 0 3px #a78bfa22}
 .timer-mode button.active{background:#39265b;border-color:#a78bfa;color:#f5edff}
 .progress>i{background:linear-gradient(90deg,#a78bfa,#7445d4)}
 .sidebar-toggle{background:#211831;border-color:#594078;color:#e4d4ff}
-.ad-container>div{color:#b8a8d2!important}
+
 .assistant-launcher{position:fixed;right:24px;bottom:24px;z-index:30;border:0;border-radius:999px;padding:14px 19px;background:linear-gradient(135deg,#a78bfa,#7445d4);color:#fff;font-weight:800;box-shadow:0 10px 35px #0008;display:flex;align-items:center;gap:9px}
 .assistant-panel{position:fixed;right:24px;bottom:88px;width:min(390px,calc(100vw - 28px));max-height:min(590px,calc(100vh - 120px));z-index:31;display:none;flex-direction:column;overflow:hidden;border:1px solid #594078;border-radius:20px;background:#171124;box-shadow:0 20px 70px #000b}
 .assistant-panel.open{display:flex}
@@ -791,8 +789,6 @@ function toggleSidebar(){const hidden=$("#appShell").classList.toggle("sidebar-h
 $("#sidebarToggle").onclick=toggleSidebar;$("#sidebarToggleTop").onclick=toggleSidebar;
 $("#appShell").style.display="grid";enterApp(null);checkAuth();
 
-const homeAd=document.querySelector(".ad-container .adsbygoogle");
-if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle||[]).push({});homeAd.dataset.initialized="true";}
 
 /* Asistente guiado local: no usa servicios externos ni claves API */
 (()=>{
