@@ -24,6 +24,14 @@ app.get("/ads.txt", (req, res) => {
   res.type("text/plain").sendFile(path.join(__dirname, "public", "ads.txt"));
 });
 
+// Serve crawler discovery files explicitly with their correct content types.
+app.get("/sitemap.xml", (req, res) => {
+  res.type("application/xml").sendFile(path.join(__dirname, "public", "sitemap.xml"));
+});
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain").sendFile(path.join(__dirname, "public", "robots.txt"));
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/", rateLimit({ windowMs: 15 * 60 * 1000, limit: 120 }));
 
