@@ -1073,38 +1073,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 #economy .economy-restored-details .savings-forecast{display:grid!important}
 #economy .economy-restored-details .card{min-width:0}
 </style>
-<style id="mancave-final-consistent-theme-v11">
-/* MANCAVE final theme: one shared visual system for every view, form and modal. */
-html[data-theme="liquid-chrome"]{color-scheme:dark;--bg:#090a0d;--panel:#121416;--panel2:#191c1f;--line:#303438;--text:#f3f4f5;--muted:#a0a5aa;--accent:#c5c9cd;--accent2:#8f969c;--green:#61d6a5;--red:#ff7d83}
-html[data-theme="clean-light"]{color-scheme:light;--bg:#f3f4f5;--panel:#fff;--panel2:#f7f8f9;--line:#e1e4e7;--text:#202428;--muted:#727a82;--accent:#4d5964;--accent2:#313a42;--green:#168b65;--red:#d64e59}
-html[data-theme="liquid-chrome"] body,html[data-theme="clean-light"] body{background:var(--bg)!important;color:var(--text)!important}
-html[data-theme="liquid-chrome"] .card,html[data-theme="liquid-chrome"] .quick,html[data-theme="liquid-chrome"] .subject,html[data-theme="liquid-chrome"] .auth-card,html[data-theme="liquid-chrome"] .personal-agenda-card,html[data-theme="liquid-chrome"] .mc-modal,html[data-theme="liquid-chrome"] .deep-work-panel{background:var(--panel)!important;border-color:var(--line)!important;color:var(--text)!important}
-html[data-theme="clean-light"] .card,html[data-theme="clean-light"] .quick,html[data-theme="clean-light"] .subject,html[data-theme="clean-light"] .auth-card,html[data-theme="clean-light"] .personal-agenda-card,html[data-theme="clean-light"] .mc-modal,html[data-theme="clean-light"] .deep-work-panel{background:var(--panel)!important;border-color:var(--line)!important;color:var(--text)!important}
-html[data-theme="liquid-chrome"] input,html[data-theme="liquid-chrome"] select,html[data-theme="liquid-chrome"] textarea,html[data-theme="liquid-chrome"] .personal-agenda-form input,html[data-theme="liquid-chrome"] .personal-agenda-form select,html[data-theme="liquid-chrome"] .personal-agenda-form textarea{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--text)!important}
-html[data-theme="clean-light"] input,html[data-theme="clean-light"] select,html[data-theme="clean-light"] textarea,html[data-theme="clean-light"] .personal-agenda-form input,html[data-theme="clean-light"] .personal-agenda-form select,html[data-theme="clean-light"] .personal-agenda-form textarea{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--text)!important}
-html[data-theme="liquid-chrome"] .sidebar{background:#0c0e10!important;border-color:var(--line)!important}
-html[data-theme="clean-light"] .sidebar{background:#fff!important;border-color:var(--line)!important}
-html[data-theme="liquid-chrome"] .nav button:hover,html[data-theme="liquid-chrome"] .nav button.active{background:#24282b!important;color:#fff!important}
-html[data-theme="clean-light"] .nav button:hover,html[data-theme="clean-light"] .nav button.active{background:#e9ecef!important;color:#202428!important}
-html[data-theme="liquid-chrome"] .btn:not(.ghost){background:linear-gradient(135deg,#e6e8e9,#858d93)!important;color:#111!important}
-html[data-theme="clean-light"] .btn:not(.ghost){background:linear-gradient(135deg,#59636c,#303940)!important;color:#fff!important}
-html[data-theme="liquid-chrome"] .btn.secondary,html[data-theme="liquid-chrome"] .btn.ghost{background:#1b1f22!important;border-color:#454b50!important;color:#edf0f2!important}
-html[data-theme="clean-light"] .btn.secondary,html[data-theme="clean-light"] .btn.ghost{background:#edf0f2!important;border-color:#d8dde1!important;color:#303940!important}
-html[data-theme="liquid-chrome"] .personal-agenda-head,html[data-theme="liquid-chrome"] .auth-brand,html[data-theme="liquid-chrome"] .mc-modal h2{color:var(--text)!important}
-html[data-theme="clean-light"] .personal-agenda-head,html[data-theme="clean-light"] .auth-brand,html[data-theme="clean-light"] .mc-modal h2{color:var(--text)!important}
-#study .study-planned-card,#study .study-week-card,#study .study-planned-card .study-planned-chart,#study .study-week-card .study-week-calendar{display:block!important;visibility:visible!important;opacity:1!important}
-#study .study-section-label{display:flex!important}
-#economy #economyRestoredDetails,#economy #economyRestoredDetails>.card,#economy #economyRestoredDetails #economyChart,#economy #economyRestoredDetails #economyMovements,#economy #economyRestoredDetails #savingsList,#economy #economyRestoredDetails #savingsForecast{display:grid!important;visibility:visible!important;opacity:1!important}
-#economy #economyRestoredDetails .economy-savings-restored{grid-column:1/-1}
-#economy #economyRestoredDetails .economy-history-restored{grid-column:1/-1}
-#personal .intro,#personal .grid{display:grid!important;visibility:visible!important;opacity:1!important}
-#personal .journal-book,#personal #personalJournalCalendar,#personal .personal-journal-calendar{display:block!important;visibility:visible!important}
-.home-personal-entry{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;margin:18px 0;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--text)}
-.home-personal-entry>div{display:grid;gap:4px}.home-personal-entry b{font:700 14px Manrope}.home-personal-entry small{font-size:11px;color:var(--muted)}
-.theme-control{display:flex;align-items:center}.theme-brush{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:var(--panel);color:var(--text);cursor:pointer;transition:transform .2s,background .2s}.theme-brush:hover{transform:rotate(12deg) scale(1.05)}.theme-brush svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-#loginBtn,#logoutBtn{display:none!important}
-@media(max-width:700px){.home-personal-entry{align-items:flex-start;flex-direction:column}.home-personal-entry button{width:100%}}
-</style>
+
 </head>
 <body>
 
@@ -3208,4 +3177,52 @@ main,.view,#home{min-width:0;max-width:100%}
  const savings=details.querySelector("#savingsForm");if(savings){const card=savings.closest(".card");card?.classList.add("economy-savings-restored")}
  const movement=details.querySelector("#economyMovements")?.closest(".card");movement?.classList.add("economy-history-restored");
 })();</script>
+<style id="mancave-final-consistent-theme-v12">
+/* MANCAVE final theme: one shared visual system for every view, form and modal. */
+html[data-theme="liquid-chrome"]{color-scheme:dark;--bg:#090a0d;--panel:#121416;--panel2:#191c1f;--line:#303438;--text:#f3f4f5;--muted:#a0a5aa;--accent:#c5c9cd;--accent2:#8f969c;--green:#61d6a5;--red:#ff7d83}
+html[data-theme="clean-light"]{color-scheme:light;--bg:#f3f4f5;--panel:#fff;--panel2:#f7f8f9;--line:#e1e4e7;--text:#202428;--muted:#727a82;--accent:#4d5964;--accent2:#313a42;--green:#168b65;--red:#d64e59}
+html[data-theme="liquid-chrome"] body,html[data-theme="clean-light"] body{background:var(--bg)!important;color:var(--text)!important}
+html[data-theme="liquid-chrome"] .card,html[data-theme="liquid-chrome"] .quick,html[data-theme="liquid-chrome"] .subject,html[data-theme="liquid-chrome"] .auth-card,html[data-theme="liquid-chrome"] .personal-agenda-card,html[data-theme="liquid-chrome"] .mc-modal,html[data-theme="liquid-chrome"] .deep-work-panel{background:var(--panel)!important;border-color:var(--line)!important;color:var(--text)!important}
+html[data-theme="clean-light"] .card,html[data-theme="clean-light"] .quick,html[data-theme="clean-light"] .subject,html[data-theme="clean-light"] .auth-card,html[data-theme="clean-light"] .personal-agenda-card,html[data-theme="clean-light"] .mc-modal,html[data-theme="clean-light"] .deep-work-panel{background:var(--panel)!important;border-color:var(--line)!important;color:var(--text)!important}
+html[data-theme="liquid-chrome"] input,html[data-theme="liquid-chrome"] select,html[data-theme="liquid-chrome"] textarea,html[data-theme="liquid-chrome"] .personal-agenda-form input,html[data-theme="liquid-chrome"] .personal-agenda-form select,html[data-theme="liquid-chrome"] .personal-agenda-form textarea{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--text)!important}
+html[data-theme="clean-light"] input,html[data-theme="clean-light"] select,html[data-theme="clean-light"] textarea,html[data-theme="clean-light"] .personal-agenda-form input,html[data-theme="clean-light"] .personal-agenda-form select,html[data-theme="clean-light"] .personal-agenda-form textarea{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--text)!important}
+html[data-theme="liquid-chrome"] .sidebar{background:#0c0e10!important;border-color:var(--line)!important}
+html[data-theme="clean-light"] .sidebar{background:#fff!important;border-color:var(--line)!important}
+html[data-theme="liquid-chrome"] .nav button:hover,html[data-theme="liquid-chrome"] .nav button.active{background:#24282b!important;color:#fff!important}
+html[data-theme="clean-light"] .nav button:hover,html[data-theme="clean-light"] .nav button.active{background:#e9ecef!important;color:#202428!important}
+html[data-theme="liquid-chrome"] .btn:not(.ghost){background:linear-gradient(135deg,#e6e8e9,#858d93)!important;color:#111!important}
+html[data-theme="clean-light"] .btn:not(.ghost){background:linear-gradient(135deg,#59636c,#303940)!important;color:#fff!important}
+html[data-theme="liquid-chrome"] .btn.secondary,html[data-theme="liquid-chrome"] .btn.ghost{background:#1b1f22!important;border-color:#454b50!important;color:#edf0f2!important}
+html[data-theme="clean-light"] .btn.secondary,html[data-theme="clean-light"] .btn.ghost{background:#edf0f2!important;border-color:#d8dde1!important;color:#303940!important}
+html[data-theme="liquid-chrome"] .personal-agenda-head,html[data-theme="liquid-chrome"] .auth-brand,html[data-theme="liquid-chrome"] .mc-modal h2{color:var(--text)!important}
+html[data-theme="clean-light"] .personal-agenda-head,html[data-theme="clean-light"] .auth-brand,html[data-theme="clean-light"] .mc-modal h2{color:var(--text)!important}
+#study .study-planned-card,#study .study-week-card,#study .study-planned-card .study-planned-chart,#study .study-week-card .study-week-calendar{display:block!important;visibility:visible!important;opacity:1!important}
+#study .study-section-label{display:flex!important}
+#economy #economyRestoredDetails,#economy #economyRestoredDetails>.card,#economy #economyRestoredDetails #economyChart,#economy #economyRestoredDetails #economyMovements,#economy #economyRestoredDetails #savingsList,#economy #economyRestoredDetails #savingsForecast{display:grid!important;visibility:visible!important;opacity:1!important}
+#economy #economyRestoredDetails .economy-savings-restored{grid-column:1/-1}
+#economy #economyRestoredDetails .economy-history-restored{grid-column:1/-1}
+#personal .intro,#personal .grid{display:grid!important;visibility:visible!important;opacity:1!important}
+#personal .journal-book,#personal #personalJournalCalendar,#personal .personal-journal-calendar{display:block!important;visibility:visible!important}
+.home-personal-entry{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;margin:18px 0;border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--text)}
+.home-personal-entry>div{display:grid;gap:4px}.home-personal-entry b{font:700 14px Manrope}.home-personal-entry small{font-size:11px;color:var(--muted)}
+.theme-control{display:flex;align-items:center}.theme-brush{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:var(--panel);color:var(--text);cursor:pointer;transition:transform .2s,background .2s}.theme-brush:hover{transform:rotate(12deg) scale(1.05)}.theme-brush svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#loginBtn,#logoutBtn{display:none!important}
+@media(max-width:700px){.home-personal-entry{align-items:flex-start;flex-direction:column}.home-personal-entry button{width:100%}}
+
+/* Full-screen workspaces and guided dialogs inherit the same selected theme. */
+html[data-theme="liquid-chrome"] .deepwork-overlay,html[data-theme="liquid-chrome"] #deepSetupOverlay{background:var(--bg)!important;color:var(--text)!important}
+html[data-theme="clean-light"] .deepwork-overlay,html[data-theme="clean-light"] #deepSetupOverlay{background:var(--bg)!important;color:var(--text)!important}
+html[data-theme="liquid-chrome"] .deepwork-top,html[data-theme="liquid-chrome"] .deepwork-chat,html[data-theme="liquid-chrome"] .deepwork-reader,html[data-theme="liquid-chrome"] .deep-setup-card{background:var(--panel)!important;color:var(--text)!important;border-color:var(--line)!important}
+html[data-theme="clean-light"] .deepwork-top,html[data-theme="clean-light"] .deepwork-chat,html[data-theme="clean-light"] .deepwork-reader,html[data-theme="clean-light"] .deep-setup-card{background:var(--panel)!important;color:var(--text)!important;border-color:var(--line)!important}
+html[data-theme="liquid-chrome"] .deepwork-pane-title,html[data-theme="liquid-chrome"] .deep-setup-kicker,html[data-theme="liquid-chrome"] .deep-setup-card h2{color:var(--text)!important}
+html[data-theme="clean-light"] .deepwork-pane-title,html[data-theme="clean-light"] .deep-setup-kicker,html[data-theme="clean-light"] .deep-setup-card h2{color:var(--text)!important}
+html[data-theme="liquid-chrome"] .deepwork-bubble,html[data-theme="liquid-chrome"] .deep-setup-tabs{background:var(--panel2)!important;color:var(--text)!important;border-color:var(--line)!important}
+html[data-theme="clean-light"] .deepwork-bubble,html[data-theme="clean-light"] .deep-setup-tabs{background:var(--panel2)!important;color:var(--text)!important;border-color:var(--line)!important}
+html[data-theme="liquid-chrome"] .deep-setup-grid label,html[data-theme="liquid-chrome"] .deep-setup-card p{color:var(--muted)!important}
+html[data-theme="clean-light"] .deep-setup-grid label,html[data-theme="clean-light"] .deep-setup-card p{color:var(--muted)!important}
+html[data-theme="liquid-chrome"] .deepwork-chat-form input,html[data-theme="liquid-chrome"] .deep-setup-grid input,html[data-theme="liquid-chrome"] .deep-setup-grid select{background:var(--panel2)!important;color:var(--text)!important;border-color:var(--line)!important}
+html[data-theme="clean-light"] .deepwork-chat-form input,html[data-theme="clean-light"] .deep-setup-grid input,html[data-theme="clean-light"] .deep-setup-grid select{background:var(--panel2)!important;color:var(--text)!important;border-color:var(--line)!important}
+html[data-theme="clean-light"] #authScreen{background:#f3f4f5!important}
+html[data-theme="liquid-chrome"] #authScreen{background:#08090b!important}
+</style>
 </body></html>
