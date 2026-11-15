@@ -883,7 +883,7 @@ $("#appShell").style.display="grid";enterApp(null);checkAuth();
   {keys:["guardar","datos","donde"],text:"Los datos de estudio y notas se guardan en el almacenamiento local de este navegador. Si borras los datos del sitio o cambias de dispositivo/navegador, podrían no estar disponibles."}
  ];
  function add(text,who){const el=document.createElement("div");el.className="assistant-msg "+who;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight}
- function reply(q){const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");const found=answers.find(a=>a.keys.some(k=>clean.includes(k.normalize("NFD").replace(/[\u0300-\u036f]/g,""))));return found?found.text:"Puedo ayudarte con el temporizador, las notas, el conversor, compartir archivos, la biblioteca, el acceso como invitado o el menú lateral. Prueba a preguntarme por uno de esos apartados."}
+ function reply(q){const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");const found=answers.find(a=>a.keys.some(k=>clean.includes(k.normalize("NFD").replace(/[\u0300-\u036f]/g,""))));return found?found.text:"Puedo ayudarle a organizar sus tareas, establecer prioridades, diseñar un método de estudio, revisar sus objetivos de emprendimiento y analizar sus movimientos económicos. Indíqueme qué desea mejorar y le propondré pasos concretos."}
  function ask(q){const value=String(q||"").trim();if(!value)return;add(value,"user");add(reply(value),"bot");input.value="";input.focus()}
  function toggle(open){
  panel.classList.toggle("open",open);launcher.setAttribute("aria-expanded",String(open));
