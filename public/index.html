@@ -580,6 +580,61 @@ main{padding-top:24px}
  .nav button{min-width:54px;padding:8px 5px!important}
 }
 
+
+/* Projects workspace — professional, Notion-inspired */
+.projects-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:4px 0 24px}
+.projects-kicker{font-size:10px;font-weight:800;letter-spacing:1.8px;color:#7386a2}
+.projects-heading h2{font:750 27px Manrope;margin:6px 0;color:#20283b;letter-spacing:-.8px}
+.projects-heading p{margin:0;color:#77839a;font-size:13px}
+.projects-heading .btn{white-space:nowrap}
+.projects-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:15px}
+.projects-count{display:flex;align-items:baseline;gap:6px;color:#7a879b;font-size:12px}.projects-count strong{font:750 20px Manrope;color:#20283b}
+.projects-toolbar input{max-width:260px;background:#fff;border:1px solid #e4e9f1;border-radius:10px;color:#26334a;padding:10px 13px}
+.projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.project-card{min-height:160px;padding:18px;border:1px solid #e5eaf2;border-radius:15px;background:#fff;box-shadow:0 5px 20px #233b6108;display:flex;flex-direction:column;gap:12px;text-align:left;transition:.18s}
+.project-card:hover{border-color:#b9c9e0;box-shadow:0 10px 26px #233b6110;transform:translateY(-2px)}
+.project-card-top{display:flex;align-items:center;justify-content:space-between}
+.project-card-icon,.project-icon-large{width:36px;height:36px;border-radius:10px;background:#edf2f8;color:#526d8c;display:grid;place-items:center;font-size:17px}
+.project-status{font-size:10px;color:#60758f;background:#f0f4f8;padding:5px 8px;border-radius:20px}
+.project-card h3{font:750 15px Manrope;color:#20283b;margin:0}
+.project-card p{font-size:12px;color:#7a879b;line-height:1.55;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.project-card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;border-top:1px solid #eff2f6;color:#8a96a8;font-size:10px}
+.projects-empty{grid-column:1/-1;min-height:220px;border:1px dashed #d5deea;border-radius:16px;background:#fbfcfe;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.projects-empty>span{font-size:25px;color:#7890ac;margin-bottom:10px}.projects-empty b{font:700 15px Manrope;color:#29364a}.projects-empty p{max-width:320px;color:#8793a6;font-size:12px;line-height:1.6;margin:7px 0 15px}
+.project-workspace{margin-top:6px}.project-breadcrumb{display:flex;align-items:center;gap:9px;color:#94a0b1;font-size:11px;margin:4px 0 24px}.project-breadcrumb button{border:0;background:none;color:#607b9b;padding:0;font-size:11px}
+.project-workspace-head{display:flex;align-items:flex-start;gap:15px;margin-bottom:20px}.project-icon-large{width:48px;height:48px;font-size:21px;flex:none}.project-workspace-title{flex:1;min-width:0}.project-workspace-title input{font:750 27px Manrope;color:#20283b;background:transparent;border:0;border-radius:0;padding:2px 0 7px}.project-workspace-title textarea{background:transparent;border:0;border-radius:0;padding:0;color:#77839a;resize:vertical;font-size:13px}
+.project-properties{display:flex;align-items:end;gap:12px;padding:13px 15px;border:1px solid #e7ebf2;border-radius:12px;background:#fbfcfe;margin-bottom:25px;flex-wrap:wrap}
+.project-properties label{font-size:10px;color:#77839a;min-width:130px;flex:1}.project-properties select,.project-properties input{margin-top:6px;background:white;border:1px solid #e3e8f0;color:#354258;padding:9px 10px}
+.project-properties .btn{padding:10px 13px}
+.project-document{max-width:850px;margin:0 auto;padding:15px clamp(4px,3vw,35px)}
+.project-document-kicker{font-size:9px;letter-spacing:1.5px;font-weight:800;color:#9aa6b7;margin-bottom:22px}
+.project-blocks{display:flex;flex-direction:column;gap:10px}
+.project-block{display:flex;align-items:flex-start;gap:10px;position:relative}
+.project-block-grip{color:#c1cbd8;font-size:15px;padding:8px 0;user-select:none}
+.project-block textarea{flex:1;min-width:0;resize:vertical;min-height:43px;border:1px solid transparent;background:transparent;color:#334057;padding:9px 10px;border-radius:8px;font-size:13px;line-height:1.7}
+.project-block textarea:focus{background:#fff;border-color:#dce5f0;outline:none}
+.project-block.heading textarea{font:700 19px Manrope;color:#27354a}
+.project-block.callout textarea{background:#f1f5fa;border-left:3px solid #91a8c2;border-radius:0 8px 8px 0}
+.project-block.bullet textarea{padding-left:22px}
+.project-block.bullet:before{content:"•";position:absolute;left:17px;top:13px;color:#8396ad}
+.project-block.todo{align-items:center}.project-block.todo input{width:16px;height:16px;flex:none;margin:12px 0 0 2px;accent-color:#708aa8}.project-block.todo textarea{min-height:40px}.project-block.todo.done textarea{text-decoration:line-through;color:#a2acb9}
+.project-block-remove{opacity:0;border:0;background:transparent;color:#a3afbd;padding:9px}.project-block:hover .project-block-remove,.project-block-remove:focus{opacity:1}
+.project-block.divider{height:1px;background:#e7ebf1;margin:12px 0}
+.project-add-row{display:flex;align-items:center;gap:10px;margin:17px 0 0 26px}
+.project-add-trigger{border:1px dashed #cbd6e3;border-radius:8px;background:#fff;color:#71839a;padding:9px 12px;font-size:11px}.project-add-trigger span{font-size:15px;margin-right:5px}
+.project-add-row select{width:auto;background:#fff;border:1px solid #e5eaf1;color:#78869a;padding:8px;border-radius:8px;font-size:10px}
+.project-editor-hint{margin:18px 0 0 26px;color:#a0aaba;font-size:10px}
+.project-workspace-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:25px;padding-top:14px;border-top:1px solid #edf0f5;color:#9aa5b4;font-size:10px}
+.project-delete{border:0;background:transparent;color:#bd7373;font-size:11px;padding:5px}
+.legacy-brand-section{margin-top:35px}.legacy-brand-section summary{cursor:pointer;color:#7f8ca0;font-size:11px;padding:12px 0;border-top:1px solid #e7ebf1}
+#entrepreneurship .jarvis-section-advisor{margin-bottom:20px}
+#entrepreneurship .legacy-brand-section .jarvis-section-advisor{display:none}
+#entrepreneurship .legacy-brand-section details[open] .jarvis-section-advisor{display:flex}
+@media(max-width:850px){.projects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.projects-heading{align-items:flex-start;flex-direction:column}.projects-heading h2{font-size:23px}.projects-heading .btn{width:100%}.projects-toolbar input{max-width:58%}.projects-grid{grid-template-columns:1fr}.project-properties{align-items:stretch}.project-properties label{flex-basis:100%}.project-properties .btn{width:100%}.project-workspace-title input{font-size:22px}.project-document{padding:10px 0}.project-block-remove{opacity:1}.project-add-row{margin-left:0;flex-wrap:wrap}.project-workspace-footer{align-items:flex-start;flex-direction:column}}
+/* Icon-first compact navigation, with accessible names retained */
+@media(max-width:560px){.nav button .navtext{display:none!important}.nav button{width:46px;height:42px;justify-content:center}.nav .ico{font-size:19px}.sidebar{justify-content:flex-start;gap:8px}.nav{gap:5px}}
+
 </style>
 
 <style>
@@ -675,6 +730,19 @@ main{padding-top:24px}
 </section>
 
 <section class="view" id="entrepreneurship">
+<div class="projects-heading"><div><span class="projects-kicker">WORKSPACE</span><h2>Proyectos</h2><p>Todos tus proyectos, ideas y documentos en un solo espacio de trabajo.</p></div><button class="btn" id="createProjectBtn" type="button"><span aria-hidden="true">＋</span> Nuevo proyecto</button></div>
+<div class="projects-toolbar"><div class="projects-count"><strong id="projectsCount">0</strong><span>proyectos</span></div><input id="projectSearch" type="search" placeholder="Buscar proyectos…" aria-label="Buscar proyectos"></div>
+<div class="projects-grid" id="projectsGrid"><div class="projects-empty"><span>▧</span><b>Aún no hay proyectos</b><p>Crea tu primer proyecto para organizar ideas, notas, tareas y documentos.</p><button class="btn secondary" type="button" id="createFirstProject">＋ Crear proyecto</button></div></div>
+<section class="project-workspace" id="projectWorkspace" hidden>
+ <div class="project-breadcrumb"><button type="button" id="backToProjects">← Proyectos</button><span>/</span><span id="projectBreadcrumbName">Proyecto</span></div>
+ <div class="project-workspace-head"><div class="project-icon-large">▧</div><div class="project-workspace-title"><input id="projectTitleInput" maxlength="90" aria-label="Nombre del proyecto" placeholder="Nombre del proyecto"><textarea id="projectDescriptionInput" rows="2" maxlength="500" placeholder="Añade una descripción breve…"></textarea></div></div>
+ <div class="project-properties"><label>Estado<select id="projectStatus"><option value="Idea">Idea</option><option value="Planificación">Planificación</option><option value="En marcha">En marcha</option><option value="Pausado">Pausado</option><option value="Completado">Completado</option></select></label><label>Fecha objetivo<input type="date" id="projectDeadline"></label><button class="btn secondary" id="saveProjectDetails" type="button">Guardar cambios</button></div>
+ <div class="project-document"><div class="project-document-kicker">DOCUMENTO DEL PROYECTO</div><div id="projectBlocks" class="project-blocks"></div>
+ <div class="project-add-row"><button type="button" id="addProjectBlock" class="project-add-trigger"><span>＋</span> Añadir un bloque</button><select id="projectBlockType" aria-label="Tipo de bloque"><option value="paragraph">Texto</option><option value="heading">Título</option><option value="bullet">Lista</option><option value="todo">Tarea</option><option value="callout">Nota destacada</option><option value="divider">Separador</option></select></div>
+ <p class="project-editor-hint">Puedes escribir ideas, organizar tareas y construir el documento de tu proyecto bloque a bloque.</p></div>
+ <div class="project-workspace-footer"><button type="button" id="deleteProjectBtn" class="project-delete">Eliminar proyecto</button><span id="projectSavedStatus">Los cambios se guardan en tu espacio.</span></div>
+</section>
+<div class="legacy-brand-section"><details><summary>Identidad de marca y plan de acción anterior</summary>
 <div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su emprendimiento.</b><small>Estrategia, objetivos, tareas, calendario y revisión de resultados.</small></div><button type="button" data-jarvis-prompt="Revise mi proyecto, ayúdeme a elegir la siguiente acción y convierta mis objetivos en tareas medibles.">Consultar a JAKE</button></div>
   <div class="intro"><h2>Construye tu marca</h2><p>Un espacio para dar forma a tu proyecto, organizar objetivos y convertir ideas en acciones.</p></div>
   <div class="grid">
@@ -682,6 +750,7 @@ main{padding-top:24px}
     <div class="card span-5"><h3>Objetivo principal</h3><p>Define un objetivo concreto para orientar tus siguientes pasos.</p><div class="field"><label for="brandGoal">Objetivo</label><input id="brandGoal" maxlength="180" placeholder="Ej. Lanzar mi primera colección"></div><div class="field"><label for="brandDeadline">Fecha objetivo</label><input id="brandDeadline" type="date"></div><button class="btn secondary" id="saveBrandGoal">Guardar objetivo</button><div class="divider"></div><div class="brand-summary" id="brandSummary">Tu proyecto aparecerá aquí cuando guardes su identidad.</div></div>
     <div class="card span-12"><h3>Plan de acción</h3><p>Divide tu proyecto en tareas pequeñas y marca cada paso cuando esté terminado.</p><div class="row" style="margin-top:14px"><input id="brandTaskInput" maxlength="180" placeholder="Ej. Investigar a mis clientes"><input id="brandTaskDue" type="date"><button class="btn" id="addBrandTask">Añadir tarea</button></div><div id="brandTaskList"><div class="empty">Todavía no hay tareas para tu marca.</div></div></div>
   </div>
+</details></div>
 </section>
 
 <section class="view" id="economy">
@@ -1270,6 +1339,37 @@ renderSubjects();renderEvents();renderCalendar();renderHome();
 const communityClientId=(()=>{const k="aulivra_community_id";let v=localStorage.getItem(k);if(!v){v=crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2);localStorage.setItem(k,v)}return v})();
 async function refreshCommunityStats(){try{await fetch("/api/presence",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:communityClientId})});const r=await fetch("/api/presence/stats");if(!r.ok)return;const d=await r.json();if($("#activePeople"))$("#activePeople").textContent=Number(d.active||0).toLocaleString("es-ES");if($("#regularPeople"))$("#regularPeople").textContent=Number(d.regular||0).toLocaleString("es-ES")}catch{}}
 refreshCommunityStats();setInterval(refreshCommunityStats,60000);
+
+
+/* Proyectos personales: documentos y bloques editables */
+(()=>{
+ const $id=id=>document.getElementById(id),key="aulivra_projects";
+ let current=null;
+ const defaults=()=>({projects:[]});
+ function data(){const d=store.get(key,defaults());d.projects=Array.isArray(d.projects)?d.projects:[];return d}
+ function save(d){store.set(key,d);const status=$id("projectSavedStatus");if(status)status.textContent="Guardado en tu espacio · "+new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})}
+ function migrateBrand(d){const b=getBrandData();if(b.name&&!d.projects.some(p=>p.legacyBrand)){d.projects.unshift({id:crypto.randomUUID(),name:b.name,description:b.description||"Proyecto importado de tu espacio de marca.",status:"En marcha",deadline:b.deadline||"",blocks:[...(b.goal?[{id:crypto.randomUUID(),type:"heading",text:"Objetivo principal"},{id:crypto.randomUUID(),type:"paragraph",text:b.goal}]:[]),...(b.tasks||[]).map(t=>({id:crypto.randomUUID(),type:"todo",text:t.text,done:!!t.done}))],createdAt:new Date().toISOString(),legacyBrand:true});save(d)}}
+ function card(p){const done=(p.blocks||[]).filter(b=>b.type==="todo"&&b.done).length,total=(p.blocks||[]).filter(b=>b.type==="todo").length;return '<button class="project-card" type="button" data-open-project="'+esc(p.id)+'"><div class="project-card-top"><span class="project-card-icon">▧</span><span class="project-status">'+esc(p.status||"Idea")+'</span></div><h3>'+esc(p.name||"Sin título")+'</h3><p>'+esc(p.description||"Sin descripción todavía.")+'</p><div class="project-card-foot"><span>Actualizado '+new Date(p.updatedAt||p.createdAt||Date.now()).toLocaleDateString("es-ES",{day:"numeric",month:"short"})+'</span><span>'+total+' tareas · '+done+' hechas</span></div></button>'}
+ function renderList(){const d=data();migrateBrand(d);const q=($id("projectSearch")?.value||"").toLowerCase();const list=d.projects.filter(p=>(p.name+" "+p.description).toLowerCase().includes(q));$id("projectsCount").textContent=d.projects.length;$id("projectsGrid").innerHTML=list.map(card).join("")||'<div class="projects-empty"><span>▧</span><b>'+(d.projects.length?"No hay resultados":"Aún no hay proyectos")+'</b><p>'+(d.projects.length?"Prueba con otro término de búsqueda.":"Crea tu primer proyecto para organizar ideas, notas, tareas y documentos.")+'</p><button class="btn secondary" type="button" id="createFirstProject">＋ Crear proyecto</button></div>'}
+ function activeProject(){return data().projects.find(p=>p.id===current)}
+ function renderBlocks(){const p=activeProject();if(!p)return;$id("projectBlocks").innerHTML=(p.blocks||[]).map((b,i)=>{if(b.type==="divider")return '<div class="project-block divider" data-block="'+esc(b.id)+'"><span class="project-block-grip">⋮⋮</span><button class="project-block-remove" data-remove-block="'+esc(b.id)+'" aria-label="Eliminar separador">×</button></div>';const todo=b.type==="todo";return '<div class="project-block '+esc(b.type)+(todo&&b.done?" done":"")+'" data-block="'+esc(b.id)+'"><span class="project-block-grip">⋮⋮</span>'+(todo?'<input type="checkbox" data-block-done="'+esc(b.id)+'" '+(b.done?"checked":"")+' aria-label="Marcar tarea">':"")+'<textarea data-block-text="'+esc(b.id)+'" rows="'+(b.type==="heading"?1:2)+'" maxlength="5000" placeholder="'+(b.type==="heading"?"Título":b.type==="todo"?"Escribe una tarea":b.type==="bullet"?"Elemento de lista":b.type==="callout"?"Escribe una nota importante":"Escribe aquí…")+'">'+esc(b.text||"")+'</textarea><button class="project-block-remove" type="button" data-remove-block="'+esc(b.id)+'" aria-label="Eliminar bloque">×</button></div>'}).join("")||'<p class="project-editor-hint">Este documento está vacío. Pulsa «Añadir un bloque» para empezar.</p>'}
+ function openProject(id){const p=data().projects.find(x=>x.id===id);if(!p)return;current=id;$id("projectsGrid").hidden=true;$id("projectsToolbar")?.setAttribute("hidden","");$id("projectWorkspace").hidden=false;$id("projectTitleInput").value=p.name||"";$id("projectDescriptionInput").value=p.description||"";$id("projectBreadcrumbName").textContent=p.name||"Proyecto";$id("projectStatus").value=p.status||"Idea";$id("projectDeadline").value=p.deadline||"";renderBlocks();window.scrollTo({top:0,behavior:"smooth"})}
+ function closeProject(){$id("projectWorkspace").hidden=true;$id("projectsGrid").hidden=false;$id("projectsToolbar")?.removeAttribute("hidden");current=null;renderList()}
+ function createProject(){const d=data(),p={id:crypto.randomUUID(),name:"Nuevo proyecto",description:"",status:"Idea",deadline:"",blocks:[{id:crypto.randomUUID(),type:"paragraph",text:""}],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};d.projects.unshift(p);save(d);renderList();openProject(p.id);$id("projectTitleInput").focus();$id("projectTitleInput").select()}
+ function saveDetails(){const p=activeProject();if(!p)return;p.name=$id("projectTitleInput").value.trim()||"Sin título";p.description=$id("projectDescriptionInput").value.trim();p.status=$id("projectStatus").value;p.deadline=$id("projectDeadline").value;p.updatedAt=new Date().toISOString();save(data());$id("projectBreadcrumbName").textContent=p.name;renderList();toast("Proyecto guardado.")}
+ function addBlock(){const p=activeProject();if(!p)return;const type=$id("projectBlockType").value;p.blocks=p.blocks||[];p.blocks.push({id:crypto.randomUUID(),type,text:"",done:false});p.updatedAt=new Date().toISOString();save(data());renderBlocks();const fields=$id("projectBlocks").querySelectorAll("textarea");fields[fields.length-1]?.focus()}
+ $id("createProjectBtn").addEventListener("click",createProject);$id("createFirstProject")?.addEventListener("click",createProject);
+ $id("projectsGrid").addEventListener("click",e=>{const b=e.target.closest("[data-open-project]");if(b)openProject(b.dataset.openProject)});
+ $id("projectSearch").addEventListener("input",renderList);$id("backToProjects").addEventListener("click",closeProject);
+ $id("saveProjectDetails").addEventListener("click",saveDetails);
+ $id("addProjectBlock").addEventListener("click",addBlock);
+ $id("projectBlocks").addEventListener("input",e=>{const id=e.target.dataset.blockText;if(!id)return;const p=activeProject(),b=p?.blocks.find(x=>x.id===id);if(b){b.text=e.target.value;p.updatedAt=new Date().toISOString();save(data())}});
+ $id("projectBlocks").addEventListener("change",e=>{const id=e.target.dataset.blockDone;if(!id)return;const p=activeProject(),b=p?.blocks.find(x=>x.id===id);if(b){b.done=e.target.checked;renderBlocks();save(data())}});
+ $id("projectBlocks").addEventListener("click",e=>{const id=e.target.dataset.removeBlock;if(!id)return;const p=activeProject();p.blocks=p.blocks.filter(b=>b.id!==id);save(data());renderBlocks()});
+ $id("deleteProjectBtn").addEventListener("click",()=>{const p=activeProject();if(!p)return;if(!confirm('¿Eliminar el proyecto "'+(p.name||"Sin título")+'"? Esta acción no se puede deshacer.'))return;const d=data();d.projects=d.projects.filter(x=>x.id!==current);save(d);closeProject();toast("Proyecto eliminado.")});
+ renderList();
+ window.aulivraRefreshProjects=renderList;
+})();
 
 /* Emprendimiento: perfil de marca y plan de acción */
 function getBrandData(){return store.get("aulivra_brand",{name:"",category:"",description:"",goal:"",deadline:"",tasks:[]})}
