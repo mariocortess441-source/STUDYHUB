@@ -2093,7 +2093,7 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
  function events(){return storeGet("aulivra_events",[])}
  function renderJakeHome(){
   const message=$("#homeJakeMessage");if(!message)return;
-  const today=key(new Date()),agenda=items(),todayBlocks=agenda.filter(x=>(x.date||x.due)===today),pending=subjectData().flatMap(x=>(x.tasks||[]).filter(t=>!t.done).map(t=>({...t,subject:x.name}))),todayTasks=pending.filter(t=>t.due===today),nextExam=events().filter(x=>(x.type==="exam"||x.eventType==="exam"||/\\b(examen|prueba|evaluaci[oó]n)\\b/i.test(x.title||""))&&x.date>=today).sort((a,b)=>a.date.localeCompare(b.date))[0];
+  const today=key(new Date()),agenda=items(),todayBlocks=agenda.filter(x=>(x.date||x.due)===today),pending=subjectData().flatMap(x=>(x.tasks||[]).filter(t=>!t.done).map(t=>({...t,subject:x.name}))),todayTasks=pending.filter(t=>t.due===today),nextExam=events().filter(x=>(x.type==="exam"||x.eventType==="exam"||/\b(examen|prueba|evaluaci[oó]n)\b/i.test(x.title||""))&&x.date>=today).sort((a,b)=>a.date.localeCompare(b.date))[0];
   const parts=["Hoy tiene "+todayBlocks.length+" bloque"+(todayBlocks.length===1?"":"s")+" en el calendario",todayTasks.length?todayTasks.length+" tarea"+(todayTasks.length===1?"":"s")+" con fecha para hoy":pending.length?pending.length+" tareas pendientes":"sin tareas pendientes"];
   if(nextExam)parts.push("próximo examen: "+nextExam.title+" el "+parse(nextExam.date).toLocaleDateString("es-ES",{day:"numeric",month:"long"}));
   message.textContent="Señor, "+parts.join("; ")+". ¿Qué prioridad desea abordar primero?";
@@ -2124,7 +2124,7 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
  }
  function renderExams(){
   const host=$("#studyUpcomingExams");if(!host)return;
-  const today=key(new Date()),exams=events().filter(e=>e.type==="exam"||e.eventType==="exam"||/\\b(examen|prueba|evaluaci[oó]n)\\b/i.test(e.title||"")).filter(e=>e.date>=today).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,6);
+  const today=key(new Date()),exams=events().filter(e=>e.type==="exam"||e.eventType==="exam"||/\b(examen|prueba|evaluaci[oó]n)\b/i.test(e.title||"")).filter(e=>e.date>=today).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,6);
   host.innerHTML=exams.length?exams.map(e=>{const days=Math.ceil((parse(e.date)-parse(today))/86400000);return '<article class="study-exam-card"><b>'+esc(e.title)+'</b><small>'+esc(e.subjectName||"Examen")+" · "+parse(e.date).toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"})+'</small><strong>'+(days===0?"Hoy":days===1?"Mañana":"En "+days+" días")+'</strong></article>'}).join(""):'<div class="empty">Todavía no hay exámenes próximos. Añádelos en el calendario semanal.</div>';
  }
  function renderWeekCalendar(){
@@ -2185,7 +2185,7 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
  /* Month calendar: show only month and upcoming exams list */
  const calIntro=$("#calendar .intro");if(calIntro){calIntro.querySelector("h2").textContent="Calendario de exámenes";calIntro.querySelector("p").textContent="Vista mensual y lista de próximos exámenes con cuenta atrás."}
  const calCard=$("#calendar .calendar-card");if(calCard){const ex=document.createElement("div");ex.className="card";ex.style.marginTop="14px";ex.innerHTML='<h3>Exámenes próximos</h3><div id="calendarUpcomingExams" class="study-exams-grid"></div>';calCard.after(ex)}
- const oldCalendar=window.renderCalendar;if(typeof oldCalendar==="function")window.renderCalendar=function(){oldCalendar();const host=$("#calendarUpcomingExams");if(host){const today=key(new Date()),ex=events().filter(x=>x.type==="exam"||x.eventType==="exam"||/\\b(examen|prueba|evaluaci[oó]n)\\b/i.test(x.title||"")).filter(x=>x.date>=today).sort((a,b)=>a.date.localeCompare(b.date));host.innerHTML=ex.length?ex.map(x=>'<article class="study-exam-card"><b>'+esc(x.title)+'</b><small>'+esc(x.date)+'</small><strong>'+Math.ceil((parse(x.date)-parse(today))/86400000)+' días</strong></article>').join(""):'<div class="empty">No hay exámenes registrados.</div>'}}; 
+ const oldCalendar=window.renderCalendar;if(typeof oldCalendar==="function")window.renderCalendar=function(){oldCalendar();const host=$("#calendarUpcomingExams");if(host){const today=key(new Date()),ex=events().filter(x=>x.type==="exam"||x.eventType==="exam"||/\b(examen|prueba|evaluaci[oó]n)\b/i.test(x.title||"")).filter(x=>x.date>=today).sort((a,b)=>a.date.localeCompare(b.date));host.innerHTML=ex.length?ex.map(x=>'<article class="study-exam-card"><b>'+esc(x.title)+'</b><small>'+esc(x.date)+'</small><strong>'+Math.ceil((parse(x.date)-parse(today))/86400000)+' días</strong></article>').join(""):'<div class="empty">No hay exámenes registrados.</div>'}}; 
  /* Fix title and initial view. */
  if($("#studyBlockDate"))$("#studyBlockDate").value=key(new Date());renderStudyWorkspace();refreshWalletAndSavings();goView("home");
 })();
