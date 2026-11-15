@@ -2729,4 +2729,122 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
  $("input,select,textarea").forEach(el=>{if(!el.closest("#home .journal-book")){el.style.colorScheme="dark"}});
 })();
 </script>
+
+<style id="mancave-home-jake-personal-icons-projects-v4">
+/* Inicio compacto: JAKE informa, no ocupa la pantalla */
+#home .home-jake-greeting{display:none!important}
+#home .home-dashboard-title{margin-top:6px}
+#home .home-insight-grid{margin-top:10px}
+#home .home-personal-entry{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:18px 0 22px;padding:15px 17px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(110deg,var(--panel),var(--panel2))}
+#home .home-personal-entry b{display:block;font-size:13px}
+#home .home-personal-entry small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.jake-briefing{width:min(320px,calc(100vw - 24px))!important;padding:11px 13px!important;top:12px!important;right:12px!important;border-radius:12px!important;box-shadow:0 10px 34px #0008!important}
+.jake-briefing p{margin:8px 0!important;font-size:11px!important;line-height:1.45!important}
+.jake-briefing-open{font-size:10px!important}
+.jake-briefing-head img{width:22px!important;height:22px!important}
+.sidebar .nav .ico{display:grid!important;place-items:center;flex:0 0 24px;width:24px;height:24px;opacity:1!important}
+.sidebar .nav .ico svg{display:block!important;width:21px!important;height:21px!important;stroke:currentColor!important;fill:none!important;stroke-width:1.8!important;stroke-linecap:round;stroke-linejoin:round}
+.nav button[data-view="home"] .ico{color:#9fb8d5}.nav button[data-view="study"] .ico{color:#55c9c1}.nav-entry .ico{color:#b19ae9}.nav button[data-view="economy"] .ico{color:#e4bd70}
+.project-tools-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:14px;margin:18px 0}
+.project-tool-card{min-width:0;padding:17px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}
+.project-tool-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.project-tool-head h3{margin:0;font-size:14px}
+.project-calendar-controls{display:flex;align-items:center;gap:7px}
+.project-calendar-controls button,.project-calendar-day{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px}
+.project-calendar-controls button{padding:5px 9px}
+.project-calendar-month{font-size:11px;color:var(--muted);min-width:95px;text-align:center}
+.project-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.project-calendar-weekday{text-align:center;color:var(--muted);font-size:9px;padding:4px 0}
+.project-calendar-day{min-height:31px;padding:4px 2px;font-size:10px;position:relative}
+.project-calendar-day.muted{opacity:.3}.project-calendar-day.selected{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.project-calendar-day.has-event:after{content:"";position:absolute;bottom:3px;left:50%;width:4px;height:4px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}
+.project-event-form,.project-todo-form{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
+.project-event-form input,.project-todo-form input{min-width:0;flex:1;background:#0a1118;color:#f0f5fa;border:1px solid #34465a;border-radius:8px;padding:9px}
+.project-event-list,.project-todo-list{display:grid;gap:7px;margin-top:12px}
+.project-event-row,.project-todo-row{display:flex;align-items:center;gap:8px;padding:8px 9px;border:1px solid var(--line);border-radius:9px;font-size:11px}
+.project-event-row span,.project-todo-row span{flex:1;min-width:0;overflow-wrap:anywhere}
+.project-todo-row.done span{text-decoration:line-through;opacity:.55}
+.project-tool-empty{color:var(--muted);font-size:11px;padding:8px 0}
+.project-event-row button,.project-todo-row button{border:0;background:transparent;color:var(--muted);cursor:pointer}
+@media(max-width:760px){.project-tools-grid{grid-template-columns:1fr}.home-personal-entry{align-items:flex-start}}
+@media(max-width:700px){.nav button .ico{display:grid!important}.nav button{min-width:54px;padding:9px 7px!important}}
+</style>
+<script id="mancave-home-jake-personal-icons-projects-v4-script">
+(()=>{
+ const $=s=>document.querySelector(s),$=s=>[...document.querySelectorAll(s)];
+ // Keep the diary in its own Personal tab; Inicio links to it without duplicating the form.
+ const personal=$("#personal"),home=$("#home"),journal=$("#journalForm")?.closest(".card");
+ if(personal&&home&&journal){
+  journal.classList.add("journal-book");
+  const intro=personal.querySelector(".intro");
+  if(intro&&journal.parentElement!==personal)intro.insertAdjacentElement("afterend",journal);
+  const oldTitle=journal.querySelector("h3");if(oldTitle)oldTitle.textContent="Diario personal";
+  const date=journal.querySelector(".journal-date-heading")||journal.querySelector("#homeJournalDate");
+  if(date){date.textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());date.id="personalJournalDate"}
+ }
+ if(home&&!home.querySelector(".home-personal-entry")){
+  const link=document.createElement("div");link.className="home-personal-entry";
+  link.innerHTML='<div><b>Espacio personal</b><small>Tu diario, reflexiones, eventos y cumpleaños.</small></div><button class="btn secondary" type="button" data-open-personal>Entrar ↗</button>';
+  const grid=$("#homeInsightGrid");if(grid)grid.insertAdjacentElement("afterend",link);else home.append(link);
+ }
+ document.addEventListener("click",e=>{if(e.target.closest("[data-open-personal]"))window.go?.("personal")});
+ // Ensure the existing JAKE briefing behaves as a compact notification rather than a large hero.
+ const briefing=$("#jakeBriefing");if(briefing){briefing.setAttribute("aria-label","Notificación de JAKE");}
+ // Keep sidebar icons visible, including on narrow screens.
+ $(".sidebar .nav .ico").forEach(el=>{el.style.display="grid";el.style.opacity="1"});
+ // Update the Emprendimiento label to the project most recently modified.
+ const updateProjectLabel=()=>{
+  const label=$("#businessNavLabel");if(!label)return;
+  let newest=null;
+  Object.keys(localStorage).filter(k=>k.endsWith("_aulivra_projects")).forEach(k=>{try{const d=JSON.parse(localStorage.getItem(k)||"{}");(d.projects||[]).forEach(p=>{if(!newest||new Date(p.updatedAt||p.createdAt||0)>new Date(newest.updatedAt||newest.createdAt||0))newest=p})}catch{}});
+  label.textContent=newest?(newest.name||"Proyecto").trim().slice(0,26):"Emprendimiento";
+  label.title=newest?(newest.name||"Proyecto"):"Emprendimiento";
+ };
+ const nativeSet=Storage.prototype.setItem;
+ if(!Storage.prototype.__mancaveProjectLabelHook){Storage.prototype.setItem=function(k,v){nativeSet.call(this,k,v);if(String(k).endsWith("_aulivra_projects"))setTimeout(updateProjectLabel,0)};Storage.prototype.__mancaveProjectLabelHook=true}
+ updateProjectLabel();
+ // Project-specific task list and calendar. Both are saved inside the selected project.
+ const workspace=$("#projectWorkspace");
+ if(workspace&&!$("#projectToolsGrid")){
+  const tools=document.createElement("div");tools.id="projectToolsGrid";tools.className="project-tools-grid";
+  tools.innerHTML='<section class="project-tool-card"><div class="project-tool-head"><h3>Calendario del proyecto</h3><div class="project-calendar-controls"><button type="button" data-project-month="-1" aria-label="Mes anterior">‹</button><span class="project-calendar-month" id="projectCalendarMonth"></span><button type="button" data-project-month="1" aria-label="Mes siguiente">›</button></div></div><div class="project-calendar-grid" id="projectCalendarGrid"></div><form class="project-event-form" id="projectEventForm"><input id="projectEventTitle" maxlength="100" required placeholder="Nuevo evento"><input id="projectEventDate" type="date" required aria-label="Fecha del evento"><input id="projectEventTime" type="time" aria-label="Hora"><button class="btn secondary" type="submit">Añadir</button></form><div class="project-event-list" id="projectEventList"></div></section><section class="project-tool-card"><div class="project-tool-head"><h3>To do list</h3><span class="tiny" id="projectTodoCount">0 tareas</span></div><form class="project-todo-form" id="projectTodoForm"><input id="projectTodoText" maxlength="180" required placeholder="Añadir una tarea…"><button class="btn secondary" type="submit">＋</button></form><div class="project-todo-list" id="projectTodoList"></div></section>';
+  const footer=workspace.querySelector(".project-workspace-footer");workspace.insertBefore(tools,footer||null);
+ }
+ let monthCursor=new Date();monthCursor.setDate(1);let selectedDate=new Date().toLocaleDateString("en-CA");
+ const esc=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+ const allProjects=()=>{for(const k of Object.keys(localStorage).filter(k=>k.endsWith("_aulivra_projects"))){try{const d=JSON.parse(localStorage.getItem(k)||"{}");if(Array.isArray(d.projects)&&d.projects.length)return {key:k,data:d}}catch{}}return null};
+ const active=()=>{const p=allProjects();if(!p)return null;const name=$("#projectBreadcrumbName")?.textContent;return p.data.projects.find(x=>x.name===name)||p.data.projects.find(x=>x.id===window.__mancaveCurrentProjectId)||null};
+ const persist=(p)=>{const d=allProjects();if(!d||!p)return;p.updatedAt=new Date().toISOString();d.data.projects=d.data.projects.map(x=>x.id===p.id?p:x);localStorage.setItem(d.key,JSON.stringify(d.data));updateProjectLabel()};
+ const renderTools=()=>{
+  const p=active();if(!p)return;
+  p.projectTasks=p.projectTasks||[];p.calendarEvents=p.calendarEvents||[];
+  const grid=$("#projectCalendarGrid"),month=$("#projectCalendarMonth");if(!grid||!month)return;
+  month.textContent=monthCursor.toLocaleDateString("es-ES",{month:"long",year:"numeric"});
+  const year=monthCursor.getFullYear(),m=monthCursor.getMonth(),first=new Date(year,m,1),offset=(first.getDay()+6)%7,start=new Date(year,m,1-offset);
+  const days=["L","M","X","J","V","S","D"];grid.innerHTML=days.map(d=>'<div class="project-calendar-weekday">'+d+'</div>').join("");
+  for(let n=0;n<42;n++){const d=new Date(start);d.setDate(start.getDate()+n);const key=d.toLocaleDateString("en-CA"),outside=d.getMonth()!==m,has=p.calendarEvents.some(ev=>ev.date===key);grid.insertAdjacentHTML("beforeend",'<button type="button" class="project-calendar-day'+(outside?" muted":"")+(key===selectedDate?" selected":"")+(has?" has-event":"")+'" data-project-date="'+key+'">'+d.getDate()+'</button>')}
+  $("#projectEventDate").value=selectedDate;
+  const events=p.calendarEvents.filter(ev=>ev.date===selectedDate).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+  $("#projectEventList").innerHTML=events.map(ev=>'<div class="project-event-row"><span><b>'+esc(ev.title)+'</b><br><small>'+esc(ev.time||"Sin hora")+'</small></span><button type="button" data-delete-project-event="'+esc(ev.id)+'" aria-label="Eliminar evento">×</button></div>').join("")||'<div class="project-tool-empty">No hay eventos para este día.</div>';
+  $("#projectTodoCount").textContent=p.projectTasks.filter(t=>!t.done).length+" pendientes";
+  $("#projectTodoList").innerHTML=p.projectTasks.map(t=>'<div class="project-todo-row'+(t.done?" done":"")+'"><input type="checkbox" data-project-todo="'+esc(t.id)+'" '+(t.done?"checked":"")+'><span>'+esc(t.text)+(t.due?" · "+esc(t.due):"")+'</span><button type="button" data-delete-project-todo="'+esc(t.id)+'" aria-label="Eliminar tarea">×</button></div>').join("")||'<div class="project-tool-empty">Añade la primera tarea de este proyecto.</div>';
+ };
+ const refreshOnOpen=()=>{setTimeout(()=>{const name=$("#projectBreadcrumbName")?.textContent;if(name&&$("#projectWorkspace")&&!$("#projectWorkspace").hidden){const d=allProjects()?.data;const p=d?.projects.find(x=>x.name===name);if(p){window.__mancaveCurrentProjectId=p.id;renderTools()}}},80)};
+ document.addEventListener("click",e=>{
+  const month=e.target.closest("[data-project-month]");if(month){monthCursor.setMonth(monthCursor.getMonth()+Number(month.dataset.projectMonth));renderTools();return}
+  const day=e.target.closest("[data-project-date]");if(day){selectedDate=day.dataset.projectDate;renderTools();return}
+  const delEvent=e.target.closest("[data-delete-project-event]");if(delEvent){const p=active();if(p){p.calendarEvents=(p.calendarEvents||[]).filter(x=>x.id!==delEvent.dataset.deleteProjectEvent);persist(p);renderTools()}return}
+  const delTodo=e.target.closest("[data-delete-project-todo]");if(delTodo){const p=active();if(p){p.projectTasks=(p.projectTasks||[]).filter(x=>x.id!==delTodo.dataset.deleteProjectTodo);persist(p);renderTools()}return}
+  if(e.target.closest("#createProjectBtn,[data-create-first-project],[data-open-project]"))refreshOnOpen();
+ });
+ $("#projectEventForm")?.addEventListener("submit",e=>{e.preventDefault();const p=active();if(!p)return;p.calendarEvents=p.calendarEvents||[];p.calendarEvents.push({id:crypto.randomUUID(),title:$("#projectEventTitle").value.trim(),date:$("#projectEventDate").value,time:$("#projectEventTime").value});persist(p);$("#projectEventTitle").value="";renderTools()});
+ $("#projectTodoForm")?.addEventListener("submit",e=>{e.preventDefault();const p=active();if(!p)return;p.projectTasks=p.projectTasks||[];p.projectTasks.push({id:crypto.randomUUID(),text:$("#projectTodoText").value.trim(),done:false});persist(p);$("#projectTodoText").value="";renderTools()});
+ $("#projectTodoList")?.addEventListener("change",e=>{const id=e.target.dataset.projectTodo;if(!id)return;const p=active(),t=p?.projectTasks?.find(x=>x.id===id);if(t){t.done=e.target.checked;persist(p);renderTools()}});
+ $("#projectTitleInput")?.addEventListener("change",()=>setTimeout(updateProjectLabel,60));
+ // Watch project workspace opening/closing to render the correct project data.
+ const observer=new MutationObserver(()=>refreshOnOpen());if(workspace)observer.observe(workspace,{attributes:true,attributeFilter:["hidden"]});
+ document.addEventListener("input",e=>{if(e.target.matches("#projectBlocks textarea"))setTimeout(updateProjectLabel,50)});
+})();
+</script>
+
 </body></html>
