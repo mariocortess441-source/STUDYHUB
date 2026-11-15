@@ -2847,4 +2847,132 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
 })();
 </script>
 
+
+<style id="mancave-home-flow-personal-calendar-v5">
+/* Fix the collapsed rail: keep complete, clickable icons instead of clipping them. */
+#appShell{min-width:0}
+#appShell.sidebar-hidden{grid-template-columns:76px minmax(0,1fr)!important}
+#appShell.sidebar-hidden .sidebar{display:flex!important;width:76px!important;min-width:76px!important;padding:24px 8px!important;overflow:visible!important;visibility:visible!important;border-right:1px solid var(--line)!important}
+#appShell.sidebar-hidden .sidebar .brand,
+#appShell.sidebar-hidden .sidebar .nav-label,
+#appShell.sidebar-hidden .sidebar .navtext,
+#appShell.sidebar-hidden .sidebar .sidebar-account,
+#appShell.sidebar-hidden .sidebar .side-bottom{display:none!important}
+#appShell.sidebar-hidden .sidebar .nav{width:100%;gap:9px}
+#appShell.sidebar-hidden .sidebar .nav button{width:100%;min-width:0;min-height:48px;padding:10px 0!important;justify-content:center!important;overflow:visible}
+#appShell.sidebar-hidden .sidebar .nav .ico{width:26px!important;height:26px!important;flex:0 0 26px!important;display:grid!important;place-items:center!important}
+#appShell.sidebar-hidden .sidebar .nav .ico svg{width:24px!important;height:24px!important;overflow:visible}
+#appShell.sidebar-hidden main{min-width:0}
+main,.view,#home{min-width:0;max-width:100%}
+.home-insight-grid{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));}
+.home-insight{min-width:0;overflow:hidden}
+.home-insight-message{overflow-wrap:anywhere}
+@media(max-width:1150px){.home-insight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){#appShell.sidebar-hidden{grid-template-columns:0 minmax(0,1fr)!important}#appShell.sidebar-hidden .sidebar{display:none!important}.home-insight-grid{grid-template-columns:1fr}}
+/* Refined navigation symbols */
+.sidebar .nav button[data-view="study"] .ico svg{width:23px;height:23px}
+.sidebar .nav button[data-view="study"] .ico svg path{d:path("M4 4.5C6.8 3.4 9.5 3.7 12 5v15c-2.5-1.3-5.2-1.6-8-0.5z M20 4.5C17.2 3.4 14.5 3.7 12 5v15c2.5-1.3 5.2-1.6 8-0.5z M12 5v15")}
+.sidebar .nav button[data-view="entrepreneurship"] .ico svg{width:23px;height:23px}
+.sidebar .nav button[data-view="entrepreneurship"] .ico svg path{d:path("M4 17l5-5 3 2 7-8 M13 6h6v6")}
+.sidebar .nav button[data-view="economy"] .ico svg{width:23px;height:23px}
+.sidebar .nav button[data-view="economy"] .ico svg path{d:path("M12 3v18 M16.5 7.5c-.7-1-2.1-1.5-4.3-1.5-2.3 0-4 1.1-4 3s1.5 2.7 4 3.1 4.1 1.1 4.1 3.1-1.7 3.3-4.3 3.3c-2 0-3.8-.7-4.7-1.9")}
+.home-flow-card{margin:4px 0 20px;padding:22px!important;overflow:hidden}
+.home-flow-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:10px}
+.home-flow-head h3{font:800 17px Manrope;margin:0 0 5px}
+.home-flow-head p{font-size:11px;color:var(--muted);margin:0}
+.home-flow-total{font:800 24px Manrope;white-space:nowrap}
+.home-flow-svg{width:100%;height:auto;display:block;overflow:visible}
+.home-flow-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;color:var(--muted);font-size:10px}
+.home-flow-legend span{display:flex;align-items:center;gap:6px}
+.home-flow-legend i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.home-flow-breakdown{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 22px}
+.home-flow-metric{padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}
+.home-flow-metric-top{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted);margin-bottom:9px}
+.home-flow-metric-top b{color:var(--text);font-size:11px}
+.home-flow-track{height:5px;background:var(--panel2);border-radius:9px;overflow:hidden}
+.home-flow-track i{height:100%;width:0;display:block;border-radius:9px;background:var(--flow-color);transition:width .5s}
+#personal .personal-journal-calendar{margin:16px 0 20px}
+.personal-journal-calendar .pcal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}
+.personal-journal-calendar .pcal-head h3{margin:0;font-size:15px}
+.personal-journal-calendar .pcal-head button{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:9px;padding:7px 11px}
+.pcal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.pcal-weekday{text-align:center;color:var(--muted);font-size:10px;padding:4px}
+.pcal-day{position:relative;min-height:42px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;font-size:11px}
+.pcal-day.outside{opacity:.28}.pcal-day.today{border-color:var(--accent)}
+.pcal-day.wrote{background:#211b36;border-color:#8064d8;color:#e8dcff}
+.pcal-day.wrote:after{content:"✓";position:absolute;right:5px;top:2px;font-size:10px;color:#8ce0b6;font-weight:800}
+.pcal-day.selected{box-shadow:inset 0 0 0 1px var(--accent)}
+.pcal-summary{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:11px}
+.pcal-checklist{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.pcal-checklist span{padding:6px 9px;border:1px solid var(--line);border-radius:20px;font-size:10px;color:var(--muted)}
+.pcal-checklist span.done{color:#9ce5bf;border-color:#386b55;background:#14251e}
+@media(max-width:900px){.home-flow-breakdown{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.home-flow-card{padding:15px!important}.home-flow-head{flex-direction:column}.home-flow-breakdown{grid-template-columns:1fr 1fr}.pcal-grid{gap:3px}.pcal-day{min-height:35px}}
+</style>
+<script id="mancave-home-flow-personal-calendar-v5-script">
+(()=>{
+ const $=s=>document.querySelector(s),home=$("#home"),personal=$("#personal");
+ if(!home||!personal)return;
+ const days7=()=>Array.from({length:7},(_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-6+i);return d});
+ const dayKey=d=>{const x=new Date(d);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
+ const fmt=n=>Number(n||0).toLocaleString("es-ES",{maximumFractionDigits:0});
+ // Add a clear, full-width activity flow chart above the four area cards.
+ if(!$("#homeFlowCard")){
+  const card=document.createElement("section");card.id="homeFlowCard";card.className="card home-flow-card";
+  card.innerHTML='<div class="home-flow-head"><div><h3>Flujo de actividad</h3><p>Cómo se ha movido tu semana, día a día</p></div><div class="home-flow-total" id="homeFlowTotal">0 acciones</div></div><svg class="home-flow-svg" id="homeFlowSvg" viewBox="0 0 700 190" role="img" aria-label="Gráfica de flujo semanal"><defs><linearGradient id="homeFlowFill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#9b7cff" stop-opacity=".32"/><stop offset="1" stop-color="#9b7cff" stop-opacity="0"/></linearGradient></defs><path id="homeFlowArea" fill="url(#homeFlowFill)"></path><path id="homeFlowLine" fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path><g id="homeFlowDots"></g><g id="homeFlowLabels" fill="currentColor" opacity=".7" font-size="11" text-anchor="middle"></g></svg><div class="home-flow-legend"><span><i style="background:#a78bfa"></i>Actividad total</span><span><i style="background:#58cdbf"></i>Estudio</span><span><i style="background:#e4b965"></i>Economía</span></div></section>';
+  const title=$(".home-dashboard-title");if(title)title.insertAdjacentElement("afterend",card);else home.prepend(card);
+ }
+ if(!$("#homeFlowBreakdown")){
+  const box=document.createElement("div");box.id="homeFlowBreakdown";box.className="home-flow-breakdown";
+  box.innerHTML=[["Estudio","#58cdbf"],["Emprendimiento","#a78bfa"],["Economía","#e4b965"],["Acciones","#8ca9e8"]].map((x,i)=>'<div class="home-flow-metric" style="--flow-color:'+x[1]+'"><div class="home-flow-metric-top"><span>'+x[0]+'</span><b id="homeFlowMetric'+i+'">0</b></div><div class="home-flow-track"><i id="homeFlowBar'+i+'"></i></div></div>').join("");
+  $("#homeFlowCard").insertAdjacentElement("afterend",box);
+ }
+ function updateFlow(){
+  if(typeof store==="undefined")return;
+  const days=days7(),keys=days.map(dayKey),sessions=store.get("sessions",[]),work=store.get("aulivra_business_hours",[]),eco=store.get("aulivra_economy",{movements:[]}),moves=eco.movements||[],subjects=store.get("aulivra_subjects",[]),pending=subjects.flatMap(x=>x.tasks||[]).filter(x=>!x.done).length;
+  const study=keys.map(k=>sessions.filter(x=>x.date===k).reduce((a,x)=>a+Number(x.minutes||0),0));
+  const business=keys.map(k=>work.filter(x=>x.date===k).reduce((a,x)=>a+Number(x.minutes||0),0));
+  const money=keys.map(k=>moves.filter(x=>x.date===k).reduce((a,x)=>a+Number(x.amount||0),0));
+  const actions=keys.map((k,i)=>sessions.filter(x=>x.date===k).length+work.filter(x=>x.date===k).length+moves.filter(x=>x.date===k).length+(i===6?pending:0));
+  const max=Math.max(1,...actions),pts=actions.map((v,i)=>({x:35+i*105,y:145-(v/max)*105}));
+  const line=pts.map((p,i)=>(i?"L":"M")+p.x+" "+p.y).join(" "),area=line+" L665 165 L35 165 Z";
+  $("#homeFlowLine").setAttribute("d",line);$("#homeFlowArea").setAttribute("d",area);
+  $("#homeFlowDots").innerHTML=pts.map(p=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="4.5" fill="#a78bfa" stroke="#171326" stroke-width="2"></circle>').join("");
+  $("#homeFlowLabels").innerHTML=days.map((d,i)=>'<text x="'+pts[i].x+'" y="184">'+d.toLocaleDateString("es-ES",{weekday:"short"}).replace(".","")+'</text>').join("");
+  const total=actions.reduce((a,b)=>a+b,0);$("#homeFlowTotal").textContent=fmt(total)+" acciones";
+  const metrics=[study.reduce((a,b)=>a+b,0),Math.round(business.reduce((a,b)=>a+b,0)/60*10)/10,money.reduce((a,b)=>a+b,0),total],labels=[fmt(metrics[0])+" min",fmt(metrics[1])+" h",fmt(metrics[2])+" €",fmt(metrics[3])];
+  const maxMetric=Math.max(1,...metrics.map(Math.abs));metrics.forEach((v,i)=>{$("#homeFlowMetric"+i).textContent=labels[i];$("#homeFlowBar"+i).style.width=Math.min(100,Math.abs(v)/maxMetric*100)+"%"});
+ }
+ updateFlow();document.addEventListener("visibilitychange",()=>{if(!document.hidden)updateFlow()});document.addEventListener("click",e=>{if(e.target.closest(".nav button,[data-go]"))setTimeout(updateFlow,180)});
+ // The journal checklist reads the exact same saved entries as the diary form.
+ let cursor=new Date();cursor.setDate(1);let selected=dayKey(new Date());
+ const journalEntries=()=>{const keys=Object.keys(localStorage).filter(k=>k.endsWith("_aulivra_journal"));for(const k of keys){try{const v=JSON.parse(localStorage.getItem(k)||"[]");if(Array.isArray(v))return v}catch{}}return []};
+ if(!$("#personalJournalCalendar")){
+  const el=document.createElement("section");el.id="personalJournalCalendar";el.className="card personal-journal-calendar";
+  el.innerHTML='<div class="pcal-head"><button type="button" id="pcalPrev" aria-label="Mes anterior">‹</button><h3 id="pcalMonth">Diario · calendario</h3><button type="button" id="pcalNext" aria-label="Mes siguiente">›</button></div><div class="pcal-grid" id="pcalGrid"></div><div class="pcal-summary"><span id="pcalSummary">✓ Días con journaling</span><span id="pcalSelected">Selecciona un día</span></div><div class="pcal-checklist" id="pcalChecklist"></div></section>';
+  const intro=personal.querySelector(".intro");if(intro)intro.insertAdjacentElement("afterend",el);
+ }
+ const renderJournalCalendar=()=>{
+  const entries=journalEntries(),done=new Set(entries.map(x=>x.date)),y=cursor.getFullYear(),m=cursor.getMonth(),first=new Date(y,m,1),offset=(first.getDay()+6)%7,start=new Date(y,m,1-offset);
+  $("#pcalMonth").textContent=cursor.toLocaleDateString("es-ES",{month:"long",year:"numeric"});
+  const grid=$("#pcalGrid");grid.innerHTML=["L","M","X","J","V","S","D"].map(x=>'<div class="pcal-weekday">'+x+'</div>').join("");
+  for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const k=dayKey(d);grid.insertAdjacentHTML("beforeend",'<button type="button" class="pcal-day'+(d.getMonth()!==m?" outside":"")+(done.has(k)?" wrote":"")+(k===dayKey(new Date())?" today":"")+(k===selected?" selected":"")+'" data-pcal-date="'+k+'">'+d.getDate()+'</button>')}
+  const monthDone=entries.filter(x=>String(x.date||"").startsWith(y+"-"+String(m+1).padStart(2,"0"))).length;
+  $("#pcalSummary").textContent="✓ "+monthDone+" días con journaling este mes";
+  $("#pcalSelected").textContent=done.has(selected)?"✓ Journaling completado · "+selected:"Día seleccionado · "+selected;
+  const recent=Array.from({length:7},(_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return dayKey(d)});
+  $("#pcalChecklist").innerHTML=recent.map(k=>'<span class="'+(done.has(k)?"done":"")+'">'+(done.has(k)?"✓ ":"○ ")+k.slice(5)+'</span>').join("");
+ };
+ renderJournalCalendar();
+ document.addEventListener("click",e=>{
+  if(e.target.closest("#pcalPrev")){cursor.setMonth(cursor.getMonth()-1);renderJournalCalendar()}
+  if(e.target.closest("#pcalNext")){cursor.setMonth(cursor.getMonth()+1);renderJournalCalendar()}
+  const d=e.target.closest("[data-pcal-date]");if(d){selected=d.dataset.pcalDate;renderJournalCalendar();const input=$("#journalDate");if(input)input.value=selected}
+ });
+ $("#journalForm")?.addEventListener("submit",()=>setTimeout(renderJournalCalendar,80));
+ // Make sure sidebar icons are never clipped in either full or compact navigation mode.
+ document.querySelectorAll(".sidebar .nav .ico svg").forEach(svg=>{svg.style.overflow="visible";svg.style.display="block"});
+})();
+</script>
+
 </body></html>
