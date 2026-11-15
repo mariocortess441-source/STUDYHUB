@@ -1,4 +1,4 @@
-const CACHE_NAME = "aulivra-shell-v19";
+const CACHE_NAME = "aulivra-shell-v21";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/aulivra-mark.svg"];
 
 self.addEventListener("install", event => {
@@ -23,7 +23,7 @@ self.addEventListener("fetch", event => {
 
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: "no-cache" })
         .then(response => {
           const copy = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put("/", copy));
