@@ -507,7 +507,80 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 .calendar-timed-event b{font-size:11px}.calendar-timed-event small{font-size:9px;color:var(--muted)}
 @media(max-width:700px){.jarvis-section-advisor{align-items:flex-start;flex-wrap:wrap;padding:12px}.jarvis-advisor-copy{flex-basis:calc(100% - 58px)}.jarvis-section-advisor button{margin-left:55px}.calendar-hour-row{grid-template-columns:48px minmax(12px,.5fr) minmax(0,3fr)}.calendar-hour-row>span{font-size:10px;padding:9px 4px}}
 
-.calendar-edit-list{display:grid;gap:7px;margin-top:10px}.calendar-edit-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--line);border-radius:9px}.calendar-edit-row span{flex:1;min-width:120px;font-size:12px}.calendar-card{width:100%;max-width:none}.calendar-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.calendar-toolbar h3{flex:1;min-width:150px}.calendar-mode{display:flex;gap:6px;flex-wrap:wrap}.calendar-days{grid-auto-rows:minmax(110px,auto)}.calendar-day{min-width:0;overflow:hidden;text-align:left;padding:8px;display:flex;flex-direction:column;align-items:stretch;gap:4px}.calendar-dot{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:5px;padding:3px 5px;font-size:10px;max-width:100%}@media(min-width:1000px){.calendar-card{padding:24px}.calendar-days{grid-auto-rows:minmax(125px,auto)}.calendar-dot{font-size:11px}}@media(max-width:700px){.calendar-days{grid-auto-rows:minmax(76px,auto)}.calendar-dot{font-size:9px}.calendar-toolbar h3{min-width:100%;order:-1}}.home-screen-chart-wrap{margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}.home-screen-chart-wrap>b{font-size:12px}.home-screen-chart{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;align-items:end;height:125px;margin-top:12px}.screen-chart-day{display:flex;flex-direction:column;align-items:center;justify-content:end;gap:6px;height:100%;min-width:0}.screen-chart-barbox{height:88px;width:100%;display:flex;align-items:end;background:color-mix(in srgb,var(--line) 50%,transparent);border-radius:7px 7px 3px 3px;overflow:hidden}.screen-chart-bar{width:100%;min-height:2px;background:linear-gradient(180deg,#b59aff,#7655e8);border-radius:7px 7px 0 0}.screen-chart-day small{font-size:9px;color:var(--muted)}.screen-chart-day em{font-size:9px;font-style:normal;color:var(--text);font-variant-numeric:tabular-nums}@media(max-width:560px){.home-screen-chart{gap:4px}.screen-chart-day small,.screen-chart-day em{font-size:8px}}</style>
+.calendar-edit-list{display:grid;gap:7px;margin-top:10px}.calendar-edit-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--line);border-radius:9px}.calendar-edit-row span{flex:1;min-width:120px;font-size:12px}.calendar-card{width:100%;max-width:none}.calendar-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.calendar-toolbar h3{flex:1;min-width:150px}.calendar-mode{display:flex;gap:6px;flex-wrap:wrap}.calendar-days{grid-auto-rows:minmax(110px,auto)}.calendar-day{min-width:0;overflow:hidden;text-align:left;padding:8px;display:flex;flex-direction:column;align-items:stretch;gap:4px}.calendar-dot{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:5px;padding:3px 5px;font-size:10px;max-width:100%}@media(min-width:1000px){.calendar-card{padding:24px}.calendar-days{grid-auto-rows:minmax(125px,auto)}.calendar-dot{font-size:11px}}@media(max-width:700px){.calendar-days{grid-auto-rows:minmax(76px,auto)}.calendar-dot{font-size:9px}.calendar-toolbar h3{min-width:100%;order:-1}}.home-screen-chart-wrap{margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}.home-screen-chart-wrap>b{font-size:12px}.home-screen-chart{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;align-items:end;height:125px;margin-top:12px}.screen-chart-day{display:flex;flex-direction:column;align-items:center;justify-content:end;gap:6px;height:100%;min-width:0}.screen-chart-barbox{height:88px;width:100%;display:flex;align-items:end;background:color-mix(in srgb,var(--line) 50%,transparent);border-radius:7px 7px 3px 3px;overflow:hidden}.screen-chart-bar{width:100%;min-height:2px;background:linear-gradient(180deg,#b59aff,#7655e8);border-radius:7px 7px 0 0}.screen-chart-day small{font-size:9px;color:var(--muted)}.screen-chart-day em{font-size:9px;font-style:normal;color:var(--text);font-variant-numeric:tabular-nums}@media(max-width:560px){.home-screen-chart{gap:4px}.screen-chart-day small,.screen-chart-day em{font-size:8px}}
+/* AULIVRA / JAKE — minimal interface refresh */
+:root{--bg:#080b12;--line:#242b39;--accent:#8da9c8;--accent2:#6f8eae;--purple-soft:#172231;--purple-line:#34465a;--purple-text:#d8e5f2}
+body{background:#080b12}
+.sidebar{background:#0b0e15;border-color:#202837}
+.brand strong{letter-spacing:2px;font-size:15px}
+.brand small,.nav-label,.side-bottom{display:none}
+.brand{padding:8px 8px 24px}
+.logo-img{width:36px;height:36px;filter:none}
+.nav{gap:3px}
+.nav button{padding:12px 13px;color:#aab5c5;border-radius:9px}
+.nav button .ico{opacity:.62}
+.nav button:hover,.nav button.active{background:#151e2b;color:#f0f5fb}
+.nav button.active{box-shadow:inset 2px 0 #9db5cf}
+main{padding-top:24px}
+.top{margin-bottom:30px;padding-bottom:17px;border-bottom:1px solid #1d2532}
+.top-left{display:flex;align-items:center;gap:15px}
+.top-brand{display:flex;align-items:center;gap:10px}
+.top-brand-mark{width:35px;height:35px;object-fit:contain}
+.top-brand strong{display:block;font:800 14px Manrope;letter-spacing:2px;color:#f2f5fa}
+.top-brand span{display:block;margin-top:3px;color:#8d9bad;font-size:11px}
+#pageTitle{font:500 11px "DM Sans",sans-serif;letter-spacing:.2px}
+.top .eyebrow{display:none}
+.sidebar-toggle{width:38px;height:38px;border-radius:9px;background:#111722;border-color:#293547;color:#c7d3e2}
+.card,.quick,.subject{box-shadow:none;border-color:#242b39;background:#10151f}
+.card{border-radius:14px;padding:21px}
+.quick{border-radius:12px}
+.quick:hover{box-shadow:none;border-color:#6e88a6}
+.btn{background:#7894b2;box-shadow:none;color:#07101a}
+.btn.secondary{background:#1a2635;border-color:#34465a;color:#dce7f2}
+.btn.ghost{background:transparent;border-color:#344052;color:#c5d0df}
+.stat-icon,.subject-tag{background:#1a2635;color:#c5d7e9}
+.home-hero-compact,.jarvis-section-advisor,.home-assistant-card{display:none!important}
+.home-daily-card,.home-period-panel,.home-chart-card{border-radius:14px}
+.home-section-kicker,.home-period-top .home-section-kicker{letter-spacing:1.2px}
+.home-area-row{border-color:#222b39}
+.assistant-launcher{right:22px;bottom:22px;border:1px solid #5a7088;border-radius:50%;width:58px;height:58px;padding:10px;background:#111a26;box-shadow:0 8px 30px #0009;justify-content:center}
+.assistant-launcher img{width:28px;height:28px;object-fit:contain}
+.assistant-launcher span{display:none}
+.assistant-panel{background:#0e131c;border:1px solid #34465a;border-radius:15px;box-shadow:0 18px 60px #000b}
+.assistant-head{background:#111a26;border-bottom:1px solid #29384a;padding:14px 16px}
+.assistant-head strong{font-size:13px;letter-spacing:1.5px}
+.assistant-head small{color:#93a5b9}
+.assistant-messages{gap:16px;padding:18px}
+.assistant-msg{max-width:100%;padding:0;border:0!important;border-radius:0!important;background:transparent!important;color:#dce4ee!important;font-size:13px;line-height:1.75;white-space:pre-wrap}
+.assistant-msg.bot{align-self:stretch}
+.assistant-msg.user{align-self:stretch;text-align:right;color:#9db9d8!important}
+.assistant-quick,.assistant-note{display:none!important}
+.assistant-form{border-top:1px solid #293444}
+.assistant-form input{background:#090e16;border-color:#303e50}
+.assistant-form button{background:#7894b2;color:#07101a}
+.jake-briefing{position:fixed;z-index:9999;top:18px;right:20px;width:min(370px,calc(100vw - 32px));padding:15px 16px 13px;background:#101722;border:1px solid #536a84;border-radius:13px;box-shadow:0 18px 60px #000b;opacity:0;transform:translateY(-12px);pointer-events:none;transition:opacity .25s,transform .25s}
+.jake-briefing.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.jake-briefing-head{display:flex;align-items:center;gap:10px}
+.jake-briefing-head img{width:27px;height:27px;object-fit:contain}
+.jake-briefing-head strong{display:block;color:#edf3fa;font:800 12px Manrope;letter-spacing:1.4px}
+.jake-briefing-head span{display:block;margin-top:2px;color:#8fa2b8;font-size:10px}
+.jake-briefing-head button{margin-left:auto;border:0;background:none;color:#aab8c8;font-size:20px}
+.jake-briefing p{margin:13px 0;color:#d6e0eb;font-size:12px;line-height:1.65}
+.jake-briefing-open{border:0;background:transparent;color:#a9c4df;padding:3px 0;font-size:11px;font-weight:700}
+@media(max-width:700px){
+ .top{margin:4px 2px 20px!important;padding-bottom:12px}
+ .top-brand-mark{width:30px;height:30px}
+ .top-brand strong{font-size:12px}
+ .top-brand span{font-size:10px}
+ .top .user-chip #userName{display:none}
+ .jake-briefing{top:10px;right:10px}
+ .assistant-launcher{right:14px;bottom:calc(82px + env(safe-area-inset-bottom));width:50px;height:50px}
+ .assistant-panel{right:10px;bottom:calc(140px + env(safe-area-inset-bottom));max-height:calc(100dvh - 165px)}
+ .nav button .ico{display:none!important}
+ .nav button{min-width:54px;padding:8px 5px!important}
+}
+
+</style>
 
 <style>
 .notification-onboarding{position:fixed;inset:0;z-index:1300;display:none;place-items:center;padding:20px;background:#080610bd;backdrop-filter:blur(7px)}.notification-onboarding.open{display:grid}.notification-onboarding-card{width:min(100%,430px);padding:28px;border:1px solid #49385f;border-radius:23px;background:#171124;color:#f6f1ff;box-shadow:0 25px 90px #0009}.notification-onboarding-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:#302247;color:#d5c2ff;font-size:25px;margin-bottom:16px}.notification-onboarding-card h2{font:800 24px Manrope;margin:8px 0}.notification-onboarding-card p{color:#c0b6d1;font-size:13px;line-height:1.6}.notification-onboarding-actions{display:grid;gap:9px;margin:20px 0 12px}.notification-onboarding-actions button{width:100%}.notification-onboarding-card>small{color:#958aa9;font-size:10px}
@@ -564,7 +637,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
 <main>
-  <header class="top"><div style="display:flex;align-items:center;gap:14px"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú">☰</button><div><div class="eyebrow">TU ESPACIO DE PRODUCTIVIDAD</div><h1 id="pageTitle">Todo en un mismo lugar.</h1></div></div><div class="user-chip"><span id="userName">Modo invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none">Salir</button><div class="date" id="today"></div></div></header>
+  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú">☰</button><div class="top-brand"><img src="/aulivra-mark.svg" alt="" class="top-brand-mark"><div><strong>AULIVRA</strong><span id="pageTitle">Inicio</span></div></div></div><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button">Acceder</button><button class="btn ghost" id="logoutBtn" style="display:none">Salir</button><div class="date" id="today"></div></div></header>
 
   <section class="view active" id="home">
 <div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su organización diaria.</b><small>Revisión de prioridades, agenda, hábitos y próximos pasos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a priorizar mis tareas de hoy, revisar mis compromisos y proponer un plan realista.">Consultar a JAKE</button></div>
@@ -769,14 +842,15 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 <div class="toast" id="toast"></div>
 <div class="notification-onboarding" id="notificationOnboarding" aria-hidden="true"><section class="notification-onboarding-card" role="dialog" aria-modal="true" aria-labelledby="notificationOnboardingTitle"><div class="notification-onboarding-icon">♧</div><span class="home-section-kicker">AULIVRA · RECORDATORIOS</span><h2 id="notificationOnboardingTitle">¿Activamos tus avisos?</h2><p>JAKE puede recordarte tus tareas, bloques de estudio y compromisos. Puedes permitirlos ahora o decidir más tarde.</p><div class="notification-onboarding-actions"><button type="button" class="btn" id="notificationOnboardingAllow">Activar notificaciones</button><button type="button" class="btn ghost" id="notificationOnboardingLater">Ahora no</button></div><small>El permiso lo controlas tú desde los ajustes del navegador.</small></section></div>
 
+<section class="jake-briefing" id="jakeBriefing" role="status" aria-live="polite"><div class="jake-briefing-head"><img src="/aulivra-mark.svg" alt=""><div><strong>JAKE</strong><span>Resumen de inicio</span></div><button type="button" id="jakeBriefingClose" aria-label="Cerrar resumen">×</button></div><p id="jakeBriefingText">Buenos días, señor. Estoy preparando su resumen.</p><button type="button" class="jake-briefing-open" id="jakeBriefingOpen">Ver agenda</button></section>
 <div class="assistant-panel" id="studyAssistant" role="dialog" aria-label="Chat con JAKE">
   <div class="assistant-head"><div><strong>JAKE</strong><small>Tu asistente personal · ayuda guiada</small></div><button class="assistant-close" id="assistantClose" aria-label="Cerrar">×</button></div>
-  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">Buenos días, señor. Soy JAKE, su asistente personal. Estoy a su disposición para organizar sus prioridades, revisar sus tareas y optimizar sus métodos de trabajo. ¿Qué desea resolver?</div></div>
+  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">Buenos días, señor. He revisado su actividad y estoy listo para ayudarle.</div></div>
   <div class="assistant-quick" id="assistantQuick"><button type="button" data-help="¿Cómo uso el temporizador?">Temporizador</button><button type="button" data-help="¿Cómo guardo mis notas?">Mis notas</button><button type="button" data-help="¿Cómo convierto un archivo?">Archivos</button><button type="button" data-help="¿Cómo comparto un archivo?">Compartir</button></div>
   <form class="assistant-form" id="assistantForm"><input id="assistantInput" autocomplete="off" placeholder="Escribe tu duda…" aria-label="Escribe tu duda"><button type="submit">Enviar</button></form>
   <div class="assistant-note">JAKE utiliza respuestas guiadas predefinidas por ahora; todavía no es una IA generativa. Tus mensajes no se envían a un servicio externo.</div>
 </div>
-<button class="assistant-launcher fly-launcher" id="assistantLauncher" type="button" aria-label="Abrir el chat de JAKE" aria-expanded="false"><span class="fly-wing">◜</span><span class="fly-body">J</span><span class="fly-wing fly-wing-right">◝</span></button>
+<button class="assistant-launcher fly-launcher" id="assistantLauncher" type="button" aria-label="Abrir el chat de JAKE" aria-expanded="false"><img src="/aulivra-mark.svg" alt=""><span>JAKE</span></button>
 
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script>
@@ -840,6 +914,21 @@ function pauseTimer(){running=false;if(interval)clearInterval(interval);interval
 function startTimer(){if(running){pauseTimer();$("#timerStart").textContent="Continuar";return}running=true;$("#timerStart").textContent="Pausar";interval=setInterval(()=>{remaining--;clock();if(remaining<=0){pauseTimer();if(mode==="work"){completed++;const sessions=store.get("sessions",[]);sessions.unshift({date:new Date().toLocaleDateString("en-CA"),subject:$("#timerSubject").value||"Estudio",minutes:Math.round(duration/60),at:new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})});store.set("sessions",sessions.slice(0,60));toast("¡Bloque completado! Toca descansar.");mode="break";duration=breakDuration;remaining=duration;$("#timerStart").textContent="Empezar descanso"}else{mode="work";duration=25*60;remaining=duration;breakDuration=5*60;$("#timerStart").textContent="Empezar";toast("Descanso terminado. ¡A por el siguiente bloque!")};clock();renderSessions();renderHome()}},1000)}
 $("#timerStart").onclick=startTimer;$("#timerReset").onclick=()=>{pauseTimer();remaining=duration;$("#timerStart").textContent="Empezar";clock()};clock();
 function renderSessions(){const all=store.get("sessions",[]),today=new Date().toLocaleDateString("en-CA"),mins=all.filter(s=>s.date===today).reduce((a,s)=>a+s.minutes,0);$("#todayMinutes").textContent=mins;$("#sessionHistory").innerHTML=all.length?all.slice(0,6).map(s=>`<div class="file-line"><span style="flex:1">${esc(s.subject)}<small class="muted"> · ${s.at}</small></span><b>${s.minutes} min</b></div>`).join(""):"Aún no hay sesiones."}
+
+function showJakeBriefing(){
+ const box=document.getElementById("jakeBriefing");if(!box||window.__jakeBriefingShown)return;window.__jakeBriefingShown=true;
+ const count=document.getElementById("homeTodayCount")?.textContent||"0";
+ const pending=document.getElementById("homeTaskCount")?.textContent||"0";
+ const blocks=document.getElementById("homeBlockCount")?.textContent||"0";
+ const list=(document.getElementById("homeTodayList")?.innerText||"").trim().replace(/\\s+/g," ").slice(0,150);
+ const hour=new Date().getHours();const greeting=hour<12?"Buenos días":hour<20?"Buenas tardes":"Buenas noches";
+ const details=list&&!/cargando|no tienes|sin tareas/i.test(list)?" Próximo en agenda: "+list+".":"";
+ document.getElementById("jakeBriefingText").textContent=greeting+", señor. Tiene "+count+" elementos en su agenda, "+pending+" tareas pendientes y "+blocks+" bloques de estudio."+details;
+ box.classList.add("visible");window.setTimeout(()=>box.classList.remove("visible"),12000);
+}
+document.getElementById("jakeBriefingClose")?.addEventListener("click",()=>document.getElementById("jakeBriefing")?.classList.remove("visible"));
+document.getElementById("jakeBriefingOpen")?.addEventListener("click",()=>{document.getElementById("jakeBriefing")?.classList.remove("visible");document.getElementById("assistantLauncher")?.click()});
+
 function renderHome(){const h=store.get("grades",[]),t=store.get("templates",[]),today=new Date().toLocaleDateString("en-CA"),mins=store.get("sessions",[]).filter(s=>s.date===today).reduce((a,s)=>a+s.minutes,0);$("#homeSubjects").textContent=t.length;$("#homeSessions").textContent=mins;$("#homeAverage").textContent=h.length?(h.reduce((a,x)=>a+x.score,0)/h.length).toFixed(2):"—"}
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 renderGrades();renderHome();renderSessions();
@@ -880,6 +969,7 @@ async function enterApp(user){
   }catch{toast("No se pudo sincronizar con la nube. Conservamos los datos de este dispositivo.")}
  }
  renderHome();renderGrades();renderSessions();if(user){renderSubjects();renderEvents();renderCalendar()}
+ setTimeout(showJakeBriefing,850);
 }
 $("#authForm").onsubmit=async e=>{e.preventDefault();const b=$("#authSubmit");b.disabled=true;b.textContent="Un momento…";$("#authError").style.display="none";try{const payload={email:$("#authEmail").value,password:$("#authPassword").value};if(authMode==="register")payload.name=$("#authName").value;const r=await fetch("/api/auth/"+(authMode==="login"?"login":"register"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const j=await r.json();if(!r.ok)throw Error(j.error||"No se pudo acceder.");enterApp(j.user)}catch(err){$("#authError").textContent=err.message;$("#authError").style.display="block"}finally{b.disabled=false;b.textContent=authMode==="login"?"Entrar en AULIVRA":"Crear mi cuenta"}};
 $("#loginBtn").onclick=()=>{$("#authScreen").style.display="grid";setAuthMode("login")};$("#closeAuth").onclick=()=>{$("#authScreen").style.display="none"};$("#logoutBtn").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"});enterApp(null);$("#authPassword").value=""};
