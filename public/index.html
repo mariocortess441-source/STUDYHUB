@@ -1309,7 +1309,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">Buenos días, señor. He revisado su actividad y estoy listo para ayudarle.</div></div>
   <div class="assistant-quick" id="assistantQuick"><button type="button" data-help="¿Cómo uso el temporizador?">Temporizador</button><button type="button" data-help="¿Cómo guardo mis notas?">Mis notas</button><button type="button" data-help="¿Cómo convierto un archivo?">Archivos</button><button type="button" data-help="¿Cómo comparto un archivo?">Compartir</button></div>
   <form class="assistant-form" id="assistantForm"><input id="assistantInput" autocomplete="off" placeholder="Escribe tu duda…" aria-label="Escribe tu duda"><button type="submit">Enviar</button></form>
-  <div class="assistant-note">JAKE utiliza una base de conocimiento educativa y respuestas guiadas. El análisis generativo de documentos requiere conectar un servicio de IA; tus archivos no se envían a terceros desde este panel.</div>
+  <div class="assistant-note">JAKE consulta su Guía central de estudio, hábitos, emprendimiento y economía. Sus respuestas recuperan apartados de esa guía; esto no equivale a un modelo generativo ni a análisis automático avanzado de archivos. <a href="/jake-guide.md" download="Guia-central-JAKE.md">Abrir guía de JAKE</a>.</div>
 </div>
 <button class="assistant-launcher fly-launcher" id="assistantLauncher" type="button" aria-label="Abrir el chat de JAKE" aria-expanded="false"><img src="/aulivra-mark.svg" alt=""><span>JAKE</span></button>
 
@@ -1488,7 +1488,18 @@ $("#appShell").style.display="grid";enterApp(null);checkAuth();
   {keys:["guardar","datos","donde"],text:"Parte de la información se guarda en el almacenamiento de este navegador y otra puede sincronizarse según las funciones de su cuenta. Si cambia de dispositivo o borra los datos del sitio, compruebe antes que la información importante esté sincronizada o exportada."}
  ];
  function add(text,who){const el=document.createElement("div");el.className="assistant-msg "+who;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight}
- function reply(q){const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(/plan|planific|agenda de hoy|que hago hoy|qué hago hoy|organizar mi dia|organizar mi día/.test(clean)&&typeof window.aulivraJAKEDailyPlan==="function")return window.aulivraJAKEDailyPlan();const found=answers.find(a=>a.keys.some(k=>clean.includes(k.normalize("NFD").replace(/[\u0300-\u036f]/g,""))));const answer=found?found.text:"Puedo ayudarle a organizar sus tareas, establecer prioridades, diseñar un método de estudio, revisar sus objetivos de emprendimiento y analizar sus movimientos económicos. Indíqueme qué desea mejorar y le propondré pasos concretos.";return /^señor/i.test(answer)?answer:"Señor, "+answer.charAt(0).toLowerCase()+answer.slice(1)}
+ let jakeGuideSections=[];
+ fetch("/jake-guide.md",{cache:"no-cache"}).then(r=>{if(!r.ok)throw new Error("guide unavailable");return r.text()}).then(text=>{jakeGuideSections=text.split(/(?=^## )/m).map(section=>({title:(section.match(/^## (.+)$/m)||[])[1]||"Guía general",body:section.replace(/^## .+\n/,"").trim()})).filter(x=>x.body.length>80);}).catch(()=>{jakeGuideSections=[]});
+ function guideAnswer(q){
+  const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+  const words=[...new Set(clean.split(/[^a-z0-9ñ]+/).filter(w=>w.length>3&&!["para","como","quiero","puedes","debo","tengo","esto","esta","este","sobre","desde","cuando","donde","hacer","algo","todo","necesito","ayuda","señor"].includes(w)))];
+  if(!words.length||!jakeGuideSections.length)return null;
+  const ranked=jakeGuideSections.map(section=>{const body=(section.title+" "+section.body).toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");let score=0;for(const w of words){if(body.includes(w))score+=w.length>7?2:1}return{...section,score}}).sort((x,y)=>y.score-x.score);
+  if(!ranked[0]||ranked[0].score<2)return null;
+  const chosen=ranked.slice(0,2).filter(x=>x.score>=Math.max(2,ranked[0].score*.45));
+  return "Señor, he consultado mi guía central.\n\n"+chosen.map(x=>"**"+x.title+"**\n"+x.body.split(/\n\n/).filter(p=>p.length>30).slice(0,3).join("\n\n")).join("\n\n");
+ }
+ function reply(q){const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(/plan|planific|agenda de hoy|que hago hoy|qué hago hoy|organizar mi dia|organizar mi día/.test(clean)&&typeof window.aulivraJAKEDailyPlan==="function")return window.aulivraJAKEDailyPlan();const fromGuide=guideAnswer(q);if(fromGuide)return fromGuide;const found=answers.find(a=>a.keys.some(k=>clean.includes(k.normalize("NFD").replace(/[\u0300-\u036f]/g,""))));const answer=found?found.text:"Puedo ayudarle a organizar sus tareas, establecer prioridades, diseñar un método de estudio, revisar sus objetivos de emprendimiento y analizar sus movimientos económicos. Indíqueme qué desea mejorar y le propondré pasos concretos.";return /^señor/i.test(answer)?answer:"Señor, "+answer.charAt(0).toLowerCase()+answer.slice(1)}
  function ask(q){const value=String(q||"").trim();if(!value)return;add(value,"user");add(reply(value),"bot");input.value="";input.focus()}
  function toggle(open){
  panel.classList.toggle("open",open);launcher.setAttribute("aria-expanded",String(open));
