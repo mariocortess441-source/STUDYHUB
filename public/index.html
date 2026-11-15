@@ -687,7 +687,7 @@ main{padding-top:24px}
   <div class="nav-label">TU ESPACIO</div><nav class="nav" id="nav">
     <button class="active" data-view="home"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span><span class="navtext">Inicio</span></button>
     <button data-view="study"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
-    <button data-view="entrepreneurship"><span class="ico" aria-hidden="true">📈</span><span class="navtext">Emprendimiento</span></button>
+    <button data-view="entrepreneurship" aria-label="Proyectos" title="Proyectos"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext">Proyectos</span></button>
     <button data-view="economy"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 15h2M7 5V3h10v2"/></svg></span><span class="navtext">Economía</span></button>
   </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
@@ -731,7 +731,7 @@ main{padding-top:24px}
 
 <section class="view" id="entrepreneurship">
 <div class="projects-heading"><div><span class="projects-kicker">WORKSPACE</span><h2>Proyectos</h2><p>Todos tus proyectos, ideas y documentos en un solo espacio de trabajo.</p></div><button class="btn" id="createProjectBtn" type="button"><span aria-hidden="true">＋</span> Nuevo proyecto</button></div>
-<div class="projects-toolbar"><div class="projects-count"><strong id="projectsCount">0</strong><span>proyectos</span></div><input id="projectSearch" type="search" placeholder="Buscar proyectos…" aria-label="Buscar proyectos"></div>
+<div class="projects-toolbar" id="projectsToolbar"><div class="projects-count"><strong id="projectsCount">0</strong><span>proyectos</span></div><input id="projectSearch" type="search" placeholder="Buscar proyectos…" aria-label="Buscar proyectos"></div>
 <div class="projects-grid" id="projectsGrid"><div class="projects-empty"><span>▧</span><b>Aún no hay proyectos</b><p>Crea tu primer proyecto para organizar ideas, notas, tareas y documentos.</p><button class="btn secondary" type="button" id="createFirstProject">＋ Crear proyecto</button></div></div>
 <section class="project-workspace" id="projectWorkspace" hidden>
  <div class="project-breadcrumb"><button type="button" id="backToProjects">← Proyectos</button><span>/</span><span id="projectBreadcrumbName">Proyecto</span></div>
@@ -1358,8 +1358,8 @@ refreshCommunityStats();setInterval(refreshCommunityStats,60000);
  function createProject(){const d=data(),p={id:crypto.randomUUID(),name:"Nuevo proyecto",description:"",status:"Idea",deadline:"",blocks:[{id:crypto.randomUUID(),type:"paragraph",text:""}],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};d.projects.unshift(p);save(d);renderList();openProject(p.id);$id("projectTitleInput").focus();$id("projectTitleInput").select()}
  function saveDetails(){const p=activeProject();if(!p)return;p.name=$id("projectTitleInput").value.trim()||"Sin título";p.description=$id("projectDescriptionInput").value.trim();p.status=$id("projectStatus").value;p.deadline=$id("projectDeadline").value;p.updatedAt=new Date().toISOString();save(data());$id("projectBreadcrumbName").textContent=p.name;renderList();toast("Proyecto guardado.")}
  function addBlock(){const p=activeProject();if(!p)return;const type=$id("projectBlockType").value;p.blocks=p.blocks||[];p.blocks.push({id:crypto.randomUUID(),type,text:"",done:false});p.updatedAt=new Date().toISOString();save(data());renderBlocks();const fields=$id("projectBlocks").querySelectorAll("textarea");fields[fields.length-1]?.focus()}
- $id("createProjectBtn").addEventListener("click",createProject);$id("createFirstProject")?.addEventListener("click",createProject);
- $id("projectsGrid").addEventListener("click",e=>{const b=e.target.closest("[data-open-project]");if(b)openProject(b.dataset.openProject)});
+ $id("createProjectBtn").addEventListener("click",createProject);
+ $id("projectsGrid").addEventListener("click",e=>{if(e.target.closest("#createFirstProject")){createProject();return}const b=e.target.closest("[data-open-project]");if(b)openProject(b.dataset.openProject)});
  $id("projectSearch").addEventListener("input",renderList);$id("backToProjects").addEventListener("click",closeProject);
  $id("saveProjectDetails").addEventListener("click",saveDetails);
  $id("addProjectBlock").addEventListener("click",addBlock);
