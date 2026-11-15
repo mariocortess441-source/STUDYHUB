@@ -567,7 +567,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   <header class="top"><div style="display:flex;align-items:center;gap:14px"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú">☰</button><div><div class="eyebrow">TU ESPACIO DE PRODUCTIVIDAD</div><h1 id="pageTitle">Todo en un mismo lugar.</h1></div></div><div class="user-chip"><span id="userName">Modo invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none">Salir</button><div class="date" id="today"></div></div></header>
 
   <section class="view active" id="home">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su organización diaria.</b><small>Revisión de prioridades, agenda, hábitos y próximos pasos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a priorizar mis tareas de hoy, revisar mis compromisos y proponer un plan realista.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su organización diaria.</b><small>Revisión de prioridades, agenda, hábitos y próximos pasos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a priorizar mis tareas de hoy, revisar mis compromisos y proponer un plan realista.">Consultar a JAKE</button></div>
 <div class="home-hero-compact"><div class="home-hero-copy"><div class="home-hero-kicker"><i></i>TU PANEL PERSONAL</div><h2>Tu día, bajo control.</h2><p id="homeMotivation">Organiza tus prioridades, empieza por lo importante y avanza a tu ritmo.</p></div><div class="home-hero-art" aria-hidden="true"><div class="hero-orbit"></div><div class="hero-art-mark"><img src="/aulivra-mark.svg" alt=""></div></div></div>
 <div class="home-daily-card"><div class="home-daily-head"><div class="home-daily-title"><span class="home-daily-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18M8 15l2.5 2.5L16 12"/></svg></span><div><span class="home-section-kicker">RESUMEN DIARIO</span><h3>Tu agenda de hoy</h3><p id="homeDailyStatus">Preparando tus tareas y bloques...</p></div></div><button class="btn home-notify-btn" id="enableHomeNotifications" type="button"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>Activar avisos</span></button></div>
 <div class="home-daily-stats"><div><strong id="homeTodayCount">0</strong><span>Para hoy</span></div><div><strong id="homeTaskCount">0</strong><span>Tareas pendientes</span></div><div><strong id="homeBlockCount">0</strong><span>Bloques de estudio</span></div></div><div id="homeTodayList" class="home-today-list"><div class="empty">Cargando tu agenda...</div></div><div class="home-notification-foot"><span id="homeNotificationStatus">Los avisos te recuerdan tus tareas y bloques.</span><button class="btn ghost" data-go="calendar" type="button">Organizar calendario →</button></div></div>
@@ -575,22 +575,22 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
  <div class="home-period-top"><div><span class="home-section-kicker">TU ACTIVIDAD</span><h3>Tu progreso, de un vistazo</h3><p id="homePeriodCaption">Resumen del mes actual</p></div><div class="home-period-tabs"><button type="button" class="active" id="homePeriodMonth">Mes</button><button type="button" id="homePeriodWeek">Semana</button></div></div>
  <div class="home-period-summary"><div><strong id="homePeriodStudy">0 h</strong><span>Estudio</span></div><div><strong id="homePeriodDone">0</strong><span>Tareas hechas</span></div><div><strong id="homePeriodDays">0</strong><span>Días activos</span></div></div>
  <div class="home-period-calendar"><div class="home-calendar-heading"><button type="button" id="homePeriodPrev" aria-label="Periodo anterior">‹</button><b id="homeCalendarTitle">Mes actual</b><button type="button" id="homePeriodNext" aria-label="Periodo siguiente">›</button></div><div class="home-month-weekdays" id="homeWeekdayLabels"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div class="home-calendar-grid" id="homeCalendarGrid"></div><div class="home-selected-day" id="homeSelectedDay"><b>Actividad del día</b><span>Selecciona una fecha para ver sus tareas y bloques.</span></div></div>
- <div class="home-area-summary"><div class="home-area-heading"><b>Resumen por áreas</b><span>Según tus registros</span></div><div class="home-area-row"><span class="home-area-icon study-area">▤</span><span class="home-area-copy"><b>Estudio</b><small id="homeAreaStudyMeta">Sesiones y tareas</small></span><strong id="homeAreaStudyValue">0 min</strong></div><div class="home-area-row"><span class="home-area-icon business-area">↗</span><span class="home-area-copy"><b>Emprendimiento</b><small id="homeAreaBusinessMeta">Tareas de tu proyecto</small></span><strong id="homeAreaBusinessValue">0 hechas</strong></div><div class="home-area-row"><span class="home-area-icon economy-area">€</span><span class="home-area-copy"><b>Economía</b><small id="homeAreaEconomyMeta">Ingresos y gastos registrados</small></span><strong id="homeAreaEconomyValue">0,00 €</strong></div><div class="home-area-row"><span class="home-area-icon digital-area">◉</span><span class="home-area-copy"><b>Bienestar digital</b><small id="homeAreaMobileMeta">Tiempo de móvil registrado</small></span><strong id="homeAreaMobileValue">0 min</strong></div><div class="home-area-row"><span class="home-area-icon agenda-area">▦</span><span class="home-area-copy"><b>Agenda personal</b><small id="homeAreaPersonalMeta">Eventos y cumpleaños</small></span><strong id="homeAreaPersonalValue">0</strong></div></div>
+ <div class="home-area-summary"><div class="home-area-heading"><b>Resumen por áreas</b><span>Actividad registrada en el periodo</span></div><div class="home-area-row"><span class="home-area-icon study-area">▤</span><span class="home-area-copy"><b>Estudio</b><small id="homeAreaStudyMeta">Sesiones y tareas</small></span><strong id="homeAreaStudyValue">0 min</strong></div><div class="home-area-row"><span class="home-area-icon business-area">↗</span><span class="home-area-copy"><b>Emprendimiento</b><small id="homeAreaBusinessMeta">Tareas de tu proyecto</small></span><strong id="homeAreaBusinessValue">0 hechas</strong></div><div class="home-area-row"><span class="home-area-icon economy-area">€</span><span class="home-area-copy"><b>Economía</b><small id="homeAreaEconomyMeta">Ingresos y gastos registrados</small></span><strong id="homeAreaEconomyValue">0,00 €</strong></div><div class="home-area-row"><span class="home-area-icon digital-area">◉</span><span class="home-area-copy"><b>Bienestar digital</b><small id="homeAreaMobileMeta">Tiempo de móvil registrado</small></span><strong id="homeAreaMobileValue">0 min</strong></div><div class="home-area-row"><span class="home-area-icon agenda-area">▦</span><span class="home-area-copy"><b>Agenda personal</b><small id="homeAreaPersonalMeta">Eventos y cumpleaños</small></span><strong id="homeAreaPersonalValue">0</strong></div></div>
  <div class="home-mobile-usage"><div class="home-mobile-heading"><div><span class="home-section-kicker">BIENESTAR DIGITAL</span><h4>Tiempo de móvil y antiscroll</h4><p id="homeMobilePeriod">Registra el tiempo de pantalla de hoy.</p></div><span class="home-mobile-symbol">◉</span></div>
  <div class="home-mobile-inputs"><label>Minutos de hoy<input id="homeScreenMinutes" type="number" min="0" max="1440" step="5" placeholder="Ej. 180"></label><label>Objetivo diario (min)<input id="homeScreenGoal" type="number" min="15" max="1440" step="15" value="180"></label><button class="btn" id="homeSaveScreenTime" type="button">Guardar</button></div>
  <div class="home-mobile-progress"><div><span>Tu referencia diaria</span><b id="homeScreenProgressLabel">0 / 180 min</b></div><div class="home-mobile-track"><i id="homeScreenProgress"></i></div></div><div class="home-screen-chart-wrap"><b>Últimos 7 días</b><div id="homeScreenChart" class="home-screen-chart" role="img" aria-label="Gráfica de tiempo de uso del móvil de los últimos siete días"></div></div>
- <div class="home-jarvis-advice"><b>JARVIS · CONSEJO ANTISCROLL</b><p id="homeJarvisAdvice">Antes de abrir una red social, decide qué vas a hacer y cuánto tiempo quieres dedicarle. Prueba a dejar el móvil lejos durante un bloque de concentración.</p></div>
+ <div class="home-jarvis-advice"><b>JAKE · CONSEJO ANTISCROLL</b><p id="homeJAKEAdvice">Antes de abrir una red social, decide qué vas a hacer y cuánto tiempo quieres dedicarle. Prueba a dejar el móvil lejos durante un bloque de concentración.</p></div>
  <div class="home-mobile-actions"><button class="btn secondary" id="homeScreenHelp" type="button">Cómo registrar el tiempo en iPhone</button><button class="btn secondary" id="homeScreenAlerts" type="button">Permitir notificaciones</button><button class="btn ghost" id="homeScrollPause" type="button">Empezar pausa de 2 min</button><span id="homeScrollPauseStatus" aria-live="polite"></span></div>
  <p class="home-mobile-note">Limitación de iPhone: una web no puede pedir permiso para leer Tiempo de uso ni conectarse a sus datos. Registre aquí el total que muestra Ajustes → Tiempo de uso. AULIVRA sí puede pedir permiso para enviar avisos cuando supere su objetivo.</p></div>
  <div class="home-swipe-note">Desliza hacia la derecha para pasar a la semana <span>→</span></div>
 </section><div class="home-task-panels"><div class="card home-list-card"><div class="home-list-heading"><div><span class="home-section-kicker">POR COMPLETAR</span><h3>Tareas pendientes</h3></div><button class="text-link" data-go="subjects" type="button">Ver asignaturas →</button></div><div id="homeTasks"><div class="empty">No tienes tareas pendientes.</div></div></div><div class="card home-list-card"><div class="home-list-heading"><div><span class="home-section-kicker">PRÓXIMOS DÍAS</span><h3>Lo que viene</h3></div><button class="text-link" data-go="calendar" type="button">Ver calendario →</button></div><div id="homeUpcoming"><div class="empty">No hay fechas próximas.</div></div></div></div>
 <div class="card home-chart-card"><div class="home-card-heading"><div><h3>Tu progreso de estudio</h3><p>Minutos estudiados durante los últimos 7 días</p></div><strong id="homeSessions">0 min</strong></div><div class="community-stats" aria-live="polite"><div><span class="community-pulse"></span><strong id="activePeople">—</strong><small>Personas activas ahora · últimos 5 min</small></div><div><strong id="regularPeople">—</strong><small>Usuarios habituales · 3 o más días en 30 días</small></div></div><p class="tiny community-privacy">Estadísticas agregadas con un identificador aleatorio del navegador; no muestran nombres ni correos.</p><div id="studyWeekChart" class="study-week-chart" role="img" aria-label="Gráfica semanal de minutos estudiados"></div><div class="home-chart-foot"><span id="homeSubjects" hidden>0</span><span id="homeAverage" hidden>—</span><span>Pequeños avances, grandes resultados.</span><button class="btn" data-go="timer" type="button">Estudiar ahora →</button></div></div>
 
-<div class="card home-assistant-card"><div class="home-assistant-icon"><img src="/aulivra-mark.svg" alt=""></div><div class="home-assistant-copy"><span class="eyebrow">TU ASISTENTE</span><h3>¿Qué desea conseguir hoy?</h3><p id="homeTodayPlan">Estoy preparando tus prioridades.</p></div><button class="btn" id="openAssistantFromHome" type="button">Hablar con JARVIS</button></div>
+<div class="card home-assistant-card"><div class="home-assistant-icon"><img src="/aulivra-mark.svg" alt=""></div><div class="home-assistant-copy"><span class="eyebrow">TU ASISTENTE</span><h3>¿Qué desea conseguir hoy?</h3><p id="homeTodayPlan">Estoy preparando tus prioridades.</p></div><button class="btn" id="openAssistantFromHome" type="button">Hablar con JAKE</button></div>
 </section>
 
 <section class="view" id="study">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Permítame ayudarle con sus estudios.</b><small>Plan de estudio, repasos espaciados, bloques de concentración y seguimiento.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar las asignaturas, preparar los próximos exámenes y mejorar mi método de estudio.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>Permítame ayudarle con sus estudios.</b><small>Plan de estudio, repasos espaciados, bloques de concentración y seguimiento.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar las asignaturas, preparar los próximos exámenes y mejorar mi método de estudio.">Consultar a JAKE</button></div>
  <div class="study-welcome"><div><span class="home-section-kicker">TU ESPACIO ACADÉMICO</span><h2>Estudia con una visión clara.</h2><p>Accede a tus herramientas y consulta un anticipo de tu progreso sin tener que abrir cada apartado.</p></div><div class="study-welcome-mark">A</div></div>
  <div class="study-hub-grid">
   <button class="study-hub-card" data-go="subjects" type="button"><span class="study-hub-icon">▤</span><span class="study-hub-label">ASIGNATURAS Y TAREAS</span><b>Tu espacio académico</b><small id="studySubjectsPreview">Organiza materias y entregas</small><em id="studyTasksPreview">0 tareas pendientes</em><i>↗</i></button>
@@ -602,7 +602,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 </section>
 
 <section class="view" id="entrepreneurship">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su emprendimiento.</b><small>Estrategia, objetivos, tareas, calendario y revisión de resultados.</small></div><button type="button" data-jarvis-prompt="Revise mi proyecto, ayúdeme a elegir la siguiente acción y convierta mis objetivos en tareas medibles.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su emprendimiento.</b><small>Estrategia, objetivos, tareas, calendario y revisión de resultados.</small></div><button type="button" data-jarvis-prompt="Revise mi proyecto, ayúdeme a elegir la siguiente acción y convierta mis objetivos en tareas medibles.">Consultar a JAKE</button></div>
   <div class="intro"><h2>Construye tu marca</h2><p>Un espacio para dar forma a tu proyecto, organizar objetivos y convertir ideas en acciones.</p></div>
   <div class="grid">
     <div class="card span-7"><h3>Identidad de tu marca</h3><p>Empieza por definir el nombre y la propuesta de tu proyecto.</p><div class="field"><label for="brandName">Nombre de tu marca o proyecto</label><input id="brandName" maxlength="60" placeholder="Ej. Mi marca"></div><div class="field"><label for="brandCategory">Sector</label><input id="brandCategory" maxlength="80" placeholder="Moda, tecnología, educación..."></div><div class="field"><label for="brandDescription">¿Qué ofreces y a quién?</label><textarea id="brandDescription" rows="4" maxlength="1200" placeholder="Describe tu idea, producto o servicio y a quién quieres ayudar..."></textarea></div><button class="btn" id="saveBrand">Guardar identidad</button><p class="tiny" id="brandSaved" style="margin-top:10px">Tu información se guarda en tu espacio de AULIVRA.</p></div>
@@ -612,7 +612,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 </section>
 
 <section class="view" id="economy">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su economía.</b><small>Seguimiento de movimientos, presupuesto y objetivos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a revisar mis ingresos y gastos, definir objetivos de ahorro y organizar un presupuesto sencillo.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su economía.</b><small>Seguimiento de movimientos, presupuesto y objetivos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a revisar mis ingresos y gastos, definir objetivos de ahorro y organizar un presupuesto sencillo.">Consultar a JAKE</button></div>
 <div class="intro"><h2>Tu economía, más clara.</h2><p>Registra ingresos y gastos, controla tu saldo y sigue tus objetivos de ahorro.</p></div>
 <div class="economy-overview"><div class="economy-balance"><span>DINERO DISPONIBLE</span><strong id="economyBalance">0,00 €</strong><small>Balance según tus movimientos registrados</small></div><div class="economy-mini"><span>↗ Ingresos</span><strong id="economyIncome">0,00 €</strong></div><div class="economy-mini"><span>↘ Gastos</span><strong id="economyExpense">0,00 €</strong></div></div>
 <div class="grid economy-grid">
@@ -628,7 +628,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 <form id="savingsForm" class="savings-form"><div><label for="savingName">¿Para qué ahorras?</label><input id="savingName" required maxlength="80" placeholder="Ej. Un ordenador"></div><div><label for="savingTarget">Objetivo (€)</label><input id="savingTarget" type="number" min=".01" step=".01" required placeholder="500"></div><div><label for="savingCurrent">Ahorrado (€)</label><input id="savingCurrent" type="number" min="0" step=".01" value="0"></div><button class="btn" type="submit">Crear objetivo</button></form><div id="savingsList" class="savings-list"><div class="empty">Crea tu primer objetivo.</div></div></div></div>
 <p class="tiny">Registro personal: no está conectado a tu banco ni realiza pagos o transferencias.</p></section>
 <section class="view" id="calendar">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con su agenda y sus compromisos.</b><small>Organización por mes, semana y día; eventos, tareas y bloques de estudio.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar mi agenda semanal y encajar mis bloques de estudio.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con su agenda y sus compromisos.</b><small>Organización por mes, semana y día; eventos, tareas y bloques de estudio.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar mi agenda semanal y encajar mis bloques de estudio.">Consultar a JAKE</button></div>
 
     <div class="intro"><h2>Calendario</h2><p>Su agenda unificada: eventos personales, cumpleaños, citas, tareas, entregas y bloques de estudio en el mismo calendario.</p></div>
     <div class="card calendar-card">
@@ -641,7 +641,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="files">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con sus documentos.</b><small>Lectura, conversión y organización de archivos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar mis documentos y elegir la herramienta adecuada.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con sus documentos.</b><small>Lectura, conversión y organización de archivos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar mis documentos y elegir la herramienta adecuada.">Consultar a JAKE</button></div>
 <div class="intro"><h2>Archivos y documentos</h2><p>Tus herramientas para trabajar con documentos desde un solo lugar.</p></div><div class="home-actions">
 <button class="quick" data-go="convert"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Conversor de archivos</b><small>PDF, Word, Excel y más formatos</small></span></button>
 <button class="quick" data-go="share"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Compartir archivos</b><small>Crear enlaces de descarga temporales</small></span></button>
@@ -649,7 +649,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 </div></section>
 
   <section class="view" id="convert">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con la conversión de archivos.</b><small>Elija el formato adecuado y revise los pasos de conversión.</small></div><button type="button" data-jarvis-prompt="Explíqueme cómo convertir este archivo y qué formato me conviene.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con la conversión de archivos.</b><small>Elija el formato adecuado y revise los pasos de conversión.</small></div><button type="button" data-jarvis-prompt="Explíqueme cómo convertir este archivo y qué formato me conviene.">Consultar a JAKE</button></div>
 
     <div class="intro"><h2>Conversor de archivos</h2><p>Convierte documentos entre formatos habituales. Para conversiones avanzadas en servidor se requiere LibreOffice instalado.</p></div>
     <div class="grid">
@@ -668,7 +668,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="subjects">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con sus asignaturas y tareas.</b><small>Fechas de entrega, tareas pendientes y seguimiento por asignatura.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a priorizar mis asignaturas y ordenar las tareas pendientes.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con sus asignaturas y tareas.</b><small>Fechas de entrega, tareas pendientes y seguimiento por asignatura.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a priorizar mis asignaturas y ordenar las tareas pendientes.">Consultar a JAKE</button></div>
 
     <div class="intro"><h2>Mi espacio académico</h2><p>Gestiona tus asignaturas, tareas, apuntes, calificaciones y próximos exámenes.</p></div>
     <div class="grid">
@@ -696,7 +696,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="grades">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con sus calificaciones.</b><small>Seguimiento de notas, ponderaciones y objetivos académicos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a revisar mis calificaciones y fijar objetivos de mejora.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con sus calificaciones.</b><small>Seguimiento de notas, ponderaciones y objetivos académicos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a revisar mis calificaciones y fijar objetivos de mejora.">Consultar a JAKE</button></div>
 
     <div class="intro"><h2>Calculadora de notas</h2><p>Define los porcentajes de evaluación, calcula tu nota y guarda las configuraciones para reutilizarlas.</p></div>
     <div class="grid">
@@ -714,7 +714,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="share">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con el uso compartido de archivos.</b><small>Enlaces, permisos y acceso a documentos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a compartir un documento de forma segura.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con el uso compartido de archivos.</b><small>Enlaces, permisos y acceso a documentos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a compartir un documento de forma segura.">Consultar a JAKE</button></div>
 
     <div class="intro"><h2>Compartir archivos grandes</h2><p>Sube un archivo al servidor, crea un enlace temporal y, si configuras el correo, envíalo directamente al destinatario.</p></div>
     <div class="grid">
@@ -732,7 +732,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="library">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con su biblioteca.</b><small>Materiales y recursos de consulta.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar los recursos que necesito para estudiar.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con su biblioteca.</b><small>Materiales y recursos de consulta.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar los recursos que necesito para estudiar.">Consultar a JAKE</button></div>
 
     <div class="intro"><h2>Biblioteca académica</h2><p>Accede a recursos y búsquedas de apuntes por asignatura. Los enlaces llevan a las fuentes originales; AULIVRA no aloja ni copia materiales de terceros.</p></div>
     <div class="grid" id="libraryGrid"></div>
@@ -740,7 +740,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="timer">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con su concentración.</b><small>Bloques de trabajo, descansos y revisión de resultados.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a elegir un bloque de concentración y un objetivo para esta sesión.">Consultar a JARVIS</button></div>
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con su concentración.</b><small>Bloques de trabajo, descansos y revisión de resultados.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a elegir un bloque de concentración y un objetivo para esta sesión.">Consultar a JAKE</button></div>
 
     <div class="intro"><h2>Temporizador de estudio</h2><p>Elige un método o crea bloques a tu medida. Al completar una sesión se registra tu tiempo de estudio.</p></div>
     <div class="grid">
@@ -767,16 +767,16 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 </div>
 <button type="button" id="installAppButton" class="install-app-button" hidden>↓ Instalar aplicación</button>
 <div class="toast" id="toast"></div>
-<div class="notification-onboarding" id="notificationOnboarding" aria-hidden="true"><section class="notification-onboarding-card" role="dialog" aria-modal="true" aria-labelledby="notificationOnboardingTitle"><div class="notification-onboarding-icon">♧</div><span class="home-section-kicker">AULIVRA · RECORDATORIOS</span><h2 id="notificationOnboardingTitle">¿Activamos tus avisos?</h2><p>JARVIS puede recordarte tus tareas, bloques de estudio y compromisos. Puedes permitirlos ahora o decidir más tarde.</p><div class="notification-onboarding-actions"><button type="button" class="btn" id="notificationOnboardingAllow">Activar notificaciones</button><button type="button" class="btn ghost" id="notificationOnboardingLater">Ahora no</button></div><small>El permiso lo controlas tú desde los ajustes del navegador.</small></section></div>
+<div class="notification-onboarding" id="notificationOnboarding" aria-hidden="true"><section class="notification-onboarding-card" role="dialog" aria-modal="true" aria-labelledby="notificationOnboardingTitle"><div class="notification-onboarding-icon">♧</div><span class="home-section-kicker">AULIVRA · RECORDATORIOS</span><h2 id="notificationOnboardingTitle">¿Activamos tus avisos?</h2><p>JAKE puede recordarte tus tareas, bloques de estudio y compromisos. Puedes permitirlos ahora o decidir más tarde.</p><div class="notification-onboarding-actions"><button type="button" class="btn" id="notificationOnboardingAllow">Activar notificaciones</button><button type="button" class="btn ghost" id="notificationOnboardingLater">Ahora no</button></div><small>El permiso lo controlas tú desde los ajustes del navegador.</small></section></div>
 
-<div class="assistant-panel" id="studyAssistant" role="dialog" aria-label="Chat con JARVIS">
-  <div class="assistant-head"><div><strong>JARVIS</strong><small>Tu asistente personal · ayuda guiada</small></div><button class="assistant-close" id="assistantClose" aria-label="Cerrar">×</button></div>
-  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">Buenos días, señor. Soy JARVIS, su asistente personal. Estoy a su disposición para organizar sus prioridades, revisar sus tareas y optimizar sus métodos de trabajo. ¿Qué desea resolver?</div></div>
+<div class="assistant-panel" id="studyAssistant" role="dialog" aria-label="Chat con JAKE">
+  <div class="assistant-head"><div><strong>JAKE</strong><small>Tu asistente personal · ayuda guiada</small></div><button class="assistant-close" id="assistantClose" aria-label="Cerrar">×</button></div>
+  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">Buenos días, señor. Soy JAKE, su asistente personal. Estoy a su disposición para organizar sus prioridades, revisar sus tareas y optimizar sus métodos de trabajo. ¿Qué desea resolver?</div></div>
   <div class="assistant-quick" id="assistantQuick"><button type="button" data-help="¿Cómo uso el temporizador?">Temporizador</button><button type="button" data-help="¿Cómo guardo mis notas?">Mis notas</button><button type="button" data-help="¿Cómo convierto un archivo?">Archivos</button><button type="button" data-help="¿Cómo comparto un archivo?">Compartir</button></div>
   <form class="assistant-form" id="assistantForm"><input id="assistantInput" autocomplete="off" placeholder="Escribe tu duda…" aria-label="Escribe tu duda"><button type="submit">Enviar</button></form>
-  <div class="assistant-note">JARVIS utiliza respuestas guiadas predefinidas por ahora; todavía no es una IA generativa. Tus mensajes no se envían a un servicio externo.</div>
+  <div class="assistant-note">JAKE utiliza respuestas guiadas predefinidas por ahora; todavía no es una IA generativa. Tus mensajes no se envían a un servicio externo.</div>
 </div>
-<button class="assistant-launcher fly-launcher" id="assistantLauncher" type="button" aria-label="Abrir el chat de JARVIS" aria-expanded="false"><span class="fly-wing">◜</span><span class="fly-body">J</span><span class="fly-wing fly-wing-right">◝</span></button>
+<button class="assistant-launcher fly-launcher" id="assistantLauncher" type="button" aria-label="Abrir el chat de JAKE" aria-expanded="false"><span class="fly-wing">◜</span><span class="fly-body">J</span><span class="fly-wing fly-wing-right">◝</span></button>
 
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script>
@@ -909,11 +909,11 @@ $("#appShell").style.display="grid";enterApp(null);checkAuth();
   {keys:["guardar","datos","donde"],text:"Parte de la información se guarda en el almacenamiento de este navegador y otra puede sincronizarse según las funciones de su cuenta. Si cambia de dispositivo o borra los datos del sitio, compruebe antes que la información importante esté sincronizada o exportada."}
  ];
  function add(text,who){const el=document.createElement("div");el.className="assistant-msg "+who;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight}
- function reply(q){const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(/plan|planific|agenda de hoy|que hago hoy|qué hago hoy|organizar mi dia|organizar mi día/.test(clean)&&typeof window.aulivraJarvisDailyPlan==="function")return window.aulivraJarvisDailyPlan();const found=answers.find(a=>a.keys.some(k=>clean.includes(k.normalize("NFD").replace(/[\u0300-\u036f]/g,""))));const answer=found?found.text:"Puedo ayudarle a organizar sus tareas, establecer prioridades, diseñar un método de estudio, revisar sus objetivos de emprendimiento y analizar sus movimientos económicos. Indíqueme qué desea mejorar y le propondré pasos concretos.";return /^señor/i.test(answer)?answer:"Señor, "+answer.charAt(0).toLowerCase()+answer.slice(1)}
+ function reply(q){const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(/plan|planific|agenda de hoy|que hago hoy|qué hago hoy|organizar mi dia|organizar mi día/.test(clean)&&typeof window.aulivraJAKEDailyPlan==="function")return window.aulivraJAKEDailyPlan();const found=answers.find(a=>a.keys.some(k=>clean.includes(k.normalize("NFD").replace(/[\u0300-\u036f]/g,""))));const answer=found?found.text:"Puedo ayudarle a organizar sus tareas, establecer prioridades, diseñar un método de estudio, revisar sus objetivos de emprendimiento y analizar sus movimientos económicos. Indíqueme qué desea mejorar y le propondré pasos concretos.";return /^señor/i.test(answer)?answer:"Señor, "+answer.charAt(0).toLowerCase()+answer.slice(1)}
  function ask(q){const value=String(q||"").trim();if(!value)return;add(value,"user");add(reply(value),"bot");input.value="";input.focus()}
  function toggle(open){
  panel.classList.toggle("open",open);launcher.setAttribute("aria-expanded",String(open));
- if(open){const first=messages.querySelector(".assistant-msg.bot");if(first)first.textContent="Buenos días, señor. Soy JARVIS, su asistente personal. Estoy a su disposición para revisar su agenda y preparar su planificación diaria.";input.focus()}
+ if(open){const first=messages.querySelector(".assistant-msg.bot");if(first)first.textContent="Buenos días, señor. Soy JAKE, su asistente personal. Estoy a su disposición para revisar su agenda y preparar su planificación diaria.";input.focus()}
 }
  launcher.addEventListener("click",()=>toggle(!panel.classList.contains("open")));
  document.getElementById("assistantClose").addEventListener("click",()=>toggle(false));
@@ -1221,7 +1221,7 @@ renderEntrepreneurship();
       installPrompt = null;
       button.hidden = true;
     } else if (isIOS) {
-      alert('Para instalar JARVIS/AULIVRA en tu iPhone: pulsa el botón Compartir de Safari y elige «Añadir a pantalla de inicio».');
+      alert('Para instalar JAKE/AULIVRA en tu iPhone: pulsa el botón Compartir de Safari y elige «Añadir a pantalla de inicio».');
     } else {
       alert('Abre el menú del navegador y busca «Instalar aplicación» o «Añadir a pantalla de inicio».');
     }
@@ -1262,7 +1262,7 @@ window.renderEconomy=render;render()})();
   if(brand.name&&!brand.goal)ideas.push("Define el siguiente objetivo de "+brand.name);
   const plan=todays.length?todays.map(x=>(x.time?x.time+" ":"")+x.title).slice(0,5).join(" · "):"No hay actividades programadas para hoy";
   const tip=ideas[0]||"Mantén pausas y revisa tus prioridades al terminar cada bloque";
-  return {title:"Tu día en AULIVRA",body:(plan+". JARVIS recomienda: "+tip+".").slice(0,240),todays,ideas};
+  return {title:"Tu día en AULIVRA",body:(plan+". JAKE recomienda: "+tip+".").slice(0,240),todays,ideas};
  }
  function notifyDaily(){
   if(!("Notification" in window)||Notification.permission!=="granted")return;
@@ -1299,10 +1299,12 @@ window.renderEconomy=render;render()})();
  function allItems(){return [...allTasks(),...(store.get("aulivra_events",[])||[]).map(e=>({...e,kind:"event",date:e.date||""})),...(typeof window.expandPersonalAgenda==="function"?window.expandPersonalAgenda():[])]}
  function periodStats(){
   const {start,end}=periodBounds(),ss=sessions().filter(x=>dateIn(x.date,start,end)),minutes=ss.reduce((a,x)=>a+(Number(x.minutes)||0),0),days=new Set(ss.map(x=>x.date)).size;
-  const taskDone=allTasks().filter(t=>t.done&&dateIn(t.doneAt||"",start,end)).length,brandTasks=brand().tasks||[],brandDone=brandTasks.filter(t=>t.done&&dateIn(t.doneAt||"",start,end)).length;
+  const completedTasks=allTasks().filter(t=>t.done&&dateIn(t.doneAt||"",start,end)),taskDone=completedTasks.length,brandTasks=brand().tasks||[],completedBrandTasks=brandTasks.filter(t=>t.done&&dateIn(t.doneAt||"",start,end)),brandDone=completedBrandTasks.length;
   const moves=(economy().movements||[]).filter(x=>dateIn(x.date,start,end)),inc=moves.filter(x=>x.type==="income").reduce((a,x)=>a+(Number(x.amount)||0),0),out=moves.filter(x=>x.type==="expense").reduce((a,x)=>a+(Number(x.amount)||0),0);
   const mobileEntries=Object.entries(screenData()).filter(([d])=>dateIn(d,start,end)),mobile=mobileEntries.reduce((a,[,v])=>a+(Number(v)||0),0);
   const personalEvents=allItems().filter(x=>x.kind==="personal"&&dateIn(x.date,start,end));
+  const activeDates=new Set([...ss.map(x=>x.date),...completedTasks.map(x=>x.doneAt),...completedBrandTasks.map(x=>x.doneAt),...mobileEntries.map(([d])=>d),...personalEvents.map(x=>x.date)]);
+  const days=activeDates.size;
   return{start,end,ss,minutes,days,taskDone,brandTasks,brandDone,moves,inc,out,mobile,mobileDays:mobileEntries.length,personalEvents};
  }
  function renderPeriod(){
@@ -1331,18 +1333,18 @@ window.renderEconomy=render;render()})();
   renderSelectedDay();$("#homeMobilePeriod").textContent="Total registrado en este periodo: "+(st.mobile/60).toFixed(1)+" h.";renderMobile();
  }
  function renderSelectedDay(){
-  const items=allItems().filter(x=>x.date===selected),done=allTasks().filter(x=>x.done&&x.doneAt===selected),ss=sessions().filter(x=>x.date===selected);
-  const rows=[...items.map(x=>({label:x.title,detail:x.kind==="task"?(x.subjectName||"Estudio"):"Bloque programado",time:x.time||""})),...done.map(x=>({label:x.title,detail:(x.subjectName||"Estudio")+" · completada",time:"✓"})),...ss.map(x=>({label:x.subject||"Sesión de estudio",detail:(Number(x.minutes)||0)+" min de concentración",time:x.at||""}))];
+  const items=allItems().filter(x=>x.date===selected&&!(x.kind==="task"&&x.done)),done=allTasks().filter(x=>x.done&&x.doneAt===selected),ss=sessions().filter(x=>x.date===selected),screenMinutes=Number(screenData()[selected])||0;
+  const rows=[...items.map(x=>({label:x.title,detail:x.kind==="task"?(x.subjectName||"Estudio"):x.kind==="personal"?(x.type==="birthday"?"Cumpleaños":"Evento personal"):"Bloque programado",time:x.time||""})),...done.map(x=>({label:x.title,detail:(x.subjectName||"Estudio")+" · completada",time:"✓"})),...ss.map(x=>({label:x.subject||"Sesión de estudio",detail:(Number(x.minutes)||0)+" min de concentración",time:x.at||""})),...(screenMinutes?[{label:"Tiempo de móvil",detail:screenMinutes+" min registrados",time:"◉"}]:[])];
   $("#homeSelectedDay").innerHTML='<b>'+fromKey(selected).toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"})+'</b>'+(rows.length?rows.slice(0,6).map(x=>'<div class="home-selected-row"><span>'+esc(x.label)+'</span><small>'+esc(x.detail)+(x.time?" · "+esc(x.time):"")+'</small></div>').join(""):'<span>Sin tareas, bloques ni sesiones registrados para este día.</span>');
  }
  function renderMobile(){
   const today=todayKey(),data=screenData(),mins=Number(data[today])||0,goal=Number(store.get("aulivra_screen_goal",180))||180;
   $("#homeScreenMinutes").value=mins||"";$("#homeScreenGoal").value=goal;$("#homeScreenProgressLabel").textContent=mins+" / "+goal+" min";$("#homeScreenProgress").style.width=Math.min(100,mins/goal*100)+"%";
-  $("#homeJarvisAdvice").textContent=!mins?"Señor, anote el tiempo que aparece en Tiempo de uso. Después identifique cuándo suele abrir el móvil sin un motivo concreto.":mins>goal?"Señor, ha superado su referencia. Le recomiendo dejar las redes fuera de la pantalla de inicio y decidir de antemano cuándo consultarlas.":"Señor, se mantiene dentro de su referencia. Mantenga pausas reales y reserve momentos sin móvil para descansar.";
+  $("#homeJAKEAdvice").textContent=!mins?"Señor, anote el tiempo que aparece en Tiempo de uso. Después identifique cuándo suele abrir el móvil sin un motivo concreto.":mins>goal?"Señor, ha superado su referencia. Le recomiendo dejar las redes fuera de la pantalla de inicio y decidir de antemano cuándo consultarlas.":"Señor, se mantiene dentro de su referencia. Mantenga pausas reales y reserve momentos sin móvil para descansar.";
  }
  $("#homeSaveScreenTime").addEventListener("click",()=>{const mins=Number($("#homeScreenMinutes").value),goal=Number($("#homeScreenGoal").value);if(!Number.isInteger(mins)||mins<0||mins>1440)return toast("Introduce los minutos de uso entre 0 y 1440.");if(!Number.isInteger(goal)||goal<15||goal>1440)return toast("El objetivo debe estar entre 15 y 1440 minutos.");const data=screenData();data[todayKey()]=mins;store.set("aulivra_screen_time",data);store.set("aulivra_screen_goal",goal);renderPeriod();toast("Tiempo de móvil guardado.")});
  $("#homeScreenHelp").addEventListener("click",()=>toast("En iPhone: Ajustes → Tiempo de uso → Ver toda la actividad. Introduce aquí el total diario."));
- $("#homeScrollPause").addEventListener("click",()=>{const btn=$("#homeScrollPause"),status=$("#homeScrollPauseStatus");if(pauseTimer)clearInterval(pauseTimer);let left=120;btn.disabled=true;status.textContent="Pausa iniciada: 2:00";btn.textContent="En pausa…";pauseTimer=setInterval(()=>{left--;status.textContent="Pausa: "+Math.floor(left/60)+":"+pad(left%60);if(left<=0){clearInterval(pauseTimer);pauseTimer=null;btn.disabled=false;btn.textContent="Repetir pausa de 2 min";status.textContent="Pausa terminada. Decide qué ibas a hacer antes de abrir una app.";$("#homeJarvisAdvice").textContent="Señor, pausa completada. Vuelva a su siguiente actividad con una intención clara."}},1000)});
+ $("#homeScrollPause").addEventListener("click",()=>{const btn=$("#homeScrollPause"),status=$("#homeScrollPauseStatus");if(pauseTimer)clearInterval(pauseTimer);let left=120;btn.disabled=true;status.textContent="Pausa iniciada: 2:00";btn.textContent="En pausa…";pauseTimer=setInterval(()=>{left--;status.textContent="Pausa: "+Math.floor(left/60)+":"+pad(left%60);if(left<=0){clearInterval(pauseTimer);pauseTimer=null;btn.disabled=false;btn.textContent="Repetir pausa de 2 min";status.textContent="Pausa terminada. Decide qué ibas a hacer antes de abrir una app.";$("#homeJAKEAdvice").textContent="Señor, pausa completada. Vuelva a su siguiente actividad con una intención clara."}},1000)});
  function setPeriod(next){period=next;const now=new Date();cursor=next==="week"?new Date(now.getFullYear(),now.getMonth(),now.getDate()):new Date(now.getFullYear(),now.getMonth(),1);selected=key(now);renderPeriod()}
  $("#homePeriodMonth").onclick=e=>{e.preventDefault();e.stopPropagation();setPeriod("month")};$("#homePeriodWeek").onclick=e=>{e.preventDefault();e.stopPropagation();setPeriod("week")};
  $("#homePeriodPrev").addEventListener("click",()=>{if(period==="week")cursor.setDate(cursor.getDate()-7);else cursor.setMonth(cursor.getMonth()-1);selected=key(period==="week"?cursor:new Date(cursor.getFullYear(),cursor.getMonth(),1));renderPeriod()});
@@ -1443,8 +1445,8 @@ document.addEventListener("click",function(e){
 </script>
 
 <script>
-/* JARVIS: planificación diaria contextual basada en las tareas y eventos guardados. */
-window.aulivraJarvisDailyPlan=function(){
+/* JAKE: planificación diaria contextual basada en las tareas y eventos guardados. */
+window.aulivraJAKEDailyPlan=function(){
  const today=new Date(),key=typeof dateKey==="function"?dateKey(today):today.toISOString().slice(0,10);
  const items=typeof allCalendarItems==="function"?allCalendarItems():[];
  const tasks=typeof subjectsData==="function"?subjectsData().flatMap(s=>(s.tasks||[]).filter(t=>!t.done).map(t=>({...t,kind:"task",title:t.text,subjectName:s.name,date:t.due||"",time:t.dueTime||""}))):[];
@@ -1480,7 +1482,7 @@ window.aulivraJarvisDailyPlan=function(){
    const message="Señor, ha superado su objetivo diario de tiempo de móvil ("+mins+" de "+goal+" minutos). Le recomiendo cerrar las aplicaciones que no necesita y retomar su siguiente actividad.";
    if("Notification" in window&&Notification.permission==="granted"){try{new Notification("AULIVRA · Aviso de tiempo de uso",{body:message,icon:"/aulivra-mark.svg",tag:"aulivra-screen-limit-"+key})}catch{}}
    else if(typeof window.toast==="function")window.toast("Ha superado su objetivo. Active las notificaciones para recibir avisos del sistema.");
-   const advice=$("homeJarvisAdvice");if(advice)advice.textContent=message;
+   const advice=$("homeJAKEAdvice");if(advice)advice.textContent=message;
   }
  });
  const alerts=$("homeScreenAlerts");
@@ -1489,7 +1491,7 @@ window.aulivraJarvisDailyPlan=function(){
   if(!window.isSecureContext)return alert("Las notificaciones requieren HTTPS.");
   const permission=await Notification.requestPermission();
   alerts.textContent=permission==="granted"?"Avisos permitidos":"Permiso no concedido";
-  if(typeof window.toast==="function")window.toast(permission==="granted"?"JARVIS podrá avisarle cuando supere su objetivo.":"No se ha concedido permiso para notificaciones.");
+  if(typeof window.toast==="function")window.toast(permission==="granted"?"JAKE podrá avisarle cuando supere su objetivo.":"No se ha concedido permiso para notificaciones.");
  });
  draw();
 })();
