@@ -1532,7 +1532,7 @@ async function enterApp(user){
  renderHome();renderGrades();renderSessions();if(user){renderSubjects();renderEvents();renderCalendar()}
  setTimeout(showJakeBriefing,850);
 }
-$("#authForm").onsubmit=async e=>{e.preventDefault();const b=$("#authSubmit");b.disabled=true;b.textContent="Un momento…";$("#authError").style.display="none";try{const payload={email:$("#authEmail").value,password:$("#authPassword").value};if(authMode==="register")payload.name=$("#authName").value;const r=await fetch("/api/auth/"+(authMode==="login"?"login":"register"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const j=await r.json();if(!r.ok)throw Error(j.error||"No se pudo acceder.");await enterApp(j.user);toast(authMode==="register"?"Cuenta creada correctamente.":"Sesión iniciada.");}catch(err){$("#authError").textContent=err.message;$("#authError").style.display="block"}finally{b.disabled=false;b.textContent=authMode==="login"?"Entrar en MANCAVE":"Crear mi cuenta"}};
+$("#authForm").onsubmit=async e=>{e.preventDefault();const b=$("#authSubmit");if(authMode==="register"){const name=$("#authName").value.trim(),email=$("#authEmail").value.trim(),password=$("#authPassword").value;if(name.length<2){$("#authError").textContent="Escribe un nombre de al menos 2 caracteres.";$("#authError").style.display="block";$("#authName").focus();return}if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)){$("#authError").textContent="Introduce un correo válido.";$("#authError").style.display="block";$("#authEmail").focus();return}if(password.length<10){$("#authError").textContent="La contraseña debe tener al menos 10 caracteres.";$("#authError").style.display="block";$("#authPassword").focus();return}}b.disabled=true;b.textContent="Un momento…";$("#authError").style.display="none";try{const payload={email:$("#authEmail").value,password:$("#authPassword").value};if(authMode==="register")payload.name=$("#authName").value;const r=await fetch("/api/auth/"+(authMode==="login"?"login":"register"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const j=await r.json();if(!r.ok)throw Error(j.error||"No se pudo acceder.");await enterApp(j.user);toast(authMode==="register"?"Cuenta creada correctamente.":"Sesión iniciada.");}catch(err){$("#authError").textContent=err.message;$("#authError").style.display="block"}finally{b.disabled=false;b.textContent=authMode==="login"?"Entrar en MANCAVE":"Crear mi cuenta"}};
 $("#loginBtn").onclick=()=>{$("#authScreen").style.display="grid";setAuthMode("login")};$("#closeAuth").onclick=()=>{$("#authScreen").style.display="none"};$("#logoutBtn").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"});enterApp(null);$("#authPassword").value=""};
 function toggleSidebar(){const hidden=$("#appShell").classList.toggle("sidebar-hidden");["#sidebarToggle","#sidebarToggleTop"].forEach(sel=>{const b=$(sel);b.setAttribute("aria-expanded",String(!hidden));b.title=hidden?"Mostrar menú":"Ocultar menú";b.setAttribute("aria-label",b.title)})}
 if($("#sidebarToggle"))$("#sidebarToggle").onclick=toggleSidebar;if($("#sidebarToggleTop"))$("#sidebarToggleTop").onclick=toggleSidebar;
@@ -2395,8 +2395,8 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
  const oldRenderEconomy=window.renderEconomy;if(typeof oldRenderEconomy==="function")window.renderEconomy=function(){oldRenderEconomy();refreshWalletAndSavings()};
  $("#economyForm")?.addEventListener("submit",()=>setTimeout(refreshWalletAndSavings,50));$("#economyMovements")?.addEventListener("click",()=>setTimeout(refreshWalletAndSavings,50));$("#savingsForm")?.addEventListener("submit",()=>setTimeout(refreshWalletAndSavings,50));$("#savingsList")?.addEventListener("click",()=>setTimeout(refreshWalletAndSavings,50));
  /* Project image stored locally and attached to active project record */
- $("#projectCreateCover")?.addEventListener("click",async()=>{const name=$("#projectTitleInput")?.value.trim()||"Proyecto",description=$("#projectDescriptionInput")?.value.trim()||"Diseño visual coherente con el proyecto";const prompt="Crea una portada profesional y futurista para el proyecto «"+name+"». Contexto: "+description+". Formato horizontal 16:9, composición limpia, sin texto ilegible ni marcas de agua. Usa una identidad visual moderna y deja espacio visual para el título.";try{await navigator.clipboard.writeText(prompt);toast("Prompt copiado. Se abrirá ChatGPT para diseñar la portada.");}catch{window.prompt("Copia este prompt para crear la portada:",prompt)}window.open("https://chatgpt.com/","_blank","noopener")});
- $("#projectCoverInput")?.addEventListener("change",e=>{const file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith("image/"))return toast("Selecciona una imagen.");if(file.size>1500000)return toast("La imagen debe pesar menos de 1,5 MB.");const reader=new FileReader();reader.onload=()=>{const data=storeGet("aulivra_projects",{projects:[]}),name=$("#projectTitleInput").value;const active=data.projects?.find(p=>p.name===name);if(!active)return toast("Guarda primero el proyecto.");active.cover=reader.result;storeSet("aulivra_projects",data);$("#projectCoverPreview").innerHTML='<img alt="Portada del proyecto" src="'+reader.result+'" style="width:100%;height:100%;object-fit:cover;border-radius:12px">';toast("Imagen guardada en este dispositivo.")};reader.readAsDataURL(file)});
+
+
  /* Month calendar: show only month and upcoming exams list */
  const calIntro=$("#calendar .intro");if(calIntro){calIntro.querySelector("h2").textContent="Calendario de exámenes";calIntro.querySelector("p").textContent="Vista mensual y lista de próximos exámenes con cuenta atrás."}
  const calCard=$("#calendar .calendar-card");if(calCard){const ex=document.createElement("div");ex.className="card";ex.style.marginTop="14px";ex.innerHTML='<h3>Exámenes próximos</h3><div id="calendarUpcomingExams" class="study-exams-grid"></div>';calCard.after(ex)}
@@ -2681,17 +2681,6 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
  // The study section no longer owns a second calendar. The global calendar remains available from the main navigation.
 $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámenes");
  const examsNote=$("#studyUpcomingExams")?.querySelector(".empty");if(examsNote)examsNote.textContent="Todavía no hay exámenes próximos. Añádelos desde el calendario general.";
- // Put the existing journal form on the home page (same form and storage, no duplicate IDs or lost entries).
- const journalForm=$("#journalForm"),journalCard=journalForm?.closest(".card");
- if(journalCard&&!home.contains(journalCard)){
-  journalCard.classList.add("journal-book");
-  const heading=document.createElement("div");heading.className="home-journal-heading";heading.innerHTML='<h2>Tu diario</h2><span>Un espacio para cerrar el día</span>';
-  const oldHeading=journalCard.querySelector("h3");if(oldHeading)oldHeading.textContent="Diario personal";
-  const dateHeading=document.createElement("div");dateHeading.className="journal-date-heading";dateHeading.id="homeJournalDate";
-  dateHeading.textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());
-  journalCard.insertBefore(dateHeading,journalCard.firstChild);
-  home.append(heading,journalCard);
- }
  // The personal area keeps birthdays and personal reminders; the diary is now part of Inicio.
  const personal=$("#personal");if(personal){const grid=personal.querySelector(".grid");if(grid){const empty=grid.querySelector(".span-7");if(empty)empty.remove();grid.classList.add("personal-reminders-only")}}
  // Replace the old number-only strip with four real weekly mini-graphs.
@@ -2781,17 +2770,6 @@ $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámene
  ];
  targets.forEach(([host,anchor])=>{if(!host||host.querySelector(".shared-calendar-shortcut"))return;const el=shortcut("Calendario compartido","Los mismos bloques, exámenes y recordatorios en todos tus espacios.");if(anchor)anchor.insertAdjacentElement("afterend",el);else host.prepend(el)});
  document.addEventListener("click",e=>{if(e.target.closest("[data-open-shared-calendar]")){window.go?.("calendar");}});
- // Move the existing journal form to the bottom of Inicio. It keeps its original storage and entry history.
- const home=$("#home"),form=$("#journalForm"),book=form?.closest(".card");
- if(home&&book){
-  $("#home .home-personal-shortcut")?.remove();
-  let heading=$("#homeJournalHeading");if(!heading){heading=document.createElement("div");heading.id="homeJournalHeading";heading.className="home-journal-heading";heading.innerHTML='<h2>Espacio personal</h2><span>Tu diario privado</span>'}
-  book.classList.add("journal-book");
-  let date=$("#homeJournalDate");if(!date){date=document.createElement("div");date.id="homeJournalDate";date.className="journal-date-heading"}
-  date.textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());
-  const h=book.querySelector("h3");if(h)h.textContent="Diario personal";
-  book.prepend(date);home.append(heading,book);
- }
  // Make the existing global day timeline support click-and-drag block creation.
  const schedule=$("#calendarDaySchedule");let dragStart=null;
  document.addEventListener("pointerdown",e=>{const slot=e.target.closest("#calendarDaySchedule [data-calendar-hour]");if(!slot)return;dragStart={hour:Number(slot.dataset.calendarHour),date:$("#calendarDaySchedule").dataset.date||""};});
