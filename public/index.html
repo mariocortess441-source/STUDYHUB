@@ -939,7 +939,7 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
 @media(max-width:560px){.app{display:grid;grid-template-columns:0 minmax(0,1fr)}.sidebar{position:fixed;left:0;top:0;bottom:0;z-index:40;width:264px;min-width:264px;height:100dvh;transform:translateX(0);box-shadow:12px 0 36px #172b3a20;transition:transform .22s}.app.sidebar-hidden .sidebar{display:flex;width:264px;min-width:264px;transform:translateX(-105%);padding:20px 14px;border-right:1px solid var(--line)}main{grid-column:2;padding:16px 14px 45px}.top{margin:12px 0 20px}.top h1{font-size:24px}}
 </style>
 <style id="aulivra-month-calendar-only">
-#calendarWeekMode,#calendarDayMode{display:none!important}
+#calendarWeekMode,#calendarDayMode{display:inline-flex!important}
 .brand-home{border:0;background:transparent;color:inherit;text-align:left;cursor:pointer;display:flex;align-items:center;gap:11px;padding:0 10px 30px;width:100%}
 .brand-home:hover{opacity:.86}
 @media(max-width:900px){.brand-home{justify-content:center;padding:0 0 25px}.brand-home .brandtext{display:none}}
@@ -1038,6 +1038,13 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .home-personal-unified-grid .journal-book{min-width:0}
 @media(max-width:850px){.home-personal-unified-grid{grid-template-columns:1fr}.home-personal-unified-grid>.home-personal-card:first-child{grid-row:auto}.savings-forecast-item{grid-template-columns:1fr;justify-items:start}}
 </style>
+<style id="mancave-community-polish">
+#loginBtn,#logoutBtn{display:none!important}
+.home-community-stats{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:22px;align-items:center;margin-top:16px;padding:18px 22px}
+.home-community-copy{display:grid;gap:4px;min-width:0}.home-community-copy>b{font:700 13px Manrope}.home-community-copy>small{font-size:10px;color:var(--muted)}
+.home-community-number{display:grid;gap:2px;text-align:right}.home-community-number strong{font:800 22px Manrope;color:var(--text);font-variant-numeric:tabular-nums}.home-community-number span{font-size:10px;color:var(--muted)}
+@media(max-width:620px){.home-community-stats{grid-template-columns:1fr 1fr;gap:14px}.home-community-copy{grid-column:1/-1}.home-community-number{text-align:left}}
+</style>
 </head>
 <body>
 
@@ -1096,7 +1103,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 </nav><div class="sidebar-account"><span class="sidebar-account-label">CUENTA</span><span id="sidebarUserName">Invitado</span><button class="btn secondary" id="sidebarLoginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="sidebarLogoutBtn" type="button" hidden>Cerrar sesión</button></div><div class="side-bottom">MANCAVE · MC</div>
 </aside>
 <main>
-  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar u ocultar navegación" aria-label="Mostrar u ocultar navegación" aria-expanded="true" type="button"><span class="hamburger-lines" aria-hidden="true"><i></i><i></i><i></i></span></button><div class="top-brand"><span id="pageTitle">Inicio</span><button id="pageTitleEdit" class="page-title-edit" type="button" hidden aria-label="Cambiar nombre del área" title="Cambiar nombre">✎</button></div></div><div class="top-right-tools"><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none" type="button">Salir</button><div class="date" id="today"></div></div><button id="appearanceToggle" class="appearance-toggle" type="button" aria-label="Cambiar entre modo claro y oscuro" title="Cambiar tema"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5 8.5 8.5 0 1 0 20.5 15.5Z"/></svg><span>Claro / oscuro</span></button></div></header>
+  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar u ocultar navegación" aria-label="Mostrar u ocultar navegación" aria-expanded="true" type="button"><span class="hamburger-lines" aria-hidden="true"><i></i><i></i><i></i></span></button><div class="top-brand"><span id="pageTitle">Inicio</span><button id="pageTitleEdit" class="page-title-edit" type="button" hidden aria-label="Cambiar nombre del área" title="Cambiar nombre">✎</button></div></div><div class="top-right-tools"><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button" hidden>Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none" type="button" hidden>Salir</button><div class="date" id="today"></div></div><div class="theme-control">
+ <button id="themeBrush" class="theme-brush" type="button" aria-label="Cambiar estilo visual" aria-expanded="false" title="Cambiar estilo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5M4 20c3.5-.4 5.4-2.1 7.2-4l8.1-8.1a2.1 2.1 0 0 0-3-3l-8.1 8.1C6.3 15 5 17 4 20Z"/><path d="M4 20c1.8-.2 3.1-.8 4.1-1.7"/></svg></button>
+ <div class="theme-popover" id="themePopover" hidden>
+  <div class="theme-popover-heading"><b>ESTILO VISUAL</b><span>Elige el aspecto de MANCAVE</span></div>
+  <button class="theme-option" type="button" data-theme-choice="liquid-chrome" aria-pressed="true"><span class="theme-preview chrome"><i></i><i></i><i></i></span><span><b>LIQUID CHROME</b><small>Negro · cromo · minimalista</small></span><span class="theme-check">✓</span></button>
+  <button class="theme-option" type="button" data-theme-choice="nature" aria-pressed="false"><span class="theme-preview nature"><i></i><i></i><i></i></span><span><b>NATURE</b><small>Verde · natural · sereno</small></span><span class="theme-check">✓</span></button>
+  <button class="theme-option" type="button" data-theme-choice="clean-light" aria-pressed="false"><span class="theme-preview light"><i></i><i></i><i></i></span><span><b>CLEAN LIGHT</b><small>Claro · limpio · sencillo</small></span><span class="theme-check">✓</span></button>
+ </div>
+</div></div></header>
 
   <section class="view active" id="home">
  <div class="home-jake-greeting home-jake-landing">
@@ -3145,5 +3160,12 @@ main,.view,#home{min-width:0;max-width:100%}
  home.append(section);
  const oldIntro=personal.querySelector(".intro");if(oldIntro)oldIntro.hidden=true;
  const oldGrid=personal.querySelector(".grid");if(oldGrid)oldGrid.hidden=true;
+})();</script>
+<script id="mancave-theme-community-calendar-v8">(()=>{
+ const home=document.getElementById("home");if(!home||document.getElementById("homeCommunityStats"))return;
+ const card=document.createElement("section");card.id="homeCommunityStats";card.className="home-community-stats card";
+ card.innerHTML='<div class="home-community-copy"><span class="home-section-kicker">MANCAVE · COMUNIDAD</span><b>Actividad de la comunidad</b><small>Datos agregados y anónimos de uso de la aplicación.</small></div><div class="home-community-number"><strong id="activePeople">0</strong><span>activos ahora</span></div><div class="home-community-number"><strong id="regularPeople">0</strong><span>usuarios habituales</span></div>';
+ const target=document.getElementById("homeFlowBreakdown")||document.getElementById("homeInsightGrid");if(target)target.insertAdjacentElement("afterend",card);else home.append(card);
+ if(typeof refreshCommunityStats==="function")refreshCommunityStats();
 })();</script>
 </body></html>
