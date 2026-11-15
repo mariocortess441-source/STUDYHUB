@@ -2560,4 +2560,87 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
  document.addEventListener("click",e=>{if(e.target.closest(".nav button,[data-go]"))setTimeout(refreshHomeMetrics,150)});
 })();
 </script>
+
+<style id="mancave-home-dashboard-v2">
+/* MANCAVE_HOME_DASHBOARD_V2 */
+.home-dashboard-title{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:24px 0 12px}
+.home-dashboard-title h2{font:800 18px Manrope;margin:0}.home-dashboard-title p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.home-insight-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 22px}
+.home-insight{min-width:0;padding:16px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,var(--panel),var(--panel2));transition:transform .2s,border-color .2s}
+.home-insight:hover{transform:translateY(-3px);border-color:var(--accent)}
+.home-insight-head{display:flex;justify-content:space-between;align-items:center;gap:6px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:1px}
+.home-insight-head span:last-child{font-size:9px;letter-spacing:0;font-weight:600}
+.home-insight-value{font:800 22px Manrope;margin:12px 0 2px;display:block}
+.home-insight-sub{font-size:10px;color:var(--muted)}
+.home-spark{height:44px;display:flex;align-items:end;gap:5px;margin:12px 0 10px}
+.home-spark i{display:block;flex:1;min-width:3px;height:var(--bar);border-radius:4px 4px 2px 2px;background:var(--spark);opacity:.82}
+.home-insight-message{font-size:10px;line-height:1.5;color:var(--muted);min-height:30px;margin:0}
+.home-journal-heading{display:flex;justify-content:space-between;align-items:center;margin:24px 0 10px}
+.home-journal-heading h2{font:800 18px Manrope;margin:0}.home-journal-heading span{font-size:10px;color:var(--muted)}
+#home .journal-book{width:100%;background:linear-gradient(105deg,#d7c39a 0,#eee0bd 4%,#f4e8c9 12%,#ead9b3 100%);color:#403626;border:1px solid #bda77c;border-radius:8px 18px 18px 8px;box-shadow:inset 8px 0 14px #735a3022,0 16px 40px #0002;padding:24px 26px;position:relative}
+#home .journal-book:before{content:"";position:absolute;left:15px;top:0;bottom:0;width:1px;background:#b99f70}
+#home .journal-book h3,#home .journal-book p,#home .journal-book label{color:#55452e}
+#home .journal-book input,#home .journal-book select,#home .journal-book textarea{background:#f8efd9;color:#3f3424;border:1px solid #cbb88f;box-shadow:inset 0 1px 3px #8b714022}
+#home .journal-book .btn{background:#55452e;color:#f8efd9}
+#home .journal-book .journal-date-heading{font:700 12px Manrope;letter-spacing:1px;text-transform:uppercase;color:#816c49;margin-bottom:16px}
+@media(max-width:950px){.home-insight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.home-insight-grid{gap:8px}.home-insight{padding:12px}.home-insight-value{font-size:19px}.home-insight-message{font-size:9px}}
+</style>
+<script id="mancave-home-dashboard-v2-script">
+(()=>{
+ const $=s=>document.querySelector(s),home=$("#home"),study=$("#study");if(!home||!study)return;
+ // The study section no longer owns a second calendar. The global calendar remains available from the main navigation.
+ ["#study .study-planned-card","#study .study-week-card"].forEach(sel=>$(sel)?.remove());
+ const lower=$("#study .study-lower-links");if(lower){lower.querySelector('[data-go="calendar"]')?.remove();if(!lower.children.length)lower.remove()}
+ $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámenes");
+ const examsNote=$("#studyUpcomingExams")?.querySelector(".empty");if(examsNote)examsNote.textContent="Todavía no hay exámenes próximos. Añádelos desde el calendario general.";
+ // Put the existing journal form on the home page (same form and storage, no duplicate IDs or lost entries).
+ const journalForm=$("#journalForm"),journalCard=journalForm?.closest(".card");
+ if(journalCard&&!home.contains(journalCard)){
+  journalCard.classList.add("journal-book");
+  const heading=document.createElement("div");heading.className="home-journal-heading";heading.innerHTML='<h2>Tu diario</h2><span>Un espacio para cerrar el día</span>';
+  const oldHeading=journalCard.querySelector("h3");if(oldHeading)oldHeading.textContent="Diario personal";
+  const dateHeading=document.createElement("div");dateHeading.className="journal-date-heading";dateHeading.id="homeJournalDate";
+  dateHeading.textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());
+  journalCard.insertBefore(dateHeading,journalCard.firstChild);
+  home.append(heading,journalCard);
+ }
+ // The personal area keeps birthdays and personal reminders; the diary is now part of Inicio.
+ const personal=$("#personal");if(personal){const grid=personal.querySelector(".grid");if(grid){const empty=grid.querySelector(".span-7");if(empty)empty.remove();grid.classList.add("personal-reminders-only")}}
+ // Replace the old number-only strip with four real weekly mini-graphs.
+ $("#homeMetricGrid")?.remove();$("#homeMetricMessage")?.remove();
+ const title=document.createElement("div");title.className="home-dashboard-title";title.innerHTML='<div><h2>Resumen de actividad</h2><p>Tu progreso de los últimos siete días</p></div><span class="tiny">MANCAVE · SEMANA</span>';
+ const grid=document.createElement("div");grid.id="homeInsightGrid";grid.className="home-insight-grid";
+ const definitions=[
+  ["home","INICIO","Actividad total","0","Resumen de tu semana","JAKE · Señor, cada pequeño avance cuenta."],
+  ["study","ESTUDIO","0 min","0","Tiempo de concentración","JAKE · La constancia vale más que una sesión perfecta."],
+  ["business","EMPRENDIMIENTO","0 h","0","Tiempo dedicado","JAKE · Construya su proyecto paso a paso."],
+  ["economy","ECONOMÍA","0 €","0","Movimientos registrados","JAKE · Mantenga el control de cada movimiento."]
+ ];
+ definitions.forEach((d,i)=>{const card=document.createElement("article");card.className="home-insight";card.dataset.insight=d[0];card.style.setProperty("--spark",["#61d6ce","#63b8f4","#aa91ff","#e7bd65"][i]);card.innerHTML='<div class="home-insight-head"><span>'+d[1]+'</span><span>7 DÍAS</span></div><strong class="home-insight-value">'+d[2]+'</strong><small class="home-insight-sub">'+d[4]+'</small><div class="home-spark" aria-label="Gráfica semanal">'+Array.from({length:7},()=>'<i style="--bar:3px"></i>').join("")+'</div><p class="home-insight-message">'+d[5]+'</p>';grid.append(card)});
+ home.insertBefore(title,home.querySelector(".home-personal-shortcut")||null);home.insertBefore(grid,home.querySelector(".home-personal-shortcut")||null);
+ function update(){
+  if(typeof store==="undefined")return;
+  const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-6+i);return d.toLocaleDateString("en-CA")});
+  const sessions=store.get("sessions",[]),work=store.get("aulivra_business_hours",[]),eco=store.get("aulivra_economy",{movements:[]}),movements=eco.movements||[],projects=(store.get("aulivra_projects",{projects:[]}).projects||[]);
+  const subjects=store.get("aulivra_subjects",[]),pending=subjects.flatMap(x=>x.tasks||[]).filter(x=>!x.done).length;
+  const values={
+   study:days.map(day=>sessions.filter(x=>x.date===day).reduce((n,x)=>n+Number(x.minutes||0),0)),
+   business:days.map(day=>work.filter(x=>x.date===day).reduce((n,x)=>n+Number(x.minutes||0),0)),
+   economy:days.map(day=>movements.filter(x=>x.date===day).reduce((n,x)=>n+Number(x.type==="income"?x.amount:-x.amount||0),0)),
+   home:days.map((day,i)=>sessions.filter(x=>x.date===day).length+work.filter(x=>x.date===day).length+movements.filter(x=>x.date===day).length+(i===6?pending:0))
+  };
+  const totals={study:values.study.reduce((a,b)=>a+b,0),business:values.business.reduce((a,b)=>a+b,0),economy:values.economy.reduce((a,b)=>a+b,0),home:values.home.reduce((a,b)=>a+b,0)};
+  const fmt=n=>Number(n||0).toLocaleString("es-ES");
+  Object.entries(values).forEach(([key,bars])=>{const card=grid.querySelector('[data-insight="'+key+'"]');if(!card)return;const max=Math.max(1,...bars.map(Math.abs));card.querySelector(".home-spark").innerHTML=bars.map((v,i)=>'<i title="'+days[i]+': '+fmt(v)+'" style="--bar:'+Math.max(3,Math.round(Math.abs(v)/max*42))+'px"></i>').join("");});
+  const set=(key,value,sub,message)=>{const c=grid.querySelector('[data-insight="'+key+'"]');if(!c)return;c.querySelector(".home-insight-value").textContent=value;c.querySelector(".home-insight-sub").textContent=sub;c.querySelector(".home-insight-message").textContent=message};
+  set("home",fmt(totals.home),"acciones registradas · "+projects.filter(p=>p.status!=="Archivado").length+" proyectos activos",totals.home?"JAKE · Señor, ya hay movimiento esta semana. Mantenga el ritmo y elija la siguiente prioridad.":"JAKE · Señor, todavía no hay actividad registrada esta semana. Empiece con una tarea pequeña.");
+  set("study",fmt(totals.study)+" min", "concentración · "+pending+" tareas pendientes",totals.study?"JAKE · Buen trabajo. Proteja sus bloques de concentración.":"JAKE · Señor, registre sus sesiones de estudio para medir el progreso real.");
+  set("business",(totals.business/60).toLocaleString("es-ES",{maximumFractionDigits:1})+" h","dedicación · "+projects.length+" proyectos",totals.business?"JAKE · Cada hora construye el proyecto. Siga avanzando.":"JAKE · Señor, reserve tiempo para convertir sus ideas en acciones.");
+  set("economy",fmt(totals.economy)+" €","balance neto de movimientos · 7 días",movements.length?"JAKE · Revise sus ingresos y gastos con regularidad.":"JAKE · Señor, registre sus movimientos para tener una visión clara.");
+ }
+ update();document.addEventListener("visibilitychange",()=>{if(!document.hidden)update()});
+ document.addEventListener("click",e=>{if(e.target.closest(".nav button,[data-go]"))setTimeout(update,180)});
+})();
+</script>
 </body></html>
