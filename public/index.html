@@ -1024,8 +1024,8 @@ function refreshCalendarSubjects(){
 }
 $("#calendarAddEvent").onclick=()=>{
  const title=$("#calendarEventTitle").value.trim(),subjectId=$("#calendarEventSubject").value,date=$("#calendarEventDate").value,time=$("#calendarEventTime").value,end=$("#calendarEventEnd")?$("#calendarEventEnd").value:"",reminderMinutes=Number($("#calendarEventReminder").value),sub=subjectsData().find(s=>s.id===subjectId);
- if(!title||!date||!time)return toast("Complete el nombre, la fecha y la hora.");
- const events=store.get("aulivra_events",[]);events.push({id:crypto.randomUUID(),title,subjectId:subjectId||"",subjectName:sub?.name||"Personal",date,time,reminderMinutes,color:$("#calendarEventColor")?.value||"#1769df",kind:"event"});store.set("aulivra_events",events);
+ if(!title||!date||!time)return toast("Complete el nombre, la fecha y la hora.");if(end&&end<=time)return toast("La hora de fin debe ser posterior a la de inicio.");
+ const events=store.get("aulivra_events",[]);events.push({id:crypto.randomUUID(),title,subjectId:subjectId||"",subjectName:sub?.name||"Personal",date,time,end,reminderMinutes,color:$("#calendarEventColor")?.value||"#1769df",kind:"event"});store.set("aulivra_events",events);
  $("#calendarEventTitle").value="";if($("#calendarEventEnd"))$("#calendarEventEnd").value="";calendarSelected=dateFromKey(date);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar();renderEvents();renderHome();renderHomeExtras();toast("Bloque guardado en tu calendario.");
 };
 function applyHomeWidgets(){
