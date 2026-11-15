@@ -293,6 +293,17 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 @keyframes fly-bob{0%,100%{transform:translateY(0) rotate(-12deg)}50%{transform:translateY(-4px) rotate(-5deg)}}
 .fly-launcher.dragging .fly-body{animation:none}
 @media(max-width:560px){.fly-launcher{width:60px;height:60px;right:14px;bottom:14px;padding:0!important}.fly-body{font-size:28px}}
+
+/* Inicio compacto */
+.home-hero-compact{padding:8px 2px 18px}.home-hero-compact h2{font:800 clamp(27px,3vw,38px) Manrope;letter-spacing:-1.2px;margin:7px 0;color:#fff}.home-hero-compact p{margin:0;color:#b8b2c9;font-size:14px;line-height:1.6}
+.home-chart-card{padding:20px 22px;margin-bottom:16px}.home-card-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.home-card-heading h3{margin:0 0 5px}.home-card-heading p{margin:0;color:#a09bb3;font-size:12px}.home-card-heading>strong{font:800 22px Manrope;color:#c8b8ff;white-space:nowrap}
+.study-week-chart{height:164px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));align-items:end;gap:clamp(7px,2vw,18px);padding:20px 5px 0}.study-day-col{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:7px;min-width:0}.study-day-value{font-size:10px;color:#bdb4d1;font-variant-numeric:tabular-nums}.study-day-track{height:105px;width:min(100%,34px);border-radius:9px;background:#282237;display:flex;align-items:flex-end;overflow:hidden}.study-day-bar{width:100%;min-height:3px;border-radius:9px;background:linear-gradient(180deg,#c1a7ff,#8055e8);transition:height .35s}.study-day-label{font-size:10px;color:#a49bb7}
+.home-chart-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px;padding-top:13px;border-top:1px solid #38294f;color:#a49bb7;font-size:11px}
+.home-ad-compact{margin:15px 0 18px;padding:10px 0;min-width:0;width:100%;text-align:center}.home-ad-compact .ad-label{font-size:9px;letter-spacing:1.3px;color:#8f879f;margin-bottom:6px}
+.home-assistant-card{display:flex;align-items:center;gap:16px;padding:18px 20px;border-color:#51406e;background:linear-gradient(115deg,#211831,#171124 75%,#302044)}.home-assistant-icon{width:48px;height:48px;flex:none;display:grid;place-items:center;border-radius:15px;background:#39265b;font-size:25px}.home-assistant-copy{flex:1;min-width:0}.home-assistant-copy h3{margin:4px 0 5px;color:#fff;font:800 17px Manrope}.home-assistant-copy p{margin:0;color:#c2b6d7;font-size:12px;line-height:1.5}.home-calendar-link{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:13px;color:#a49bb7;font-size:12px}
+.fly-launcher{touch-action:none!important;pointer-events:auto!important;will-change:left,top;user-select:none;-webkit-user-select:none;z-index:1002!important}.fly-launcher .fly-body{pointer-events:none}.assistant-panel{z-index:1003}
+.calendar-reminder-tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 14px}.calendar-event-time{color:#c6b4ff;font-weight:700;font-size:11px}
+@media(max-width:560px){.home-hero-compact{padding:2px 2px 14px}.home-chart-card{padding:16px}.study-week-chart{height:145px;gap:5px}.study-day-track{height:88px;width:min(100%,29px)}.home-chart-foot{align-items:flex-start;flex-wrap:wrap}.home-assistant-card{align-items:flex-start;flex-wrap:wrap;padding:15px}.home-assistant-copy{width:calc(100% - 65px)}.home-assistant-card>.btn{margin-left:64px}.home-calendar-link{align-items:flex-start;flex-direction:column}}
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
@@ -327,29 +338,11 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
   <header class="top"><div style="display:flex;align-items:center;gap:14px"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú">☰</button><div><div class="eyebrow">TU ESPACIO DE PRODUCTIVIDAD</div><h1 id="pageTitle">Todo en un mismo lugar.</h1></div></div><div class="user-chip"><span id="userName">Modo invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none">Salir</button><div class="date" id="today"></div></div></header>
 
   <section class="view active" id="home">
-    <div class="intro"><h2>Bienvenido a AULIVRA.</h2><p>Organiza tus documentos, controla tus notas y aprovecha cada bloque de estudio.</p></div>
-    <section class="welcome-banner" data-home-widget="welcome" aria-label="Bienvenida a AULIVRA"><div class="welcome-copy"><div class="welcome-kicker">TU ESPACIO PARA AVANZAR</div><h2>Cada sesión cuenta.</h2><p>Organiza tus tareas, mejora tus resultados y convierte tus objetivos en pequeños avances diarios.</p><div class="welcome-points"><span>✦ Enfócate</span><span>✓ Organízate</span><span>↗ Progresa</span></div></div><img class="welcome-art" src="/studyhub-hero.svg" alt="Ilustración de cuaderno, lista de tareas y lápiz"></section>
-
-    <div class="ad-container" aria-label="Publicidad" style="margin:24px 0;padding:12px 0;min-width:0;width:100%;text-align:center"><div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#8a95a8;margin-bottom:8px">Publicidad</div><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="ca-pub-1955364701775135" data-ad-slot="2073225375" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
-
-    <div class="grid">
-      <div class="card span-4" data-home-widget="stats"><div class="stat"><div class="stat-icon">▦</div><div><strong id="homeSubjects">0</strong><small>Asignaturas guardadas</small></div></div></div>
-      <div class="card span-4" data-home-widget="stats"><div class="stat"><div class="stat-icon">◷</div><div><strong id="homeSessions">0</strong><small>Minutos de estudio hoy</small></div></div></div>
-      <div class="card span-4" data-home-widget="stats"><div class="stat"><div class="stat-icon">★</div><div><strong id="homeAverage">—</strong><small>Media de notas guardadas</small></div></div></div>
-      <div class="card span-12" data-home-widget="shortcuts"><h3 style="font-size:21px;margin-bottom:8px">Tu menú principal</h3><p style="margin-bottom:20px">Cuatro espacios para tener todo lo importante a mano.</p><div class="home-actions">
-        <button class="quick" data-go="timer"><img class="quick-illustration" src="/studyhub-study.svg" alt=""><span><b>Estudio y concentración</b><small>Temporizador, Pomodoro y sesiones</small></span></button>
-        <button class="quick" data-go="grades"><img class="quick-illustration" src="/studyhub-grades.svg" alt=""><span><b>Notas y calificaciones</b><small>Calcula medias y controla resultados</small></span></button>
-        <button class="quick" data-go="files"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Archivos y documentos</b><small>Convertir, compartir y organizar</small></span></button>
-        <button class="quick" data-go="library"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Biblioteca académica</b><small>Recursos para tus asignaturas</small></span></button>
-      </div></div>
-      <div class="card span-5"><h3>Tu próximo bloque</h3><p>Configura un temporizador y registra tus minutos de concentración.</p><div class="divider"></div><div style="display:flex;align-items:center;justify-content:space-between"><div><div style="font:800 26px Manrope">25:00</div><small class="muted">Pomodoro clásico</small></div><button class="btn" data-go="timer">Abrir timer →</button></div></div>
-      <div class="card span-6" data-home-widget="upcoming"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><h3>Próximas fechas</h3><p>Exámenes y entregas que tienes a la vista.</p></div><button class="btn ghost" data-go="calendar">Ver calendario</button></div><div id="homeUpcoming" style="margin-top:12px"></div></div>
-      <div class="card span-6" data-home-widget="tasks"><div><h3>Tareas pendientes</h3><p>Lo siguiente que tienes que completar.</p></div><div id="homeTasks" style="margin-top:12px"></div></div>
-      <div class="card span-12" data-home-widget="settings"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div><h3>Personaliza tu inicio</h3><p>Elige qué apartados quieres ver en tu panel principal.</p></div><span class="tiny">Se guarda en tu cuenta</span></div><div class="home-widget-options" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:15px">
-      <label><input type="checkbox" data-widget-toggle="welcome" checked> Bienvenida</label><label><input type="checkbox" data-widget-toggle="stats" checked> Estadísticas</label><label><input type="checkbox" data-widget-toggle="shortcuts" checked> Accesos directos</label><label><input type="checkbox" data-widget-toggle="upcoming" checked> Próximas fechas</label><label><input type="checkbox" data-widget-toggle="tasks" checked> Tareas pendientes</label></div></div>
-
-    </div>
-  </section>
+<div class="home-hero-compact"><div class="eyebrow">TU ESPACIO DE ESTUDIO</div><h2>Hoy toca avanzar.</h2><p id="homeMotivation">No necesitas hacerlo todo hoy. Solo empezar con el siguiente bloque.</p></div>
+<div class="card home-chart-card"><div class="home-card-heading"><div><h3>Tu progreso de estudio</h3><p>Minutos estudiados durante los últimos 7 días</p></div><strong id="homeSessions">0 min</strong></div><div id="studyWeekChart" class="study-week-chart" role="img" aria-label="Gráfica semanal de minutos estudiados"></div><div class="home-chart-foot"><span id="homeSubjects" hidden>0</span><span id="homeAverage" hidden>—</span><span>Pequeños avances, grandes resultados.</span><button class="btn ghost" data-go="timer">Estudiar ahora</button></div></div>
+<div class="ad-container home-ad-compact" aria-label="Publicidad"><div class="ad-label">PUBLICIDAD</div><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="ca-pub-1955364701775135" data-ad-slot="2073225375" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+<div class="card home-assistant-card"><div class="home-assistant-icon">🪰</div><div class="home-assistant-copy"><span class="eyebrow">TU ASISTENTE</span><h3>¿Qué vamos a hacer hoy?</h3><p id="homeTodayPlan">Estoy preparando tus bloques de estudio de hoy.</p></div><button class="btn" id="openAssistantFromHome" type="button">Ver mi plan</button></div>
+<div class="home-calendar-link"><span>¿Tienes que organizar la semana?</span><button class="btn ghost" data-go="calendar">Abrir calendario →</button></div></section>
 
 <section class="view" id="calendar">
     <div class="intro"><h2>Tu calendario académico</h2><p>Consulta tus exámenes, entregas y tareas con fecha en una vista mensual.</p></div>
@@ -359,7 +352,7 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
       <div class="calendar-days" id="calendarDays"></div>
       <div class="divider"></div><div class="calendar-selected"><h3 id="calendarSelectedTitle">Selecciona un día</h3><div id="calendarSelectedItems" class="empty">Aquí aparecerán tus exámenes, entregas y tareas.</div></div>
     </div>
-    <div class="card" style="margin-top:14px"><h3>Añadir una fecha</h3><p>Las fechas que añadas aquí también aparecerán en Asignaturas.</p><div class="row" style="margin-top:12px"><div><label for="calendarEventTitle">Nombre</label><input id="calendarEventTitle" placeholder="Ej. Examen de Matemáticas"></div><div><label for="calendarEventSubject">Asignatura</label><select id="calendarEventSubject"><option value="">Selecciona asignatura</option></select></div><div><label for="calendarEventDate">Fecha</label><input id="calendarEventDate" type="date"></div><button class="btn" id="calendarAddEvent">Guardar fecha</button></div></div>
+    <div class="card" style="margin-top:14px"><h3>Añadir una fecha</h3><p>Las fechas que añadas aquí también aparecerán en Asignaturas.</p><div class="calendar-reminder-tools"><button class="btn secondary" id="enableCalendarNotifications" type="button">Activar notificaciones</button><span class="tiny" id="calendarNotificationStatus">Avisos en este dispositivo cuando AULIVRA esté abierto.</span></div><div class="row" style="margin-top:12px"><div><label for="calendarEventTitle">Bloque o evento</label><input id="calendarEventTitle" placeholder="Ej. Matemáticas: integrales"></div><div><label for="calendarEventSubject">Asignatura</label><select id="calendarEventSubject"><option value="">Selecciona asignatura</option></select></div><div><label for="calendarEventDate">Fecha</label><input id="calendarEventDate" type="date"></div><div><label for="calendarEventTime">Hora</label><input id="calendarEventTime" type="time" value="17:00"></div><div><label for="calendarEventReminder">Aviso previo</label><select id="calendarEventReminder"><option value="0">A la hora de empezar</option><option value="5" selected>5 minutos antes</option><option value="10">10 minutos antes</option><option value="15">15 minutos antes</option><option value="30">30 minutos antes</option></select></div><button class="btn" id="calendarAddEvent">Guardar bloque</button></div></div>
   </section>
 
   <section class="view" id="files"><div class="intro"><h2>Archivos y documentos</h2><p>Tus herramientas para trabajar con documentos desde un solo lugar.</p></div><div class="home-actions">
@@ -614,7 +607,12 @@ if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle
  function add(text,who){const el=document.createElement("div");el.className="assistant-msg "+who;el.textContent=text;messages.appendChild(el);messages.scrollTop=messages.scrollHeight}
  function reply(q){const clean=q.toLocaleLowerCase("es").normalize("NFD").replace(/[\u0300-\u036f]/g,"");const found=answers.find(a=>a.keys.some(k=>clean.includes(k.normalize("NFD").replace(/[\u0300-\u036f]/g,""))));return found?found.text:"Puedo ayudarte con el temporizador, las notas, el conversor, compartir archivos, la biblioteca, el acceso como invitado o el menú lateral. Prueba a preguntarme por uno de esos apartados."}
  function ask(q){const value=String(q||"").trim();if(!value)return;add(value,"user");add(reply(value),"bot");input.value="";input.focus()}
- function toggle(open){panel.classList.toggle("open",open);launcher.setAttribute("aria-expanded",String(open));if(open)input.focus()}
+ function toggle(open){
+ panel.classList.toggle("open",open);launcher.setAttribute("aria-expanded",String(open));
+ if(open){const d=new Date(),key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-"),blocks=(store.get("aulivra_events",[])||[]).filter(x=>x.date===key).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+ const first=messages.querySelector(".assistant-msg.bot");if(first)first.textContent="¿Qué vamos a hacer hoy?"+(blocks.length?" Estos son tus bloques programados:\n"+blocks.map(x=>(x.time?x.time+" · ":"")+x.title+(x.subjectName?" ("+x.subjectName+")":"")).join("\n"):" Aún no tienes bloques programados. ¡Vamos a organizar el primero!");
+ input.focus()}
+}
  launcher.addEventListener("click",()=>toggle(!panel.classList.contains("open")));
  document.getElementById("assistantClose").addEventListener("click",()=>toggle(false));
  form.addEventListener("submit",e=>{e.preventDefault();ask(input.value)});
@@ -622,55 +620,18 @@ if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle
 })();
 
 
-/* Movimiento de la mosca asistente: ratón, táctil y posición recordada */
+/* Arrastre robusto de la mosca con seguimiento global del puntero */
 (()=>{
- const fly=document.getElementById("assistantLauncher");
- if(!fly)return;
- const KEY="aulivra_assistant_fly_position";
- let dragging=false,moved=false,startX=0,startY=0,originX=0,originY=0,suppressClick=false;
- const margin=8;
- function clampPosition(x,y){
-   const rect=fly.getBoundingClientRect();
-   return {x:Math.max(margin,Math.min(window.innerWidth-rect.width-margin,x)),y:Math.max(margin,Math.min(window.innerHeight-rect.height-margin,y))};
- }
- function place(x,y,save=true){
-   const p=clampPosition(x,y);
-   fly.style.left=p.x+"px";fly.style.top=p.y+"px";fly.style.right="auto";fly.style.bottom="auto";
-   if(save){try{localStorage.setItem(KEY,JSON.stringify(p))}catch{}}
- }
- try{
-   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
-   if(saved&&Number.isFinite(saved.x)&&Number.isFinite(saved.y))place(saved.x,saved.y,false);
- }catch{}
- fly.addEventListener("pointerdown",e=>{
-   if(e.button!==undefined&&e.button!==0)return;
-   dragging=true;moved=false;startX=e.clientX;startY=e.clientY;
-   const r=fly.getBoundingClientRect();originX=r.left;originY=r.top;
-   fly.classList.add("dragging");
-   try{fly.setPointerCapture(e.pointerId)}catch{}
- });
- fly.addEventListener("pointermove",e=>{
-   if(!dragging)return;
-   const dx=e.clientX-startX,dy=e.clientY-startY;
-   if(Math.abs(dx)+Math.abs(dy)>5)moved=true;
-   if(moved){e.preventDefault();place(originX+dx,originY+dy)}
- });
- function finish(){
-   if(!dragging)return;
-   dragging=false;fly.classList.remove("dragging");
-   if(moved){suppressClick=true;setTimeout(()=>{suppressClick=false},350)}
- }
- fly.addEventListener("pointerup",finish);
- fly.addEventListener("pointercancel",finish);
- fly.addEventListener("click",e=>{
-   if(suppressClick){e.preventDefault();e.stopImmediatePropagation();suppressClick=false}
- });
- window.addEventListener("resize",()=>{
-   const r=fly.getBoundingClientRect();
-   if(r.width&&r.height)place(r.left,r.top);
- });
+ const fly=document.getElementById("assistantLauncher");if(!fly)return;const KEY="aulivra_assistant_fly_position";let id=null,sx=0,sy=0,ox=0,oy=0,moved=false,suppress=false;
+ const clamp=(x,y)=>{const r=fly.getBoundingClientRect();return{x:Math.max(6,Math.min(innerWidth-r.width-6,x)),y:Math.max(6,Math.min(innerHeight-r.height-6,y))}};
+ function place(x,y,save=true){const p=clamp(x,y);fly.style.position="fixed";fly.style.left=p.x+"px";fly.style.top=p.y+"px";fly.style.right="auto";fly.style.bottom="auto";if(save){try{localStorage.setItem(KEY,JSON.stringify(p))}catch{}}}
+ try{const p=JSON.parse(localStorage.getItem(KEY)||"null");if(p&&Number.isFinite(p.x)&&Number.isFinite(p.y))place(p.x,p.y,false)}catch{}
+ fly.addEventListener("pointerdown",e=>{if(e.isPrimary===false||(e.pointerType==="mouse"&&e.button!==0))return;id=e.pointerId;sx=e.clientX;sy=e.clientY;const r=fly.getBoundingClientRect();ox=r.left;oy=r.top;moved=false;fly.classList.add("dragging");e.preventDefault()});
+ window.addEventListener("pointermove",e=>{if(id===null||e.pointerId!==id)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.hypot(dx,dy)>4)moved=true;if(moved){e.preventDefault();place(ox+dx,oy+dy)}},{passive:false});
+ function end(e){if(id===null||(e&&e.pointerId!==id))return;id=null;fly.classList.remove("dragging");if(moved){suppress=true;setTimeout(()=>suppress=false,450)}}
+ window.addEventListener("pointerup",end);window.addEventListener("pointercancel",end);fly.addEventListener("click",e=>{if(suppress){e.preventDefault();e.stopImmediatePropagation();suppress=false}},true);
+ window.addEventListener("resize",()=>{const r=fly.getBoundingClientRect();place(r.left,r.top)});
 })(); 
-
 /* Aceptación de términos y confirmación de lectura de privacidad */
 (()=> {
   const VERSION = "2026-11-15-v1";
@@ -757,7 +718,7 @@ function renderCalendar(){
  grid.querySelectorAll("[data-calendar-day]").forEach(b=>b.onclick=()=>{calendarSelected=dateFromKey(b.dataset.calendarDay);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()});
  const key=dateKey(calendarSelected),selected=items.filter(x=>(x.date||x.due)===key);
  $("#calendarSelectedTitle").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long"}).format(calendarSelected);
- $("#calendarSelectedItems").innerHTML=selected.length?selected.map(x=>'<div class="calendar-event-line"><span class="stat-icon" style="width:30px;height:30px;font-size:13px">'+(x.kind==="task"?"✓":"▦")+'</span><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+(x.kind==="task"?" · Pendiente":" · Examen o entrega")+'</small></span></div>').join(""):'<div class="empty">No hay nada programado para este día.</div>';
+ $("#calendarSelectedItems").innerHTML=selected.length?selected.map(x=>'<div class="calendar-event-line"><span class="stat-icon" style="width:30px;height:30px;font-size:13px">'+(x.kind==="task"?"✓":"▦")+'</span><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+(x.kind==="task"?" · Pendiente":" · Bloque programado")+'</small></span>'+(x.time?'<span class="calendar-event-time">'+esc(x.time)+'</span>':'')+'</div>').join(""):'<div class="empty">No hay nada programado para este día.</div>';
 }
 $("#calendarPrev").onclick=()=>{if(calendarViewMode==="week")calendarSelected.setDate(calendarSelected.getDate()-7);else calendarCursor.setMonth(calendarCursor.getMonth()-1);if(calendarViewMode==="week")calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
 $("#calendarNext").onclick=()=>{if(calendarViewMode==="week")calendarSelected.setDate(calendarSelected.getDate()+7);else calendarCursor.setMonth(calendarCursor.getMonth()+1);if(calendarViewMode==="week")calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
@@ -768,10 +729,10 @@ function refreshCalendarSubjects(){
  const sel=$("#calendarEventSubject");if(sel)sel.innerHTML='<option value="">Selecciona asignatura</option>'+subjectsData().map(s=>'<option value="'+esc(s.id)+'">'+esc(s.name)+'</option>').join("");
 }
 $("#calendarAddEvent").onclick=()=>{
- const title=$("#calendarEventTitle").value.trim(),subjectId=$("#calendarEventSubject").value,date=$("#calendarEventDate").value,sub=subjectsData().find(s=>s.id===subjectId);
- if(!title||!sub||!date)return toast("Completa el nombre, asignatura y fecha.");
- const events=store.get("aulivra_events",[]);events.push({id:crypto.randomUUID(),title,subjectId,subjectName:sub.name,date});store.set("aulivra_events",events);
- $("#calendarEventTitle").value="";calendarSelected=dateFromKey(date);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar();renderEvents();renderHome();toast("Fecha guardada en tu calendario.");
+ const title=$("#calendarEventTitle").value.trim(),subjectId=$("#calendarEventSubject").value,date=$("#calendarEventDate").value,time=$("#calendarEventTime").value,reminderMinutes=Number($("#calendarEventReminder").value),sub=subjectsData().find(s=>s.id===subjectId);
+ if(!title||!sub||!date||!time)return toast("Completa el bloque, asignatura, fecha y hora.");
+ const events=store.get("aulivra_events",[]);events.push({id:crypto.randomUUID(),title,subjectId,subjectName:sub.name,date,time,reminderMinutes});store.set("aulivra_events",events);
+ $("#calendarEventTitle").value="";calendarSelected=dateFromKey(date);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar();renderEvents();renderHome();renderHomeExtras();toast("Bloque guardado en tu calendario.");
 };
 function applyHomeWidgets(){
  const defaults={welcome:true,stats:true,shortcuts:true,upcoming:true,tasks:true};
@@ -779,13 +740,24 @@ function applyHomeWidgets(){
  document.querySelectorAll("[data-home-widget]").forEach(el=>{const k=el.dataset.homeWidget;if(k!=="settings")el.style.display=prefs[k]===false?"none":""});
  document.querySelectorAll("[data-widget-toggle]").forEach(input=>{input.checked=prefs[input.dataset.widgetToggle]!==false;input.onchange=()=>{prefs[input.dataset.widgetToggle]=input.checked;store.set("aulivra_home_widgets",prefs);applyHomeWidgets()}});
 }
+function renderStudyWeekChart(){
+ const host=$("#studyWeekChart");if(!host)return;const sessions=store.get("sessions",[]),days=[];
+ for(let i=6;i>=0;i--){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-i);const key=dateKey(d),minutes=sessions.filter(x=>x.date===key).reduce((sum,x)=>sum+(Number(x.minutes)||0),0);days.push({label:new Intl.DateTimeFormat("es-ES",{weekday:"short"}).format(d).replace(".",""),minutes})}
+ const max=Math.max(60,...days.map(x=>x.minutes));host.innerHTML=days.map(x=>'<div class="study-day-col"><span class="study-day-value">'+(x.minutes?x.minutes+"m":"")+'</span><div class="study-day-track"><div class="study-day-bar" style="height:'+Math.max(x.minutes?4:0,x.minutes/max*100)+'%"></div></div><span class="study-day-label">'+esc(x.label)+'</span></div>').join("");
+ const total=days.reduce((sum,x)=>sum+x.minutes,0),el=$("#homeSessions");if(el)el.textContent=total+" min";
+}
+function updateNotificationStatus(){const el=$("#calendarNotificationStatus"),btn=$("#enableCalendarNotifications");if(!el||!btn)return;if(!("Notification" in window)){el.textContent="Este navegador no admite notificaciones.";btn.disabled=true;return}el.textContent=Notification.permission==="granted"?"Notificaciones activadas en este dispositivo.":Notification.permission==="denied"?"Notificaciones bloqueadas en los ajustes del navegador.":"Activa los avisos para tus bloques programados.";btn.textContent=Notification.permission==="granted"?"Notificaciones activadas":"Activar notificaciones"}
+if($("#enableCalendarNotifications"))$("#enableCalendarNotifications").onclick=async()=>{if(!("Notification" in window))return toast("Este navegador no admite notificaciones.");try{const p=await Notification.requestPermission();updateNotificationStatus();toast(p==="granted"?"Notificaciones activadas.":"No se han concedido permisos.")}catch{toast("No se pudieron activar las notificaciones.")}};
+const notifiedReminders=new Set();
+function checkCalendarReminders(){if(!("Notification" in window)||Notification.permission!=="granted")return;const now=new Date();for(const e of store.get("aulivra_events",[])){if(!e.date||!e.time)continue;const start=new Date(e.date+"T"+e.time),at=new Date(start.getTime()-(Number(e.reminderMinutes)||0)*60000),key=e.id+":"+e.date+":"+e.time;if(now>=at&&now<new Date(at.getTime()+60000)&&!notifiedReminders.has(key)){notifiedReminders.add(key);try{const n=new Notification("AULIVRA · Hora de estudiar",{body:(e.subjectName?e.subjectName+" · ":"")+e.title+" · Empieza a las "+e.time,tag:key});n.onclick=()=>{window.focus();go("calendar");n.close()}}catch{}}}}
+setInterval(checkCalendarReminders,20000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)checkCalendarReminders()});updateNotificationStatus();checkCalendarReminders();
+$("#openAssistantFromHome")?.addEventListener("click",()=>$("#assistantLauncher")?.click());
 function renderHomeExtras(){
- const items=allCalendarItems().sort((a,b)=>(a.date||a.due).localeCompare(b.date||b.due));
- const upcoming=items.filter(x=>(x.date||x.due)>=dateKey(new Date())).slice(0,5);
- $("#homeUpcoming").innerHTML=upcoming.length?upcoming.map(x=>'<div class="calendar-event-line"><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+'</small></span><small>'+esc(x.date||x.due)+'</small></div>').join(""):'<div class="empty">No tienes fechas próximas.</div>';
- const pending=subjectsData().flatMap(s=>(s.tasks||[]).filter(t=>!t.done).map(t=>({...t,subjectName:s.name}))).slice(0,5);
- $("#homeTasks").innerHTML=pending.length?pending.map(t=>'<div class="calendar-event-line"><span style="flex:1"><b>'+esc(t.text)+'</b><small class="muted" style="display:block">'+esc(t.subjectName)+'</small></span><small>'+(t.due?esc(t.due):"Sin fecha")+'</small></div>').join(""):'<div class="empty">No tienes tareas pendientes.</div>';
- applyHomeWidgets();
+ const items=allCalendarItems().sort((a,b)=>(a.date||a.due).localeCompare(b.date||b.due)),todayKey=dateKey(new Date()),blocks=items.filter(x=>(x.date||x.due)===todayKey).sort((a,b)=>(a.time||"23:59").localeCompare(b.time||"23:59"));
+ const plan=$("#homeTodayPlan");if(plan)plan.textContent=blocks.length?blocks.slice(0,3).map(x=>(x.time?x.time+" · ":"")+x.title).join("  |  "):"No tienes bloques programados todavía. Abre el calendario y organiza tu primer bloque.";
+ const upcoming=items.filter(x=>(x.date||x.due)>=todayKey).slice(0,5),up=$("#homeUpcoming");if(up)up.innerHTML=upcoming.length?upcoming.map(x=>'<div class="calendar-event-line"><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+'</small></span><small>'+esc(x.date||x.due)+'</small></div>').join(""):'<div class="empty">No tienes fechas próximas.</div>';
+ const pending=subjectsData().flatMap(s=>(s.tasks||[]).filter(t=>!t.done).map(t=>({...t,subjectName:s.name}))).slice(0,5),tasks=$("#homeTasks");if(tasks)tasks.innerHTML=pending.length?pending.map(t=>'<div class="calendar-event-line"><span style="flex:1"><b>'+esc(t.text)+'</b><small class="muted" style="display:block">'+esc(t.subjectName)+'</small></span><small>'+(t.due?esc(t.due):"Sin fecha")+'</small></div>').join(""):'<div class="empty">No tienes tareas pendientes.</div>';
+ renderStudyWeekChart();applyHomeWidgets();
 }
 const previousHomeRenderer=renderHome;
 renderHome=function(){previousHomeRenderer();$("#homeSubjects").textContent=subjectsData().length;renderHomeExtras()};
