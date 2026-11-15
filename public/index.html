@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#1769df">
+<meta name="theme-color" content="#0b0d14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="AULIVRA">
@@ -784,7 +784,50 @@ input::placeholder,textarea::placeholder{color:#9a9daf!important}
 .notification-onboarding{position:fixed;inset:0;z-index:1300;display:none;place-items:center;padding:20px;background:#080610bd;backdrop-filter:blur(7px)}.notification-onboarding.open{display:grid}.notification-onboarding-card{width:min(100%,430px);padding:28px;border:1px solid #49385f;border-radius:23px;background:#171124;color:#f6f1ff;box-shadow:0 25px 90px #0009}.notification-onboarding-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:#302247;color:#d5c2ff;font-size:25px;margin-bottom:16px}.notification-onboarding-card h2{font:800 24px Manrope;margin:8px 0}.notification-onboarding-card p{color:#c0b6d1;font-size:13px;line-height:1.6}.notification-onboarding-actions{display:grid;gap:9px;margin:20px 0 12px}.notification-onboarding-actions button{width:100%}.notification-onboarding-card>small{color:#958aa9;font-size:10px}
 @media(max-width:560px){.notification-onboarding-card{padding:23px}}
 </style>
-</head>
+<style id="aulivra-professional-dark-v2">
+:root{color-scheme:dark;--bg:#0b0d14;--panel:#141824;--panel2:#1a2030;--line:#2a3144;--text:#f2f3fa;--muted:#a0a8bc;--accent:#9b82ff;--accent2:#7958eb}
+body{background:radial-gradient(ellipse at 78% -12%,#33234d 0,transparent 40%),radial-gradient(ellipse at 2% 45%,#15283a 0,transparent 32%),#0b0d14!important;color:var(--text)!important}
+.sidebar{background:#0d111b!important;border-color:#292f42!important}
+.top h1,.intro h2,.card h3,.brand strong{color:#f1f2fa!important}
+.card,.subject,.study-hub-card,.projects-grid .project-card,.project-document,.project-workspace-head,.project-properties,.project-workspace-footer,.grade-result,.drop,.timer,.calendar-card,.home-task-panels>.card,.home-daily-card,.home-period-panel,.home-chart-card,.home-wheel-section,.home-jake-greeting,.business-time-card,.google-calendar-panel{background:linear-gradient(145deg,#191e2c,#121723)!important;color:#edf0fa!important;border-color:#30384d!important;box-shadow:0 15px 38px #0005!important}
+.card p,.intro p,.home-jake-copy p,.home-daily-title p,.home-wheel-item small{color:#a6b0c5!important}
+input,select,textarea{background:#101521!important;color:#edf0fa!important;border-color:#384157!important}
+input::placeholder,textarea::placeholder{color:#79849a!important}
+.btn.secondary{background:#29213e!important;color:#e6dcff!important;border-color:#4b3c6b!important}.btn.ghost{color:#d6d9e7!important;border-color:#3b4358!important}
+.home-wheel-section{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#29213e,#151a27 72%)!important;border-color:#3c3155!important}
+.home-wheel-heading>span{color:#b7a2ff!important}.home-wheel{height:460px!important;max-width:620px!important}
+.home-wheel:before{width:340px!important;height:340px!important;max-width:78%;max-height:78%;border-color:#5b4b7c!important;background:radial-gradient(circle,#29243d 0,#171d2c 70%)!important;box-shadow:0 0 0 14px #a78bfa0c,inset 0 0 60px #9b82ff1b,0 0 65px #8b5cf626!important;animation:wheelBreath 5s ease-in-out infinite}
+.home-wheel:after{width:260px!important;height:260px!important;border-color:#716092!important;animation:wheelRotate 32s linear infinite}
+.home-wheel-core{width:126px!important;height:126px!important;background:radial-gradient(circle at 32% 25%,#b59bff,#7048cb 65%,#38265f)!important;border:6px solid #272039!important;box-shadow:0 0 0 9px #a78bfa18,0 0 48px #9568ff66!important}
+.home-wheel-core strong{font-size:17px!important;letter-spacing:2px}.home-wheel-core small{font-size:8px;letter-spacing:1.6px;color:#e6dbff;margin-top:4px}
+.wheel-core-orbit{position:absolute;inset:-12px;border:1px solid #d2bfff80;border-radius:50%;animation:wheelRotate 12s linear infinite}
+.home-wheel-item{width:164px!important;min-height:92px!important;border:1px solid #41405b!important;border-radius:18px!important;background:linear-gradient(145deg,#24283b,#191f30)!important;color:#f3f0ff!important;box-shadow:0 12px 28px #0006!important;gap:5px!important;transition:transform .28s cubic-bezier(.2,.8,.2,1),border-color .28s,box-shadow .28s,background .28s!important}
+.home-wheel-item b{font-size:14px!important}.home-wheel-item small{color:#aeb4c8!important}
+.home-wheel-item .wheel-icon{width:28px;height:28px;display:grid;place-items:center;border-radius:9px;background:#382c55;color:#d7c7ff;font-size:18px;line-height:1}
+.home-wheel-item:hover,.home-wheel-item:focus-visible{transform:translateY(-8px) scale(1.07)!important;border-color:#b29aff!important;background:linear-gradient(145deg,#33284d,#20263a)!important;box-shadow:0 20px 42px #0009,0 0 0 3px #a78bfa18!important;outline:none}
+.wheel-study:hover,.wheel-study:focus-visible{transform:translate(-50%,-8px) scale(1.07)!important}
+.home-wheel-item:hover .wheel-icon{background:#60469a;color:#fff;box-shadow:0 0 22px #a78bfa66}
+.home-wheel-item:active{transform:scale(.97)!important}
+.home-daily-card,.home-period-panel,.home-chart-card{background:linear-gradient(145deg,#191e2c,#121723)!important;border-color:#30384d!important}
+.home-daily-stats>div,.home-period-summary>div,.home-area-summary,.home-period-calendar{background:#202638!important;border-color:#333c53!important}
+.home-daily-stats strong,.home-period-summary strong{color:#c2adff!important}.home-area-copy b{color:#e7e6f3!important}.home-area-row{border-color:#343a4c!important}
+.home-calendar-day{background:#1b2231!important;color:#e9eaf4!important;border-color:#343d52!important}.home-calendar-day.today{border-color:#9b82ff!important}.home-calendar-day.selected{background:#34284f!important}
+.activity-chart-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.activity-chart-heading>strong{font:800 22px Manrope;color:#f0eaff}
+.activity-week-chart{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px;min-height:190px;padding:12px 0 0}
+.activity-day{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0}
+.activity-bars{height:145px;width:100%;display:flex;align-items:flex-end;justify-content:center;gap:4px;border-bottom:1px solid #3a4052;padding:0 3px}
+.activity-bar-slot{height:100%;flex:1;max-width:20px;display:flex;align-items:flex-end}.activity-bar{display:block;width:100%;min-height:0;border-radius:6px 6px 2px 2px;transition:height .5s cubic-bezier(.2,.7,.2,1)}
+.activity-bar.study{background:linear-gradient(180deg,#61b6ff,#3477e8)}.activity-bar.business{background:linear-gradient(180deg,#55e0b0,#159a78)}.activity-bar.calendar{background:linear-gradient(180deg,#c69bff,#8655dc)}
+.activity-day>b{font-size:12px;color:#dfe2ef}.activity-day>small{font-size:10px;color:#9ca7bc;font-variant-numeric:tabular-nums}
+.activity-legend{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:16px 0 4px}.activity-legend span{display:flex;align-items:center;gap:7px;color:#c4c8d7;font-size:11px}.activity-legend i{width:9px;height:9px;border-radius:3px;display:inline-block}
+.legend-study{background:#4c9cf5}.legend-business{background:#35c99a}.legend-calendar{background:#a77aef}
+.business-time-card{margin-bottom:18px}.business-time-card form>label{font-weight:700;color:#f0edf8}.business-time-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin:10px 0}.business-time-card small{color:#9da7bc;font-size:11px}
+.google-calendar-panel-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.google-calendar-panel-head h3{margin-bottom:5px}.google-calendar-panel-head p{margin-bottom:9px}.google-calendar-status{font-size:11px;color:#b6a4ff}.google-calendar-actions{display:flex;gap:8px;flex-wrap:wrap}
+@keyframes wheelBreath{0%,100%{box-shadow:0 0 0 14px #a78bfa0c,inset 0 0 60px #9b82ff1b,0 0 48px #8b5cf61c}50%{box-shadow:0 0 0 20px #a78bfa12,inset 0 0 72px #9b82ff28,0 0 78px #8b5cf638}}
+@keyframes wheelRotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@media(max-width:700px){.home-wheel{height:400px!important;max-width:390px!important}.home-wheel-item{width:138px!important;min-height:84px!important;padding:10px!important}.home-wheel:before{width:290px!important;height:290px!important}.home-wheel:after{width:218px!important;height:218px!important}.activity-week-chart{gap:5px}.activity-bars{gap:2px;height:120px}.activity-day>small{font-size:9px}.activity-legend{gap:12px}.business-time-row{grid-template-columns:1fr 1fr}.business-time-row button{grid-column:1/-1}.google-calendar-actions{width:100%}.google-calendar-actions button{flex:1}}
+@media(prefers-reduced-motion:reduce){.home-wheel:before,.home-wheel:after,.wheel-core-orbit{animation:none!important}.home-wheel-item,.activity-bar{transition:none!important}}
+</style></head>
 <body>
 
 <div id="legalGate" class="legal-gate" role="dialog" aria-modal="true" aria-labelledby="legalGateTitle" aria-describedby="legalGateText">
@@ -853,12 +896,12 @@ input::placeholder,textarea::placeholder{color:#9a9daf!important}
 <section class="home-wheel-section" aria-label="Menú principal">
  <div class="home-wheel-heading"><span>MENÚ PRINCIPAL</span><h2>¿Qué desea gestionar, señor?</h2></div>
  <div class="home-wheel">
-  <div class="home-wheel-core"><strong>AULIVRA</strong><span>Su espacio</span></div>
-  <button class="home-wheel-item wheel-study" data-go="study" type="button"><b>Estudio</b><small>Asignaturas y concentración</small></button>
-  <button class="home-wheel-item wheel-projects" data-go="entrepreneurship" type="button"><b>Emprendimiento</b><small>Proyectos y objetivos</small></button>
-  <button class="home-wheel-item wheel-economy" data-go="economy" type="button"><b>Economía</b><small>Ingresos y gastos</small></button>
-  <button class="home-wheel-item wheel-calendar" data-go="calendar" type="button"><b>Calendario</b><small>Agenda y exámenes</small></button>
-  <button class="home-wheel-item wheel-library" data-go="library" type="button"><b>Biblioteca</b><small>Documentos y recursos</small></button>
+  <div class="home-wheel-core"><span class="wheel-core-orbit"></span><strong>JAKE</strong><small>ASISTENTE</small></div>
+  <button class="home-wheel-item wheel-study" data-go="study" type="button"><span class="wheel-icon">✳</span><b>Estudio</b><small>Asignaturas y concentración</small></button>
+  <button class="home-wheel-item wheel-projects" data-go="entrepreneurship" type="button"><span class="wheel-icon">↗</span><b>Emprendimiento</b><small>Proyectos y objetivos</small></button>
+  <button class="home-wheel-item wheel-economy" data-go="economy" type="button"><span class="wheel-icon">€</span><b>Economía</b><small>Ingresos y gastos</small></button>
+  <button class="home-wheel-item wheel-calendar" data-go="calendar" type="button"><span class="wheel-icon">▦</span><b>Calendario</b><small>Agenda y exámenes</small></button>
+  <button class="home-wheel-item wheel-library" data-go="library" type="button"><span class="wheel-icon">▤</span><b>Biblioteca</b><small>Documentos y recursos</small></button>
  </div>
 </section>
 <div class="home-daily-card"><div class="home-daily-head"><div class="home-daily-title"><span class="home-daily-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18M8 15l2.5 2.5L16 12"/></svg></span><div><span class="home-section-kicker">RESUMEN DIARIO</span><h3>Tu agenda de hoy</h3><p id="homeDailyStatus">Preparando tus tareas y bloques...</p></div></div><button class="btn home-notify-btn" id="enableHomeNotifications" type="button"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>Activar avisos</span></button></div>
@@ -876,7 +919,7 @@ input::placeholder,textarea::placeholder{color:#9a9daf!important}
  <p class="home-mobile-note">Limitación de iPhone: una web no puede pedir permiso para leer Tiempo de uso ni conectarse a sus datos. Registre aquí el total que muestra Ajustes → Tiempo de uso. AULIVRA sí puede pedir permiso para enviar avisos cuando supere su objetivo.</p></div>
  <div class="home-swipe-note">Desliza hacia la derecha para pasar a la semana <span>→</span></div>
 </section><div class="home-task-panels"><div class="card home-list-card"><div class="home-list-heading"><div><span class="home-section-kicker">POR COMPLETAR</span><h3>Tareas pendientes</h3></div><button class="text-link" data-go="subjects" type="button">Ver asignaturas →</button></div><div id="homeTasks"><div class="empty">No tienes tareas pendientes.</div></div></div><div class="card home-list-card"><div class="home-list-heading"><div><span class="home-section-kicker">PRÓXIMOS DÍAS</span><h3>Lo que viene</h3></div><button class="text-link" data-go="calendar" type="button">Ver calendario →</button></div><div id="homeUpcoming"><div class="empty">No hay fechas próximas.</div></div></div></div>
-<div class="card home-chart-card"><div class="home-card-heading"><div><h3>Tu progreso de estudio</h3><p>Minutos estudiados durante los últimos 7 días</p></div><strong id="homeSessions">0 min</strong></div><div class="community-stats" aria-live="polite"><div><span class="community-pulse"></span><strong id="activePeople">—</strong><small>Personas activas ahora · últimos 5 min</small></div><div><strong id="regularPeople">—</strong><small>Usuarios habituales · 3 o más días en 30 días</small></div></div><p class="tiny community-privacy">Estadísticas agregadas con un identificador aleatorio del navegador; no muestran nombres ni correos.</p><div id="studyWeekChart" class="study-week-chart" role="img" aria-label="Gráfica semanal de minutos estudiados"></div><div class="home-chart-foot"><span id="homeSubjects" hidden>0</span><span id="homeAverage" hidden>—</span><span>Pequeños avances, grandes resultados.</span><button class="btn" data-go="timer" type="button">Estudiar ahora →</button></div></div>
+<div class="card home-chart-card activity-chart-card"><div class="activity-chart-heading"><span class="home-section-kicker">HORAS REGISTRADAS</span><strong id="homeSessions">0 h</strong></div><div id="studyWeekChart" class="study-week-chart activity-week-chart" role="img" aria-label="Gráfica semanal comparativa de estudio, emprendimiento y calendario"></div><div class="activity-legend"><span><i class="legend-study"></i>Estudio</span><span><i class="legend-business"></i>Emprendimiento</span><span><i class="legend-calendar"></i>Calendario</span></div><div class="home-chart-foot"><span id="homeSubjects" hidden>0</span><span id="homeAverage" hidden>—</span><span>De lunes a domingo</span><button class="btn" data-go="timer" type="button">Estudiar ahora →</button></div></div>
 
 <div class="card home-assistant-card"><div class="home-assistant-icon"><img src="/aulivra-mark.svg" alt=""></div><div class="home-assistant-copy"><span class="eyebrow">TU ASISTENTE</span><h3>¿Qué desea conseguir hoy?</h3><p id="homeTodayPlan">Estoy preparando tus prioridades.</p></div><button class="btn" id="openAssistantFromHome" type="button">Hablar con JAKE</button></div>
 </section>
@@ -894,6 +937,7 @@ input::placeholder,textarea::placeholder{color:#9a9daf!important}
 </section>
 
 <section class="view" id="entrepreneurship">
+<div class="business-time-card card"><form id="businessTimeForm"><label for="businessTimeDate">Registrar tiempo de emprendimiento</label><div class="business-time-row"><input id="businessTimeDate" type="date" required aria-label="Día"><input id="businessTimeHours" type="number" min="0.25" max="24" step="0.25" placeholder="Horas" required aria-label="Horas"><button class="btn" type="submit">Añadir horas</button></div><small>El tiempo registrado aparecerá en la gráfica semanal.</small></form></div>
 <div class="projects-heading"><div><span class="projects-kicker">WORKSPACE</span><h2>Proyectos</h2><p>Todos tus proyectos, ideas y documentos en un solo espacio de trabajo.</p></div><button class="btn" id="createProjectBtn" type="button"><span aria-hidden="true">＋</span> Nuevo proyecto</button></div>
 <div class="projects-toolbar" id="projectsToolbar"><div class="projects-count"><strong id="projectsCount">0</strong><span>proyectos</span></div><input id="projectSearch" type="search" placeholder="Buscar proyectos…" aria-label="Buscar proyectos"></div>
 <div class="projects-grid" id="projectsGrid"><div class="projects-empty"><span>▧</span><b>Aún no hay proyectos</b><p>Crea tu primer proyecto para organizar ideas, notas, tareas y documentos.</p><button class="btn secondary" type="button" id="createFirstProject">＋ Crear proyecto</button></div></div>
@@ -943,6 +987,7 @@ input::placeholder,textarea::placeholder{color:#9a9daf!important}
       <div class="calendar-days" id="calendarDays"></div><div id="calendarDaySchedule" class="calendar-day-schedule" hidden></div>
       <div class="divider"></div><div class="calendar-selected"><h3 id="calendarSelectedTitle">Selecciona un día</h3><div id="calendarSelectedItems" class="empty">Aquí aparecerán tus exámenes, entregas y tareas.</div><div id="calendarEditList" class="calendar-edit-list"></div></div>
     </div>
+    <div class="card google-calendar-panel" style="margin-top:14px"><div class="google-calendar-panel-head"><div><h3>Google Calendar</h3><p>Conecta tu cuenta para traer tus eventos y enviar los bloques de AULIVRA a Google.</p><span id="googleCalendarStatus" class="google-calendar-status">Comprobando conexión…</span></div><div class="google-calendar-actions"><button class="btn secondary" id="googleCalendarConnect" type="button">Conectar Google</button><button class="btn" id="googleCalendarSync" type="button" hidden>Sincronizar ahora</button><button class="btn ghost" id="googleCalendarDisconnect" type="button" hidden>Desconectar</button></div></div><p class="tiny">La conexión utiliza la autorización oficial de Google. Puedes retirarla cuando quieras.</p></div>
     <div class="card" style="margin-top:14px"><h3>Añadir una fecha o bloque</h3><p>Las fechas que añadas aquí también aparecerán en Asignaturas.</p><div class="calendar-reminder-tools"><button class="btn secondary" id="enableCalendarNotifications" type="button">Activar notificaciones</button><span class="tiny" id="calendarNotificationStatus">Avisos en este dispositivo cuando AULIVRA esté abierto.</span></div><div class="row" style="margin-top:12px"><div><label for="calendarEventTitle">Bloque o evento</label><input id="calendarEventTitle" placeholder="Ej. Matemáticas: integrales"></div><div><label for="calendarEventSubject">Asignatura</label><select id="calendarEventSubject"><option value="">Selecciona asignatura</option></select></div><div><label for="calendarEventDate">Fecha</label><input id="calendarEventDate" type="date"></div><div><label for="calendarEventTime">Hora de inicio</label><input id="calendarEventTime" type="time" value="17:00"></div><div><label for="calendarEventEnd">Hora de fin</label><input id="calendarEventEnd" type="time"></div><div><label for="calendarEventColor">Color</label><select id="calendarEventColor"><option value="#1769df">Azul</option><option value="#159b80">Verde</option><option value="#8a63d2">Violeta</option><option value="#dc8a32">Naranja</option><option value="#d85d72">Rosa</option></select></div><div><label for="calendarEventReminder">Aviso previo</label><select id="calendarEventReminder"><option value="0">A la hora de empezar</option><option value="5" selected>5 minutos antes</option><option value="10">10 minutos antes</option><option value="15">15 minutos antes</option><option value="30">30 minutos antes</option></select></div><button class="btn" id="calendarAddEvent">Guardar en el calendario</button><button class="btn ghost" id="calendarCancelEdit" type="button" hidden>Cancelar edición</button></div></div>
   </section>
 
@@ -1395,10 +1440,25 @@ function applyHomeWidgets(){
  document.querySelectorAll("[data-widget-toggle]").forEach(input=>{input.checked=prefs[input.dataset.widgetToggle]!==false;input.onchange=()=>{prefs[input.dataset.widgetToggle]=input.checked;store.set("aulivra_home_widgets",prefs);applyHomeWidgets()}});
 }
 function renderStudyWeekChart(){
- const host=$("#studyWeekChart");if(!host)return;const sessions=store.get("sessions",[]),days=[];
- for(let i=6;i>=0;i--){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-i);const key=dateKey(d),minutes=sessions.filter(x=>x.date===key).reduce((sum,x)=>sum+(Number(x.minutes)||0),0);days.push({label:new Intl.DateTimeFormat("es-ES",{weekday:"short"}).format(d).replace(".",""),minutes})}
- const max=Math.max(60,...days.map(x=>x.minutes));host.innerHTML=days.map(x=>'<div class="study-day-col"><span class="study-day-value">'+(x.minutes?x.minutes+"m":"")+'</span><div class="study-day-track"><div class="study-day-bar" style="height:'+Math.max(x.minutes?4:0,x.minutes/max*100)+'%"></div></div><span class="study-day-label">'+esc(x.label)+'</span></div>').join("");
- const total=days.reduce((sum,x)=>sum+x.minutes,0),el=$("#homeSessions");if(el)el.textContent=total+" min";
+ const host=$("#studyWeekChart");if(!host)return;
+ const now=new Date(),monday=new Date(now.getFullYear(),now.getMonth(),now.getDate());monday.setDate(monday.getDate()-(monday.getDay()+6)%7);
+ const sessions=store.get("sessions",[]),business=store.get("aulivra_business_hours",[]),items=allCalendarItems(),days=[];
+ for(let i=0;i<7;i++){
+  const d=new Date(monday);d.setDate(monday.getDate()+i);const key=dateKey(d);
+  const study=sessions.filter(x=>x.date===key).reduce((n,x)=>n+(Number(x.minutes)||0),0);
+  const work=business.filter(x=>x.date===key).reduce((n,x)=>n+(Number(x.minutes)||0),0);
+  const agenda=items.filter(x=>(x.kind==="event"||x.kind==="personal")&&(x.date||x.due)===key&&!x.allDay).reduce((n,x)=>{
+   const a=(x.time||x.start||"").split(":").map(Number),b=(x.end||"").split(":").map(Number);if(a.length<2||b.length<2||!Number.isFinite(a[0])||!Number.isFinite(b[0]))return n;
+   const mins=(b[0]*60+b[1])-(a[0]*60+a[1]);return n+(mins>0&&mins<=1440?mins:0);
+  },0);
+  days.push({label:["L","M","X","J","V","S","D"][i],study,work,agenda});
+ }
+ const max=Math.max(60,...days.flatMap(x=>[x.study,x.work,x.agenda]));
+ host.innerHTML=days.map(d=>'<div class="activity-day"><div class="activity-bars">'+[
+  ["study",d.study,"Estudio"],["business",d.work,"Emprendimiento"],["calendar",d.agenda,"Calendario"]
+ ].map(([kind,value,label])=>'<div class="activity-bar-slot" title="'+label+": "+(value/60).toFixed(1)+' h"><i class="activity-bar '+kind+'" style="height:'+Math.max(value?3:0,value/max*100)+'%"></i></div>').join("")+'</div><b>'+d.label+'</b><small>'+((d.study+d.work+d.agenda)/60).toFixed(1)+' h</small></div>').join("");
+ const total=days.reduce((n,x)=>n+x.study+x.work+x.agenda,0),el=$("#homeSessions");if(el)el.textContent=(total/60).toFixed(1)+" h";
+ host.setAttribute("aria-label","Horas semanales: "+days.map(d=>d.label+" estudio "+(d.study/60).toFixed(1)+" horas, emprendimiento "+(d.work/60).toFixed(1)+" horas, calendario "+(d.agenda/60).toFixed(1)+" horas").join("; "));
 }
 function dailyAgendaData(){
   const todayKey=dateKey(new Date()),all=allCalendarItems(),tasks=subjectsData().flatMap(s=>(s.tasks||[]).filter(t=>!t.done).map(t=>({...t,kind:"task",subjectId:s.id,subjectName:s.name,title:t.text,date:t.due||"",time:t.dueTime||""})));
@@ -1862,5 +1922,24 @@ window.aulivraJAKEDailyPlan=function(){
  document.getElementById("legalAccept")?.addEventListener("click",()=>setTimeout(show,500));
  setTimeout(show,1200);
  window.addEventListener("pageshow",()=>setTimeout(show,700));
+})();
+</script><script id="aulivra-business-hours">
+(()=>{const form=document.getElementById("businessTimeForm");if(!form)return;const date=document.getElementById("businessTimeDate"),hours=document.getElementById("businessTimeHours"),now=new Date();date.value=dateKey(now);form.addEventListener("submit",e=>{e.preventDefault();const mins=Math.round(Number(hours.value)*60),day=date.value;if(!day||!Number.isFinite(mins)||mins<15||mins>1440)return toast("Introduce entre 0,25 y 24 horas.");const entries=store.get("aulivra_business_hours",[]);entries.push({id:crypto.randomUUID(),date:day,minutes:mins,createdAt:Date.now()});store.set("aulivra_business_hours",entries);hours.value="";renderStudyWeekChart();toast("Horas de emprendimiento registradas.")})})();
+</script>
+<script id="aulivra-google-calendar">
+(()=>{const $=id=>document.getElementById(id),status=$("googleCalendarStatus"),connect=$("googleCalendarConnect"),sync=$("googleCalendarSync"),disconnect=$("googleCalendarDisconnect");if(!status||!connect||!sync||!disconnect)return;
+async function request(url,options={}){const r=await fetch(url,{credentials:"same-origin",...options}),data=await r.json().catch(()=>({}));if(!r.ok)throw new Error(data.error||"No se pudo completar la operación.");return data}
+async function refreshStatus(){try{const s=await request("/api/google/status");if(!s.configured){status.textContent="Pendiente de configurar Google OAuth en el servidor.";connect.disabled=true;return}connect.disabled=false;connect.hidden=!!s.connected;sync.hidden=!s.connected;disconnect.hidden=!s.connected;status.textContent=s.connected?"Conectado"+(s.email?" como "+s.email:""):"No hay ninguna cuenta conectada."}catch(e){status.textContent=e.message;connect.disabled=true}}
+connect.addEventListener("click",()=>{location.href="/api/google/connect"});
+disconnect.addEventListener("click",async()=>{if(!confirm("¿Desconectar Google Calendar de AULIVRA?"))return;try{await request("/api/google/disconnect",{method:"POST"});status.textContent="Cuenta desconectada.";await refreshStatus();toast("Google Calendar desconectado.")}catch(e){toast(e.message)}});
+sync.addEventListener("click",async()=>{sync.disabled=true;sync.textContent="Sincronizando…";try{
+const now=new Date(),data=await request("/api/google/events?timeMin="+encodeURIComponent(new Date(now-30*86400000).toISOString())+"&timeMax="+encodeURIComponent(new Date(now.getTime()+365*86400000).toISOString()));
+const current=store.get("aulivra_events",[]),oldGoogle=new Map(current.filter(x=>x.googleEventId).map(x=>[x.googleEventId,x]));
+const incoming=(data.events||[]).map(g=>{const start=g.start?.dateTime||g.start?.date||"",end=g.end?.dateTime||g.end?.date||"",old=oldGoogle.get(g.id)||{};return {...old,id:old.id||("google-"+g.id),googleEventId:g.id,googleSynced:true,kind:"event",title:g.summary||"Evento de Google Calendar",subjectName:"Google Calendar",date:start.slice(0,10),time:start.length>10?start.slice(11,16):"",end:end.length>10?end.slice(11,16):"",allDay:!g.start?.dateTime,color:"#a77aef",googleUpdated:g.updated||""}}).filter(x=>x.date);
+const ids=new Set(incoming.map(x=>x.googleEventId)),merged=[...current.filter(x=>!x.googleEventId),...incoming];store.set("aulivra_events",merged);
+let pushed=0;for(const item of merged.filter(x=>!x.googleEventId&&x.kind==="event"&&x.date&&x.time)){const start=new Date(item.date+"T"+item.time+":00"),finish=item.end?new Date(item.date+"T"+item.end+":00"):new Date(start.getTime()+3600000);if(!Number.isFinite(start.getTime())||!Number.isFinite(finish.getTime())||finish<=start)continue;const created=await request("/api/google/events",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({title:item.title,date:item.date,time:item.time,end:item.end||finish.toTimeString().slice(0,5)})});item.googleEventId=created.id;item.googleSynced=true;pushed++}
+if(pushed)store.set("aulivra_events",merged);renderCalendar();renderEvents();renderHomeExtras();renderStudyWeekChart();toast("Sincronización: "+incoming.length+" eventos recibidos y "+pushed+" enviados a Google.")
+}catch(e){toast(e.message);status.textContent=e.message}finally{sync.disabled=false;sync.textContent="Sincronizar ahora"}});
+refreshStatus();const params=new URLSearchParams(location.search);if(params.get("google")==="connected"){history.replaceState({},"",location.pathname);setTimeout(()=>sync.click(),400);toast("Google Calendar conectado. Sincronizando…")}if(params.get("google")==="error"){toast("No se pudo conectar Google Calendar: "+(params.get("reason")||"error"));history.replaceState({},"",location.pathname)}
 })();
 </script></body></html>
