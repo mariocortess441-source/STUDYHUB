@@ -44,6 +44,89 @@ function publicBase(req) {
   return (process.env.PUBLIC_BASE_URL || `${req.protocol}://${req.get("host")}`).replace(/\/$/, "");
 }
 
+
+const USERS_FILE = path.join(DATA_DIR, "users.json");
+const SESSIONS_FILE = path.join(DATA_DIR, "sessions.json");
+function readJson(file, fallback = {}) {
+  try { return JSON.parse(fs.readFileSync(file, "utf8")); } catch { return fallback; }
+}
+function writeJson(file, value) {
+  const temp = file + ".tmp";
+  fs.writeFileSync(temp, JSON.stringify(value, null, 2), { mode: 0o600 });
+  fs.renameSync(temp, file);
+}
+function cookieOptions() {
+  return { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: 30 * 24 * 60 * 60 * 1000 };
+}
+function publicUser(user) { return { id: user.id, name: user.name, email: user.email }; }
+function sessionUser(req) {
+  const token = (req.headers.cookie || "").split(";").map(x => x.trim()).find(x => x.startsWith("sh_session="))?.slice("sh_session=".length);
+  if (!token) return null;
+  const sessions = readJson(SESSIONS_FILE);
+  const session = sessions[crypto.createHash("sha256").update(decodeURIComponent(token)).digest("hex")];
+  if (!session || session.expiresAt < Date.now()) return null;
+  const user = Object.values(readJson(USERS_FILE)).find(u => u.id === session.userId);
+  return user ? publicUser(user) : null;
+}
+function requireAuth(req, res, next) {
+  const user = sessionUser(req);
+  if (!user) return res.status(401).json({ error: "Inicia sesión para continuar." });
+  req.user = user;
+  next();
+}
+function makePassword(password, salt = crypto.randomBytes(16).toString("hex")) {
+  return new Promise((resolve, reject) => crypto.scrypt(password, salt, 64, (err, key) => err ? reject(err) : resolve({ salt, hash: key.toString("hex") })));
+}
+async function verifyPassword(password, stored) {
+  const derived = await makePassword(password, stored.salt);
+  return crypto.timingSafeEqual(Buffer.from(derived.hash, "hex"), Buffer.from(stored.hash, "hex"));
+}
+app.post("/api/auth/register", async (req, res) => {
+  const name = String(req.body.name || "").trim().slice(0, 60);
+  const email = String(req.body.email || "").trim().toLowerCase();
+  const password = String(req.body.password || "");
+  if (name.length < 2) return res.status(400).json({ error: "Escribe un nombre de al menos 2 caracteres." });
+  if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return res.status(400).json({ error: "Introduce un correo válido." });
+  if (password.length < 10) return res.status(400).json({ error: "La contraseña debe tener al menos 10 caracteres." });
+  const users = readJson(USERS_FILE);
+  if (users[email]) return res.status(409).json({ error: "Ya existe una cuenta con ese correo." });
+  const credentials = await makePassword(password);
+  const user = { id: crypto.randomUUID(), name, email, ...credentials, createdAt: Date.now() };
+  users[email] = user;
+  writeJson(USERS_FILE, users);
+  const token = crypto.randomBytes(32).toString("hex");
+  const sessions = readJson(SESSIONS_FILE);
+  sessions[crypto.createHash("sha256").update(token).digest("hex")] = { userId: user.id, expiresAt: Date.now() + cookieOptions().maxAge };
+  writeJson(SESSIONS_FILE, sessions);
+  res.cookie("sh_session", token, cookieOptions()).status(201).json({ user: publicUser(user) });
+});
+app.post("/api/auth/login", async (req, res) => {
+  const email = String(req.body.email || "").trim().toLowerCase();
+  const password = String(req.body.password || "");
+  const user = readJson(USERS_FILE)[email];
+  if (!user || !(await verifyPassword(password, user))) return res.status(401).json({ error: "Correo o contraseña incorrectos." });
+  const token = crypto.randomBytes(32).toString("hex");
+  const sessions = readJson(SESSIONS_FILE);
+  sessions[crypto.createHash("sha256").update(token).digest("hex")] = { userId: user.id, expiresAt: Date.now() + cookieOptions().maxAge };
+  writeJson(SESSIONS_FILE, sessions);
+  res.cookie("sh_session", token, cookieOptions()).json({ user: publicUser(user) });
+});
+app.get("/api/auth/me", (req, res) => {
+  const user = sessionUser(req);
+  res.json({ user });
+});
+app.post("/api/auth/logout", (req, res) => {
+  const token = (req.headers.cookie || "").split(";").map(x => x.trim()).find(x => x.startsWith("sh_session="))?.slice("sh_session=".length);
+  if (token) {
+    const sessions = readJson(SESSIONS_FILE);
+    delete sessions[crypto.createHash("sha256").update(decodeURIComponent(token)).digest("hex")];
+    writeJson(SESSIONS_FILE, sessions);
+  }
+  res.clearCookie("sh_session", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" }).json({ ok: true });
+});
+app.use("/api/convert", requireAuth);
+app.use("/api/shares", requireAuth);
+
 app.get("/api/health", (_, res) => res.json({ ok: true, service: "STUDYHUB", version: "1.0.0" }));
 
 // Upload a file and create a time-limited share link. The file is stored on this server.
