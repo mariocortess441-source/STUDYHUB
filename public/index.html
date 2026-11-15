@@ -102,13 +102,38 @@ label{color:#58657b;font-size:13px}
  .app.sidebar-hidden{display:block}
 }
 
+
+/* STUDYHUB dark mode — graphite surfaces with the original purple identity */
+:root{color-scheme:dark;--bg:#090a10;--panel:#11131d;--panel2:#171a27;--line:#282b3b;--text:#f3f1fb;--muted:#a09bb3;--accent:#9878ff;--accent2:#7655e8;--green:#5cdb9b;--red:#ff7c91;--purple-soft:#211b36;--purple-line:#40345f;--purple-text:#c8b8ff}
+body{background:radial-gradient(ellipse at 75% -15%,#292044 0,transparent 38%),var(--bg);color:var(--text)}
+.sidebar{background:#0c0d15;border-color:var(--line)}
+.brand strong,.top h1,.intro h2,.stat strong,.card h3{color:var(--text)}
+.brand small,.nav-label,.side-bottom,.muted{color:var(--muted)}
+.nav button{color:#b8b3c8}.nav button:hover,.nav button.active{background:#211b36;color:#eee8ff}.nav button.active{box-shadow:inset 3px 0 var(--accent)}
+.date,.card,.quick,.subject,.auth-card{background:#12141f;color:var(--text);border-color:var(--line);box-shadow:0 8px 28px #0003}
+.card{background:linear-gradient(145deg,#151724,#10121b)}.card p,.intro p,.quick small{color:var(--muted)}
+.quick{background:#141622;color:var(--text)}.quick:hover{border-color:#8064d8;box-shadow:0 12px 26px #0005}
+.stat-icon,.subject-tag{background:#28203f;color:#c3b1ff}
+.btn.secondary{background:#28203f;border:1px solid #453765;color:#e4d9ff}.btn.ghost{background:transparent;border-color:#373347;color:#d4cde5}.btn.danger{background:#48242d;color:#ffb2b2}
+input,select{background:#0d0f18;border-color:#343247;color:var(--text)}input::placeholder{color:#777188}label{color:#c0b9d0}
+.drop{background:#10131e;border-color:#48405f}.drop.drag{background:#211b36}
+.table th{color:#aaa3bc;border-color:var(--line)}.table td{border-color:#292b3a}
+.grade-result{background:#211b36;border-color:#453765}.grade-result strong{color:#c0adff}
+.timer-mode button{background:#191b29;color:#c2bbd1;border-color:#343247}.timer-mode button.active{background:#302449;border-color:#8064d8;color:#f4efff}
+.progress{background:#292b3b}.toast{background:#202235;border-color:#49415e;color:#fff}
+.sidebar-toggle{background:#171925;color:#d5c8ff;border-color:#40345f}
+.auth-screen{background:linear-gradient(135deg,#090a10,#171326)}.auth-card{background:#12141f;border-color:#302b42}.auth-card h1{color:var(--text)}.auth-card>p,.auth-foot{color:var(--muted)}.auth-tabs{background:#1a1b29}.auth-tabs button{color:#aaa3bc}.auth-tabs button.active{background:#302449;color:#e8ddff;box-shadow:none}.auth-error{background:#321d29;color:#ff9bad}
+.user-chip span{color:#bcb5cd}
+.logo-img{display:block;width:42px;height:42px;object-fit:contain;flex:none;filter:drop-shadow(0 5px 12px #7655e855)}
+.auth-brand .logo-img{width:50px;height:50px}
+@media(max-width:560px){.sidebar{background:#0c0d15}}
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="auth-screen" id="authScreen" style="display:none"><div class="auth-card"><button class="btn ghost" id="closeAuth" type="button" style="float:right">Continuar como invitado</button><div class="auth-brand"><div class="logo">S</div><div><strong style="font:800 18px Manrope;letter-spacing:1px">STUDYHUB</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión o crea una cuenta si quieres usar tu espacio personal. También puedes continuar como invitado.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit">Entrar en STUDYHUB</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div><div class="app" id="appShell">
+<div class="auth-screen" id="authScreen" style="display:none"><div class="auth-card"><button class="btn ghost" id="closeAuth" type="button" style="float:right">Continuar como invitado</button><div class="auth-brand"><img class="logo-img" src="/studyhub-logo.svg" alt="STUDYHUB"><div><strong style="font:800 18px Manrope;letter-spacing:1px">STUDYHUB</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión o crea una cuenta si quieres usar tu espacio personal. También puedes continuar como invitado.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit">Entrar en STUDYHUB</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div><div class="app" id="appShell">
 <aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú">☰</button>
-  <div class="brand"><div class="logo">S</div><div class="brandtext"><strong>STUDYHUB</strong><small>YOUR ACADEMIC SPACE</small></div></div>
+  <div class="brand"><img class="logo-img" src="/studyhub-logo.svg" alt="STUDYHUB"><div class="brandtext"><strong>STUDYHUB</strong><small>YOUR ACADEMIC SPACE</small></div></div>
   <div class="nav-label">WORKSPACE</div>
   <nav class="nav" id="nav">
     <button class="active" data-view="home"><span class="ico">⌂</span><span class="navtext">Inicio</span></button>
