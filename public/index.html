@@ -2197,7 +2197,7 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
  document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b){e.preventDefault();goView(b.dataset.go)}const n=e.target.closest(".nav button[data-view]");if(n){e.preventDefault();goView(n.dataset.view)}});
  if(hamb){hamb.onclick=e=>{e.preventDefault();const hidden=app.classList.toggle("sidebar-hidden");hamb.setAttribute("aria-expanded",String(!hidden));hamb.title=hidden?"Mostrar menú":"Ocultar menú";hamb.setAttribute("aria-label",hamb.title)}}
  const brandHome=$("#brandHome");if(brandHome)brandHome.addEventListener("click",()=>{goView("home");if(window.innerWidth<=560)app.classList.add("sidebar-hidden")});
- if(editTitle)editTitle.onclick=()=>{const value=prompt("Nombre de esta área:",areaNames.entrepreneurship);if(value===null)return;const clean=value.trim().slice(0,32);if(!clean)return toast("Escribe un nombre válido.");areaNames.entrepreneurship=clean;localStorage.setItem("aulivra_business_area_name",clean);title.textContent=clean;const navLabel=$("#businessNavLabel");if(navLabel){navLabel.textContent=clean;navLabel.closest("button").title=clean;navLabel.closest("button").setAttribute("aria-label",clean)}};
+ if(editTitle)editTitle.onclick=()=>{const value=prompt("Nombre de esta área:",areaNames.entrepreneurship);if(value===null)return;const clean=value.trim().slice(0,60);if(!clean)return toast("Escribe un nombre válido.");areaNames.entrepreneurship=clean;localStorage.setItem("aulivra_business_area_name",clean);title.textContent=clean;const navLabel=$("#businessNavLabel");if(navLabel){navLabel.textContent=clean;navLabel.closest("button").title=clean;navLabel.closest("button").setAttribute("aria-label",clean)}};
  const navLabel=$("#businessNavLabel");if(navLabel){navLabel.textContent=areaNames.entrepreneurship;navLabel.closest("button").title=areaNames.entrepreneurship;navLabel.closest("button").setAttribute("aria-label",areaNames.entrepreneurship)}
  /* Default course and subjects */
  let subjects=storeGet("aulivra_subjects",[]);
@@ -2467,7 +2467,7 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
 .home-metric-track{height:4px;border-radius:8px;background:var(--line);margin-top:12px;overflow:hidden}
 .home-metric-track i{display:block;height:100%;width:var(--fill);background:var(--metric);border-radius:8px}
 .home-metric-message{margin:0 0 20px;padding:14px 17px;border-left:2px solid var(--accent);background:var(--panel2);border-radius:0 12px 12px 0;color:var(--muted);font-size:12px;line-height:1.6}
-#economy .intro,#economy .economy-overview,#economy .wallet-save-row,#economy .economy-chart,#economy .economy-movements,#economy .savings-list,#economy .savings-forecast,#economy .tiny{display:none!important}
+#economy .jarvis-section-advisor,#economy .intro,#economy .economy-overview,#economy .wallet-save-row,#economy .economy-chart,#economy .economy-movements,#economy .savings-list,#economy .savings-forecast,#economy .tiny{display:none!important}
 #economy .economy-grid{display:none!important}
 #economy .economy-wheel-shell{display:grid;grid-template-columns:minmax(250px,1fr) minmax(230px,.8fr);gap:26px;align-items:center;max-width:850px;margin:18px auto}
 #economy .economy-wheel-shell .card{padding:22px}
