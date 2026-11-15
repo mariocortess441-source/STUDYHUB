@@ -658,6 +658,104 @@ main{padding-top:24px}
  .sidebar .nav button.active{box-shadow:inset 0 -2px var(--accent);background:#2b2042;color:#f3eaff}
  main{padding-bottom:35px}
 }
+
+/* AULIVRA: visual system refresh — typography, charts and an accessible radial main menu */
+:root{--bg:#f5f6fb;--panel:#fff;--panel2:#f0f1f7;--line:#e3e5ee;--text:#202338;--muted:#737990;--accent:#7657d8;--accent2:#6545c5}
+body{background:linear-gradient(145deg,#f7f8fc,#eef0f8 60%,#f7f6fc);color:var(--text)}
+.sidebar{background:#fff;border-color:#e6e7ef}
+.brand,.brandtext,.logo-img,.top-brand-mark,.hero-art-mark,.home-assistant-icon,.jarvis-avatar{display:none!important}
+.top{margin-bottom:24px}
+.top-brand{font:700 14px Manrope;color:#25243a;letter-spacing:.1px}
+.top-brand strong{display:none}
+.top-brand span{font:700 14px Manrope}
+.user-chip{gap:8px}
+#loginBtn{font-size:11px!important;padding:7px 11px!important;border-radius:9px!important;min-height:32px}
+#logoutBtn{font-size:11px!important;padding:7px 10px!important}
+.sidebar-toggle{font-size:11px!important;padding:7px 10px!important;min-height:32px}
+.nav button{color:#535a70;background:transparent}
+.nav button:hover,.nav button.active{background:#f0edfb;color:#4d35a0;box-shadow:inset 3px 0 #7657d8}
+.nav .ico,.nav button .ico,.study-hub-icon,.home-daily-icon,.home-mobile-symbol,.home-area-icon,.stat-icon,.project-icon-large{display:none!important}
+.home-jake-greeting{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 0 26px;padding:21px 24px;border:1px solid #e1dcf3;border-radius:20px;background:linear-gradient(110deg,#fff 0%,#f2efff 100%);box-shadow:0 12px 35px #4430800b}
+.home-jake-copy{min-width:0}
+.home-jake-copy>span{font-size:10px;letter-spacing:1.6px;font-weight:800;color:#7355c8}
+.home-jake-copy p{font:600 clamp(15px,2vw,19px) Manrope;line-height:1.5;margin:8px 0 0;color:#27243b}
+.home-jake-greeting>.btn,.home-jake-greeting>button{flex:none;border:0;border-radius:10px;background:#7657d8;color:white;padding:11px 15px;font-size:11px;font-weight:700}
+.home-wheel-section{margin:0 0 30px;padding:20px 20px 24px;border:1px solid #e6e4ef;border-radius:22px;background:linear-gradient(145deg,#fff,#f7f6fc);box-shadow:0 14px 40px #29204a0a}
+.home-wheel-heading{text-align:center;margin-bottom:4px}
+.home-wheel-heading>span{font-size:9px;letter-spacing:1.8px;color:#8b7da9;font-weight:800}
+.home-wheel-heading h2{font:800 clamp(18px,2.5vw,24px) Manrope;color:#28243a;margin:6px 0 0}
+.home-wheel{width:min(100%,560px);height:430px;margin:0 auto;position:relative;isolation:isolate}
+.home-wheel:before{content:"";position:absolute;width:310px;height:310px;max-width:74%;max-height:74%;border:1px solid #dcd5f0;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,#f5f2ff 0%,#fff 68%);box-shadow:inset 0 0 35px #7456d40a,0 0 0 14px #f3f0fb}
+.home-wheel:after{content:"";position:absolute;width:220px;height:220px;border:1px dashed #d9d2ed;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1}
+.home-wheel-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:118px;height:118px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#7657d8,#5941ad);color:white;box-shadow:0 12px 30px #6247bd45;border:7px solid #fff}
+.home-wheel-core strong{font:800 13px Manrope;letter-spacing:1px}
+.home-wheel-core span{font-size:10px;color:#e6ddff;margin-top:4px}
+.home-wheel-item{position:absolute;z-index:2;width:156px;min-height:72px;padding:12px 13px;border:1px solid #e2def0;border-radius:15px;background:#fff;color:#29263d;text-align:center;box-shadow:0 8px 22px #38275b10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,background .22s ease}
+.home-wheel-item b{font:800 13px Manrope}
+.home-wheel-item small{font-size:10px;color:#77758b;line-height:1.35}
+.home-wheel-item:hover,.home-wheel-item:focus-visible{transform:translateY(-5px) scale(1.045);border-color:#9d88e2;background:#faf8ff;box-shadow:0 16px 32px #6247bd24;outline:none}
+.wheel-study{left:50%;top:1%;transform:translateX(-50%)}
+.wheel-study:hover,.wheel-study:focus-visible{transform:translate(-50%,-5px) scale(1.045)}
+.wheel-projects{right:1%;top:31%}
+.wheel-economy{right:14%;bottom:2%}
+.wheel-calendar{left:14%;bottom:2%}
+.wheel-library{left:1%;top:31%}
+.home-daily-card,.home-period-panel,.home-chart-card,.home-task-panels>.card{background:#fff;border:1px solid #e5e6ee;border-radius:20px;box-shadow:0 12px 35px #20233a08}
+.home-daily-card{padding:22px;margin-bottom:24px}
+.home-daily-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.home-daily-title{display:block}
+.home-daily-title h3{font:800 19px Manrope;color:#28243a;margin:0}
+.home-daily-title p{color:#7c8194;margin:6px 0 0;font-size:12px}
+.home-daily-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}
+.home-daily-stats>div{padding:15px;border-radius:13px;background:#f5f3fb;border:1px solid #ebe7f5}
+.home-daily-stats strong{display:block;font:800 25px Manrope;color:#684cc1}
+.home-daily-stats span{font-size:10px;color:#74788b}
+.home-period-panel{padding:22px;margin-bottom:24px}
+.home-period-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.home-period-summary>div{background:#f6f5fb;border:1px solid #ebe9f2;border-radius:13px;padding:14px}
+.home-period-summary strong{display:block;color:#6248b8;font:800 23px Manrope}
+.home-area-summary{background:#f8f8fc;border-radius:15px;padding:16px;margin-top:18px}
+.home-area-row{display:grid;grid-template-columns:1fr auto;align-items:center;padding:11px 0;border-bottom:1px solid #e9e9f0}
+.home-area-row:last-child{border-bottom:0}
+.home-area-copy b{color:#36354a}.home-area-row>strong{color:#674bbd;font:800 13px Manrope}
+.home-screen-chart-wrap,.home-chart-card{background:#fff}
+.home-screen-chart,.study-week-chart{min-height:150px}
+.home-chart-card{padding:22px;margin:22px 0}
+.home-chart-card h3{color:#28243a;font:800 18px Manrope}
+.home-chart-card p{color:#7a7f91}
+.home-task-panels{gap:16px}
+.home-task-panels>.card{padding:20px}
+.home-assistant-card{display:none!important}
+.home-swipe-note{color:#8a849b}
+.study-hub-card,.projects-grid>*{box-shadow:0 8px 24px #2a22400a}
+@media(max-width:700px){
+ .home-jake-greeting{align-items:flex-start;flex-direction:column;padding:17px}
+ .home-jake-greeting>button{width:100%}
+ .home-wheel-section{padding:17px 10px}
+ .home-wheel{height:390px;max-width:390px}
+ .home-wheel:before{width:250px;height:250px;max-width:75%;max-height:70%}
+ .home-wheel:after{width:185px;height:185px}
+ .home-wheel-core{width:94px;height:94px}
+ .home-wheel-core strong{font-size:11px}
+ .home-wheel-item{width:130px;min-height:65px;padding:9px 8px}
+ .home-wheel-item b{font-size:11px}
+ .home-wheel-item small{font-size:9px}
+ .wheel-study{top:0}
+ .wheel-projects{right:0;top:31%}
+ .wheel-economy{right:5%;bottom:0}
+ .wheel-calendar{left:5%;bottom:0}
+ .wheel-library{left:0;top:31%}
+ .home-daily-card,.home-period-panel,.home-chart-card{padding:16px}
+ .home-daily-stats{gap:6px}
+ .home-daily-stats>div{padding:11px 8px}
+ .home-daily-stats strong{font-size:21px}
+}
+@media(max-width:390px){
+ .home-wheel{height:360px}
+ .home-wheel-item{width:116px}
+ .home-wheel:before{width:220px;height:220px}
+ .home-wheel-core{width:82px;height:82px}
+}
 </style>
 
 <style>
@@ -705,7 +803,7 @@ main{padding-top:24px}
  </section>
 </div>
 <div class="app" id="appShell">
-<aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú">☰</button>
+<aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú">Menú</button>
   <div class="brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div class="brandtext"><strong>AULIVRA</strong><small>YOUR ACADEMIC SPACE</small></div></div>
   <div class="nav-label">TU ESPACIO</div><nav class="nav" id="nav" aria-label="Navegación principal">
     <button class="active" data-view="home" aria-label="Inicio" title="Inicio"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span><span class="navtext">Inicio</span></button>
@@ -723,11 +821,24 @@ main{padding-top:24px}
   </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
 <main>
-  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú">☰</button><div class="top-brand"><img src="/aulivra-mark.svg" alt="" class="top-brand-mark"><div><strong>AULIVRA</strong><span id="pageTitle">Inicio</span></div></div></div><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button">Acceder</button><button class="btn ghost" id="logoutBtn" style="display:none">Salir</button><div class="date" id="today"></div></div></header>
+  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú">☰</button><div class="top-brand"><span id="pageTitle">Inicio</span></div></div><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none">Salir</button><div class="date" id="today"></div></div></header>
 
   <section class="view active" id="home">
-<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>Permítame ayudarle con su organización diaria.</b><small>Revisión de prioridades, agenda, hábitos y próximos pasos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a priorizar mis tareas de hoy, revisar mis compromisos y proponer un plan realista.">Consultar a JAKE</button></div>
-<div class="home-hero-compact"><div class="home-hero-copy"><div class="home-hero-kicker"><i></i>TU PANEL PERSONAL</div><h2>Tu día, bajo control.</h2><p id="homeMotivation">Organiza tus prioridades, empieza por lo importante y avanza a tu ritmo.</p></div><div class="home-hero-art" aria-hidden="true"><div class="hero-orbit"></div><div class="hero-art-mark"><img src="/aulivra-mark.svg" alt=""></div></div></div>
+<section class="home-jake-greeting" aria-label="Mensaje de JAKE">
+ <div class="home-jake-copy"><span>JAKE · ASISTENTE PERSONAL</span><p id="homeJakeMessage">Buenos días, señor. Su agenda está preparada. Aquí tiene sus prioridades y accesos principales.</p></div>
+ <button type="button" data-jarvis-prompt="Revise mi día, mis tareas y mis compromisos. Dígame qué debería priorizar y proponga un plan realista.">Hablar con JAKE</button>
+</section>
+<section class="home-wheel-section" aria-label="Menú principal">
+ <div class="home-wheel-heading"><span>MENÚ PRINCIPAL</span><h2>¿Qué desea gestionar, señor?</h2></div>
+ <div class="home-wheel">
+  <div class="home-wheel-core"><strong>AULIVRA</strong><span>Su espacio</span></div>
+  <button class="home-wheel-item wheel-study" data-go="study" type="button"><b>Estudio</b><small>Asignaturas y concentración</small></button>
+  <button class="home-wheel-item wheel-projects" data-go="entrepreneurship" type="button"><b>Emprendimiento</b><small>Proyectos y objetivos</small></button>
+  <button class="home-wheel-item wheel-economy" data-go="economy" type="button"><b>Economía</b><small>Ingresos y gastos</small></button>
+  <button class="home-wheel-item wheel-calendar" data-go="calendar" type="button"><b>Calendario</b><small>Agenda y exámenes</small></button>
+  <button class="home-wheel-item wheel-library" data-go="library" type="button"><b>Biblioteca</b><small>Documentos y recursos</small></button>
+ </div>
+</section>
 <div class="home-daily-card"><div class="home-daily-head"><div class="home-daily-title"><span class="home-daily-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18M8 15l2.5 2.5L16 12"/></svg></span><div><span class="home-section-kicker">RESUMEN DIARIO</span><h3>Tu agenda de hoy</h3><p id="homeDailyStatus">Preparando tus tareas y bloques...</p></div></div><button class="btn home-notify-btn" id="enableHomeNotifications" type="button"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>Activar avisos</span></button></div>
 <div class="home-daily-stats"><div><strong id="homeTodayCount">0</strong><span>Para hoy</span></div><div><strong id="homeTaskCount">0</strong><span>Tareas pendientes</span></div><div><strong id="homeBlockCount">0</strong><span>Bloques de estudio</span></div></div><div id="homeTodayList" class="home-today-list"><div class="empty">Cargando tu agenda...</div></div><div class="home-notification-foot"><span id="homeNotificationStatus">Los avisos te recuerdan tus tareas y bloques.</span><button class="btn ghost" data-go="calendar" type="button">Organizar calendario →</button></div></div>
 <section class="home-period-panel" id="homePeriodPanel">
@@ -735,7 +846,7 @@ main{padding-top:24px}
  <div class="home-period-summary"><div><strong id="homePeriodStudy">0 h</strong><span>Estudio</span></div><div><strong id="homePeriodDone">0</strong><span>Tareas hechas</span></div><div><strong id="homePeriodDays">0</strong><span>Días activos</span></div></div>
  <div class="home-period-calendar"><div class="home-calendar-heading"><button type="button" id="homePeriodPrev" aria-label="Periodo anterior">‹</button><b id="homeCalendarTitle">Mes actual</b><button type="button" id="homePeriodNext" aria-label="Periodo siguiente">›</button></div><div class="home-month-weekdays" id="homeWeekdayLabels"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div class="home-calendar-grid" id="homeCalendarGrid"></div><div class="home-selected-day" id="homeSelectedDay"><b>Actividad del día</b><span>Selecciona una fecha para ver sus tareas y bloques.</span></div></div>
  <div class="home-area-summary"><div class="home-area-heading"><b>Resumen por áreas</b><span>Actividad registrada en el periodo</span></div><div class="home-area-row"><span class="home-area-icon study-area">▤</span><span class="home-area-copy"><b>Estudio</b><small id="homeAreaStudyMeta">Sesiones y tareas</small></span><strong id="homeAreaStudyValue">0 min</strong></div><div class="home-area-row"><span class="home-area-icon business-area">↗</span><span class="home-area-copy"><b>Emprendimiento</b><small id="homeAreaBusinessMeta">Tareas de tu proyecto</small></span><strong id="homeAreaBusinessValue">0 hechas</strong></div><div class="home-area-row"><span class="home-area-icon economy-area">€</span><span class="home-area-copy"><b>Economía</b><small id="homeAreaEconomyMeta">Ingresos y gastos registrados</small></span><strong id="homeAreaEconomyValue">0,00 €</strong></div><div class="home-area-row"><span class="home-area-icon digital-area">◉</span><span class="home-area-copy"><b>Bienestar digital</b><small id="homeAreaMobileMeta">Tiempo de móvil registrado</small></span><strong id="homeAreaMobileValue">0 min</strong></div><div class="home-area-row"><span class="home-area-icon agenda-area">▦</span><span class="home-area-copy"><b>Agenda personal</b><small id="homeAreaPersonalMeta">Eventos y cumpleaños</small></span><strong id="homeAreaPersonalValue">0</strong></div></div>
- <div class="home-mobile-usage"><div class="home-mobile-heading"><div><span class="home-section-kicker">BIENESTAR DIGITAL</span><h4>Tiempo de móvil y antiscroll</h4><p id="homeMobilePeriod">Registra el tiempo de pantalla de hoy.</p></div><span class="home-mobile-symbol">◉</span></div>
+ <div class="home-mobile-usage" id="homeMobileUsage"><div class="home-mobile-heading"><div><span class="home-section-kicker">BIENESTAR DIGITAL</span><h4>Tiempo de móvil y antiscroll</h4><p id="homeMobilePeriod">Registra el tiempo de pantalla de hoy.</p></div><span class="home-mobile-symbol">◉</span></div>
  <div class="home-mobile-inputs"><label>Minutos de hoy<input id="homeScreenMinutes" type="number" min="0" max="1440" step="5" placeholder="Ej. 180"></label><label>Objetivo diario (min)<input id="homeScreenGoal" type="number" min="15" max="1440" step="15" value="180"></label><button class="btn" id="homeSaveScreenTime" type="button">Guardar</button></div>
  <div class="home-mobile-progress"><div><span>Tu referencia diaria</span><b id="homeScreenProgressLabel">0 / 180 min</b></div><div class="home-mobile-track"><i id="homeScreenProgress"></i></div></div><div class="home-screen-chart-wrap"><b>Últimos 7 días</b><div id="homeScreenChart" class="home-screen-chart" role="img" aria-label="Gráfica de tiempo de uso del móvil de los últimos siete días"></div></div>
  <div class="home-jarvis-advice"><b>JAKE · CONSEJO ANTISCROLL</b><p id="homeJAKEAdvice">Antes de abrir una red social, decide qué vas a hacer y cuánto tiempo quieres dedicarle. Prueba a dejar el móvil lejos durante un bloque de concentración.</p></div>
