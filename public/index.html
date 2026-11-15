@@ -507,7 +507,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 .calendar-timed-event b{font-size:11px}.calendar-timed-event small{font-size:9px;color:var(--muted)}
 @media(max-width:700px){.jarvis-section-advisor{align-items:flex-start;flex-wrap:wrap;padding:12px}.jarvis-advisor-copy{flex-basis:calc(100% - 58px)}.jarvis-section-advisor button{margin-left:55px}.calendar-hour-row{grid-template-columns:48px minmax(12px,.5fr) minmax(0,3fr)}.calendar-hour-row>span{font-size:10px;padding:9px 4px}}
 
-</style>
+.calendar-edit-list{display:grid;gap:7px;margin-top:10px}.calendar-edit-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--line);border-radius:9px}.calendar-edit-row span{flex:1;min-width:120px;font-size:12px}.calendar-card{width:100%;max-width:none}.calendar-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.calendar-toolbar h3{flex:1;min-width:150px}.calendar-mode{display:flex;gap:6px;flex-wrap:wrap}.calendar-days{grid-auto-rows:minmax(110px,auto)}.calendar-day{min-width:0;overflow:hidden;text-align:left;padding:8px;display:flex;flex-direction:column;align-items:stretch;gap:4px}.calendar-dot{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:5px;padding:3px 5px;font-size:10px;max-width:100%}@media(min-width:1000px){.calendar-card{padding:24px}.calendar-days{grid-auto-rows:minmax(125px,auto)}.calendar-dot{font-size:11px}}@media(max-width:700px){.calendar-days{grid-auto-rows:minmax(76px,auto)}.calendar-dot{font-size:9px}.calendar-toolbar h3{min-width:100%;order:-1}}</style>
 
 </head>
 <body>
@@ -525,10 +525,10 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 </div>
 <div class="auth-screen" id="authScreen" style="display:none"><div class="auth-card"><button class="btn ghost" id="closeAuth" type="button" style="float:right">Continuar como invitado</button><div class="auth-brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div><strong style="font:800 18px Manrope;letter-spacing:1px">AULIVRA</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión o crea una cuenta si quieres usar tu espacio personal. También puedes continuar como invitado.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit">Entrar en AULIVRA</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div>
-<button type="button" class="personal-agenda-launch" id="personalAgendaLaunch" aria-label="Abrir agenda personal" title="Agenda personal">▦</button>
+<button type="button" class="personal-agenda-launch" id="personalAgendaLaunch" aria-label="Abrir agenda personal" title="Abrir calendario personal">▦</button>
 <div class="personal-agenda-modal" id="personalAgendaModal" aria-hidden="true">
  <section class="personal-agenda-card" role="dialog" aria-modal="true" aria-labelledby="personalAgendaTitle">
-  <div class="personal-agenda-head"><div><span class="home-section-kicker" style="color:#1769df">AGENDA PERSONAL</span><h2 id="personalAgendaTitle">Cumpleaños y eventos</h2></div><button type="button" class="personal-agenda-close" id="personalAgendaClose" aria-label="Cerrar">×</button></div>
+  <div class="personal-agenda-head"><div><span class="home-section-kicker" style="color:#1769df">AGENDA PERSONAL</span><h2 id="personalAgendaTitle">Eventos y cumpleaños</h2></div><button type="button" class="personal-agenda-close" id="personalAgendaClose" aria-label="Cerrar">×</button></div>
   <form id="personalAgendaForm" class="personal-agenda-form">
    <input type="hidden" id="personalAgendaId">
    <div class="wide"><label for="personalAgendaName">Nombre del evento</label><input id="personalAgendaName" required maxlength="100" placeholder="Ej. Cumpleaños de Ana"></div>
@@ -624,23 +624,29 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 <form id="savingsForm" class="savings-form"><div><label for="savingName">¿Para qué ahorras?</label><input id="savingName" required maxlength="80" placeholder="Ej. Un ordenador"></div><div><label for="savingTarget">Objetivo (€)</label><input id="savingTarget" type="number" min=".01" step=".01" required placeholder="500"></div><div><label for="savingCurrent">Ahorrado (€)</label><input id="savingCurrent" type="number" min="0" step=".01" value="0"></div><button class="btn" type="submit">Crear objetivo</button></form><div id="savingsList" class="savings-list"><div class="empty">Crea tu primer objetivo.</div></div></div></div>
 <p class="tiny">Registro personal: no está conectado a tu banco ni realiza pagos o transferencias.</p></section>
 <section class="view" id="calendar">
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Estoy a su disposición para ayudarle con su agenda y sus compromisos.</b><small>Organización por mes, semana y día; eventos, tareas y bloques de estudio.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar mi agenda semanal y encajar mis bloques de estudio.">Consultar a Jarvis</button></div>
+
     <div class="intro"><h2>Calendario</h2><p>Su agenda unificada: eventos personales, cumpleaños, citas, tareas, entregas y bloques de estudio en el mismo calendario.</p></div>
     <div class="card calendar-card">
       <div class="calendar-toolbar"><button class="btn secondary" id="calendarPrev" aria-label="Mes anterior">←</button><h3 id="calendarMonth">Mes</h3><button class="btn secondary" id="calendarNext" aria-label="Mes siguiente">→</button><button class="btn ghost" id="calendarToday">Hoy</button><div class="calendar-mode"><button class="btn secondary active" id="calendarMonthMode">Mes</button><button class="btn secondary" id="calendarWeekMode">Semana</button><button class="btn secondary" id="calendarDayMode">Día</button></div></div>
       <div class="calendar-weekdays"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div>
       <div class="calendar-days" id="calendarDays"></div><div id="calendarDaySchedule" class="calendar-day-schedule" hidden></div>
-      <div class="divider"></div><div class="calendar-selected"><h3 id="calendarSelectedTitle">Selecciona un día</h3><div id="calendarSelectedItems" class="empty">Aquí aparecerán tus exámenes, entregas y tareas.</div></div>
+      <div class="divider"></div><div class="calendar-selected"><h3 id="calendarSelectedTitle">Selecciona un día</h3><div id="calendarSelectedItems" class="empty">Aquí aparecerán tus exámenes, entregas y tareas.</div><div id="calendarEditList" class="calendar-edit-list"></div></div>
     </div>
-    <div class="card" style="margin-top:14px"><h3>Añadir una fecha o bloque</h3><p>Las fechas que añadas aquí también aparecerán en Asignaturas.</p><div class="calendar-reminder-tools"><button class="btn secondary" id="enableCalendarNotifications" type="button">Activar notificaciones</button><span class="tiny" id="calendarNotificationStatus">Avisos en este dispositivo cuando AULIVRA esté abierto.</span></div><div class="row" style="margin-top:12px"><div><label for="calendarEventTitle">Bloque o evento</label><input id="calendarEventTitle" placeholder="Ej. Matemáticas: integrales"></div><div><label for="calendarEventSubject">Asignatura</label><select id="calendarEventSubject"><option value="">Selecciona asignatura</option></select></div><div><label for="calendarEventDate">Fecha</label><input id="calendarEventDate" type="date"></div><div><label for="calendarEventTime">Hora de inicio</label><input id="calendarEventTime" type="time" value="17:00"></div><div><label for="calendarEventEnd">Hora de fin</label><input id="calendarEventEnd" type="time"></div><div><label for="calendarEventColor">Color</label><select id="calendarEventColor"><option value="#1769df">Azul</option><option value="#159b80">Verde</option><option value="#8a63d2">Violeta</option><option value="#dc8a32">Naranja</option><option value="#d85d72">Rosa</option></select></div><div><label for="calendarEventReminder">Aviso previo</label><select id="calendarEventReminder"><option value="0">A la hora de empezar</option><option value="5" selected>5 minutos antes</option><option value="10">10 minutos antes</option><option value="15">15 minutos antes</option><option value="30">30 minutos antes</option></select></div><button class="btn" id="calendarAddEvent">Guardar bloque</button></div></div>
+    <div class="card" style="margin-top:14px"><h3>Añadir una fecha o bloque</h3><p>Las fechas que añadas aquí también aparecerán en Asignaturas.</p><div class="calendar-reminder-tools"><button class="btn secondary" id="enableCalendarNotifications" type="button">Activar notificaciones</button><span class="tiny" id="calendarNotificationStatus">Avisos en este dispositivo cuando AULIVRA esté abierto.</span></div><div class="row" style="margin-top:12px"><div><label for="calendarEventTitle">Bloque o evento</label><input id="calendarEventTitle" placeholder="Ej. Matemáticas: integrales"></div><div><label for="calendarEventSubject">Asignatura</label><select id="calendarEventSubject"><option value="">Selecciona asignatura</option></select></div><div><label for="calendarEventDate">Fecha</label><input id="calendarEventDate" type="date"></div><div><label for="calendarEventTime">Hora de inicio</label><input id="calendarEventTime" type="time" value="17:00"></div><div><label for="calendarEventEnd">Hora de fin</label><input id="calendarEventEnd" type="time"></div><div><label for="calendarEventColor">Color</label><select id="calendarEventColor"><option value="#1769df">Azul</option><option value="#159b80">Verde</option><option value="#8a63d2">Violeta</option><option value="#dc8a32">Naranja</option><option value="#d85d72">Rosa</option></select></div><div><label for="calendarEventReminder">Aviso previo</label><select id="calendarEventReminder"><option value="0">A la hora de empezar</option><option value="5" selected>5 minutos antes</option><option value="10">10 minutos antes</option><option value="15">15 minutos antes</option><option value="30">30 minutos antes</option></select></div><button class="btn" id="calendarAddEvent">Guardar en el calendario</button><button class="btn ghost" id="calendarCancelEdit" type="button" hidden>Cancelar edición</button></div></div>
   </section>
 
-  <section class="view" id="files"><div class="intro"><h2>Archivos y documentos</h2><p>Tus herramientas para trabajar con documentos desde un solo lugar.</p></div><div class="home-actions">
+  <section class="view" id="files">
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Estoy a su disposición para ayudarle con sus documentos.</b><small>Lectura, conversión y organización de archivos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar mis documentos y elegir la herramienta adecuada.">Consultar a Jarvis</button></div>
+<div class="intro"><h2>Archivos y documentos</h2><p>Tus herramientas para trabajar con documentos desde un solo lugar.</p></div><div class="home-actions">
 <button class="quick" data-go="convert"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Conversor de archivos</b><small>PDF, Word, Excel y más formatos</small></span></button>
 <button class="quick" data-go="share"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Compartir archivos</b><small>Crear enlaces de descarga temporales</small></span></button>
 <button class="quick" data-go="library"><span class="stat-icon">▤</span><span><b>Biblioteca académica</b><small>Recursos y apuntes por asignatura</small></span></button>
 </div></section>
 
   <section class="view" id="convert">
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Estoy a su disposición para ayudarle con la conversión de archivos.</b><small>Elija el formato adecuado y revise los pasos de conversión.</small></div><button type="button" data-jarvis-prompt="Explíqueme cómo convertir este archivo y qué formato me conviene.">Consultar a Jarvis</button></div>
+
     <div class="intro"><h2>Conversor de archivos</h2><p>Convierte documentos entre formatos habituales. Para conversiones avanzadas en servidor se requiere LibreOffice instalado.</p></div>
     <div class="grid">
       <div class="card span-7"><h3>Sube tu archivo</h3><p>Selecciona un documento y el formato de salida.</p>
@@ -658,6 +664,8 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="subjects">
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Estoy a su disposición para ayudarle con sus asignaturas y tareas.</b><small>Fechas de entrega, tareas pendientes y seguimiento por asignatura.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a priorizar mis asignaturas y ordenar las tareas pendientes.">Consultar a Jarvis</button></div>
+
     <div class="intro"><h2>Mi espacio académico</h2><p>Gestiona tus asignaturas, tareas, apuntes, calificaciones y próximos exámenes.</p></div>
     <div class="grid">
       <div class="card span-4">
@@ -684,6 +692,8 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="grades">
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Estoy a su disposición para ayudarle con sus calificaciones.</b><small>Seguimiento de notas, ponderaciones y objetivos académicos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a revisar mis calificaciones y fijar objetivos de mejora.">Consultar a Jarvis</button></div>
+
     <div class="intro"><h2>Calculadora de notas</h2><p>Define los porcentajes de evaluación, calcula tu nota y guarda las configuraciones para reutilizarlas.</p></div>
     <div class="grid">
       <div class="card span-7"><div class="row"><div><label for="gradeSubject">Asignatura / evaluación</label><input id="gradeSubject" placeholder="Ej. Matemáticas · 1.ª evaluación"></div><button class="btn secondary" id="addGradeRow" style="flex:0 0 auto">+ Añadir criterio</button></div>
@@ -700,6 +710,8 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="share">
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Estoy a su disposición para ayudarle con el uso compartido de archivos.</b><small>Enlaces, permisos y acceso a documentos.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a compartir un documento de forma segura.">Consultar a Jarvis</button></div>
+
     <div class="intro"><h2>Compartir archivos grandes</h2><p>Sube un archivo al servidor, crea un enlace temporal y, si configuras el correo, envíalo directamente al destinatario.</p></div>
     <div class="grid">
       <div class="card span-7"><h3>Crear enlace de descarga</h3><div class="drop" id="shareDrop" style="margin-top:16px"><div class="big">⇧</div><b>Arrastra aquí el archivo que quieras compartir</b><p>o selecciona un archivo</p><label class="btn secondary" for="shareFile" style="display:inline-block;cursor:pointer">Seleccionar archivo</label><input id="shareFile" type="file"></div>
@@ -716,12 +728,16 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
   </section>
 
   <section class="view" id="library">
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Estoy a su disposición para ayudarle con su biblioteca.</b><small>Materiales y recursos de consulta.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar los recursos que necesito para estudiar.">Consultar a Jarvis</button></div>
+
     <div class="intro"><h2>Biblioteca académica</h2><p>Accede a recursos y búsquedas de apuntes por asignatura. Los enlaces llevan a las fuentes originales; AULIVRA no aloja ni copia materiales de terceros.</p></div>
     <div class="grid" id="libraryGrid"></div>
     <div class="card span-12" style="margin-top:15px"><h3>Tu biblioteca personal</h3><p>Guarda tus propios documentos de clase en tus dispositivos o en un almacenamiento privado conectado a tu instalación.</p><div class="field"><label>Selecciona apuntes propios</label><input id="personalNotes" type="file" multiple></div><div id="personalNotesList" class="tiny">No se han seleccionado archivos.</div></div>
   </section>
 
   <section class="view" id="timer">
+<div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JARVIS · ASISTENTE PERSONAL</span><b>Estoy a su disposición para ayudarle con su concentración.</b><small>Bloques de trabajo, descansos y revisión de resultados.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a elegir un bloque de concentración y un objetivo para esta sesión.">Consultar a Jarvis</button></div>
+
     <div class="intro"><h2>Temporizador de estudio</h2><p>Elige un método o crea bloques a tu medida. Al completar una sesión se registra tu tiempo de estudio.</p></div>
     <div class="grid">
       <div class="card span-8">
@@ -750,7 +766,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 
 <div class="assistant-panel" id="studyAssistant" role="dialog" aria-label="Chat con JARVIS">
   <div class="assistant-head"><div><strong>JARVIS</strong><small>Tu asistente personal · ayuda guiada</small></div><button class="assistant-close" id="assistantClose" aria-label="Cerrar">×</button></div>
-  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">¡Hola! Soy JARVIS, tu asistente personal. Estoy a su disposición para organizar sus prioridades, revisar sus tareas y proponer métodos de trabajo. ¿En qué puedo ayudarle?</div></div>
+  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">Buenos días. Soy JARVIS, su asistente personal. Estoy a su disposición para organizar sus prioridades, revisar sus tareas y optimizar sus métodos de trabajo. ¿Qué desea resolver?</div></div>
   <div class="assistant-quick" id="assistantQuick"><button type="button" data-help="¿Cómo uso el temporizador?">Temporizador</button><button type="button" data-help="¿Cómo guardo mis notas?">Mis notas</button><button type="button" data-help="¿Cómo convierto un archivo?">Archivos</button><button type="button" data-help="¿Cómo comparto un archivo?">Compartir</button></div>
   <form class="assistant-form" id="assistantForm"><input id="assistantInput" autocomplete="off" placeholder="Escribe tu duda…" aria-label="Escribe tu duda"><button type="submit">Enviar</button></form>
   <div class="assistant-note">JARVIS utiliza respuestas guiadas predefinidas por ahora; todavía no es una IA generativa. Tus mensajes no se envían a un servicio externo.</div>
@@ -1012,6 +1028,10 @@ function renderCalendar(){
  const key=dateKey(calendarSelected),selected=items.filter(x=>(x.date||x.due)===key);
  $("#calendarSelectedTitle").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long"}).format(calendarSelected);
  $("#calendarSelectedItems").innerHTML=selected.length?selected.map(x=>'<div class="calendar-event-line"><span style="width:5px;height:34px;border-radius:5px;background:'+colorFor(x)+'"></span><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+(x.kind==="task"?" · Pendiente":" · Evento")+'</small></span>'+(x.time?'<span class="calendar-event-time">'+esc(x.time)+(x.end?" – "+esc(x.end):"")+'</span>':'Todo el día')+'</div>').join(""):'<div class="empty">No hay nada programado para este día.</div>';
+ const editList=$("#calendarEditList");
+ if(editList)editList.innerHTML=selected.filter(x=>x.kind==="event").map(x=>'<div class="calendar-edit-row"><span>'+esc(x.title)+'</span><button type="button" class="btn ghost" data-edit-calendar-event="'+esc(x.id)+'">Editar</button><button type="button" class="btn ghost" data-delete-calendar-event="'+esc(x.id)+'">Eliminar</button></div>').join("");
+ if(editList){editList.querySelectorAll("[data-edit-calendar-event]").forEach(b=>b.onclick=()=>editCalendarEvent(b.dataset.editCalendarEvent));editList.querySelectorAll("[data-delete-calendar-event]").forEach(b=>b.onclick=()=>{if(!confirm("¿Eliminar este bloque?"))return;store.set("aulivra_events",store.get("aulivra_events",[]).filter(x=>x.id!==b.dataset.deleteCalendarEvent));renderCalendar();renderHomeExtras();toast("Bloque eliminado.")})}
+
 }
 $("#calendarPrev").onclick=()=>{if(calendarViewMode==="day")calendarSelected.setDate(calendarSelected.getDate()-1);else if(calendarViewMode==="week")calendarSelected.setDate(calendarSelected.getDate()-7);else calendarCursor.setMonth(calendarCursor.getMonth()-1);if(calendarViewMode!=="month")calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
 $("#calendarNext").onclick=()=>{if(calendarViewMode==="day")calendarSelected.setDate(calendarSelected.getDate()+1);else if(calendarViewMode==="week")calendarSelected.setDate(calendarSelected.getDate()+7);else calendarCursor.setMonth(calendarCursor.getMonth()+1);if(calendarViewMode!=="month")calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
@@ -1027,6 +1047,19 @@ $("#calendarAddEvent").onclick=()=>{
  if(!title||!date||!time)return toast("Complete el nombre, la fecha y la hora.");if(end&&end<=time)return toast("La hora de fin debe ser posterior a la de inicio.");
  const events=store.get("aulivra_events",[]);events.push({id:crypto.randomUUID(),title,subjectId:subjectId||"",subjectName:sub?.name||"Personal",date,time,end,reminderMinutes,color:$("#calendarEventColor")?.value||"#1769df",kind:"event"});store.set("aulivra_events",events);
  $("#calendarEventTitle").value="";if($("#calendarEventEnd"))$("#calendarEventEnd").value="";calendarSelected=dateFromKey(date);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar();renderEvents();renderHome();renderHomeExtras();toast("Bloque guardado en tu calendario.");
+};
+
+let editingCalendarEventId=null;
+function editCalendarEvent(id){const e=store.get("aulivra_events",[]).find(x=>x.id===id);if(!e)return;editingCalendarEventId=id;$("#calendarEventTitle").value=e.title||"";$("#calendarEventSubject").value=e.subjectId||"";$("#calendarEventDate").value=e.date||"";$("#calendarEventTime").value=e.time||"17:00";$("#calendarEventEnd").value=e.end||"";$("#calendarEventColor").value=e.color||"#1769df";$("#calendarEventReminder").value=String(e.reminderMinutes??5);$("#calendarAddEvent").textContent="Guardar cambios";$("#calendarCancelEdit").hidden=false;$("#calendarEventTitle").focus()}
+$("#calendarCancelEdit").onclick=()=>{editingCalendarEventId=null;$("#calendarEventTitle").value="";$("#calendarEventSubject").value="";$("#calendarEventEnd").value="";$("#calendarAddEvent").textContent="Guardar en el calendario";$("#calendarCancelEdit").hidden=true};
+$("#calendarAddEvent").onclick=()=>{
+ const title=$("#calendarEventTitle").value.trim(),subjectId=$("#calendarEventSubject").value,date=$("#calendarEventDate").value,time=$("#calendarEventTime").value,end=$("#calendarEventEnd").value,reminderMinutes=Number($("#calendarEventReminder").value),sub=subjectsData().find(x=>x.id===subjectId);
+ if(!title||!date||!time)return toast("Complete el nombre, la fecha y la hora.");
+ if(end&&end<=time)return toast("La hora de fin debe ser posterior a la de inicio.");
+ const events=store.get("aulivra_events",[]),data={title,subjectId:subjectId||"",subjectName:sub?.name||"Personal",date,time,end,reminderMinutes,color:$("#calendarEventColor").value||"#1769df",kind:"event"};
+ if(editingCalendarEventId){const i=events.findIndex(x=>x.id===editingCalendarEventId);if(i<0)return toast("No se ha encontrado el bloque.");events[i]={...events[i],...data};}
+ else events.push({id:crypto.randomUUID(),...data});
+ store.set("aulivra_events",events);editingCalendarEventId=null;$("#calendarEventTitle").value="";$("#calendarEventEnd").value="";$("#calendarAddEvent").textContent="Guardar en el calendario";$("#calendarCancelEdit").hidden=true;calendarSelected=dateFromKey(date);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar();renderHomeExtras();toast("Calendario actualizado.");
 };
 function applyHomeWidgets(){
  const defaults={welcome:true,stats:true,shortcuts:true,upcoming:true,tasks:true};
