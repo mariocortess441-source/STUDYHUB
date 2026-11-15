@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#7655e8">
+<meta name="description" content="STUDYHUB: organiza tus estudios, planifica sesiones, controla tus notas y gestiona tus archivos desde cualquier lugar.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://studyhub-u192.onrender.com/">
+<meta property="og:type" content="website"><meta property="og:title" content="STUDYHUB — Tu espacio académico"><meta property="og:description" content="Organiza tus estudios, planifica sesiones y progresa con STUDYHUB."><meta property="og:url" content="https://studyhub-u192.onrender.com/">
 <link rel="icon" type="image/svg+xml" href="/studyhub-symbol.svg"><title>STUDYHUB — Tu espacio académico</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -192,10 +196,41 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 @media(max-width:700px){.welcome-banner{padding:22px;min-height:0}.welcome-art{width:34%;max-height:150px}.welcome-banner h2{font-size:24px}.welcome-banner p{font-size:12px}}
 @media(max-width:480px){.welcome-banner{align-items:flex-start}.welcome-art{position:absolute;right:5px;bottom:0;width:42%;opacity:.62}.welcome-copy{max-width:75%}.welcome-points{gap:5px}.welcome-points span{font-size:9px;padding:6px 8px}.quick-illustration{width:52px;height:52px}.home-actions .quick{min-height:116px;padding:14px;gap:10px}}
 
+
+/* Aviso legal de primera visita */
+.legal-gate{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:18px;background:#080610ed;backdrop-filter:blur(12px);overflow:auto}
+.legal-gate.visible{display:flex}
+.legal-card{width:min(100%,620px);max-height:calc(100vh - 36px);overflow:auto;background:linear-gradient(145deg,#1b1529,#110e1a);border:1px solid #594078;border-radius:24px;padding:clamp(22px,4vw,38px);box-shadow:0 25px 100px #000b;color:#f6f1ff}
+.legal-kicker{font-size:10px;font-weight:800;letter-spacing:1.8px;color:#bda7ff}
+.legal-card h2{font:800 clamp(24px,4vw,32px) Manrope;margin:12px 0;color:#fff}
+.legal-card p{font-size:13px;line-height:1.7;color:#c9bfd9}
+.legal-links{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.legal-links a,.legal-review{color:#d3c2ff;text-decoration:underline;text-underline-offset:3px;font-size:13px}
+.legal-notice{background:#28203b;border:1px solid #493761;border-radius:13px;padding:13px 15px;color:#e2d8f2;font-size:12px;line-height:1.6}
+.legal-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:22px}
+.legal-reject-note{margin-bottom:0}.legal-review{border:0;background:none;padding:8px 0;cursor:pointer}
+.legal-footer{display:flex;gap:14px;flex-wrap:wrap;padding:20px 0 28px;color:#aaa0bd;font-size:12px}
+.legal-footer a,.legal-footer button{color:#cdbaff;text-decoration:none;background:none;border:0;padding:0;font:inherit;cursor:pointer}
+.legal-footer a:hover,.legal-footer button:hover{text-decoration:underline}
+@media(max-width:560px){.legal-actions{flex-direction:column-reverse}.legal-actions button{width:100%}.legal-card{border-radius:18px}}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
 <body>
+
+<div id="legalGate" class="legal-gate" role="dialog" aria-modal="true" aria-labelledby="legalGateTitle" aria-describedby="legalGateText">
+  <section class="legal-card">
+    <div class="legal-kicker">STUDYHUB · INFORMACIÓN LEGAL</div>
+    <h2 id="legalGateTitle">Antes de continuar</h2>
+    <p id="legalGateText">Para utilizar STUDYHUB debes leer y aceptar las condiciones de uso. La política de privacidad explica qué datos se utilizan y para qué. La aceptación de las condiciones no sustituye los permisos específicos que puedan ser necesarios para cookies o publicidad.</p>
+    <div class="legal-links"><a href="/privacidad.html" target="_blank" rel="noopener">Leer política de privacidad</a><a href="/terminos.html" target="_blank" rel="noopener">Leer términos y condiciones</a></div>
+    <div class="legal-notice">Al pulsar «Aceptar y continuar» confirmas que has leído la información y aceptas los términos de uso. Si rechazas, el acceso a la aplicación permanecerá bloqueado. Puedes revisar los documentos antes de decidir.</div>
+    <div class="legal-actions"><button id="legalReject" class="btn ghost" type="button">Rechazar</button><button id="legalAccept" class="btn" type="button">Aceptar y continuar</button></div>
+    <p id="legalRejectNote" class="legal-reject-note" hidden>No has aceptado los términos. STUDYHUB permanecerá bloqueado. Puedes cerrar esta pestaña o volver a revisar tu decisión.</p>
+    <button id="legalReview" class="legal-review" type="button" hidden>Volver a revisar</button>
+  </section>
+</div>
 <div class="auth-screen" id="authScreen" style="display:none"><div class="auth-card"><button class="btn ghost" id="closeAuth" type="button" style="float:right">Continuar como invitado</button><div class="auth-brand"><img class="logo-img" src="/studyhub-logo.svg" alt="STUDYHUB"><div><strong style="font:800 18px Manrope;letter-spacing:1px">STUDYHUB</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión o crea una cuenta si quieres usar tu espacio personal. También puedes continuar como invitado.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit">Entrar en STUDYHUB</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div><div class="app" id="appShell">
 <aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú">☰</button>
   <div class="brand"><img class="logo-img" src="/studyhub-logo.svg" alt="STUDYHUB"><div class="brandtext"><strong>STUDYHUB</strong><small>YOUR ACADEMIC SPACE</small></div></div>
@@ -309,6 +344,12 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
     </div>
   </section>
 </main>
+
+<div class="legal-footer" aria-label="Información legal">
+  <a href="/privacidad.html">Política de privacidad</a>
+  <a href="/terminos.html">Términos y condiciones</a>
+  <button type="button" id="legalChangeChoice">Cambiar decisión</button>
+</div>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -423,6 +464,64 @@ if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle
  document.getElementById("assistantClose").addEventListener("click",()=>toggle(false));
  form.addEventListener("submit",e=>{e.preventDefault();ask(input.value)});
  document.getElementById("assistantQuick").addEventListener("click",e=>{const b=e.target.closest("[data-help]");if(b)ask(b.dataset.help)});
+})();
+
+
+/* Aceptación de términos y confirmación de lectura de privacidad */
+(()=> {
+  const VERSION = "2026-11-15-v1";
+  const KEY = "studyhub_legal_acceptance";
+  const gate = document.getElementById("legalGate");
+  const accept = document.getElementById("legalAccept");
+  const reject = document.getElementById("legalReject");
+  const note = document.getElementById("legalRejectNote");
+  const review = document.getElementById("legalReview");
+  const title = document.getElementById("legalGateTitle");
+  const change = document.getElementById("legalChangeChoice");
+  if (!gate || !accept || !reject) return;
+  let accepted = false;
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+    accepted = !!(saved && saved.version === VERSION && saved.acceptedAt);
+  } catch {}
+  function showGate() {
+    gate.classList.add("visible");
+    gate.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+  function hideGate() {
+    gate.classList.remove("visible");
+    gate.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+  }
+  if (!accepted) showGate();
+  accept.addEventListener("click", () => {
+    try { localStorage.setItem(KEY, JSON.stringify({version:VERSION,acceptedAt:new Date().toISOString()})); } catch {}
+    accepted = true;
+    hideGate();
+  });
+  reject.addEventListener("click", () => {
+    note.hidden = false;
+    review.hidden = false;
+    title.textContent = "No has aceptado los términos";
+    reject.disabled = true;
+    accept.textContent = "Aceptar y continuar";
+  });
+  review.addEventListener("click", () => {
+    note.hidden = true;
+    review.hidden = true;
+    reject.disabled = false;
+    title.textContent = "Antes de continuar";
+  });
+  if (change) change.addEventListener("click", () => {
+    try { localStorage.removeItem(KEY); } catch {}
+    accepted = false;
+    note.hidden = true;
+    review.hidden = true;
+    reject.disabled = false;
+    title.textContent = "Antes de continuar";
+    showGate();
+  });
 })();
 
 </script>
