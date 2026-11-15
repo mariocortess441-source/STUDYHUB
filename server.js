@@ -274,7 +274,7 @@ async function finishSocialLogin(provider, req, res) {
 app.get("/api/auth/google/callback", (req, res) => finishSocialLogin("google", req, res));
 app.post("/api/auth/apple/callback", (req, res) => finishSocialLogin("apple", req, res));
  
-// Google Calendar: separate OAuth grant, scoped to the signed-in AULIVRA account.
+// Google Calendar: separate OAuth grant, scoped to the signed-in MANCAVE account.
 const GOOGLE_CALENDAR_TOKENS_FILE = path.join(DATA_DIR, "google-calendar-tokens.json");
 const GOOGLE_CALENDAR_STATES_FILE = path.join(DATA_DIR, "google-calendar-states.json");
 const GOOGLE_CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar.events";
@@ -421,7 +421,7 @@ app.get("/api/google/events",requireAuth,async(req,res)=>{try{const token=await 
 app.post("/api/google/events",requireAuth,async(req,res)=>{try{const{title,date,time,end,googleEventId}=req.body||{};if(!String(title||"").trim()||!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(String(date||""))||!/^[0-9]{2}:[0-9]{2}$/.test(String(time||"")))return res.status(400).json({error:"El evento necesita título, fecha y hora."});const start=new Date(date+"T"+time+":00"),finish=end&&/^[0-9]{2}:[0-9]{2}$/.test(end)?new Date(date+"T"+end+":00"):new Date(start.getTime()+3600000);if(!Number.isFinite(start.getTime())||!Number.isFinite(finish.getTime())||finish<=start)return res.status(400).json({error:"La hora de fin debe ser posterior al inicio."});const token=await googleAccessToken(req.user.id),payload={summary:String(title).slice(0,200),start:{dateTime:date+"T"+time+":00",timeZone:"Europe/Madrid"},end:{dateTime:date+"T"+(end||finish.toTimeString().slice(0,5))+":00",timeZone:"Europe/Madrid"}},url=googleEventId?"https://www.googleapis.com/calendar/v3/calendars/primary/events/"+encodeURIComponent(googleEventId):"https://www.googleapis.com/calendar/v3/calendars/primary/events",response=await fetch(url,{method:googleEventId?"PUT":"POST",headers:{Authorization:"Bearer "+token,"Content-Type":"application/json"},body:JSON.stringify(payload)}),data=await response.json();if(!response.ok)throw Error(data.error?.message||"No se pudo guardar el evento.");res.status(googleEventId?200:201).json({id:data.id,htmlLink:data.htmlLink||""})}catch(err){res.status(502).json({error:err.message})}});
 app.delete("/api/google/events/:id",requireAuth,async(req,res)=>{try{const token=await googleAccessToken(req.user.id),response=await fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events/"+encodeURIComponent(req.params.id),{method:"DELETE",headers:{Authorization:"Bearer "+token}});if(!response.ok&&response.status!==410&&response.status!==404){const data=await response.json().catch(()=>({}));throw Error(data.error?.message||"No se pudo borrar el evento.")}res.json({ok:true})}catch(err){res.status(502).json({error:err.message})}});
 
-app.get("/api/health", (_, res) => res.json({ ok: true, service: "AULIVRA", version: "1.0.0" }));
+app.get("/api/health", (_, res) => res.json({ ok: true, service: "MANCAVE", version: "1.0.0" }));
 
 // Upload a file and create a time-limited share link. The file is stored on this server.
 app.post("/api/shares", upload.single("file"), async (req, res) => {
@@ -451,7 +451,7 @@ app.post("/api/shares", upload.single("file"), async (req, res) => {
       });
       await transporter.sendMail({
         from: process.env.MAIL_FROM || process.env.SMTP_USER, to: email,
-        subject: "Te han compartido un archivo en AULIVRA",
+        subject: "Te han compartido un archivo en MANCAVE",
         text: `Puedes descargar "${meta[id].originalName}" desde este enlace: ${link}\nEl enlace caduca en ${hours} horas.`
       });
       emailed = true;
@@ -512,4 +512,4 @@ setInterval(() => {
   if (changed) writeMeta(meta);
 }, 60 *  60 * 1000).unref();
 
-app.listen(PORT, () => console.log(`AULIVRA running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`MANCAVE running on http://localhost:${PORT}`));
