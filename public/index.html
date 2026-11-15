@@ -1298,7 +1298,7 @@ window.renderEconomy=render;render()})();
  function allTasks(){return subjects().flatMap(sub=>(sub.tasks||[]).map(t=>({...t,kind:"task",title:t.text,subjectName:sub.name,subjectId:sub.id,date:t.due||"",done:!!t.done})))}
  function allItems(){return [...allTasks(),...(store.get("aulivra_events",[])||[]).map(e=>({...e,kind:"event",date:e.date||""})),...(typeof window.expandPersonalAgenda==="function"?window.expandPersonalAgenda():[])]}
  function periodStats(){
-  const {start,end}=periodBounds(),ss=sessions().filter(x=>dateIn(x.date,start,end)),minutes=ss.reduce((a,x)=>a+(Number(x.minutes)||0),0),days=new Set(ss.map(x=>x.date)).size;
+  const {start,end}=periodBounds(),ss=sessions().filter(x=>dateIn(x.date,start,end)),minutes=ss.reduce((a,x)=>a+(Number(x.minutes)||0),0);
   const completedTasks=allTasks().filter(t=>t.done&&dateIn(t.doneAt||"",start,end)),taskDone=completedTasks.length,brandTasks=brand().tasks||[],completedBrandTasks=brandTasks.filter(t=>t.done&&dateIn(t.doneAt||"",start,end)),brandDone=completedBrandTasks.length;
   const moves=(economy().movements||[]).filter(x=>dateIn(x.date,start,end)),inc=moves.filter(x=>x.type==="income").reduce((a,x)=>a+(Number(x.amount)||0),0),out=moves.filter(x=>x.type==="expense").reduce((a,x)=>a+(Number(x.amount)||0),0);
   const mobileEntries=Object.entries(screenData()).filter(([d])=>dateIn(d,start,end)),mobile=mobileEntries.reduce((a,[,v])=>a+(Number(v)||0),0);
