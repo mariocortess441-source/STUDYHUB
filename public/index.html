@@ -214,6 +214,41 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 .legal-footer a:hover,.legal-footer button:hover{text-decoration:underline}
 @media(max-width:560px){.legal-actions{flex-direction:column-reverse}.legal-actions button{width:100%}.legal-card{border-radius:18px}}
 
+ 
+/* AULIVRA mobile-first workspace */
+@media(max-width:700px){
+ .app{display:block!important;min-height:100dvh}
+ .sidebar{position:fixed!important;top:auto!important;bottom:0!important;left:0;right:0;width:100%;height:auto!important;min-height:68px;padding:7px 5px calc(7px + env(safe-area-inset-bottom))!important;z-index:30;display:flex!important;flex-direction:row!important;align-items:center;justify-content:center;border-right:0!important;border-top:1px solid var(--line);box-shadow:0 -8px 28px #17203312;overflow:visible}
+ .sidebar-toggle,.brand,.nav-label,.side-bottom{display:none!important}
+ .nav{display:flex!important;flex:1;justify-content:space-around;gap:2px;overflow-x:auto;scrollbar-width:none}
+ .nav button{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:54px;padding:7px 5px!important;border-radius:12px;font-size:10px!important;white-space:nowrap}
+ .nav button .navtext{display:block!important;font-size:9px;line-height:1.1}
+ .nav .ico{font-size:18px!important;width:auto}
+ main{padding:15px 12px calc(95px + env(safe-area-inset-bottom))!important}
+ .top{margin:8px 2px 22px!important;align-items:center}
+ .top h1{font-size:25px!important;letter-spacing:-.8px!important}
+ .eyebrow{font-size:9px}
+ .date{display:block!important;font-size:10px;padding:7px 9px}
+ .intro{margin-bottom:18px}
+ .intro h2{font-size:23px!important}
+ .intro p{font-size:13px!important}
+ .grid{grid-template-columns:minmax(0,1fr)!important;gap:11px}
+ .grid>.card,.span-12,.span-8,.span-7,.span-6,.span-5,.span-4{grid-column:1/-1!important;width:100%;min-width:0}
+ .card{padding:16px!important;border-radius:17px}
+ .row{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+ .row>*{width:100%;flex:1 1 auto}
+ .btn{min-height:43px}
+ .quick{padding:15px;min-height:84px}
+ .welcome-banner{grid-template-columns:1fr!important}
+ .welcome-art{max-height:140px;margin:auto}
+ .table{min-width:460px}
+ .grade-result{gap:8px}
+ .auth-screen{padding:12px}
+ .auth-card{padding:22px!important;border-radius:20px}
+ .toast{left:12px;right:12px;bottom:88px;text-align:center}
+}
+@media(min-width:701px) and (max-width:900px){.app{grid-template-columns:76px 1fr}.nav button .navtext{display:none}}
+@media(hover:none){.quick:hover{transform:none}}
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
@@ -239,6 +274,7 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
     <button class="active" data-view="home"><span class="ico">⌂</span><span class="navtext">Inicio</span></button>
     <button data-view="timer"><span class="ico">◷</span><span class="navtext">Estudio</span></button>
     <button data-view="grades"><span class="ico">▦</span><span class="navtext">Mis notas</span></button>
+    <button data-view="subjects"><span class="ico">▣</span><span class="navtext">Asignaturas</span></button>
     <button data-view="files"><span class="ico">▤</span><span class="navtext">Archivos</span></button>
   </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
@@ -285,6 +321,32 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
         <div class="field"><label>Unir PDF</label><input id="mergeFiles" type="file" accept="application/pdf" multiple><button class="btn secondary" id="mergeBtn" style="margin-top:8px;width:100%">Unir documentos</button></div>
         <div class="divider"></div><div class="field"><label>Comprimir / optimizar PDF</label><input id="compressFile" type="file" accept="application/pdf"><button class="btn secondary" id="compressBtn" style="margin-top:8px;width:100%">Optimizar PDF</button></div>
         <p class="tiny">La unión y optimización se realizan en el navegador con PDF-Lib. La compresión depende del contenido y puede no reducir todos los archivos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="subjects">
+    <div class="intro"><h2>Mi espacio académico</h2><p>Gestiona tus asignaturas, tareas, apuntes, calificaciones y próximos exámenes.</p></div>
+    <div class="grid">
+      <div class="card span-4">
+        <h3>Añadir asignatura</h3>
+        <div class="field"><label for="newSubjectName">Nombre</label><input id="newSubjectName" placeholder="Ej. Matemáticas"></div>
+        <div class="field"><label for="newSubjectColor">Color</label><select id="newSubjectColor"><option value="#4569e8">Azul</option><option value="#159568">Verde</option><option value="#a16be8">Violeta</option><option value="#df8a35">Naranja</option><option value="#d84d61">Rosa</option></select></div>
+        <button class="btn" id="createSubject" style="width:100%">+ Crear asignatura</button>
+        <div class="divider"></div><h3>Mis asignaturas</h3><div id="subjectList" class="empty">Todavía no has añadido asignaturas.</div>
+      </div>
+      <div class="card span-8">
+        <div id="subjectDetail" class="empty">Selecciona una asignatura o crea la primera para empezar.</div>
+      </div>
+      <div class="card span-12">
+        <h3>Próximos exámenes y entregas</h3>
+        <div class="row" style="margin-top:12px">
+          <div><label for="eventTitle">Nombre del examen o entrega</label><input id="eventTitle" placeholder="Ej. Examen de integrales"></div>
+          <div><label for="eventSubject">Asignatura</label><select id="eventSubject"><option value="">Selecciona asignatura</option></select></div>
+          <div><label for="eventDate">Fecha</label><input id="eventDate" type="date"></div>
+          <button class="btn" id="addEvent">Añadir fecha</button>
+        </div>
+        <div id="eventList" class="empty">Todavía no hay fechas guardadas.</div>
       </div>
     </div>
   </section>
@@ -368,11 +430,11 @@ const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 let activeUser=null;const store = {
  get(k,d){try{return JSON.parse(localStorage.getItem("sh_"+(activeUser?.id||"guest")+"_"+k)) ?? d}catch{return d}},
- set(k,v){localStorage.setItem("sh_"+(activeUser?.id||"guest")+"_"+k,JSON.stringify(v))}
+ set(k,v){const key="sh_"+(activeUser?.id||"guest")+"_"+k;localStorage.setItem(key,JSON.stringify(v));if(activeUser)fetch("/api/study-data/"+encodeURIComponent(k),{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({value:v})}).catch(()=>toast("No se pudo sincronizar. Comprueba tu conexión."))}
 };
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
-const titles={files:"Tus documentos, organizados.",home:"Todo en un mismo lugar.",convert:"Conversor de archivos.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez."};
-function go(id){$$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));$("#pageTitle").textContent=titles[id];if(id==="files"){}if(id==="grades")renderGrades();if(id==="timer")renderSessions();if(id==="home")renderHome();window.scrollTo({top:0,behavior:"smooth"})}
+const titles={subjects:"Tus asignaturas, a tu manera.",files:"Tus documentos, organizados.",home:"Todo en un mismo lugar.",convert:"Conversor de archivos.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez."};
+function go(id){$$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));$("#pageTitle").textContent=titles[id];if(id==="files"){}if(id==="grades")renderGrades();if(id==="timer")renderSessions();if(id==="home")renderHome();if(id==="subjects")renderSubjects();window.scrollTo({top:0,behavior:"smooth"})}
 $$(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.view));document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)go(b.dataset.go)});
 $("#today").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"short",day:"numeric",month:"short"}).format(new Date());
 function formatSize(n){if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";return (n/1048576).toFixed(1)+" MB"}
@@ -432,7 +494,7 @@ let authMode="login";
 function setAuthMode(mode){authMode=mode;$("#loginTab").classList.toggle("active",mode==="login");$("#registerTab").classList.toggle("active",mode==="register");$("#nameField").style.display=mode==="register"?"block":"none";$("#authTitle").textContent=mode==="login"?"Bienvenido de nuevo":"Crea tu cuenta";$("#authDescription").textContent=mode==="login"?"Inicia sesión para entrar en tu espacio de estudio.":"Regístrate para guardar tu espacio personal.";$("#authSubmit").textContent=mode==="login"?"Entrar en AULIVRA":"Crear mi cuenta";$("#authPassword").autocomplete=mode==="login"?"current-password":"new-password";$("#authError").style.display="none"}
 $("#loginTab").onclick=()=>setAuthMode("login");$("#registerTab").onclick=()=>setAuthMode("register");
 async function checkAuth(){try{const r=await fetch("/api/auth/me");const j=await r.json();if(j.user)enterApp(j.user)}catch{}}
-function enterApp(user){activeUser=user||null;$("#authScreen").style.display="none";$("#appShell").style.display="grid";$("#userName").textContent=user?user.name:"Modo invitado";$("#loginBtn").style.display=user?"none":"inline-flex";$("#logoutBtn").style.display=user?"inline-flex":"none";renderHome();renderGrades();renderSessions()}
+async function enterApp(user){activeUser=user||null;$("#authScreen").style.display="none";$("#appShell").style.display="grid";$("#userName").textContent=user?user.name:"Modo invitado";$("#loginBtn").style.display=user?"none":"inline-flex";$("#logoutBtn").style.display=user?"inline-flex":"none";if(user){try{const r=await fetch("/api/study-data");if(r.ok){const j=await r.json();for(const [k,v] of Object.entries(j.data||{}))localStorage.setItem("sh_"+user.id+"_"+k,JSON.stringify(v))}}catch{toast("Sin conexión con la nube. Se mostrarán los datos locales.")}}renderHome();renderGrades();renderSessions();if(typeof renderSubjects==="function"){renderSubjects();renderEvents()}}
 $("#authForm").onsubmit=async e=>{e.preventDefault();const b=$("#authSubmit");b.disabled=true;b.textContent="Un momento…";$("#authError").style.display="none";try{const payload={email:$("#authEmail").value,password:$("#authPassword").value};if(authMode==="register")payload.name=$("#authName").value;const r=await fetch("/api/auth/"+(authMode==="login"?"login":"register"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const j=await r.json();if(!r.ok)throw Error(j.error||"No se pudo acceder.");enterApp(j.user)}catch(err){$("#authError").textContent=err.message;$("#authError").style.display="block"}finally{b.disabled=false;b.textContent=authMode==="login"?"Entrar en AULIVRA":"Crear mi cuenta"}};
 $("#loginBtn").onclick=()=>{$("#authScreen").style.display="grid";setAuthMode("login")};$("#closeAuth").onclick=()=>{$("#authScreen").style.display="none"};$("#logoutBtn").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"});enterApp(null);$("#authPassword").value=""};
 function toggleSidebar(){const hidden=$("#appShell").classList.toggle("sidebar-hidden");["#sidebarToggle","#sidebarToggleTop"].forEach(sel=>{const b=$(sel);b.setAttribute("aria-expanded",String(!hidden));b.title=hidden?"Mostrar menú":"Ocultar menú";b.setAttribute("aria-label",b.title)})}
@@ -523,6 +585,52 @@ if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle
     showGate();
   });
 })();
+
+
+/* AULIVRA academic workspace + account sync */
+const academicColors=["#4569e8","#159568","#a16be8","#df8a35","#d84d61"];
+let selectedSubjectId=null;
+function subjectsData(){return store.get("aulivra_subjects",[])}
+function saveSubjects(v){store.set("aulivra_subjects",v);renderSubjects()}
+function renderSubjects(){
+ const list=$("#subjectList"),detail=$("#subjectDetail"),subs=subjectsData();
+ if(!list||!detail)return;
+ list.innerHTML=subs.length?subs.map(s=>'<button class="quick subject-choice" data-subject="'+esc(s.id)+'" style="margin:6px 0;text-align:left"><span style="width:10px;height:38px;border-radius:8px;background:'+esc(s.color)+'"></span><span style="flex:1"><b>'+esc(s.name)+'</b><small>'+((s.tasks||[]).filter(t=>!t.done).length)+' tareas pendientes</small></span></button>').join(""):'<div class="empty">Todavía no has añadido asignaturas.</div>';
+ $("#eventSubject").innerHTML='<option value="">Selecciona asignatura</option>'+subs.map(s=>'<option value="'+esc(s.id)+'">'+esc(s.name)+'</option>').join("");
+ list.querySelectorAll("[data-subject]").forEach(b=>b.onclick=()=>{selectedSubjectId=b.dataset.subject;renderSubjects()});
+ const s=subs.find(x=>x.id===selectedSubjectId)||subs[0];
+ if(!s){detail.innerHTML='<div class="empty">Selecciona una asignatura o crea la primera para empezar.</div>';return}
+ selectedSubjectId=s.id;
+ detail.innerHTML='<div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><div><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+esc(s.color)+'"></span> <b style="font:800 21px Manrope">'+esc(s.name)+'</b></div><button class="btn danger" id="deleteSubject">Eliminar</button></div>'+
+ '<div class="divider"></div><h3>Lista de tareas</h3><div class="row" style="margin:12px 0"><input id="taskInput" placeholder="Añadir tarea o tema pendiente"><input id="taskDue" type="date"><button class="btn" id="addTask">Añadir</button></div>'+
+ '<div id="taskItems">'+((s.tasks||[]).map(t=>'<div class="file-line"><input type="checkbox" data-task="'+esc(t.id)+'" '+(t.done?'checked':'')+' style="width:auto"><span style="flex:1;'+(t.done?'text-decoration:line-through;opacity:.6':'')+'">'+esc(t.text)+(t.due?' · '+esc(t.due):'')+'</span><button class="remove" data-task-del="'+esc(t.id)+'">×</button></div>').join("")||'<div class="empty">No hay tareas todavía.</div>')+'</div>'+
+ '<div class="divider"></div><h3>Notas y asesor de calificaciones</h3><p class="tiny" style="margin:5px 0 12px">Introduce las notas que vayas obteniendo y el peso de cada una. El asesor calcula qué necesitas en la próxima evaluación para alcanzar el 5.</p>'+
+ '<div class="row"><div><label>Nota obtenida (0–10)</label><input id="markGrade" type="number" min="0" max="10" step=".01" placeholder="Ej. 6.5"></div><div><label>Peso (%)</label><input id="markWeight" type="number" min="1" max="100" value="30"></div><button class="btn" id="addMark">Guardar nota</button></div>'+
+ '<div id="markList">'+((s.marks||[]).map(m=>'<div class="file-line"><span style="flex:1">'+esc(m.grade)+'/10 · '+esc(m.weight)+'%</span><button class="remove" data-mark-del="'+esc(m.id)+'">×</button></div>').join("")||'<div class="empty">Añade tus primeras notas.</div>')+'</div><div class="grade-result"><div><small>ASESOR DE NOTAS</small><div class="tiny" id="gradeAdvice">Introduce tus calificaciones.</div></div><strong id="subjectAverage">—</strong></div>'+
+ '<div class="divider"></div><h3>Apuntes de la asignatura</h3><textarea id="subjectNotes" rows="5" placeholder="Escribe fórmulas, resúmenes, recordatorios o apuntes...">'+esc(s.notes||"")+'</textarea><button class="btn secondary" id="saveSubjectNotes" style="margin-top:8px">Guardar apuntes</button>'+
+ '<div class="divider"></div><h3>Accesos directos</h3><div class="row"><input id="resourceName" placeholder="Nombre del recurso"><input id="resourceUrl" type="url" placeholder="https://..."><button class="btn" id="addResource">Añadir enlace</button></div><div id="resourceItems">'+((s.resources||[]).map((r,i)=>'<div class="file-line"><a href="'+esc(r.url)+'" target="_blank" rel="noopener" style="flex:1;color:var(--accent)">'+esc(r.name)+' ↗</a><button class="remove" data-resource-del="'+i+'">×</button></div>').join("")||'<div class="empty">Añade Wuolah, Classroom u otros recursos.</div>')+'</div>'+
+ '<div class="tiny" style="margin-top:12px">Los cambios de esta asignatura se guardan en tu espacio personal.</div>';
+ const update=fn=>{const all=subjectsData(),idx=all.findIndex(x=>x.id===s.id);if(idx<0)return;fn(all[idx]);store.set("aulivra_subjects",all);renderSubjects()};
+ $("#deleteSubject").onclick=()=>{if(confirm("¿Eliminar "+s.name+" y sus datos?")){saveSubjects(subs.filter(x=>x.id!==s.id));selectedSubjectId=null}};
+ $("#addTask").onclick=()=>{const text=$("#taskInput").value.trim();if(!text)return toast("Escribe una tarea.");update(x=>{x.tasks=x.tasks||[];x.tasks.push({id:crypto.randomUUID(),text,due:$("#taskDue").value,done:false})})};
+ detail.querySelectorAll("[data-task]").forEach(c=>c.onchange=()=>update(x=>{const t=x.tasks.find(t=>t.id===c.dataset.task);if(t)t.done=c.checked}));
+ detail.querySelectorAll("[data-task-del]").forEach(b=>b.onclick=()=>update(x=>x.tasks=x.tasks.filter(t=>t.id!==b.dataset.taskDel)));
+ $("#addMark").onclick=()=>{const grade=Number($("#markGrade").value),weight=Number($("#markWeight").value);if($("#markGrade").value===""||grade<0||grade>10||weight<=0||weight>100)return toast("Comprueba la nota y el porcentaje.");update(x=>{x.marks=x.marks||[];x.marks.push({id:crypto.randomUUID(),grade,weight})})};
+ detail.querySelectorAll("[data-mark-del]").forEach(b=>b.onclick=()=>update(x=>x.marks=x.marks.filter(m=>m.id!==b.dataset.markDel)));
+ const marks=s.marks||[],total=marks.reduce((a,m)=>a+m.weight,0),weighted=marks.reduce((a,m)=>a+m.grade*m.weight,0),avg=total?weighted/total:0;
+ $("#subjectAverage").textContent=total?avg.toFixed(2)+"/10":"—";
+ $("#gradeAdvice").textContent=!total?"Introduce tus calificaciones.":total>=100?(avg>=5?"¡Objetivo alcanzado! Media ponderada: "+avg.toFixed(2):"Con el 100% evaluado, tu media es "+avg.toFixed(2)+". Consulta recuperación con tu profesor."):avg>=5?"Llevas "+avg.toFixed(2)+". Si mantienes esta media, alcanzarías el aprobado.":"Necesitas "+Math.max(0,(5*100-weighted)/(100-total)).toFixed(2)+"/10 de media en el "+(100-total)+"% restante para llegar al 5.";
+ $("#saveSubjectNotes").onclick=()=>{update(x=>x.notes=$("#subjectNotes").value);toast("Apuntes guardados.")};
+ $("#addResource").onclick=()=>{const name=$("#resourceName").value.trim(),url=$("#resourceUrl").value.trim();try{const u=new URL(url);if(!name||!["http:","https:"].includes(u.protocol))throw Error();update(x=>{x.resources=x.resources||[];x.resources.push({name,url:u.href})})}catch{toast("Introduce un nombre y una dirección web válida.")}};
+ detail.querySelectorAll("[data-resource-del]").forEach(b=>b.onclick=()=>update(x=>x.resources.splice(+b.dataset.resourceDel,1)));
+}
+$("#createSubject").onclick=()=>{const name=$("#newSubjectName").value.trim();if(!name)return toast("Escribe el nombre de la asignatura.");const subs=subjectsData();if(subs.some(s=>s.name.toLowerCase()===name.toLowerCase()))return toast("Esa asignatura ya existe.");const s={id:crypto.randomUUID(),name,color:$("#newSubjectColor").value,tasks:[],marks:[],notes:"",resources:[]};subs.push(s);store.set("aulivra_subjects",subs);selectedSubjectId=s.id;$("#newSubjectName").value="";renderSubjects()};
+function renderEvents(){const events=store.get("aulivra_events",[]).slice().sort((a,b)=>a.date.localeCompare(b.date));$("#eventList").innerHTML=events.length?events.map(e=>'<div class="file-line"><span style="flex:1"><b>'+esc(e.title)+'</b><small class="muted"> · '+esc(e.subjectName)+' · '+esc(e.date)+'</small></span><button class="remove" data-event-del="'+esc(e.id)+'">×</button></div>').join(""):'<div class="empty">Todavía no hay fechas guardadas.</div>';$("[data-event-del]").forEach(b=>b.onclick=()=>{store.set("aulivra_events",store.get("aulivra_events",[]).filter(e=>e.id!==b.dataset.eventDel));renderEvents()})}
+$("#addEvent").onclick=()=>{const title=$("#eventTitle").value.trim(),subjectId=$("#eventSubject").value,date=$("#eventDate").value,sub=subjectsData().find(s=>s.id===subjectId);if(!title||!sub||!date)return toast("Completa el nombre, asignatura y fecha.");const events=store.get("aulivra_events",[]);events.push({id:crypto.randomUUID(),title,subjectId,subjectName:sub.name,date});store.set("aulivra_events",events);$("#eventTitle").value="";renderEvents();toast("Fecha añadida al calendario.")};
+const oldRenderHome=renderHome;
+renderHome=function(){oldRenderHome();const subs=subjectsData();$("#homeSubjects").textContent=subs.length;};
+const oldGo=go;
+go=function(id){oldGo(id);if(id==="subjects"){renderSubjects();renderEvents()}};
 
 </script>
 </body></html>
