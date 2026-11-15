@@ -273,6 +273,99 @@ async function finishSocialLogin(provider, req, res) {
 }
 app.get("/api/auth/google/callback", (req, res) => finishSocialLogin("google", req, res));
 app.post("/api/auth/apple/callback", (req, res) => finishSocialLogin("apple", req, res));
+ 
+// Google Calendar: separate OAuth grant, scoped to the signed-in AULIVRA account.
+const GOOGLE_CALENDAR_TOKENS_FILE = path.join(DATA_DIR, "google-calendar-tokens.json");
+const GOOGLE_CALENDAR_STATES_FILE = path.join(DATA_DIR, "google-calendar-states.json");
+const GOOGLE_CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar.events";
+function googleCalendarConfig(){
+  const clientId=process.env.GOOGLE_CALENDAR_CLIENT_ID||process.env.GOOGLE_SIGNIN_CLIENT_ID;
+  const clientSecret=process.env.GOOGLE_CALENDAR_CLIENT_SECRET||process.env.GOOGLE_SIGNIN_CLIENT_SECRET;
+  const redirectUri=process.env.GOOGLE_CALENDAR_REDIRECT_URI;
+  return {clientId,clientSecret,redirectUri,ready:Boolean(clientId&&clientSecret&&redirectUri)};
+}
+function googleCalendarKey(){
+  const secret=process.env.GOOGLE_TOKEN_ENCRYPTION_KEY||process.env.GOOGLE_CALENDAR_CLIENT_SECRET||process.env.GOOGLE_SIGNIN_CLIENT_SECRET;
+  return secret?crypto.createHash("sha256").update(secret).digest():null;
+}
+function sealGoogleTokens(value){
+  const key=googleCalendarKey();if(!key)throw new Error("Falta GOOGLE_TOKEN_ENCRYPTION_KEY.");
+  const iv=crypto.randomBytes(12),cipher=crypto.createCipheriv("aes-256-gcm",key,iv);
+  const encrypted=Buffer.concat([cipher.update(JSON.stringify(value),"utf8"),cipher.final()]);
+  return {iv:iv.toString("base64"),tag:cipher.getAuthTag().toString("base64"),data:encrypted.toString("base64")};
+}
+function openGoogleTokens(value){
+  const key=googleCalendarKey();if(!key||!value?.iv||!value?.tag||!value?.data)return null;
+  try{const decipher=crypto.createDecipheriv("aes-256-gcm",key,Buffer.from(value.iv,"base64"));decipher.setAuthTag(Buffer.from(value.tag,"base64"));return JSON.parse(Buffer.concat([decipher.update(Buffer.from(value.data,"base64")),decipher.final()]).toString("utf8"))}catch{return null}
+}
+function getGoogleCalendarTokens(userId){const all=readJson(GOOGLE_CALENDAR_TOKENS_FILE,{});return openGoogleTokens(all[userId])}
+function putGoogleCalendarTokens(userId,tokens){const all=readJson(GOOGLE_CALENDAR_TOKENS_FILE,{});all[userId]=sealGoogleTokens(tokens);writeJson(GOOGLE_CALENDAR_TOKENS_FILE,all)}
+async function refreshGoogleCalendarToken(userId,tokens){
+  if(tokens.expiresAt>Date.now()+60000&&tokens.accessToken)return tokens;
+  if(!tokens.refreshToken)throw new Error("La autorización de Google ha caducado. Desconecte y vuelva a conectar la cuenta.");
+  const cfg=googleCalendarConfig();
+  const response=await fetch("https://oauth2.googleapis.com/token",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({client_id:cfg.clientId,client_secret:cfg.clientSecret,grant_type:"refresh_token",refresh_token:tokens.refreshToken})});
+  const data=await response.json();if(!response.ok)throw new Error(data.error_description||data.error||"Google no pudo renovar el acceso.");
+  const next={...tokens,accessToken:data.access_token,expiresAt:Date.now()+Number(data.expires_in||3600)*1000};
+  putGoogleCalendarTokens(userId,next);return next;
+}
+async function googleCalendarApi(userId,url,options={}){
+  let tokens=getGoogleCalendarTokens(userId);if(!tokens)throw new Error("Conecte Google Calendar primero.");
+  tokens=await refreshGoogleCalendarToken(userId,tokens);
+  const response=await fetch(url,{...options,headers:{Authorization:"Bearer "+tokens.accessToken,"Content-Type":"application/json",...(options.headers||{})}});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(data.error?.message||"Error de Google Calendar ("+response.status+").");
+  return data;
+}
+app.get("/api/google/status",requireAuth,(req,res)=>{
+  const cfg=googleCalendarConfig(),tokens=getGoogleCalendarTokens(req.user.id);
+  res.set("Cache-Control","no-store").json({configured:cfg.ready,connected:Boolean(tokens),email:tokens?.email||null});
+});
+app.get("/api/google/connect",requireAuth,(req,res)=>{
+  const cfg=googleCalendarConfig();if(!cfg.ready)return res.status(503).send("Google Calendar no está configurado. Configure GOOGLE_CALENDAR_REDIRECT_URI y las credenciales OAuth en Render.");
+  const state=crypto.randomBytes(32).toString("hex"),all=readJson(GOOGLE_CALENDAR_STATES_FILE,{});
+  all[state]={userId:req.user.id,expiresAt:Date.now()+10*60*1000};writeJson(GOOGLE_CALENDAR_STATES_FILE,all);
+  const params=new URLSearchParams({client_id:cfg.clientId,redirect_uri:cfg.redirectUri,response_type:"code",scope:"openid email "+GOOGLE_CALENDAR_SCOPE,access_type:"offline",prompt:"consent",include_granted_scopes:"true",state});
+  res.redirect("https://accounts.google.com/o/oauth2/v2/auth?"+params.toString());
+});
+app.get("/api/google/callback",async(req,res)=>{
+  const state=String(req.query.state||""),all=readJson(GOOGLE_CALENDAR_STATES_FILE,{}),saved=all[state];delete all[state];writeJson(GOOGLE_CALENDAR_STATES_FILE,all);
+  if(!saved||saved.expiresAt<Date.now())return res.redirect("/?google=error&reason=state");
+  if(req.query.error||!req.query.code)return res.redirect("/?google=error&reason=cancelled");
+  const cfg=googleCalendarConfig();if(!cfg.ready)return res.redirect("/?google=error&reason=configuration");
+  try{
+    const tokenResponse=await fetch("https://oauth2.googleapis.com/token",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({code:String(req.query.code),client_id:cfg.clientId,client_secret:cfg.clientSecret,redirect_uri:cfg.redirectUri,grant_type:"authorization_code"})});
+    const tokenData=await tokenResponse.json();if(!tokenResponse.ok)throw new Error(tokenData.error_description||tokenData.error||"token_exchange");
+    const profileResponse=await fetch("https://openidconnect.googleapis.com/v1/userinfo",{headers:{Authorization:"Bearer "+tokenData.access_token}});
+    const profile=await profileResponse.json();if(!profileResponse.ok)throw new Error("profile");
+    const prior=getGoogleCalendarTokens(saved.userId);
+    putGoogleCalendarTokens(saved.userId,{accessToken:tokenData.access_token,refreshToken:tokenData.refresh_token||prior?.refreshToken||null,expiresAt:Date.now()+Number(tokenData.expires_in||3600)*1000,email:profile.email||null,scope:tokenData.scope||GOOGLE_CALENDAR_SCOPE});
+    return res.redirect("/?google=connected");
+  }catch(err){console.error("Google Calendar OAuth error:",err.message);return res.redirect("/?google=error&reason=authorization")}
+});
+app.post("/api/google/disconnect",requireAuth,(req,res)=>{
+  const all=readJson(GOOGLE_CALENDAR_TOKENS_FILE,{});delete all[req.user.id];writeJson(GOOGLE_CALENDAR_TOKENS_FILE,all);res.json({ok:true});
+});
+app.get("/api/google/events",requireAuth,async(req,res)=>{
+  try{
+    const url=new URL("https://www.googleapis.com/calendar/v3/calendars/primary/events");
+    url.searchParams.set("singleEvents","true");url.searchParams.set("orderBy","startTime");url.searchParams.set("maxResults","2500");
+    if(req.query.timeMin)url.searchParams.set("timeMin",String(req.query.timeMin));
+    if(req.query.timeMax)url.searchParams.set("timeMax",String(req.query.timeMax));
+    const data=await googleCalendarApi(req.user.id,url.toString());res.set("Cache-Control","no-store").json({events:data.items||[]});
+  }catch(err){res.status(400).json({error:err.message})}
+});
+app.post("/api/google/events",requireAuth,async(req,res)=>{
+  try{
+    const title=String(req.body.title||"").trim().slice(0,180),date=String(req.body.date||""),time=String(req.body.time||""),end=String(req.body.end||"");
+    if(!title||!/^\\d{4}-\\d{2}-\\d{2}$/.test(date)||!/^\\d{2}:\\d{2}$/.test(time)||!/^\\d{2}:\\d{2}$/.test(end)||end<=time)return res.status(400).json({error:"Compruebe título, fecha y horas del evento."});
+    const body={summary:title,start:{dateTime:date+"T"+time+":00",timeZone:"Europe/Madrid"},end:{dateTime:date+"T"+end+":00",timeZone:"Europe/Madrid"}};
+    const id=String(req.body.googleEventId||"");
+    const url=id?"https://www.googleapis.com/calendar/v3/calendars/primary/events/"+encodeURIComponent(id):"https://www.googleapis.com/calendar/v3/calendars/primary/events";
+    const data=await googleCalendarApi(req.user.id,url,{method:id?"PATCH":"POST",body:JSON.stringify(body)});res.json({id:data.id,htmlLink:data.htmlLink||null});
+  }catch(err){res.status(400).json({error:err.message})}
+});
+
 
 // Anonymous aggregate presence metrics. Browser IDs are random tokens; no names or emails are stored.
 const PRESENCE_FILE = path.join(DATA_DIR, "presence.json");
