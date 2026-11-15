@@ -781,6 +781,44 @@ input::placeholder,textarea::placeholder{color:#9a9daf!important}
  .sidebar .nav button.active{box-shadow:inset 0 -2px #7657d8}
  .sidebar .nav .ico{display:none!important}
 }
+
+/* AULIVRA · interfaz futurista refinada */
+:root{--accent:#16d9d2;--accent2:#08aebc;--cyan-soft:rgba(17,220,216,.12);--cyan-line:rgba(27,220,215,.3)}
+body{background:radial-gradient(ellipse at 58% 0%,rgba(0,191,190,.13),transparent 34%),radial-gradient(ellipse at 100% 75%,rgba(63,93,180,.08),transparent 35%),#07090d}
+.app{grid-template-columns:248px minmax(0,1fr);background:transparent}
+.sidebar{background:rgba(8,11,16,.94);border-right:1px solid rgba(58,219,218,.16);backdrop-filter:blur(18px);padding:22px 15px}
+.brand{padding:4px 10px 28px}.brand strong{letter-spacing:2px}.brand small{letter-spacing:1.7px;color:#71858d}
+.nav-label{color:#617b83;letter-spacing:2px;margin:12px 0 14px}
+.nav{gap:9px}.nav button{width:100%;color:#a9bac0;padding:14px 13px;border:1px solid transparent;border-radius:12px;transition:.22s}
+.nav button .ico{width:22px;color:#78a9ad}.nav button .ico svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.nav button:hover,.nav button.active{background:linear-gradient(100deg,rgba(0,210,205,.14),rgba(0,210,205,.035));color:#efffff;border-color:rgba(0,220,215,.17)}
+.nav button.active{box-shadow:inset 2px 0 #19e0d6,0 0 24px rgba(0,205,200,.06)}
+.nav-entry{display:flex;align-items:center;gap:5px}.nav-entry>button:first-child{flex:1;min-width:0}
+.rename-area{border:1px solid transparent;background:transparent;color:#6d9297;border-radius:9px;width:34px;height:38px;flex:none}.rename-area:hover{color:#28e1d8;background:rgba(0,220,215,.1);border-color:var(--cyan-line)}
+.sidebar-toggle{background:rgba(13,23,28,.9);border:1px solid rgba(38,214,211,.24);color:#b7ffff;border-radius:11px;width:42px;height:42px;display:grid;place-items:center}
+.hamburger-lines{display:grid;gap:4px;width:18px}.hamburger-lines i{height:1.7px;border-radius:3px;background:currentColor;display:block;width:100%}.hamburger-lines i:nth-child(2){width:72%}
+.sidebar .sidebar-toggle{align-self:flex-end;margin:0 2px 18px auto}
+main{max-width:1600px;padding:30px clamp(22px,4vw,62px) 70px}
+.top{margin-bottom:32px}.top h1,.top-brand{color:#ecfafa}
+.top .eyebrow{color:#20d8d0}.date{background:#101820;border-color:#25363d;color:#a8c0c4}
+.card,.quick,.subject,.auth-card{background:linear-gradient(145deg,rgba(18,27,34,.97),rgba(10,16,22,.98));border-color:#23383e;box-shadow:0 14px 38px rgba(0,0,0,.22)}
+.card h3,.intro h2,.stat strong{color:#ecfafa}.card p,.intro p{color:#9aadb2}
+.stat-icon{background:rgba(0,211,204,.12);color:#35e2d9}
+.btn{background:linear-gradient(120deg,#16cfc9,#087f94);box-shadow:0 7px 22px rgba(0,205,200,.16);color:#031214}
+.btn.secondary{background:#142a30;border-color:#28545a;color:#c8ffff}.btn.ghost{border-color:#29434a;color:#c5d6d9}
+input,select{background:#0a1117;border-color:#294047;color:#e8f7f8}
+label{color:#a8bec2}.quick{color:#e8f7f8}.quick:hover{border-color:#18cfc9}
+.subject{background:#101a20}.subject-tag{background:rgba(0,215,205,.12);color:#5ce8df}
+.grade-result{background:#10272c;border-color:#20545a}.grade-result strong{color:#48e1d8}
+.timer-mode button{background:#111b22;border-color:#2b4148;color:#b3c7cb}.timer-mode button.active{background:#12383b;border-color:#16bdb7;color:#eaffff}
+.progress>i{background:linear-gradient(90deg,#13c9c4,#3c8fff)}
+.toast{background:#12252a;border-color:#2b5b5e}
+.aux-menu{position:fixed;z-index:60;top:82px;left:270px;width:min(410px,calc(100vw - 290px));padding:17px;border:1px solid rgba(36,214,208,.25);border-radius:16px;background:rgba(9,15,20,.97);backdrop-filter:blur(20px);box-shadow:0 20px 70px #000b}
+.aux-menu[hidden]{display:none}.aux-menu-head{display:flex;justify-content:space-between;align-items:center;margin:0 2px 12px;color:#45dcd5;font-size:10px;letter-spacing:1.7px;font-weight:800}.aux-menu-head small{color:#71878b;letter-spacing:0;font-weight:500}
+.aux-menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.aux-menu-grid button{border:1px solid #20363c;background:#101a20;border-radius:10px;padding:11px;text-align:left;color:#e4f5f5}.aux-menu-grid button:hover{border-color:#19c9c3;background:#123034}.aux-menu-grid b,.aux-menu-grid small{display:block}.aux-menu-grid b{font-size:12px}.aux-menu-grid small{font-size:10px;color:#82999d;margin-top:4px}
+@media(max-width:900px){.app{grid-template-columns:78px minmax(0,1fr)}.sidebar{padding:18px 8px}.brand{justify-content:center;padding:4px 0 25px}.brandtext,.nav-label,.navtext,.side-bottom,.rename-area{display:none!important}.nav-entry>button:first-child{justify-content:center}.nav button{justify-content:center;padding:13px 8px}.aux-menu{left:88px;width:min(410px,calc(100vw - 105px))}}
+@media(max-width:560px){.app{display:block}.sidebar{height:auto;position:sticky;top:0;z-index:20;flex-direction:row;align-items:center;padding:8px 12px}.sidebar .sidebar-toggle{margin:0 10px 0 0;align-self:center;order:0}.brand{padding:0 8px;justify-content:flex-start}.brandtext{display:block!important}.nav{display:flex;margin-left:auto}.nav button{padding:9px}.nav-entry{gap:0}.rename-area{display:none!important}.top{margin:17px 0 24px}.aux-menu{top:70px;left:10px;width:calc(100vw - 20px)}main{padding:16px 14px 45px}}
+
 </style>
 
 <style>
@@ -877,25 +915,30 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
  </section>
 </div>
 <div class="app" id="appShell">
-<aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú" type="button">Menú</button>
+<aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú" type="button"><span class="hamburger-lines" aria-hidden="true"><i></i><i></i><i></i></span></button>
   <div class="brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div class="brandtext"><strong>AULIVRA</strong><small>YOUR ACADEMIC SPACE</small></div></div>
   <div class="nav-label">TU ESPACIO</div><nav class="nav" id="nav" aria-label="Navegación principal">
-    <button class="active" data-view="home" aria-label="Inicio" title="Inicio" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span><span class="navtext">Inicio</span></button>
-    <button data-view="study" aria-label="Estudio" title="Estudio" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
-    <button data-view="entrepreneurship" aria-label="Emprendimiento" title="Emprendimiento" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext">Emprendimiento</span></button>
-    <button data-view="economy" aria-label="Economía" title="Economía" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 15h2M7 5V3h10v2"/></svg></span><span class="navtext">Economía</span></button>
-    <button data-view="calendar" aria-label="Calendario" title="Calendario" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4m8-4v4M3 10h18M8 14h3m-3 3h3m3-3h3"/></svg></span><span class="navtext">Calendario</span></button>
-    <button data-view="subjects" aria-label="Asignaturas" title="Asignaturas" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5zM4 4.5v17M8 6h8m-8 4h8"/></svg></span><span class="navtext">Asignaturas</span></button>
-    <button data-view="grades" aria-label="Notas" title="Notas" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5zM8 8h8M8 12h3m2 0h3M8 16h8"/></svg></span><span class="navtext">Notas</span></button>
-    <button data-view="timer" aria-label="Temporizador" title="Temporizador" type="button"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6m-3 0v3"/></svg></span><span class="navtext">Temporizador</span></button>
-    <button data-view="files" aria-label="Archivos" title="Archivos" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="navtext">Archivos</span></button>
-    <button data-view="library" aria-label="Biblioteca" title="Biblioteca" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM10 4h4v16h-4zM16 4h4v16h-4z"/></svg></span><span class="navtext">Biblioteca</span></button>
-    <button data-view="convert" aria-label="Conversor" title="Conversor" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h13l-3-3m6 13H7l3 3M17 4l3 3-3 3M7 14l-3 3 3 3"/></svg></span><span class="navtext">Conversor</span></button>
-    <button data-view="share" aria-label="Compartir" title="Compartir" type="button"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 7 6.6 4.1"/></svg></span><span class="navtext">Compartir</span></button>
-  </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
+  <button class="active" data-view="study" aria-label="Estudio" title="Estudio" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
+  <div class="nav-entry"><button data-view="entrepreneurship" aria-label="Emprendimiento" title="Emprendimiento" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext" id="businessNavLabel">Emprendimiento</span></button><button class="rename-area" id="renameBusinessArea" type="button" title="Cambiar nombre" aria-label="Cambiar nombre">✎</button></div>
+  <button data-view="economy" aria-label="Economía" title="Economía" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 15h2M7 5V3h10v2"/></svg></span><span class="navtext">Economía</span></button>
+</nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
 <main>
-  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú" type="button">☰</button><div class="top-brand"><span id="pageTitle">Inicio</span></div></div><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none" type="button">Salir</button><div class="date" id="today"></div></div></header>
+  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Abrir menú de herramientas" aria-label="Abrir menú de herramientas" type="button"><span class="hamburger-lines" aria-hidden="true"><i></i><i></i><i></i></span></button><div class="top-brand"><span id="pageTitle">Inicio</span></div></div><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none" type="button">Salir</button><div class="date" id="today"></div></div></header>
+  <div class="aux-menu" id="auxMenu" hidden aria-label="Más herramientas">
+    <div class="aux-menu-head"><span>HERRAMIENTAS</span><small>Accesos adicionales</small></div>
+    <div class="aux-menu-grid">
+      <button data-view="home" type="button"><b>Inicio</b><small>Resumen general</small></button>
+      <button data-view="calendar" type="button"><b>Calendario</b><small>Agenda y entregas</small></button>
+      <button data-view="subjects" type="button"><b>Asignaturas</b><small>Materias y tareas</small></button>
+      <button data-view="grades" type="button"><b>Calificaciones</b><small>Notas y medias</small></button>
+      <button data-view="timer" type="button"><b>Concentración</b><small>Temporizador</small></button>
+      <button data-view="files" type="button"><b>Archivos</b><small>Documentos</small></button>
+      <button data-view="library" type="button"><b>Biblioteca</b><small>Recursos guardados</small></button>
+      <button data-view="convert" type="button"><b>Conversor</b><small>Herramientas de archivo</small></button>
+      <button data-view="share" type="button"><b>Compartir</b><small>Compartir recursos</small></button>
+    </div>
+  </div>
 
   <section class="view active" id="home">
 <section class="home-jake-greeting" aria-label="Mensaje de JAKE">
@@ -1969,4 +2012,19 @@ renderCalendar();renderEvents();renderHomeExtras();renderStudyWeekChart();toast(
 }catch(e){toast(e.message);status.textContent=e.message}finally{sync.disabled=false;sync.textContent="Sincronizar ahora"}});
 refreshStatus();const params=new URLSearchParams(location.search);if(params.get("google")==="connected"){history.replaceState({},"",location.pathname);setTimeout(()=>sync.click(),400);toast("Google Calendar conectado. Sincronizando…")}if(params.get("google")==="error"){toast("No se pudo conectar Google Calendar: "+(params.get("reason")||"error"));history.replaceState({},"",location.pathname)}
 })();
-</script></body></html>
+</script>
+<script id="aulivra-navigation-polish">
+(()=>{
+ const menu=document.getElementById("auxMenu"),topToggle=document.getElementById("sidebarToggleTop");
+ if(menu&&topToggle){
+  topToggle.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();menu.hidden=!menu.hidden;topToggle.setAttribute("aria-expanded",String(!menu.hidden))});
+  document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)&&!topToggle.contains(e.target))menu.hidden=true});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")menu.hidden=true});
+  menu.addEventListener("click",e=>{if(e.target.closest("[data-view]"))menu.hidden=true});
+ }
+ const label=document.getElementById("businessNavLabel"),rename=document.getElementById("renameBusinessArea"),key="aulivra_business_area_name";
+ if(label){const saved=localStorage.getItem(key);if(saved){label.textContent=saved;const b=label.closest("button");if(b){b.title=saved;b.setAttribute("aria-label",saved)}}}
+ if(rename)rename.addEventListener("click",()=>{const current=label?.textContent||"Emprendimiento";const value=prompt("¿Qué nombre quiere poner a esta área?",current);if(value===null)return;const clean=value.trim().slice(0,32);if(!clean)return alert("Escriba un nombre válido.");localStorage.setItem(key,clean);if(label)label.textContent=clean;const b=label?.closest("button");if(b){b.title=clean;b.setAttribute("aria-label",clean)}});
+})();
+</script>
+</body></html>
