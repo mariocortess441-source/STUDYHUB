@@ -905,7 +905,40 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
 @keyframes wheelRotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
 @media(max-width:700px){.home-wheel{height:400px!important;max-width:390px!important}.home-wheel-item{width:138px!important;min-height:84px!important;padding:10px!important}.home-wheel:before{width:290px!important;height:290px!important}.home-wheel:after{width:218px!important;height:218px!important}.activity-week-chart{gap:5px}.activity-bars{gap:2px;height:120px}.activity-day>small{font-size:9px}.activity-legend{gap:12px}.business-time-row{grid-template-columns:1fr 1fr}.business-time-row button{grid-column:1/-1}.google-calendar-actions{width:100%}.google-calendar-actions button{flex:1}}
 @media(prefers-reduced-motion:reduce){.home-wheel:before,.home-wheel:after,.wheel-core-orbit{animation:none!important}.home-wheel-item,.activity-bar{transition:none!important}}
-</style></head>
+</style>
+<style id="aulivra-professional-layout">
+:root{--accent:#08b9b5;--accent2:#078f91}
+.app{grid-template-columns:264px minmax(0,1fr)}
+.sidebar{height:100dvh;min-height:0;position:sticky;top:0;overflow:hidden;display:flex;flex-direction:column;padding:20px 14px}
+.sidebar .nav{flex:0 0 auto;overflow:visible}
+.sidebar .nav button{min-width:0;white-space:nowrap;min-height:48px;padding:11px 13px}
+.sidebar .nav button .navtext{overflow:hidden;text-overflow:ellipsis}
+.sidebar .nav-entry{display:flex;align-items:center;gap:4px;min-width:0}
+.sidebar .nav-entry>button:first-child{flex:1;min-width:0}
+.sidebar .nav-entry .rename-area{flex:0 0 34px;width:34px;height:34px;padding:0;border:1px solid #e3e9f2;border-radius:9px;background:#fff;color:#728097}
+.sidebar .nav-entry .rename-area:hover{color:var(--accent);border-color:var(--accent)}
+.sidebar .side-bottom{padding:12px 10px 4px}
+.sidebar-toggle{display:inline-grid;place-items:center;flex:0 0 42px;width:42px;height:42px;padding:0;border:1px solid #dce5ed;background:#fff;border-radius:12px;color:#26354a}
+.hamburger-lines{display:grid;gap:4px;width:18px}
+.hamburger-lines i{display:block;width:18px;height:2px;background:currentColor;border-radius:2px}
+.top-left{display:flex;align-items:center;gap:15px;min-width:0}
+.top-brand{display:flex;align-items:center;gap:8px;font:800 clamp(23px,2.5vw,32px) Manrope;color:#15263a}
+.top{margin-bottom:28px}
+.nav button[data-view="study"] .ico{color:#0bb7ad}
+.nav-entry .ico{color:#8a63e6}
+.nav button[data-view="economy"] .ico{color:#e3a332}
+.sidebar .nav .ico svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.app.sidebar-hidden{grid-template-columns:0 minmax(0,1fr)}
+.app.sidebar-hidden .sidebar{width:0;min-width:0;padding-left:0;padding-right:0;overflow:hidden;border:0}
+.study-heading h2{font-size:30px}
+.study-planned-card{margin-bottom:18px}
+.study-week-calendar{max-height:780px;overflow:auto;overscroll-behavior:contain}
+.week-time-label,.week-slot{height:29px;min-height:29px}
+.week-event{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:900px){.app{grid-template-columns:248px minmax(0,1fr)}.app.sidebar-hidden{grid-template-columns:0 minmax(0,1fr)}.sidebar{width:248px;min-width:248px}}
+@media(max-width:560px){.app{display:grid;grid-template-columns:0 minmax(0,1fr)}.sidebar{position:fixed;left:0;top:0;bottom:0;z-index:40;width:264px;min-width:264px;height:100dvh;transform:translateX(0);box-shadow:12px 0 36px #172b3a20;transition:transform .22s}.app.sidebar-hidden .sidebar{display:flex;width:264px;min-width:264px;transform:translateX(-105%);padding:20px 14px;border-right:1px solid var(--line)}main{grid-column:2;padding:16px 14px 45px}.top{margin:12px 0 20px}.top h1{font-size:24px}}
+</style>
+</head>
 <body>
 
 <div id="legalGate" class="legal-gate" role="dialog" aria-modal="true" aria-labelledby="legalGateTitle" aria-describedby="legalGateText">
@@ -2044,14 +2077,8 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
 </script>
 <script id="aulivra-navigation-polish">
 (()=>{
- const menu=document.getElementById("auxMenu"),topToggle=document.getElementById("sidebarToggleTop");
- if(menu&&topToggle){
-  topToggle.onclick=null;
-  topToggle.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();menu.hidden=!menu.hidden;topToggle.setAttribute("aria-expanded",String(!menu.hidden))});
-  document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)&&!topToggle.contains(e.target))menu.hidden=true});
-  document.addEventListener("keydown",e=>{if(e.key==="Escape")menu.hidden=true});
-  menu.addEventListener("click",e=>{if(e.target.closest("[data-view]"))menu.hidden=true});
- }
+ const topToggle=document.getElementById("sidebarToggleTop");
+ if(topToggle){topToggle.setAttribute("aria-label","Mostrar u ocultar menú");topToggle.setAttribute("title","Mostrar u ocultar menú");}
  const label=document.getElementById("businessNavLabel"),rename=document.getElementById("renameBusinessArea"),key="aulivra_business_area_name";
  if(label){const saved=localStorage.getItem(key);if(saved){label.textContent=saved;const b=label.closest("button");if(b){b.title=saved;b.setAttribute("aria-label",saved)}}}
  if(rename)rename.addEventListener("click",()=>{const current=label?.textContent||"Emprendimiento";const value=prompt("¿Qué nombre quiere poner a esta área?",current);if(value===null)return;const clean=value.trim().slice(0,32);if(!clean)return alert("Escriba un nombre válido.");localStorage.setItem(key,clean);if(label)label.textContent=clean;const b=label?.closest("button");if(b){b.title=clean;b.setAttribute("aria-label",clean)}});
@@ -2077,12 +2104,12 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
   if(window.aulivraSetJakeRole)window.aulivraSetJakeRole(id);if(title)title.textContent=id==="entrepreneurship"?areaNames.entrepreneurship:( {home:"Inicio",study:"Espacio Estudio",economy:"Economía",personal:"Personal",calendar:"Calendario",subjects:"Asignaturas y tareas",grades:"Calificaciones",timer:"Concentración",files:"Archivos",library:"Biblioteca",convert:"Conversor",share:"Compartir"}[id]||id);
   if(editTitle)editTitle.hidden=id!=="entrepreneurship";
   try{if(id==="home")renderJakeHome();if(id==="study"){renderStudyWorkspace()}if(id==="subjects")renderSubjects?.();if(id==="calendar"){renderCalendar?.();renderEvents?.()}if(id==="economy")window.renderEconomy?.();if(id==="entrepreneurship"){renderEntrepreneurship?.();window.aulivraRefreshProjects?.()}if(id==="personal")renderPersonal();if(id==="grades")renderGrades?.();if(id==="timer")renderSessions?.();if(id==="library"&&typeof renderLibrary==="function")renderLibrary()}catch(e){console.error("AULIVRA view refresh",e)}
-  if(window.innerWidth<=560)app.classList.add("sidebar-hidden");
+  if(window.innerWidth<=560){app.classList.add("sidebar-hidden");if(hamb)hamb.setAttribute("aria-expanded","false");}
   window.scrollTo({top:0,behavior:"smooth"});return true;
  }
  window.go=goView;window.renderHome=()=>{};window.aulivraRefreshHome=()=>{};window.renderHomeExtras=()=>{};
  document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b){e.preventDefault();goView(b.dataset.go)}const n=e.target.closest(".nav button[data-view]");if(n){e.preventDefault();goView(n.dataset.view)}});
- if(hamb){hamb.onclick=()=>{const hidden=app.classList.toggle("sidebar-hidden");hamb.setAttribute("aria-expanded",String(!hidden));hamb.title=hidden?"Mostrar navegación":"Ocultar navegación"}}
+ if(hamb){hamb.onclick=e=>{e.preventDefault();const hidden=app.classList.toggle("sidebar-hidden");hamb.setAttribute("aria-expanded",String(!hidden));hamb.title=hidden?"Mostrar menú":"Ocultar menú";hamb.setAttribute("aria-label",hamb.title)}}
  if(editTitle)editTitle.onclick=()=>{const value=prompt("Nombre de esta área:",areaNames.entrepreneurship);if(value===null)return;const clean=value.trim().slice(0,32);if(!clean)return toast("Escribe un nombre válido.");areaNames.entrepreneurship=clean;localStorage.setItem("aulivra_business_area_name",clean);title.textContent=clean;const navLabel=$("#businessNavLabel");if(navLabel){navLabel.textContent=clean;navLabel.closest("button").title=clean;navLabel.closest("button").setAttribute("aria-label",clean)}};
  const navLabel=$("#businessNavLabel");if(navLabel){navLabel.textContent=areaNames.entrepreneurship;navLabel.closest("button").title=areaNames.entrepreneurship;navLabel.closest("button").setAttribute("aria-label",areaNames.entrepreneurship)}
  /* Default course and subjects */
