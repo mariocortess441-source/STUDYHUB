@@ -18,6 +18,7 @@ fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json({ limit: "2mb" }));
+app.use(express.urlencoded({ extended: false, limit: "20kb" }));
 
 // Serve the AdSense seller authorization file explicitly at the domain root.
 app.get("/ads.txt", (req, res) => {
@@ -138,6 +139,141 @@ app.post("/api/auth/logout", (req, res) => {
   }
   res.clearCookie("sh_session", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" }).json({ ok: true });
 });
+
+// Social sign-in (Google OpenID Connect and Sign in with Apple).
+const SOCIAL_STATES_FILE = path.join(DATA_DIR, "social-oauth-states.json");
+const SOCIAL_PROVIDERS = {
+  google: {
+    clientId: () => process.env.GOOGLE_SIGNIN_CLIENT_ID,
+    clientSecret: () => process.env.GOOGLE_SIGNIN_CLIENT_SECRET,
+    redirect: () => process.env.GOOGLE_SIGNIN_REDIRECT_URI,
+    authUrl: "https://accounts.google.com/o/oauth2/v2/auth",
+    tokenUrl: "https://oauth2.googleapis.com/token",
+    issuer: "https://accounts.google.com",
+    jwks: "https://www.googleapis.com/oauth2/v3/certs",
+    scope: "openid email profile"
+  },
+  apple: {
+    clientId: () => process.env.APPLE_CLIENT_ID,
+    clientSecret: () => process.env.APPLE_CLIENT_SECRET,
+    redirect: () => process.env.APPLE_REDIRECT_URI,
+    authUrl: "https://appleid.apple.com/auth/authorize",
+    tokenUrl: "https://appleid.apple.com/auth/token",
+    issuer: "https://appleid.apple.com",
+    jwks: "https://appleid.apple.com/auth/keys",
+    scope: "name email"
+  }
+};
+function socialReady(provider) {
+  const p = SOCIAL_PROVIDERS[provider];
+  return Boolean(p && p.clientId() && p.clientSecret() && p.redirect());
+}
+function createLoginSession(user, res) {
+  const token = crypto.randomBytes(32).toString("hex");
+  const sessions = readJson(SESSIONS_FILE);
+  sessions[crypto.createHash("sha256").update(token).digest("hex")] = {
+    userId: user.id, expiresAt: Date.now() + cookieOptions().maxAge
+  };
+  writeJson(SESSIONS_FILE, sessions);
+  res.cookie("sh_session", token, cookieOptions());
+}
+app.get("/api/auth/providers", (req, res) => {
+  res.set("Cache-Control", "no-store").json({
+    google: socialReady("google"), apple: socialReady("apple")
+  });
+});
+app.get("/api/auth/:provider/start", (req, res) => {
+  const provider = String(req.params.provider || "");
+  const p = SOCIAL_PROVIDERS[provider];
+  if (!p) return res.status(404).send("Proveedor no disponible.");
+  if (!socialReady(provider)) return res.status(503).send("Este método de acceso aún no está configurado.");
+  const state = crypto.randomBytes(32).toString("hex");
+  const states = readJson(SOCIAL_STATES_FILE, {});
+  states[state] = { provider, expiresAt: Date.now() + 10 * 60 * 1000 };
+  writeJson(SOCIAL_STATES_FILE, states);
+  const params = new URLSearchParams({
+    client_id: p.clientId(), redirect_uri: p.redirect(), response_type: "code",
+    response_mode: provider === "apple" ? "form_post" : "query",
+    scope: p.scope, state
+  });
+  if (provider === "google") {
+    params.set("access_type", "online");
+    params.set("include_granted_scopes", "true");
+  }
+  res.redirect(p.authUrl + "?" + params.toString());
+});
+async function finishSocialLogin(provider, req, res) {
+  const p = SOCIAL_PROVIDERS[provider];
+  const state = String(req.body?.state || req.query?.state || "");
+  const states = readJson(SOCIAL_STATES_FILE, {});
+  const saved = states[state];
+  delete states[state];
+  writeJson(SOCIAL_STATES_FILE, states);
+  if (!saved || saved.provider !== provider || saved.expiresAt < Date.now()) {
+    return res.redirect("/?auth_error=state");
+  }
+  if (req.body?.error || req.query?.error || !req.body?.code && !req.query?.code) {
+    return res.redirect("/?auth_error=cancelled");
+  }
+  try {
+    const code = String(req.body?.code || req.query?.code || "");
+    const tokenResponse = await fetch(p.tokenUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        grant_type: "authorization_code", code, client_id: p.clientId(),
+        client_secret: p.clientSecret(), redirect_uri: p.redirect()
+      })
+    });
+    const tokenData = await tokenResponse.json();
+    if (!tokenResponse.ok || !tokenData.id_token) throw new Error("No se pudo validar la respuesta del proveedor.");
+    const { createRemoteJWKSet, jwtVerify } = await import("jose");
+    const JWKS = createRemoteJWKSet(new URL(p.jwks));
+    const verified = await jwtVerify(tokenData.id_token, JWKS, {
+      issuer: p.issuer, audience: p.clientId()
+    });
+    const claims = verified.payload;
+    const subject = String(claims.sub || "");
+    const email = String(claims.email || "").trim().toLowerCase();
+    const emailVerified = claims.email_verified === true || claims.email_verified === "true";
+    if (!subject || !email || !emailVerified) throw new Error("El proveedor no ha confirmado un correo verificado.");
+    const users = readJson(USERS_FILE, {});
+    let user = Object.values(users).find(u => u.providers?.[provider] === subject);
+    if (!user) {
+      user = users[email];
+      if (user) {
+        user.providers = user.providers || {};
+        if (user.providers[provider] && user.providers[provider] !== subject) {
+          throw new Error("Esta cuenta ya está vinculada a otra identidad.");
+        }
+        user.providers[provider] = subject;
+      } else {
+        let displayName = provider === "google" ? String(claims.name || "") : "";
+        if (provider === "apple" && req.body?.user) {
+          try {
+            const appleUser = JSON.parse(req.body.user);
+            displayName = [appleUser.name?.firstName, appleUser.name?.lastName].filter(Boolean).join(" ");
+          } catch {}
+        }
+        user = {
+          id: crypto.randomUUID(),
+          name: (displayName || email.split("@")[0]).slice(0, 60),
+          email, providers: { [provider]: subject }, createdAt: Date.now()
+        };
+        users[email] = user;
+      }
+      writeJson(USERS_FILE, users);
+    }
+    createLoginSession(user, res);
+    return res.redirect("/?auth=connected");
+  } catch (err) {
+    console.error("Social sign-in error (" + provider + "):", err.message);
+    return res.redirect("/?auth_error=provider");
+  }
+}
+app.get("/api/auth/google/callback", (req, res) => finishSocialLogin("google", req, res));
+app.post("/api/auth/apple/callback", (req, res) => finishSocialLogin("apple", req, res));
+
 // Anonymous aggregate presence metrics. Browser IDs are random tokens; no names or emails are stored.
 const PRESENCE_FILE = path.join(DATA_DIR, "presence.json");
 app.post("/api/presence", (req, res) => {
