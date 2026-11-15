@@ -2322,7 +2322,7 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
 </style><script>
 /* MANCAVE_POLISHED_WORKSPACE_V1 */
 (()=>{
- const $=s=>document.querySelector(s); const $=s=>[...document.querySelectorAll(s)];
+ const $=s=>document.querySelector(s); const queryAll=s=>[...document.querySelectorAll(s)];
  const safe=(v)=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const today=()=>new Date().toISOString().slice(0,10);
  const openModal=(id)=>{const x=$("#"+id);if(x){x.classList.add("open");x.setAttribute("aria-hidden","false");x.querySelector("input,select,textarea")?.focus()}};
