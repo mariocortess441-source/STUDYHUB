@@ -2442,4 +2442,122 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
  setTimeout(()=>{if(typeof renderCalendar==="function")renderCalendar();},500);
 })();
 </script>
-<style id="mancave-economy-history">.economy-history-filters{display:flex;gap:8px;margin:12px 0}.economy-history-filters .btn{padding:8px 12px;font-size:11px}.economy-history-filters button.active{background:var(--accent);color:#fff;border-color:var(--accent)}.economy-movement[hidden]{display:none!important}.project-roadmap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.project-roadmap-item{padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}.project-roadmap-item b{font-size:12px}.project-roadmap-item p{font-size:12px;margin:7px 0 0;color:var(--muted)}@media(max-width:600px){.project-roadmap-grid{grid-template-columns:1fr}}</style><style id="mancave-project-tabs">.mc-project-tabs{display:flex;gap:8px;margin:0 0 16px;padding:5px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}.mc-project-tabs button{flex:1;border:0;border-radius:8px;background:transparent;color:var(--muted);padding:10px;font-size:11px;font-weight:800;letter-spacing:.5px}.mc-project-tabs button.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px #0002}.mc-modal .field[hidden]{display:none!important}</style></body></html>
+<style id="mancave-economy-history">.economy-history-filters{display:flex;gap:8px;margin:12px 0}.economy-history-filters .btn{padding:8px 12px;font-size:11px}.economy-history-filters button.active{background:var(--accent);color:#fff;border-color:var(--accent)}.economy-movement[hidden]{display:none!important}.project-roadmap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.project-roadmap-item{padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}.project-roadmap-item b{font-size:12px}.project-roadmap-item p{font-size:12px;margin:7px 0 0;color:var(--muted)}@media(max-width:600px){.project-roadmap-grid{grid-template-columns:1fr}}</style><style id="mancave-project-tabs">.mc-project-tabs{display:flex;gap:8px;margin:0 0 16px;padding:5px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}.mc-project-tabs button{flex:1;border:0;border-radius:8px;background:transparent;color:var(--muted);padding:10px;font-size:11px;font-weight:800;letter-spacing:.5px}.mc-project-tabs button.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px #0002}.mc-modal .field[hidden]{display:none!important}</style>
+<style id="mancave-release-polish">
+/* MANCAVE_RELEASE_POLISH_2026_11_15 */
+.app{grid-template-columns:244px minmax(0,1fr);transition:grid-template-columns .24s ease}
+.app.sidebar-hidden{grid-template-columns:76px minmax(0,1fr)}
+.app.sidebar-hidden .sidebar{padding:22px 10px}
+.app.sidebar-hidden .brand{justify-content:center;padding:0 0 28px}
+.app.sidebar-hidden .brandtext,.app.sidebar-hidden .nav-label,.app.sidebar-hidden .navtext,.app.sidebar-hidden .sidebar-account-label,.app.sidebar-hidden #sidebarUserName,.app.sidebar-hidden .sidebar-account .btn,.app.sidebar-hidden .side-bottom{display:none!important}
+.app.sidebar-hidden .nav button{justify-content:center;padding:13px 8px}
+.app.sidebar-hidden .nav .ico{flex-basis:24px}
+.app.sidebar-hidden .sidebar-account{border:0;padding:0}
+.app.sidebar-hidden .sidebar-account:before{content:"";display:block;height:18px}
+.app.sidebar-hidden .sidebar{gap:8px}
+#loginBtn,#logoutBtn,#userName{display:none!important}
+.top-right-tools{margin-left:auto}
+.home-metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 22px}
+.home-metric{min-width:0;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,var(--panel),var(--panel2));padding:15px;transition:transform .2s,border-color .2s}
+.home-metric:hover{transform:translateY(-3px);border-color:var(--accent)}
+.home-metric-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.7px}
+.home-metric-head i{width:8px;height:8px;border-radius:50%;background:var(--metric)}
+.home-metric strong{display:block;font:800 24px Manrope;margin:12px 0 3px}
+.home-metric small{color:var(--muted);font-size:11px}
+.home-metric-track{height:4px;border-radius:8px;background:var(--line);margin-top:12px;overflow:hidden}
+.home-metric-track i{display:block;height:100%;width:var(--fill);background:var(--metric);border-radius:8px}
+.home-metric-message{margin:0 0 20px;padding:14px 17px;border-left:2px solid var(--accent);background:var(--panel2);border-radius:0 12px 12px 0;color:var(--muted);font-size:12px;line-height:1.6}
+#economy .intro,#economy .economy-overview,#economy .wallet-save-row,#economy .economy-chart,#economy .economy-movements,#economy .savings-list,#economy .savings-forecast,#economy .tiny{display:none!important}
+#economy .economy-grid{display:none!important}
+#economy .economy-wheel-shell{display:grid;grid-template-columns:minmax(250px,1fr) minmax(230px,.8fr);gap:26px;align-items:center;max-width:850px;margin:18px auto}
+#economy .economy-wheel-shell .card{padding:22px}
+#economy .economy-wheel-shell .economy-wheel{width:min(100%,280px)}
+#economy .economy-quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+#economy .economy-quick-actions button{border:1px solid var(--line);border-radius:13px;padding:15px;background:var(--panel2);color:var(--text);font-weight:800;transition:transform .2s,border-color .2s}
+#economy .economy-quick-actions button:hover{transform:translateY(-2px);border-color:var(--accent)}
+#economy .economy-quick-actions .quick-income{color:#62d9a2}#economy .economy-quick-actions .quick-expense{color:#ff8998}
+#economy .economy-wheel-legend{gap:15px}
+#economy .economy-wheel-legend>div{padding:10px 0;border-bottom:1px solid var(--line)}
+#economy .economy-wheel-legend i{flex:none}
+#economy .economy-wheel-legend b{font-variant-numeric:tabular-nums}
+#personal .journal-book{background:linear-gradient(105deg,#d7c39a 0,#eee0bd 4%,#f4e8c9 12%,#ead9b3 100%);color:#403626;border:1px solid #bda77c;border-radius:8px 18px 18px 8px;box-shadow:inset 8px 0 14px #735a3022,0 16px 40px #0002;padding:24px 26px;position:relative}
+#personal .journal-book:before{content:"";position:absolute;left:15px;top:0;bottom:0;width:1px;background:#b99f70}
+#personal .journal-book h3,#personal .journal-book p,#personal .journal-book label{color:#55452e}
+#personal .journal-book input,#personal .journal-book select,#personal .journal-book textarea{background:#f8efd9;color:#3f3424;border:1px solid #cbb88f;box-shadow:inset 0 1px 3px #8b714022}
+#personal .journal-book .field{margin-bottom:14px}
+#personal .journal-date-heading{font:700 12px Manrope;letter-spacing:1px;text-transform:uppercase;color:#816c49;margin-bottom:16px}
+#personal .journal-book .btn{background:#55452e;color:#f8efd9}
+button,.btn{transition:transform .18s ease,filter .18s ease,border-color .18s ease,box-shadow .18s ease}
+button:active,.btn:active{transform:scale(.98)}
+button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:850px){.home-metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#economy .economy-wheel-shell{grid-template-columns:1fr}}
+@media(max-width:560px){.app,.app.sidebar-hidden{grid-template-columns:minmax(0,1fr)}.app .sidebar{position:fixed;z-index:120;left:0;top:0;width:244px;transform:translateX(0);transition:transform .22s ease}.app.sidebar-hidden .sidebar{width:244px;transform:translateX(-105%)}.app.sidebar-hidden .brandtext,.app.sidebar-hidden .nav-label,.app.sidebar-hidden .navtext,.app.sidebar-hidden .sidebar-account-label,.app.sidebar-hidden #sidebarUserName,.app.sidebar-hidden .sidebar-account .btn,.app.sidebar-hidden .side-bottom{display:initial!important}.app.sidebar-hidden .nav button{justify-content:flex-start}.home-metric-grid{gap:8px}.home-metric{padding:12px}.home-metric strong{font-size:20px}#personal .journal-book{padding:20px 20px 20px 28px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+<script id="mancave-release-polish-script">
+(()=>{
+ const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const app=$("#appShell"),hamb=$("#sidebarToggleTop");
+ // Keep the sidebar as a compact icon rail when collapsed; retain its blank brand area.
+ if(app&&hamb){const collapsed=localStorage.getItem("mancave_sidebar_collapsed")==="1";app.classList.toggle("sidebar-hidden",collapsed);hamb.setAttribute("aria-expanded",String(!collapsed));hamb.addEventListener("click",()=>{const state=app.classList.contains("sidebar-hidden");localStorage.setItem("mancave_sidebar_collapsed",state?"0":"1")})}
+ // A clear, editable entrepreneurship label remains synchronized in the top title and sidebar.
+ const navLabel=$("#businessNavLabel");if(navLabel){navLabel.title="Pulsa en el lápiz del título para cambiar el nombre";navLabel.setAttribute("aria-label",navLabel.textContent.trim())}
+ // Home: four live snapshots and a short contextual message from JAKE.
+ const home=$("#home"),greeting=home?.querySelector(".home-jake-landing");
+ if(home&&greeting&&!$("#homeMetricGrid")){
+  const grid=document.createElement("div");grid.id="homeMetricGrid";grid.className="home-metric-grid";
+  grid.innerHTML='<div class="home-metric" style="--metric:#62b9f5"><div class="home-metric-head">ESTUDIO <i></i></div><strong id="hmStudy">0</strong><small>tareas pendientes</small><div class="home-metric-track"><i id="hmStudyFill" style="--fill:0%"></i></div></div><div class="home-metric" style="--metric:#a78bfa"><div class="home-metric-head">EMPRENDIMIENTO <i></i></div><strong id="hmProjects">0</strong><small>proyectos activos</small><div class="home-metric-track"><i id="hmProjectsFill" style="--fill:0%"></i></div></div><div class="home-metric" style="--metric:#f5c15d"><div class="home-metric-head">ECONOMÍA <i></i></div><strong id="hmMoney">0 €</strong><small>saldo registrado</small><div class="home-metric-track"><i id="hmMoneyFill" style="--fill:0%"></i></div></div><div class="home-metric" style="--metric:#59d7b1"><div class="home-metric-head">AGENDA <i></i></div><strong id="hmAgenda">0</strong><small>bloques próximos</small><div class="home-metric-track"><i id="hmAgendaFill" style="--fill:0%"></i></div></div>';
+  greeting.insertAdjacentElement("afterend",grid);
+  const note=document.createElement("p");note.id="homeMetricMessage";note.className="home-metric-message";note.textContent="JAKE actualizará este resumen con la actividad registrada en MANCAVE.";grid.insertAdjacentElement("afterend",note);
+ }
+ function refreshHomeMetrics(){
+  if(!$("#homeMetricGrid")||typeof store==="undefined")return;
+  const subjects=store.get("aulivra_subjects",[]),tasks=subjects.flatMap(x=>x.tasks||[]),pending=tasks.filter(x=>!x.done).length;
+  const projects=store.get("aulivra_projects",{projects:[]}).projects||[];
+  const eco=store.get("aulivra_economy",{movements:[],savings:[],wallet:{cash:0,digital:0}}),wallet=eco.wallet||{cash:0,digital:0};
+  const movement=(eco.movements||[]).reduce((a,x)=>a+(x.type==="income"?1:-1)*Number(x.amount||0),0);
+  const balance=Number(wallet.cash||0)+Number(wallet.digital||0)+movement;
+  const agenda=store.get("aulivra_events",[]).filter(x=>(x.date||x.due)>=new Date().toISOString().slice(0,10)).length;
+  const put=(id,v)=>{const n=$("#"+id);if(n)n.textContent=v};
+  put("hmStudy",pending);put("hmProjects",projects.filter(p=>p.status!=="Archivado").length);put("hmMoney",balance.toLocaleString("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0}));put("hmAgenda",agenda);
+  const widths=[Math.min(100,pending*10),Math.min(100,projects.length*20),Math.min(100,Math.abs(balance)/500*100),Math.min(100,agenda*10)];
+  ["hmStudyFill","hmProjectsFill","hmMoneyFill","hmAgendaFill"].forEach((id,i)=>$("#"+id)?.style.setProperty("--fill",widths[i]+"%"));
+  const msg=$("#homeMetricMessage");if(msg){const tips=[];if(pending)tips.push(pending+" tareas pendientes de estudio");if(projects.length)tips.push(projects.length+" proyectos en marcha");if(agenda)tips.push(agenda+" compromisos próximos");msg.textContent=tips.length?"JAKE · Señor, "+tips.join(" · ")+". Mantenga una prioridad clara y avance paso a paso.":"JAKE · Señor, todavía no hay actividad registrada. Puede empezar creando una tarea, un proyecto o un bloque en su agenda."}
+ }
+ window.mancaveRefreshHome=refreshHomeMetrics;refreshHomeMetrics();document.addEventListener("click",e=>{if(e.target.closest('[data-view="home"],[data-go="home"],#brandHome'))setTimeout(refreshHomeMetrics,100)});
+ // Economy: retain the existing ledger as the data source, but present a clean wheel and two quick actions.
+ const economy=$("#economy"),legacyEconomy=economy?.querySelector(".economy-grid");
+ if(economy&&legacyEconomy&&!$("#economyWheelShell")){
+  const shell=document.createElement("div");shell.id="economyWheelShell";shell.className="economy-wheel-shell";
+  shell.innerHTML='<div class="card"><div class="economy-wheel-layout"><div class="economy-wheel" id="mcMoneyWheel"><div class="economy-wheel-center"><small>DINERO DISPONIBLE</small><strong id="mcMoneyTotal">0,00 €</strong></div></div><div class="economy-wheel-legend"><div><i style="background:#38bdf8"></i><span>Efectivo</span><b id="mcMoneyCash">0,00 €</b></div><div><i style="background:#a78bfa"></i><span>Digital</span><b id="mcMoneyDigital">0,00 €</b></div><div><i style="background:#59d7b1"></i><span>Ahorros</span><b id="mcMoneySavings">0,00 €</b></div></div></div></div><div class="card"><span class="home-section-kicker">MOVIMIENTOS</span><h3>Añadir dinero</h3><p>Registra un ingreso o un gasto en unos segundos.</p><div class="economy-quick-actions"><button class="quick-income" type="button" data-quick-money="income">＋ Añadir ingreso</button><button class="quick-expense" type="button" data-quick-money="expense">− Añadir gasto</button></div><p id="mcMoneyFeedback" class="tiny" style="display:block!important;margin-top:14px">Tu saldo se actualiza al guardar cada movimiento.</p></div>';
+  economy.insertBefore(shell,legacyEconomy);
+  legacyEconomy.id="economyLegacyData";legacyEconomy.style.display="none";
+ }
+ function refreshWheel(){
+  if(!$("#mcMoneyWheel")||typeof store==="undefined")return;
+  const d=store.get("aulivra_economy",{movements:[],savings:[],wallet:{cash:0,digital:0}}),w=d.wallet||{cash:0,digital:0};
+  const cash=Math.max(0,Number(w.cash||0)),digital=Math.max(0,Number(w.digital||0)),saved=(d.savings||[]).reduce((a,x)=>a+Number(x.current||0),0);
+  const total=cash+digital,denom=Math.max(1,total),deg=cash/denom*360;
+  $("#mcMoneyWheel").style.background="conic-gradient(#38bdf8 0deg "+deg+"deg,#a78bfa "+deg+"deg 360deg)";
+  const money=n=>Number(n||0).toLocaleString("es-ES",{style:"currency",currency:"EUR"});
+  $("#mcMoneyTotal").textContent=money(total);$("#mcMoneyCash").textContent=money(cash);$("#mcMoneyDigital").textContent=money(digital);$("#mcMoneySavings").textContent=money(saved);
+ }
+ // Quick-entry modal uses the existing movement schema and preserves the user's existing records.
+ const modal=document.createElement("div");modal.id="mcQuickMoneyModal";modal.className="mc-modal-backdrop";modal.setAttribute("aria-hidden","true");
+ modal.innerHTML='<section class="mc-modal" role="dialog" aria-modal="true"><button class="mc-modal-close" type="button" aria-label="Cerrar">×</button><h2 id="mcQuickMoneyTitle">Añadir movimiento</h2><p>Registra el importe y dónde se encuentra el dinero.</p><form id="mcQuickMoneyForm"><div class="field"><label>Cantidad (€)</label><input name="amount" type="number" min="0.01" step="0.01" required placeholder="25,00"></div><div class="field"><label>Concepto</label><input name="reason" maxlength="90" required placeholder="Ej. paga, transporte"></div><div class="field"><label>Cuenta</label><select name="channel"><option value="digital">Dinero digital</option><option value="cash">Efectivo</option></select></div><div class="mc-modal-actions"><button class="btn ghost" type="button" data-qclose>Cancelar</button><button class="btn" type="submit">Guardar</button></div></form></section>';
+ document.body.append(modal);let quickType="income";
+ function closeQuick(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true")}
+ document.addEventListener("click",e=>{const b=e.target.closest("[data-quick-money]");if(b){quickType=b.dataset.quickMoney;$("#mcQuickMoneyTitle").textContent=quickType==="income"?"Añadir ingreso":"Añadir gasto";modal.classList.add("open");modal.setAttribute("aria-hidden","false");modal.querySelector("input").focus()}if(e.target.closest("[data-qclose],#mcQuickMoneyModal .mc-modal-close")||e.target===modal)closeQuick()});
+ $("#mcQuickMoneyForm").addEventListener("submit",e=>{e.preventDefault();const f=new FormData(e.target),amount=Number(f.get("amount")),reason=String(f.get("reason")||"").trim(),channel=String(f.get("channel")||"digital");if(!(amount>0)||!reason)return;const d=store.get("aulivra_economy",{movements:[],savings:[],wallet:{cash:0,digital:0}});d.movements=d.movements||[];d.wallet=d.wallet||{cash:0,digital:0};d.movements.push({id:crypto.randomUUID(),type:quickType,amount,reason,note:"",date:new Date().toISOString().slice(0,10),channel});const sign=quickType==="income"?1:-1;d.wallet[channel]=Math.max(0,Number(d.wallet[channel]||0)+sign*amount);store.set("aulivra_economy",d);e.target.reset();closeQuick();window.renderEconomy?.();refreshWheel();refreshHomeMetrics();toast(quickType==="income"?"Ingreso guardado.":"Gasto guardado.")});
+ const oldRender=window.renderEconomy;if(typeof oldRender==="function")window.renderEconomy=function(){oldRender();refreshWheel()};
+ refreshWheel();
+ // Personal journal: make the writing area resemble a dated notebook without changing stored entries.
+ const journal=$("#journalForm"),journalCard=journal?.closest(".card");
+ if(journal&&journalCard&&!journalCard.classList.contains("journal-book")){
+  journalCard.classList.add("journal-book");const head=document.createElement("div");head.className="journal-date-heading";head.id="journalTodayHeading";head.textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());journalCard.insertBefore(head,journalCard.querySelector("h3"));
+ }
+ // Refresh dashboard whenever relevant app sections are opened.
+ document.addEventListener("click",e=>{if(e.target.closest(".nav button,[data-go]"))setTimeout(refreshHomeMetrics,150)});
+})();
+</script>
+</body></html>
