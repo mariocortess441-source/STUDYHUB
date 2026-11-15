@@ -1225,7 +1225,7 @@ window.renderEconomy=render;render()})();
  const dateIn=(v,a,b)=>{if(!v)return false;const d=fromKey(v);return d>=a&&d<b};
  const periodBounds=()=>{if(period==="week"){const start=startWeek(cursor);return{start,end:new Date(start.getFullYear(),start.getMonth(),start.getDate()+7)}}return{start:new Date(cursor.getFullYear(),cursor.getMonth(),1),end:new Date(cursor.getFullYear(),cursor.getMonth()+1,1)}};
  function allTasks(){return subjects().flatMap(sub=>(sub.tasks||[]).map(t=>({...t,kind:"task",title:t.text,subjectName:sub.name,subjectId:sub.id,date:t.due||"",done:!!t.done})))}
- function allItems(){return [...allTasks(),...(store.get("aulivra_events",[])||[]).map(e=>({...e,kind:"event",date:e.date||""})),...expandPersonalAgenda()]}
+ function allItems(){return [...allTasks(),...(store.get("aulivra_events",[])||[]).map(e=>({...e,kind:"event",date:e.date||""})),...(typeof window.expandPersonalAgenda==="function"?window.expandPersonalAgenda():[])]}
  function periodStats(){
   const {start,end}=periodBounds(),ss=sessions().filter(x=>dateIn(x.date,start,end)),minutes=ss.reduce((a,x)=>a+(Number(x.minutes)||0),0),days=new Set(ss.map(x=>x.date)).size;
   const taskDone=allTasks().filter(t=>t.done&&dateIn(t.doneAt||"",start,end)).length,brandTasks=brand().tasks||[],brandDone=brandTasks.filter(t=>t.done&&dateIn(t.doneAt||"",start,end)).length;
