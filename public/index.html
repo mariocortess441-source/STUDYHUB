@@ -426,7 +426,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 .period-switch{display:flex;gap:4px;padding:4px;background:#f0f4f9;border-radius:12px}
 .period-switch button{border:0;background:transparent;border-radius:9px;padding:9px 15px;color:#53657b;font-weight:700;cursor:pointer}
 .period-switch button.active{background:#1769df;color:white;box-shadow:0 3px 10px #1769df33}
-.home-insight-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}
+.home-insight-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}
 .home-insight-stats>div{background:#f5f8fc;border-radius:15px;padding:15px;display:flex;flex-direction:column;gap:5px}
 .home-insight-stats strong{font:800 24px Manrope;color:#1769df}.home-insight-stats span{font-size:12px;color:#718096}
 .home-insight-list{display:grid;gap:10px}.insight-category{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f6}
@@ -510,7 +510,7 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
  <div class="study-tools-secondary"><div><span class="home-section-kicker">HERRAMIENTAS SECUNDARIAS</span><h3>Más recursos para estudiar</h3><p>Cuando los necesites, tendrás tus documentos y utilidades a mano.</p></div><button class="btn secondary" data-go="files" type="button">Abrir lector y archivos →</button></div>
 <div class="home-insights-card" id="homeInsights">
  <div class="home-insights-head"><div><span class="home-section-kicker">TU EVOLUCIÓN</span><h3>Resumen de actividad</h3><p>Revisa cómo has avanzado y en qué has invertido tu tiempo.</p></div><div class="period-switch" role="group" aria-label="Periodo del resumen"><button type="button" class="active" data-period="month">Mes</button><button type="button" data-period="week">Semana</button></div></div>
- <div class="home-insight-stats"><div><strong id="insightTime">0 h</strong><span>Tiempo registrado</span></div><div><strong id="insightTasks">0</strong><span>Tareas completadas</span></div><div><strong id="insightDays">0</strong><span>Días activos</span></div></div>
+ <div class="home-insight-stats"><div><strong id="insightTime">0 h</strong><span>Tiempo registrado</span></div><div><strong id="insightTasks">0</strong><span>Tareas completadas</span></div><div><strong id="insightDays">0</strong><span>Días activos</span></div><div><strong id="insightMobile">—</strong><span>Uso del móvil</span></div></div>
  <div class="home-insight-list" id="insightCategories"></div>
  <p class="tiny" id="insightRange">Resumen del mes actual.</p>
  <div class="insight-swipe-hint">Desliza a la derecha para cambiar a semana <span>⇢</span></div>
@@ -1062,7 +1062,7 @@ function saveBrandFields(){const b=getBrandData();b.name=$("#brandName").value.t
 $("#saveBrand")?.addEventListener("click",saveBrandFields);
 $("#saveBrandGoal")?.addEventListener("click",()=>{const b=getBrandData();b.goal=$("#brandGoal").value.trim();b.deadline=$("#brandDeadline").value;store.set("aulivra_brand",b);renderEntrepreneurship();toast("Objetivo guardado.")});
 $("#addBrandTask")?.addEventListener("click",()=>{const text=$("#brandTaskInput").value.trim();if(!text)return toast("Escribe una tarea para tu marca.");const b=getBrandData();b.tasks=b.tasks||[];b.tasks.push({id:crypto.randomUUID(),text,due:$("#brandTaskDue").value,done:false});store.set("aulivra_brand",b);$("#brandTaskInput").value="";renderEntrepreneurship()});
-$("#brandTaskList")?.addEventListener("change",e=>{const id=e.target.dataset.brandTask;if(!id)return;const b=getBrandData(),t=(b.tasks||[]).find(x=>x.id===id);if(t){t.done=e.target.checked;store.set("aulivra_brand",b);renderEntrepreneurship()}});
+$("#brandTaskList")?.addEventListener("change",e=>{const id=e.target.dataset.brandTask;if(!id)return;const b=getBrandData(),t=(b.tasks||[]).find(x=>x.id===id);if(t){t.done=e.target.checked;t.doneAt=e.target.checked?new Date().toISOString().slice(0,10):null;store.set("aulivra_brand",b);renderEntrepreneurship()}});
 $("#brandTaskList")?.addEventListener("click",e=>{const id=e.target.dataset.brandDelete;if(!id)return;const b=getBrandData();b.tasks=(b.tasks||[]).filter(t=>t.id!==id);store.set("aulivra_brand",b);renderEntrepreneurship()});
 renderEntrepreneurship();
 </script>
@@ -1172,9 +1172,9 @@ window.renderEconomy=render;render()})();
   const {start,end}=periodDates(currentPeriod),sessions=allSessions().filter(x=>inPeriod(x.date||x.at?.slice(0,10),start,end));
   const minutes=sessions.reduce((a,x)=>a+(Number(x.minutes)||0),0),days=new Set(sessions.map(x=>x.date||x.at?.slice(0,10)).filter(Boolean)).size;
   let done=0,pending=0;allSubjects().forEach(sub=>(sub.tasks||[]).forEach(t=>{if(t.done){if(t.doneAt&&inPeriod(t.doneAt,start,end))done++}else pending++}));
-  const total=allSubjects().length,brands=store.get("aulivra_brand_tasks",store.get("brandTasks",[]));
+  const total=allSubjects().length,brandData=store.get("aulivra_brand",{tasks:[]}),brandTasks=brandData.tasks||[],brandDone=brandTasks.filter(t=>t.done&&t.doneAt&&inPeriod(t.doneAt,start,end)).length,brandPending=brandTasks.filter(t=>!t.done).length,economy=store.get("aulivra_economy",{movements:[]}),movements=(economy.movements||[]).filter(x=>inPeriod(x.date,start,end)),income=movements.filter(x=>x.type==="income").reduce((a,x)=>a+(Number(x.amount)||0),0),expenses=movements.filter(x=>x.type==="expense").reduce((a,x)=>a+(Number(x.amount)||0),0),screen=store.get("aulivra_screen_time",{}),mobileMinutes=Object.entries(screen).filter(([d])=>inPeriod(d,start,end)).reduce((a,[,v])=>a+(Number(v)||0),0);
   $("#insightTime").textContent=minutes>=60?(minutes/60).toFixed(1)+" h":minutes+" min";
-  $("#insightTasks").textContent=done;$("#insightDays").textContent=days;
+  $("#insightTasks").textContent=done+brandDone;$("#insightDays").textContent=days;$("#insightMobile").textContent=mobileMinutes?Math.round(mobileMinutes/60*10)/10+" h":"—";
   const subjects=allSubjects(),bySubject=sessions.reduce((o,x)=>{const k=x.subject||"Otros";o[k]=(o[k]||0)+(Number(x.minutes)||0);return o},{});
   const rows=Object.entries(bySubject).sort((a,b)=>b[1]-a[1]).slice(0,4);
   const cat=$("#insightCategories");
@@ -1201,7 +1201,7 @@ window.renderEconomy=render;render()})();
  $(".period-switch button").forEach(b=>b.addEventListener("click",()=>{currentPeriod=b.dataset.period;renderInsights()}));
  const insights=$("#homeInsights");let touchX=null;
  insights.addEventListener("touchstart",e=>{touchX=e.changedTouches[0].clientX},{passive:true});
- insights.addEventListener("touchend",e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>55){currentPeriod=dx<0?"week":"month";renderInsights()}touchX=null},{passive:true});
+ insights.addEventListener("touchend",e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>55){currentPeriod=dx>0?"week":"month";renderInsights()}touchX=null},{passive:true});
  window.addEventListener("aulivra:refresh-insights",renderInsights);
  window.aulivraRenderInsights=renderInsights; window.aulivraRenderStudyHub=renderStudyHub;
  renderInsights();renderScreenTime();renderStudyHub();
