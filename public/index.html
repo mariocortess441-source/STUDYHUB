@@ -1149,7 +1149,7 @@ let activeUser=null;const store = {
 };
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
 const titles={study:"Tu espacio de estudio.",economy:"Tu dinero, a tu manera.",subjects:"Tus asignaturas, a tu manera.",files:"Tus documentos, organizados.",home:"Tu día, bajo control.",convert:"Conversor de archivos.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez.",calendar:"Tu calendario, siempre a mano.",entrepreneurship:"Tu próximo proyecto empieza aquí."};
-function go(id){$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));$("#pageTitle").textContent=titles[id];if(id==="study")window.aulivraRefreshHome?.();if(id==="files"){}if(id==="grades")renderGrades();if(id==="timer")renderSessions();if(id==="home"){renderHome();window.aulivraRefreshHome?.()}if(id==="subjects")renderSubjects();if(id==="entrepreneurship")renderEntrepreneurship();if(id==="economy"&&typeof renderEconomy==="function")renderEconomy();window.scrollTo({top:0,behavior:"smooth"})}
+function go(id){const target=document.getElementById(id);if(!target||!target.classList.contains("view")){console.warn("AULIVRA: vista no encontrada",id);return false}$(".view").forEach(v=>v.classList.toggle("active",v===target));$(".nav button[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===id));const heading=$("#pageTitle");if(heading)heading.textContent=titles[id]||"AULIVRA";try{if(id==="study")window.aulivraRefreshHome?.();if(id==="grades")renderGrades();if(id==="timer")renderSessions();if(id==="home"){renderHome();window.aulivraRefreshHome?.()}if(id==="subjects")renderSubjects();if(id==="entrepreneurship")renderEntrepreneurship();if(id==="economy"&&typeof renderEconomy==="function")renderEconomy();if(id==="calendar"){renderCalendar?.();renderEvents?.()}if(id==="files"){}if(id==="library")renderLibrary?.()}catch(error){console.error("AULIVRA: error al actualizar la vista "+id,error)}window.scrollTo({top:0,behavior:"smooth"});return true}
 $$(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.view));document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)go(b.dataset.go)});
 $("#today").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"short",day:"numeric",month:"short"}).format(new Date());
 function formatSize(n){if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";return (n/1048576).toFixed(1)+" MB"}
@@ -1870,10 +1870,12 @@ window.renderEconomy=render;render()})();
 <script>
 /* Navegación robusta: la vista cambia aunque falle una función secundaria de actualización. */
 document.addEventListener("click",function(e){
- const tab=e.target instanceof Element?e.target.closest(".nav button[data-view]"):null;
- if(!tab)return;
+ const el=e.target instanceof Element?e.target:null;
+ const tab=el?.closest(".nav button[data-view]");
+ const shortcut=el?.closest("[data-go]");
+ if(!tab&&!shortcut)return;
  e.preventDefault();e.stopImmediatePropagation();
- const id=tab.dataset.view;
+ const id=tab?tab.dataset.view:shortcut.dataset.go;
  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));
  document.querySelectorAll(".nav button[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
  const titles={home:"Tu día, bajo control.",study:"Tu espacio de estudio.",entrepreneurship:"Tu próximo proyecto empieza aquí.",economy:"Tu dinero, a tu manera.",calendar:"Tu calendario, siempre a mano.",files:"Tus documentos, organizados.",convert:"Conversor de archivos.",subjects:"Tus asignaturas, a tu manera.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez."};
