@@ -2076,7 +2076,7 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
   $(".nav button[data-view]").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
   if(window.aulivraSetJakeRole)window.aulivraSetJakeRole(id);if(title)title.textContent=id==="entrepreneurship"?areaNames.entrepreneurship:( {home:"Inicio",study:"Espacio Estudio",economy:"Economía",personal:"Personal",calendar:"Calendario",subjects:"Asignaturas y tareas",grades:"Calificaciones",timer:"Concentración",files:"Archivos",library:"Biblioteca",convert:"Conversor",share:"Compartir"}[id]||id);
   if(editTitle)editTitle.hidden=id!=="entrepreneurship";
-  try{if(id==="home"){}if(id==="study"){renderStudyWorkspace()}if(id==="subjects")renderSubjects?.();if(id==="calendar"){renderCalendar?.();renderEvents?.()}if(id==="economy")window.renderEconomy?.();if(id==="entrepreneurship"){renderEntrepreneurship?.();window.aulivraRefreshProjects?.()}if(id==="personal")renderPersonal();if(id==="grades")renderGrades?.();if(id==="timer")renderSessions?.();if(id==="library"&&typeof renderLibrary==="function")renderLibrary()}catch(e){console.error("AULIVRA view refresh",e)}
+  try{if(id==="home")renderJakeHome();if(id==="study"){renderStudyWorkspace()}if(id==="subjects")renderSubjects?.();if(id==="calendar"){renderCalendar?.();renderEvents?.()}if(id==="economy")window.renderEconomy?.();if(id==="entrepreneurship"){renderEntrepreneurship?.();window.aulivraRefreshProjects?.()}if(id==="personal")renderPersonal();if(id==="grades")renderGrades?.();if(id==="timer")renderSessions?.();if(id==="library"&&typeof renderLibrary==="function")renderLibrary()}catch(e){console.error("AULIVRA view refresh",e)}
   if(window.innerWidth<=560)app.classList.add("sidebar-hidden");
   window.scrollTo({top:0,behavior:"smooth"});return true;
  }
@@ -2091,6 +2091,14 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
  const subjectData=()=>storeGet("aulivra_subjects",[]);
  const saveSubjectData=v=>{storeSet("aulivra_subjects",v);subjects=v;renderStudyWorkspace();renderSubjects?.()};
  function events(){return storeGet("aulivra_events",[])}
+ function renderJakeHome(){
+  const message=$("#homeJakeMessage");if(!message)return;
+  const today=key(new Date()),agenda=items(),todayBlocks=agenda.filter(x=>(x.date||x.due)===today),pending=subjectData().flatMap(x=>(x.tasks||[]).filter(t=>!t.done).map(t=>({...t,subject:x.name}))),todayTasks=pending.filter(t=>t.due===today),nextExam=events().filter(x=>(x.type==="exam"||x.eventType==="exam"||/\\b(examen|prueba|evaluaci[oó]n)\\b/i.test(x.title||""))&&x.date>=today).sort((a,b)=>a.date.localeCompare(b.date))[0];
+  const parts=["Hoy tiene "+todayBlocks.length+" bloque"+(todayBlocks.length===1?"":"s")+" en el calendario",todayTasks.length?todayTasks.length+" tarea"+(todayTasks.length===1?"":"s")+" con fecha para hoy":pending.length?pending.length+" tareas pendientes":"sin tareas pendientes"];
+  if(nextExam)parts.push("próximo examen: "+nextExam.title+" el "+parse(nextExam.date).toLocaleDateString("es-ES",{day:"numeric",month:"long"}));
+  message.textContent="Señor, "+parts.join("; ")+". ¿Qué prioridad desea abordar primero?";
+ }
+
  function saveEvents(v){storeSet("aulivra_events",v);renderStudyWorkspace();renderCalendar?.();window.aulivraRefreshHome?.()}
  function items(){return typeof allCalendarItems==="function"?allCalendarItems():events()}
  function eventDuration(e){const [sh,sm]=String(e.time||"").split(":").map(Number),[eh,em]=String(e.end||"").split(":").map(Number);return Number.isFinite(sh)&&Number.isFinite(eh)?Math.max(0,eh*60+em-sh*60-sm):0}
