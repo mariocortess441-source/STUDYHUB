@@ -18,6 +18,12 @@ fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json({ limit: "2mb" }));
+
+// Serve the AdSense seller authorization file explicitly at the domain root.
+app.get("/ads.txt", (req, res) => {
+  res.type("text/plain").sendFile(path.join(__dirname, "public", "ads.txt"));
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/", rateLimit({ windowMs: 15 * 60 * 1000, limit: 120 }));
 
