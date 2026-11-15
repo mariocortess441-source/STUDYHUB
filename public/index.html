@@ -2472,7 +2472,7 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
  modal("mcCalendarModal","Crear bloque","Elige fecha, horario y asignatura. El bloque aparecerá en tu calendario mensual y semanal.",eventBody);
  const calForm=$("#mcCalendarForm"),calSubject=calForm?.elements.subject;
  const fillSubjects=()=>{if(calSubject)calSubject.innerHTML='<option value="">Personal / sin asignatura</option>'+((typeof subjectsData==="function"?subjectsData():[])||[]).map(x=>'<option value="'+safe(x.id)+'">'+safe(x.name)+'</option>').join("")};
- const showCalendarModal=(date)=>{fillSubjects();calForm.elements.date.value=date||today();openModal("mcCalendarModal")};
+ const showCalendarModal=(date,time,end)=>{if(!calForm)return;fillSubjects();calForm.elements.date.value=date||today();if(time)calForm.elements.time.value=time;if(end)calForm.elements.end.value=end;openModal("mcCalendarModal")};window.aulivraOpenCalendarModal=showCalendarModal;
  const originalRender=window.renderCalendar;if(typeof originalRender==="function")window.renderCalendar=function(){originalRender();const days=$("#calendarDays");if(days){days.querySelectorAll("[data-calendar-day]").forEach(b=>{b.onclick=()=>{const date=b.dataset.calendarDay;window.calendarSelected=typeof dateFromKey==="function"?dateFromKey(date):new Date(date+"T12:00:00");showCalendarModal(date)}})}};
  // If calendar rendering happened before this enhancement attached, wire current cells too.
  const wireCalendar=()=>{$("#calendarDays")?.querySelectorAll("[data-calendar-day]").forEach(b=>b.onclick=()=>showCalendarModal(b.dataset.calendarDay))};setTimeout(wireCalendar,300);
@@ -2795,16 +2795,14 @@ $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámene
   const finish=e.target.closest("#calendarDaySchedule [data-calendar-hour]"),start=dragStart;dragStart=null;if(!finish||!start.date)return;
   const a=start.hour,b=Number(finish.dataset.calendarHour),from=Math.min(a,b),to=Math.max(a,b)+1;
   const fmt=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
-  const startMin=from*60,endMin=Math.min(24*60,to*60);const title=$("#calendarEventTitle"),date=$("#calendarEventDate"),time=$("#calendarEventTime"),end=$("#calendarEventEnd");
-  if(!title||!date||!time||!end)return;
-  date.value=start.date;time.value=fmt(startMin);end.value=fmt(endMin===1440?23*60+30:endMin);
-  title.focus();title.scrollIntoView({behavior:"smooth",block:"center"});
-  const hint=$("#calendarDragHint");if(hint)hint.textContent="Bloque seleccionado: "+date.value+" · "+time.value+"–"+end.value+". Escribe el título y guarda.";
+  const startMin=from*60,endMin=Math.min(24*60,to*60),endValue=fmt(endMin===1440?23*60+30:endMin);
+  window.aulivraOpenCalendarModal?.(start.date,fmt(startMin),endValue);
+  const hint=$("#calendarDragHint");if(hint)hint.textContent="Bloque seleccionado: "+start.date+" · "+fmt(startMin)+"–"+endValue+". Completa el título y guarda.";
  });
  // Re-attach date to the timeline whenever the original renderer refreshes it.
  const cal=$("#calendarDaySchedule");if(cal){const observer=new MutationObserver(()=>{const h=$("#calendarMonth")?.textContent||"";cal.dataset.date=$("#calendar-day-placeholder").length?cal.dataset.date:cal.dataset.date});observer.observe(cal,{childList:true,subtree:true})}
  // Existing calendar reminder selector is retained and applied when saving; clarify the real notification status.
- const hint=document.createElement("p");hint.id="calendarDragHint";hint.className="calendar-drag-hint";hint.textContent="En vista Día, arrastra desde una hora hasta otra para preparar un bloque.";$("#calendarDaySchedule")?.before(hint);
+ const hint=document.createElement("p");hint.id="calendarDragHint";hint.className="calendar-drag-hint";hint.textContent="En vista Día, arrastra entre horas para abrir el formulario del bloque.";$("#calendarDaySchedule")?.before(hint);
  // Keep all form controls visually consistent with MANCAVE dark surfaces.
  $("input,select,textarea").forEach(el=>{if(!el.closest("#home .journal-book")){el.style.colorScheme="dark"}});
 })();
