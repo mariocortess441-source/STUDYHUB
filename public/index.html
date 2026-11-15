@@ -238,7 +238,7 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 .calendar-event-line:last-child{border-bottom:0}
 @media(max-width:700px){
  .calendar-card{padding:12px!important}
- .calendar-toolbar{gap:6px;margin-bottom:12px}
+ .calendar-toolbar{gap:6px;margin-bottom:12px;flex-wrap:wrap}
  .calendar-toolbar h3{min-width:0;flex:1;font-size:15px}
  .calendar-toolbar .btn{padding:8px 10px;min-height:38px}
  .calendar-mode{gap:2px}.calendar-mode .btn{padding:7px 8px;font-size:10px}
@@ -682,7 +682,6 @@ function allCalendarItems(){
 function renderCalendar(){
  const grid=$("#calendarDays");if(!grid)return;
  const year=calendarCursor.getFullYear(),month=calendarCursor.getMonth();
- $("#calendarMonth").textContent=new Intl.DateTimeFormat("es-ES",{month:"long",year:"numeric"}).format(calendarCursor);
  const first=new Date(year,month,1),start=(first.getDay()+6)%7;
  const weekStart=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),calendarSelected.getDate());weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));
  const startDate=calendarViewMode==="week"?weekStart:new Date(year,month,1-start),items=allCalendarItems();
