@@ -1,0 +1,21 @@
+{
+  "id": "/",
+  "name": "AULIVRA",
+  "short_name": "AULIVRA",
+  "description": "Tu espacio para estudiar, organizar tareas y desarrollar proyectos.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4f6fb",
+  "theme_color": "#7655e8",
+  "icons": [
+    {
+      "src": "/studyhub-symbol.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
