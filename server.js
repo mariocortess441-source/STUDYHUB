@@ -126,7 +126,7 @@ app.post("/api/auth/logout", (req, res) => {
 });
 // El acceso es opcional: las funciones de conversión y compartir también están disponibles como invitado.
 
-app.get("/api/health", (_, res) => res.json({ ok: true, service: "STUDYHUB", version: "1.0.0" }));
+app.get("/api/health", (_, res) => res.json({ ok: true, service: "AULIVRA", version: "1.0.0" }));
 
 // Upload a file and create a time-limited share link. The file is stored on this server.
 app.post("/api/shares", upload.single("file"), async (req, res) => {
@@ -156,7 +156,7 @@ app.post("/api/shares", upload.single("file"), async (req, res) => {
       });
       await transporter.sendMail({
         from: process.env.MAIL_FROM || process.env.SMTP_USER, to: email,
-        subject: "Te han compartido un archivo en STUDYHUB",
+        subject: "Te han compartido un archivo en AULIVRA",
         text: `Puedes descargar "${meta[id].originalName}" desde este enlace: ${link}\nEl enlace caduca en ${hours} horas.`
       });
       emailed = true;
@@ -217,4 +217,4 @@ setInterval(() => {
   if (changed) writeMeta(meta);
 }, 60 *  60 * 1000).unref();
 
-app.listen(PORT, () => console.log(`STUDYHUB running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`AULIVRA running on http://localhost:${PORT}`));
