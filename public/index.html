@@ -73,6 +73,35 @@ label{color:#58657b;font-size:13px}
 .user-chip{display:flex;align-items:center;gap:10px}.user-chip span{font-size:13px;color:#58657b}
 @media(max-width:900px){.app{grid-template-columns:76px 1fr}.app.sidebar-hidden{grid-template-columns:0 1fr}.card{padding:20px}}
 @media(max-width:560px){.app{display:block}.app.sidebar-hidden .sidebar{display:none}.sidebar{height:auto}.home-actions{grid-template-columns:1fr}.home-actions .quick{min-height:100px}.auth-card{padding:27px}.top{align-items:flex-start}}
+
+/* STUDYHUB purple identity + robust collapsible sidebar */
+:root{
+ --accent:#7655e8;--accent2:#6240d8;
+ --purple-soft:#f0ebff;--purple-line:#ded4ff;--purple-text:#5135b5;
+}
+.eyebrow{color:var(--accent)}
+.nav button:hover,.nav button.active{background:var(--purple-soft);color:var(--purple-text)}
+.nav button.active{box-shadow:inset 3px 0 var(--accent)}
+.stat-icon{background:var(--purple-soft);color:var(--accent)}
+.quick:hover{border-color:#b8a5ff;box-shadow:0 12px 26px #7655e81a}
+.btn{background:linear-gradient(135deg,#8568ef,#6240d8);box-shadow:0 6px 16px #7655e829}
+.btn.secondary{background:#f0ebff;border:1px solid var(--purple-line);color:var(--purple-text)}
+.subject-tag{background:var(--purple-soft);color:var(--purple-text)}
+.grade-result{background:#f4f0ff;border-color:var(--purple-line)}
+.grade-result strong{color:var(--accent)}
+.timer-mode button.active{background:var(--purple-soft);border-color:#b8a5ff;color:var(--purple-text)}
+.progress>i{background:linear-gradient(90deg,#8568ef,#6240d8)}
+.sidebar-toggle{color:var(--purple-text);border-color:var(--purple-line);background:#fff}
+.app{grid-template-columns:270px minmax(0,1fr)}
+.app.sidebar-hidden{grid-template-columns:0 minmax(0,1fr)}
+.app.sidebar-hidden .sidebar{width:0;min-width:0;padding:0;overflow:hidden;border:0}
+.ad-container{display:block;width:100%;max-width:100%;min-height:90px}
+.ad-container ins.adsbygoogle{display:block;width:100%;min-width:0}
+@media(max-width:560px){
+ .app.sidebar-hidden .sidebar{display:none}
+ .app.sidebar-hidden{display:block}
+}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
@@ -263,7 +292,7 @@ async function checkAuth(){try{const r=await fetch("/api/auth/me");const j=await
 function enterApp(user){activeUser=user||null;$("#authScreen").style.display="none";$("#appShell").style.display="grid";$("#userName").textContent=user?user.name:"Modo invitado";$("#loginBtn").style.display=user?"none":"inline-flex";$("#logoutBtn").style.display=user?"inline-flex":"none";renderHome();renderGrades();renderSessions()}
 $("#authForm").onsubmit=async e=>{e.preventDefault();const b=$("#authSubmit");b.disabled=true;b.textContent="Un momento…";$("#authError").style.display="none";try{const payload={email:$("#authEmail").value,password:$("#authPassword").value};if(authMode==="register")payload.name=$("#authName").value;const r=await fetch("/api/auth/"+(authMode==="login"?"login":"register"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const j=await r.json();if(!r.ok)throw Error(j.error||"No se pudo acceder.");enterApp(j.user)}catch(err){$("#authError").textContent=err.message;$("#authError").style.display="block"}finally{b.disabled=false;b.textContent=authMode==="login"?"Entrar en STUDYHUB":"Crear mi cuenta"}};
 $("#loginBtn").onclick=()=>{$("#authScreen").style.display="grid";setAuthMode("login")};$("#closeAuth").onclick=()=>{$("#authScreen").style.display="none"};$("#logoutBtn").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"});enterApp(null);$("#authPassword").value=""};
-function toggleSidebar(){$("#appShell").classList.toggle("sidebar-hidden")}
+function toggleSidebar(){const hidden=$("#appShell").classList.toggle("sidebar-hidden");["#sidebarToggle","#sidebarToggleTop"].forEach(sel=>{const b=$(sel);b.setAttribute("aria-expanded",String(!hidden));b.title=hidden?"Mostrar menú":"Ocultar menú";b.setAttribute("aria-label",b.title)})}
 $("#sidebarToggle").onclick=toggleSidebar;$("#sidebarToggleTop").onclick=toggleSidebar;
 $("#appShell").style.display="grid";enterApp(null);checkAuth();
 const homeAd=document.querySelector(".ad-container .adsbygoogle");
