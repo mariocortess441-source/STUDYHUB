@@ -347,6 +347,24 @@ main{padding:15px 13px 42px}.top{margin:10px 0 20px;gap:8px}.top h1{font-size:23
 .assistant-panel{inset:0!important;width:100vw!important;height:100dvh!important;max-height:none!important;border:0!important;border-radius:0!important;z-index:1000;background:#f7f8fc;box-shadow:none}.assistant-panel.open{display:flex}.assistant-head{padding:calc(14px + env(safe-area-inset-top)) 17px 14px;background:linear-gradient(110deg,#7566e8,#4f80d8);border:0;min-height:72px}.assistant-head small{color:#ecebff}.assistant-close{font-size:30px;min-width:42px;min-height:42px}.assistant-messages{flex:1;min-height:0;padding:18px 14px;background:#f7f8fc;gap:13px}.assistant-msg{font-size:14px;max-width:88%;padding:12px 15px}.assistant-msg.bot{background:#fff;border:1px solid #e8eaf2;color:#293249}.assistant-msg.user{background:#6557d8}.assistant-quick{padding:10px 12px;flex-wrap:nowrap;overflow-x:auto;background:#fff}.assistant-quick button{white-space:nowrap;background:#f3f2ff;color:#5748c2;border-color:#e3e0ff;font-size:11px;padding:9px 12px}.assistant-form{padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fff}.assistant-form input{font-size:16px;background:#f5f6fa;border:0}.assistant-form button{background:#6655df}.assistant-note{background:#fff;color:#8b93a4}}
 @media(min-width:701px){.assistant-panel{width:min(440px,calc(100vw - 40px));max-height:min(680px,calc(100vh - 90px))}}
 
+
+/* AULIVRA · rueda interactiva de estudio */
+.study-wheel-wrap{display:flex;justify-content:center;align-items:center;margin:8px auto 28px;padding:4px 0}
+.study-wheel{position:relative;width:min(100%,520px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;isolation:isolate}
+.wheel-orbit{position:absolute;inset:12%;border:1px dashed #c9c4f5;border-radius:50%;box-shadow:0 0 45px #9c8cff26,inset 0 0 38px #9c8cff10;animation:wheel-orbit-glow 5s ease-in-out infinite}
+.wheel-core{width:35%;aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:radial-gradient(circle at 30% 20%,#fff,#eeebff 70%);border:1px solid #ded9ff;box-shadow:0 12px 42px #6b5bca22,inset 0 0 28px #fff;z-index:2;text-align:center}
+.wheel-core-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#9487f5,#5b4bd0);color:white;font:800 25px Manrope;box-shadow:0 8px 20px #6655df44}
+.wheel-core b{font-size:12px;letter-spacing:1.6px;color:#5146ad}.wheel-core small{font-size:10px;color:#78839a}
+.wheel-node{position:absolute;z-index:3;width:112px;min-height:96px;border:1px solid #e3e5f3;border-radius:22px;background:#ffffffed;box-shadow:0 10px 28px #263c6415;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:#303950;cursor:pointer;transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s,border-color .28s,background .28s}
+.wheel-node span{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#f1efff,#e8f4ff);color:#6554d7;font-size:22px;transition:transform .35s,background .35s,color .35s}
+.wheel-node b{font-size:11px;font-weight:750}.wheel-node:hover,.wheel-node:focus-visible{transform:translate(-50%,-50%) scale(1.1)!important;border-color:#a89cf5;background:#fff;box-shadow:0 18px 40px #6655df35,0 0 0 5px #8e80ed18;outline:none}
+.wheel-node:hover span,.wheel-node:focus-visible span{transform:rotate(-12deg) scale(1.12);background:linear-gradient(145deg,#8879ed,#5b4bd0);color:#fff}
+.wheel-node:active{transform:translate(-50%,-50%) scale(.96)!important}
+.node-timer{left:50%;top:3%;transform:translate(-50%,-10%)}.node-subjects{left:91%;top:39%;transform:translate(-50%,-50%)}.node-grades{left:75%;top:88%;transform:translate(-50%,-50%)}.node-calendar{left:25%;top:88%;transform:translate(-50%,-50%)}.node-files{left:9%;top:39%;transform:translate(-50%,-50%)}
+@keyframes wheel-orbit-glow{0%,100%{box-shadow:0 0 26px #9c8cff17,inset 0 0 25px #9c8cff08;transform:scale(1)}50%{box-shadow:0 0 52px #9c8cff35,inset 0 0 35px #9c8cff16;transform:scale(1.015)}}
+@media(max-width:560px){.study-wheel{width:min(100%,370px)}.wheel-node{width:91px;min-height:82px;border-radius:18px;gap:5px}.wheel-node span{width:35px;height:35px;border-radius:12px;font-size:19px}.wheel-node b{font-size:10px}.wheel-core{width:34%}.wheel-core-icon{width:39px;height:39px;font-size:21px}.wheel-core b{font-size:10px}.wheel-core small{font-size:8px}.wheel-orbit{inset:13%}}
+@media(hover:none){.wheel-node:active{background:#f3f0ff;border-color:#a89cf5}.wheel-node:active span{transform:scale(1.15);background:#6655df;color:white}}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
@@ -377,12 +395,16 @@ main{padding:15px 13px 42px}.top{margin:10px 0 20px;gap:8px}.top h1{font-size:23
   <header class="top"><div style="display:flex;align-items:center;gap:14px"><button class="sidebar-toggle" id="sidebarToggleTop" title="Mostrar/ocultar menú" aria-label="Mostrar u ocultar menú">☰</button><div><div class="eyebrow">TU ESPACIO DE PRODUCTIVIDAD</div><h1 id="pageTitle">Todo en un mismo lugar.</h1></div></div><div class="user-chip"><span id="userName">Modo invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none">Salir</button><div class="date" id="today"></div></div></header>
 
   <section class="view active" id="home">
-<div class="home-hero-compact"><div class="eyebrow">TU ESPACIO DE ESTUDIO</div><h2>Hoy toca avanzar.</h2><p id="homeMotivation">No necesitas hacerlo todo hoy. Solo empezar con el siguiente bloque.</p></div><div class="study-shortcuts">
-<button class="study-shortcut" data-go="timer"><span>◷</span><b>Temporizador</b><small>Bloques de concentración</small></button>
-<button class="study-shortcut" data-go="subjects"><span>▣</span><b>Asignaturas</b><small>Tareas y apuntes</small></button>
-<button class="study-shortcut" data-go="grades"><span>▦</span><b>Calificaciones</b><small>Controla tus notas</small></button>
-<button class="study-shortcut" data-go="calendar"><span>▦</span><b>Calendario</b><small>Exámenes y entregas</small></button>
-<button class="study-shortcut" data-go="files"><span>▤</span><b>Documentos</b><small>Archivos y recursos</small></button></div>
+<div class="home-hero-compact"><div class="eyebrow">TU ESPACIO DE ESTUDIO</div><h2>Hoy toca avanzar.</h2><p id="homeMotivation">No necesitas hacerlo todo hoy. Solo empezar con el siguiente bloque.</p></div><div class="study-wheel-wrap">
+<div class="study-wheel" aria-label="Rueda de herramientas de estudio">
+<div class="wheel-orbit"></div>
+<div class="wheel-core"><span class="wheel-core-icon">A</span><b>ESTUDIO</b><small>Elige tu siguiente paso</small></div>
+<button class="wheel-node node-timer" data-go="timer"><span>◷</span><b>Temporizador</b></button>
+<button class="wheel-node node-subjects" data-go="subjects"><span>▣</span><b>Asignaturas</b></button>
+<button class="wheel-node node-grades" data-go="grades"><span>▦</span><b>Calificaciones</b></button>
+<button class="wheel-node node-calendar" data-go="calendar"><span>▦</span><b>Calendario</b></button>
+<button class="wheel-node node-files" data-go="files"><span>▤</span><b>Documentos</b></button>
+</div></div>
 <div class="card home-chart-card"><div class="home-card-heading"><div><h3>Tu progreso de estudio</h3><p>Minutos estudiados durante los últimos 7 días</p></div><strong id="homeSessions">0 min</strong></div><div class="community-stats" aria-live="polite"><div><span class="community-pulse"></span><strong id="activePeople">—</strong><small>Personas activas ahora · últimos 5 min</small></div><div><strong id="regularPeople">—</strong><small>Usuarios habituales · 3 o más días en 30 días</small></div></div><p class="tiny community-privacy">Estadísticas agregadas con un identificador aleatorio del navegador; no muestran nombres ni correos.</p><div id="studyWeekChart" class="study-week-chart" role="img" aria-label="Gráfica semanal de minutos estudiados"></div><div class="home-chart-foot"><span id="homeSubjects" hidden>0</span><span id="homeAverage" hidden>—</span><span>Pequeños avances, grandes resultados.</span><button class="btn ghost" data-go="timer">Estudiar ahora</button></div></div>
 <div class="ad-container home-ad-compact" aria-label="Publicidad"><div class="ad-label">PUBLICIDAD</div><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="ca-pub-1955364701775135" data-ad-slot="2073225375" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 <div class="card home-assistant-card"><div class="home-assistant-icon">🪰</div><div class="home-assistant-copy"><span class="eyebrow">TU ASISTENTE</span><h3>¿Qué vamos a hacer hoy?</h3><p id="homeTodayPlan">Estoy preparando tus bloques de estudio de hoy.</p></div><button class="btn" id="openAssistantFromHome" type="button">Ver mi plan</button></div>
@@ -954,5 +976,43 @@ byId("economyMovements").addEventListener("click",e=>{const b=e.target.closest("
 byId("savingsForm").addEventListener("submit",e=>{e.preventDefault();const name=byId("savingName").value.trim(),target=Number(byId("savingTarget").value),current=Number(byId("savingCurrent").value||0);if(!name||target<=0||current<0)return toast("Comprueba el objetivo de ahorro.");const d=get();d.savings.push({id:crypto.randomUUID(),name,target,current});save(d);e.target.reset();byId("savingCurrent").value="0";render();toast("Objetivo creado.")});
 byId("savingsList").addEventListener("click",e=>{const b=e.target.closest("[data-saving-delete]");if(!b)return;const d=get();d.savings=d.savings.filter(x=>x.id!==b.dataset.savingDelete);save(d);render()});
 window.renderEconomy=render;render()})();
+</script>
+
+<script>
+/* Resumen diario: se muestra una vez al día y solo con permiso explícito del usuario */
+(()=>{
+ const keyToday=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+ function dailyInsight(){
+  const today=keyToday(),items=allCalendarItems(),todays=items.filter(x=>(x.date||x.due)===today).sort((a,b)=>(a.time||"23:59").localeCompare(b.time||"23:59"));
+  const pending=subjectsData().flatMap(sub=>(sub.tasks||[]).filter(t=>!t.done).map(t=>({...t,subjectName:sub.name})));
+  const overdue=pending.filter(t=>t.due&&t.due<today);
+  const ideas=[];
+  if(overdue.length)ideas.push("Prioriza "+overdue.length+" tarea(s) atrasada(s)");
+  if(!todays.length)ideas.push("Reserva un bloque para tu prioridad principal");
+  if(pending.length>=5)ideas.push("Divide tus tareas pendientes en pasos pequeños");
+  const brand=store.get("aulivra_brand",{});
+  if(brand.name&&!brand.goal)ideas.push("Define el siguiente objetivo de "+brand.name);
+  const plan=todays.length?todays.map(x=>(x.time?x.time+" ":"")+x.title).slice(0,5).join(" · "):"No hay actividades programadas para hoy";
+  const tip=ideas[0]||"Mantén pausas y revisa tus prioridades al terminar cada bloque";
+  return {title:"Tu día en AULIVRA",body:(plan+". JAKE recomienda: "+tip+".").slice(0,240),todays,ideas};
+ }
+ function notifyDaily(){
+  if(!("Notification" in window)||Notification.permission!=="granted")return;
+  const today=keyToday(),storageKey="aulivra_daily_brief_"+(activeUser?.id||"guest");
+  if(localStorage.getItem(storageKey)===today)return;
+  const brief=dailyInsight();
+  try{const n=new Notification(brief.title,{body:brief.body,tag:"aulivra-daily-"+today});n.onclick=()=>{window.focus();go("home");n.close()};localStorage.setItem(storageKey,today)}catch(e){console.warn("No se pudo mostrar el resumen diario",e)}
+ }
+ window.aulivraDailyBrief=notifyDaily;
+ const enable=$("#enableCalendarNotifications");
+ if(enable)enable.addEventListener("click",()=>setTimeout(notifyDaily,300));
+ const enableHome=$("#enableHomeNotifications");
+ if(enableHome)enableHome.addEventListener("click",()=>setTimeout(notifyDaily,300));
+ const oldEnter=window.enterApp;
+ if(typeof oldEnter==="function")window.enterApp=async function(user){const result=await oldEnter(user);notifyDaily();return result};
+ window.addEventListener("focus",notifyDaily);
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden)notifyDaily()});
+ setTimeout(notifyDaily,1800);
+})();
 </script>
 </body></html>
