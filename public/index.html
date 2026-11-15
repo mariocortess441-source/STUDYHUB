@@ -1061,6 +1061,18 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .economy-month-bars .expense-bar{background:#fb7185}
 @media(max-width:760px){.economy-restored-details{grid-template-columns:1fr}.economy-restored-details .economy-savings-restored,.economy-restored-details .economy-history-restored{grid-column:auto}.economy-restored-details #savingsForm{grid-template-columns:1fr 1fr}.economy-restored-details #savingsForm button{grid-column:1/-1}}
 </style>
+<style id="mancave-restore-hidden-sections-v10">
+/* Restore the study planning views: both are views over the same shared calendar data. */
+#study .study-planned-card,#study .study-week-card{display:block!important}
+#study .study-section-label:has(+.study-planned-card),#study .study-section-label:has(+.study-week-card){display:flex!important}
+/* Savings and ledger were hidden by an old minimalist pass; show them again below the money wheel. */
+#economy #economyChart,#economy #economyMovements,#economy #savingsList,#economy #savingsForecast{display:grid!important}
+#economy .economy-restored-details .tiny{display:block!important}
+#economy .economy-restored-details .economy-movements{display:grid!important}
+#economy .economy-restored-details .savings-list{display:grid!important}
+#economy .economy-restored-details .savings-forecast{display:grid!important}
+#economy .economy-restored-details .card{min-width:0}
+</style>
 </head>
 <body>
 
@@ -3017,7 +3029,7 @@ main,.view,#home{min-width:0;max-width:100%}
  updateFlow();document.addEventListener("visibilitychange",()=>{if(!document.hidden)updateFlow()});document.addEventListener("click",e=>{if(e.target.closest(".nav button,[data-go]"))setTimeout(updateFlow,180)});
  // The journal checklist reads the exact same saved entries as the diary form.
  let cursor=new Date();cursor.setDate(1);let selected=dayKey(new Date());
- const journalEntries=()=>{const keys=Object.keys(localStorage).filter(k=>k.endsWith("_aulivra_journal"));for(const k of keys){try{const v=JSON.parse(localStorage.getItem(k)||"[]");if(Array.isArray(v))return v}catch{}}return []};
+ const journalEntries=()=>{const k="sh_"+(typeof activeUser!=="undefined"&&activeUser?.id||"guest")+"_aulivra_journal";try{const v=JSON.parse(localStorage.getItem(k)||"[]");return Array.isArray(v)?v:[]}catch{return []}};
  if(!$("#personalJournalCalendar")){
   const el=document.createElement("section");el.id="personalJournalCalendar";el.className="card personal-journal-calendar";
   el.innerHTML='<div class="pcal-head"><button type="button" id="pcalPrev" aria-label="Mes anterior">‹</button><h3 id="pcalMonth">Diario · calendario</h3><button type="button" id="pcalNext" aria-label="Mes siguiente">›</button></div><div class="pcal-grid" id="pcalGrid"></div><div class="pcal-summary"><span id="pcalSummary">✓ Días con journaling</span><span id="pcalSelected">Selecciona un día</span></div><div class="pcal-checklist" id="pcalChecklist"></div></section>';
