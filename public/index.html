@@ -542,7 +542,39 @@ let authMode="login";
 function setAuthMode(mode){authMode=mode;$("#loginTab").classList.toggle("active",mode==="login");$("#registerTab").classList.toggle("active",mode==="register");$("#nameField").style.display=mode==="register"?"block":"none";$("#authTitle").textContent=mode==="login"?"Bienvenido de nuevo":"Crea tu cuenta";$("#authDescription").textContent=mode==="login"?"Inicia sesión para entrar en tu espacio de estudio.":"Regístrate para guardar tu espacio personal.";$("#authSubmit").textContent=mode==="login"?"Entrar en AULIVRA":"Crear mi cuenta";$("#authPassword").autocomplete=mode==="login"?"current-password":"new-password";$("#authError").style.display="none"}
 $("#loginTab").onclick=()=>setAuthMode("login");$("#registerTab").onclick=()=>setAuthMode("register");
 async function checkAuth(){try{const r=await fetch("/api/auth/me");const j=await r.json();if(j.user)enterApp(j.user)}catch{}}
-async function enterApp(user){activeUser=user||null;$("#authScreen").style.display="none";$("#appShell").style.display="grid";$("#userName").textContent=user?user.name:"Modo invitado";$("#loginBtn").style.display=user?"none":"inline-flex";$("#logoutBtn").style.display=user?"inline-flex":"none";if(user){try{const r=await fetch("/api/study-data");if(r.ok){const j=await r.json();for(const [k,v] of Object.entries(j.data||{}))localStorage.setItem("sh_"+user.id+"_"+k,JSON.stringify(v))}}catch{toast("Sin conexión con la nube. Se mostrarán los datos locales.")}}renderHome();renderGrades();renderSessions()}
+async function enterApp(user){
+ activeUser=user||null;
+ $("#authScreen").style.display="none";$("#appShell").style.display="grid";
+ $("#userName").textContent=user?user.name:"Modo invitado";
+ $("#loginBtn").style.display=user?"none":"inline-flex";$("#logoutBtn").style.display=user?"inline-flex":"none";
+ if(user){
+  try{
+   const response=await fetch("/api/study-data");
+   if(!response.ok)throw Error("No se pudo cargar el espacio en la nube.");
+   const remote=(await response.json()).data||{};
+   const accountPrefix="sh_"+user.id+"_";
+   const guestPrefix="sh_guest_";
+   const localKeys=Object.keys(localStorage);
+   const candidateKeys=new Set(localKeys.filter(k=>k.startsWith(accountPrefix)).map(k=>k.slice(accountPrefix.length)));
+   localKeys.filter(k=>k.startsWith(guestPrefix)).forEach(k=>candidateKeys.add(k.slice(guestPrefix.length)));
+   for(const key of candidateKeys){
+    if(Object.prototype.hasOwnProperty.call(remote,key)){
+     localStorage.setItem(accountPrefix+key,JSON.stringify(remote[key]));
+     continue;
+    }
+    let raw=localStorage.getItem(accountPrefix+key);
+    if(raw===null)raw=localStorage.getItem(guestPrefix+key);
+    if(raw===null)continue;
+    try{
+     const value=JSON.parse(raw);
+     const save=await fetch("/api/study-data/"+encodeURIComponent(key),{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({value})});
+     if(save.ok){remote[key]=value;localStorage.setItem(accountPrefix+key,JSON.stringify(value))}
+    }catch{}
+   }
+  }catch{toast("No se pudo sincronizar con la nube. Conservamos los datos de este dispositivo.")}
+ }
+ renderHome();renderGrades();renderSessions();renderSubjects();renderEvents();renderCalendar();
+}
 $("#authForm").onsubmit=async e=>{e.preventDefault();const b=$("#authSubmit");b.disabled=true;b.textContent="Un momento…";$("#authError").style.display="none";try{const payload={email:$("#authEmail").value,password:$("#authPassword").value};if(authMode==="register")payload.name=$("#authName").value;const r=await fetch("/api/auth/"+(authMode==="login"?"login":"register"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const j=await r.json();if(!r.ok)throw Error(j.error||"No se pudo acceder.");enterApp(j.user)}catch(err){$("#authError").textContent=err.message;$("#authError").style.display="block"}finally{b.disabled=false;b.textContent=authMode==="login"?"Entrar en AULIVRA":"Crear mi cuenta"}};
 $("#loginBtn").onclick=()=>{$("#authScreen").style.display="grid";setAuthMode("login")};$("#closeAuth").onclick=()=>{$("#authScreen").style.display="none"};$("#logoutBtn").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"});enterApp(null);$("#authPassword").value=""};
 function toggleSidebar(){const hidden=$("#appShell").classList.toggle("sidebar-hidden");["#sidebarToggle","#sidebarToggleTop"].forEach(sel=>{const b=$(sel);b.setAttribute("aria-expanded",String(!hidden));b.title=hidden?"Mostrar menú":"Ocultar menú";b.setAttribute("aria-label",b.title)})}
@@ -654,7 +686,6 @@ function renderCalendar(){
  let html="";
  for(let i=0;i<42;i++){
   const day=new Date(startDate);day.setDate(startDate.getDate()+i);
-  if(i>=35&&day.getMonth()!==month)break;
   const key=dateKey(day),dayItems=items.filter(x=>(x.date||x.due)===key);
   const classes=["calendar-day",day.getMonth()!==month?"muted-day":"",key===dateKey(new Date())?"today":"",key===dateKey(calendarSelected)?"selected":""].filter(Boolean).join(" ");
   html+='<button class="'+classes+'" data-calendar-day="'+key+'"><span class="calendar-day-number">'+day.getDate()+'</span>'+dayItems.slice(0,2).map(x=>'<span class="calendar-dot '+(x.kind==="task"?"task-dot":"")+'">'+esc(x.title)+'</span>').join("")+(dayItems.length>2?'<span class="tiny">+'+(dayItems.length-2)+' más</span>':"")+'</button>';
