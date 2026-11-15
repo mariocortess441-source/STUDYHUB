@@ -1013,6 +1013,12 @@ function renderCalendar(){
  $("#calendarSelectedTitle").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long"}).format(calendarSelected);
  $("#calendarSelectedItems").innerHTML=selected.length?selected.map(x=>'<div class="calendar-event-line"><span style="width:5px;height:34px;border-radius:5px;background:'+colorFor(x)+'"></span><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+(x.kind==="task"?" · Pendiente":" · Evento")+'</small></span>'+(x.time?'<span class="calendar-event-time">'+esc(x.time)+(x.end?" – "+esc(x.end):"")+'</span>':'Todo el día')+'</div>').join(""):'<div class="empty">No hay nada programado para este día.</div>';
 }
+$("#calendarPrev").onclick=()=>{if(calendarViewMode==="day")calendarSelected.setDate(calendarSelected.getDate()-1);else if(calendarViewMode==="week")calendarSelected.setDate(calendarSelected.getDate()-7);else calendarCursor.setMonth(calendarCursor.getMonth()-1);if(calendarViewMode!=="month")calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
+$("#calendarNext").onclick=()=>{if(calendarViewMode==="day")calendarSelected.setDate(calendarSelected.getDate()+1);else if(calendarViewMode==="week")calendarSelected.setDate(calendarSelected.getDate()+7);else calendarCursor.setMonth(calendarCursor.getMonth()+1);if(calendarViewMode!=="month")calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
+$("#calendarToday").onclick=()=>{calendarCursor=new Date();calendarSelected=new Date();renderCalendar()};
+$("#calendarMonthMode").onclick=()=>{calendarViewMode="month";calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
+$("#calendarWeekMode").onclick=()=>{calendarViewMode="week";calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
+$("#calendarDayMode").onclick=()=>{calendarViewMode="day";calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar()};
 function refreshCalendarSubjects(){
  const sel=$("#calendarEventSubject");if(sel)sel.innerHTML='<option value="">Selecciona asignatura</option>'+subjectsData().map(s=>'<option value="'+esc(s.id)+'">'+esc(s.name)+'</option>').join("");
 }
