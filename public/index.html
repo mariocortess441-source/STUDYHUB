@@ -283,6 +283,16 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 }
 @media(min-width:701px) and (max-width:900px){.app{grid-template-columns:76px 1fr}.nav button .navtext{display:none}}
 @media(hover:none){.quick:hover{transform:none}}
+ 
+/* Mosca asistente flotante y arrastrable */
+.fly-launcher{position:fixed!important;right:24px;bottom:24px;left:auto;top:auto;width:68px;height:68px;padding:0!important;border:1px solid #d9caff!important;border-radius:50%!important;background:radial-gradient(circle at 35% 25%,#fff,#e9ddff 48%,#bda4ff)!important;color:#5135b5!important;display:grid!important;place-items:center!important;gap:0!important;box-shadow:0 9px 28px #5135b544,0 0 0 5px #a78bfa20!important;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;overflow:visible}
+.fly-launcher:active{cursor:grabbing}
+.fly-body{font-size:31px;line-height:1;filter:drop-shadow(0 3px 3px #3b285544);pointer-events:none;transform:rotate(-12deg);animation:fly-bob 1.8s ease-in-out infinite}
+.fly-wing{position:absolute;top:10px;left:17px;color:#fff;font-size:22px;transform:rotate(35deg);opacity:.9;pointer-events:none}
+.fly-wing-right{left:auto;right:14px;transform:scaleX(-1) rotate(35deg)}
+@keyframes fly-bob{0%,100%{transform:translateY(0) rotate(-12deg)}50%{transform:translateY(-4px) rotate(-5deg)}}
+.fly-launcher.dragging .fly-body{animation:none}
+@media(max-width:560px){.fly-launcher{width:60px;height:60px;right:14px;bottom:14px;padding:0!important}.fly-body{font-size:28px}}
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
@@ -472,7 +482,7 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
   <form class="assistant-form" id="assistantForm"><input id="assistantInput" autocomplete="off" placeholder="Escribe tu duda…" aria-label="Escribe tu duda"><button type="submit">Enviar</button></form>
   <div class="assistant-note">Respuestas predefinidas dentro de la web. No envía tus mensajes a ningún servicio externo.</div>
 </div>
-<button class="assistant-launcher" id="assistantLauncher" type="button" aria-expanded="false"><span>✦</span> Ayuda AULIVRA</button>
+<button class="assistant-launcher fly-launcher" id="assistantLauncher" type="button" aria-label="Mosca asistente AULIVRA: arrastra para mover y toca para abrir" aria-expanded="false"><span class="fly-wing">◜</span><span class="fly-body">🪰</span><span class="fly-wing fly-wing-right">◝</span></button>
 
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script>
@@ -611,6 +621,55 @@ if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle
  document.getElementById("assistantQuick").addEventListener("click",e=>{const b=e.target.closest("[data-help]");if(b)ask(b.dataset.help)});
 })();
 
+
+/* Movimiento de la mosca asistente: ratón, táctil y posición recordada */
+(()=>{
+ const fly=document.getElementById("assistantLauncher");
+ if(!fly)return;
+ const KEY="aulivra_assistant_fly_position";
+ let dragging=false,moved=false,startX=0,startY=0,originX=0,originY=0,suppressClick=false;
+ const margin=8;
+ function clampPosition(x,y){
+   const rect=fly.getBoundingClientRect();
+   return {x:Math.max(margin,Math.min(window.innerWidth-rect.width-margin,x)),y:Math.max(margin,Math.min(window.innerHeight-rect.height-margin,y))};
+ }
+ function place(x,y,save=true){
+   const p=clampPosition(x,y);
+   fly.style.left=p.x+"px";fly.style.top=p.y+"px";fly.style.right="auto";fly.style.bottom="auto";
+   if(save){try{localStorage.setItem(KEY,JSON.stringify(p))}catch{}}
+ }
+ try{
+   const saved=JSON.parse(localStorage.getItem(KEY)||"null");
+   if(saved&&Number.isFinite(saved.x)&&Number.isFinite(saved.y))place(saved.x,saved.y,false);
+ }catch{}
+ fly.addEventListener("pointerdown",e=>{
+   if(e.button!==undefined&&e.button!==0)return;
+   dragging=true;moved=false;startX=e.clientX;startY=e.clientY;
+   const r=fly.getBoundingClientRect();originX=r.left;originY=r.top;
+   fly.classList.add("dragging");
+   try{fly.setPointerCapture(e.pointerId)}catch{}
+ });
+ fly.addEventListener("pointermove",e=>{
+   if(!dragging)return;
+   const dx=e.clientX-startX,dy=e.clientY-startY;
+   if(Math.abs(dx)+Math.abs(dy)>5)moved=true;
+   if(moved){e.preventDefault();place(originX+dx,originY+dy)}
+ });
+ function finish(){
+   if(!dragging)return;
+   dragging=false;fly.classList.remove("dragging");
+   if(moved){suppressClick=true;setTimeout(()=>{suppressClick=false},350)}
+ }
+ fly.addEventListener("pointerup",finish);
+ fly.addEventListener("pointercancel",finish);
+ fly.addEventListener("click",e=>{
+   if(suppressClick){e.preventDefault();e.stopImmediatePropagation();suppressClick=false}
+ });
+ window.addEventListener("resize",()=>{
+   const r=fly.getBoundingClientRect();
+   if(r.width&&r.height)place(r.left,r.top);
+ });
+})(); 
 
 /* Aceptación de términos y confirmación de lectura de privacidad */
 (()=> {
