@@ -1317,9 +1317,17 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <script>
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
-let activeUser=null;const store = {
+let activeUser=null;const cloudWrites=new Map();let cloudHydrating=false;
+function queueCloudSave(key,value){
+ if(!activeUser||cloudHydrating)return Promise.resolve(false);
+ const userId=activeUser.id,body=JSON.stringify({value});
+ const prior=cloudWrites.get(key)||Promise.resolve();
+ const next=prior.catch(()=>{}).then(async()=>{const r=await fetch("/api/study-data/"+encodeURIComponent(key),{method:"PUT",headers:{"Content-Type":"application/json"},body,credentials:"same-origin"});if(!r.ok)throw Error("HTTP "+r.status);return true});
+ cloudWrites.set(key,next);next.catch(()=>toast("No se pudo guardar en el perfil. Comprueba la conexión."));return next;
+}
+const store = {
  get(k,d){try{return JSON.parse(localStorage.getItem("sh_"+(activeUser?.id||"guest")+"_"+k)) ?? d}catch{return d}},
- set(k,v){const key="sh_"+(activeUser?.id||"guest")+"_"+k;localStorage.setItem(key,JSON.stringify(v));if(activeUser)fetch("/api/study-data/"+encodeURIComponent(k),{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({value:v})}).catch(()=>toast("No se pudo sincronizar. Comprueba tu conexión."))}
+ set(k,v){const key="sh_"+(activeUser?.id||"guest")+"_"+k;localStorage.setItem(key,JSON.stringify(v));return activeUser?queueCloudSave(k,v):Promise.resolve(false)}
 };
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
 const titles={study:"Tu espacio de estudio.",economy:"Tu dinero, a tu manera.",subjects:"Tus asignaturas, a tu manera.",files:"Tus documentos, organizados.",home:"Tu día, bajo control.",convert:"Conversor de archivos.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez.",calendar:"Tu calendario, siempre a mano.",entrepreneurship:"Tu próximo proyecto empieza aquí."};
@@ -1427,22 +1435,25 @@ async function enterApp(user){
    const accountPrefix="sh_"+user.id+"_";
    const guestPrefix="sh_guest_";
    const localKeys=Object.keys(localStorage);
-   const candidateKeys=new Set(localKeys.filter(k=>k.startsWith(accountPrefix)).map(k=>k.slice(accountPrefix.length)));
+   const candidateKeys=new Set(Object.keys(remote));
+   localKeys.filter(k=>k.startsWith(accountPrefix)).forEach(k=>candidateKeys.add(k.slice(accountPrefix.length)));
    localKeys.filter(k=>k.startsWith(guestPrefix)).forEach(k=>candidateKeys.add(k.slice(guestPrefix.length)));
-   for(const key of candidateKeys){
-    if(Object.prototype.hasOwnProperty.call(remote,key)){
-     localStorage.setItem(accountPrefix+key,JSON.stringify(remote[key]));
-     continue;
+   cloudHydrating=true;
+   try{
+    for(const key of candidateKeys){
+     const accountRaw=localStorage.getItem(accountPrefix+key),guestRaw=localStorage.getItem(guestPrefix+key);
+     if(Object.prototype.hasOwnProperty.call(remote,key)){
+      const remoteValue=remote[key];
+      if(accountRaw===null&&guestRaw!==null){
+       try{const guestValue=JSON.parse(guestRaw);const save=await fetch("/api/study-data/"+encodeURIComponent(key),{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({value:guestValue})});if(save.ok){remote[key]=guestValue;localStorage.setItem(accountPrefix+key,JSON.stringify(guestValue));continue}}catch{}
+      }
+      localStorage.setItem(accountPrefix+key,JSON.stringify(remoteValue));
+      continue;
+     }
+     const raw=accountRaw??guestRaw;if(raw===null)continue;
+     try{const value=JSON.parse(raw);const save=await fetch("/api/study-data/"+encodeURIComponent(key),{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({value})});if(!save.ok)throw Error("sync");remote[key]=value;localStorage.setItem(accountPrefix+key,JSON.stringify(value))}catch{throw Error("No se pudo subir "+key)}
     }
-    let raw=localStorage.getItem(accountPrefix+key);
-    if(raw===null)raw=localStorage.getItem(guestPrefix+key);
-    if(raw===null)continue;
-    try{
-     const value=JSON.parse(raw);
-     const save=await fetch("/api/study-data/"+encodeURIComponent(key),{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({value})});
-     if(save.ok){remote[key]=value;localStorage.setItem(accountPrefix+key,JSON.stringify(value))}
-    }catch{}
-   }
+   }finally{cloudHydrating=false}
   }catch{toast("No se pudo sincronizar con la nube. Conservamos los datos de este dispositivo.")}
  }
  renderHome();renderGrades();renderSessions();if(user){renderSubjects();renderEvents();renderCalendar()}
@@ -2972,6 +2983,114 @@ main,.view,#home{min-width:0;max-width:100%}
  $("#journalForm")?.addEventListener("submit",()=>setTimeout(renderJournalCalendar,80));
  // Make sure sidebar icons are never clipped in either full or compact navigation mode.
  document.querySelectorAll(".sidebar .nav .ico svg").forEach(svg=>{svg.style.overflow="visible";svg.style.display="block"});
+})();
+</script>
+
+
+<style id="mancave-deepwork-profile-economy-v6">
+/* Economy: prevent long labels and amounts from escaping their cards. */
+#economy,#economy .grid,#economy .card{min-width:0;max-width:100%}
+#economy .economy-wheel-layout{display:grid;grid-template-columns:minmax(180px,1fr) minmax(0,1fr);gap:18px;align-items:center}
+#economy .economy-wheel-legend>div{display:grid;grid-template-columns:12px minmax(0,1fr) minmax(0,auto);gap:8px;align-items:center;min-width:0}
+#economy .economy-wheel-legend span,#economy .economy-wheel-legend b,#economy label,#economy .card p{min-width:0;overflow-wrap:anywhere;word-break:normal}
+#economy .economy-wheel-legend b{font-variant-numeric:tabular-nums;white-space:normal;text-align:right}
+#economy .economy-movement{min-width:0;flex-wrap:wrap}
+#economy .economy-movement-copy{min-width:0;overflow-wrap:anywhere}
+#economy .economy-movement-amount{white-space:normal;overflow-wrap:anywhere}
+#economy .savings-form{grid-template-columns:repeat(3,minmax(0,1fr)) auto;min-width:0}
+#economy .savings-form>*{min-width:0}
+#economy .savings-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+#economy .economy-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+#economy .economy-actions button{flex:1;min-width:150px}
+#economy .economy-wheel-layout+ .economy-actions{margin-top:20px}
+@media(max-width:720px){#economy .economy-wheel-layout{grid-template-columns:1fr}#economy .savings-form{grid-template-columns:1fr 1fr}#economy .savings-form>div:first-child,#economy .savings-form button{grid-column:1/-1}#economy .savings-list{grid-template-columns:1fr}}
+/* Deep Work questionnaire: its own step before the focus room opens. */
+#deepSetupOverlay{position:fixed;inset:0;z-index:1200;display:none;place-items:center;padding:20px;background:#050711bb;backdrop-filter:blur(12px)}
+#deepSetupOverlay.open{display:grid}
+.deep-setup-card{width:min(620px,100%);background:#121522;border:1px solid #38324d;border-radius:24px;padding:26px;box-shadow:0 28px 90px #0009;color:#f5f2ff}
+.deep-setup-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.deep-setup-kicker{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#bba6ff}
+.deep-setup-card h2{font:800 25px Manrope;margin:7px 0;color:#fff}
+.deep-setup-card p{color:#aaa4ba;font-size:12px;line-height:1.55;margin:0 0 18px}
+.deep-setup-tabs{display:flex;gap:7px;padding:5px;border-radius:12px;background:#1b1c2b;margin-bottom:18px}
+.deep-setup-tabs span{flex:1;text-align:center;padding:9px 5px;font-size:10px;color:#a9a2bb;border-radius:8px}
+.deep-setup-tabs span.active{background:#35294f;color:#eee5ff}
+.deep-setup-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.deep-setup-grid .field{margin:0;min-width:0}
+.deep-setup-grid .field.full{grid-column:1/-1}
+.deep-setup-grid label{color:#c8c1d6}
+.deep-setup-grid select{background:#0c0e18;color:#f6f2ff;border-color:#3b3650}
+.deep-setup-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px;flex-wrap:wrap}
+.deep-setup-actions button{min-width:120px}
+#deepSetupOverlay .deep-setup-card .btn.ghost{color:#e3d9ff;border-color:#51466a;background:#211c30}
+#deepSetupOverlay .deep-setup-card select:focus{border-color:#a88cff}
+.deepwork-top .deepwork-timer{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#deepRestButton{border:1px solid #625080;background:#28203d;color:#e6dcff;border-radius:10px;padding:9px 12px;font-weight:700;font-size:11px}
+#deepSessionSubject{font-size:10px;color:#c8b6ff;margin-left:10px}
+@media(max-width:560px){.deep-setup-card{padding:20px}.deep-setup-grid{grid-template-columns:1fr}.deep-setup-grid .field.full{grid-column:auto}.deep-setup-actions{flex-direction:column-reverse}.deep-setup-actions button{width:100%}}
+</style>
+<script id="mancave-deepwork-profile-economy-v6-script">
+(()=>{
+ const $=s=>document.querySelector(s),$=s=>[...document.querySelectorAll(s)];
+ // All account-scoped localStorage writes, including project sub-tools, are mirrored to the profile API.
+ const nativeSet=Storage.prototype.setItem;
+ if(!window.__mancaveProfileStorageHook){
+  Storage.prototype.setItem=function(key,value){
+   nativeSet.call(this,key,value);
+   if(this===localStorage&&activeUser&&!cloudHydrating&&String(key).startsWith("sh_"+activeUser.id+"_")){
+    const suffix=String(key).slice(("sh_"+activeUser.id+"_").length);
+    try{queueCloudSave(suffix,JSON.parse(String(value)))}catch{toast("No se pudo sincronizar un cambio del perfil.")}
+   }
+  };
+  window.__mancaveProfileStorageHook=true;
+ }
+ // Make the existing Deep Work launch flow begin with a separate, designed setup screen.
+ const subjects=()=>store.get("aulivra_subjects",[]);
+ const events=()=>store.get("aulivra_events",[]);
+ const setup=document.createElement("div");setup.id="deepSetupOverlay";setup.innerHTML='<section class="deep-setup-card" role="dialog" aria-modal="true" aria-labelledby="deepSetupTitle"><div class="deep-setup-top"><span class="deep-setup-kicker">MANCAVE · SESIÓN DE ENFOQUE</span><button type="button" class="deepwork-close" id="deepSetupClose" aria-label="Cerrar">×</button></div><h2 id="deepSetupTitle">Prepara tu Deep Work</h2><p>Define qué vas a estudiar, cuánto durará el bloque y qué descanso harás después. También puedes cargar un bloque que ya tengas en tu calendario.</p><div class="deep-setup-tabs"><span class="active">01 · PLAN</span><span>02 · CONCENTRACIÓN</span><span>03 · DESCANSO</span></div><form id="deepSetupForm"><div class="deep-setup-grid"><div class="field full"><label for="deepSetupCalendar">Bloque del calendario de estudio (opcional)</label><select id="deepSetupCalendar"><option value="">Crear un bloque nuevo</option></select></div><div class="field full"><label for="deepSetupSubject">Asignatura</label><select id="deepSetupSubject" required><option value="">Selecciona asignatura</option></select></div><div class="field"><label for="deepSetupWork">Duración del bloque</label><select id="deepSetupWork"><option value="25">25 minutos</option><option value="45" selected>45 minutos</option><option value="50">50 minutos</option><option value="60">60 minutos</option><option value="90">90 minutos</option><option value="custom">Personalizado…</option></select></div><div class="field"><label for="deepSetupRest">Descanso posterior</label><select id="deepSetupRest"><option value="5">5 minutos</option><option value="10" selected>10 minutos</option><option value="15">15 minutos</option><option value="20">20 minutos</option></select></div><div class="field full" id="deepSetupCustomWrap" hidden><label for="deepSetupCustom">Minutos de concentración (1–180)</label><input id="deepSetupCustom" type="number" min="1" max="180" value="45"></div></div><div class="deep-setup-actions"><button class="btn ghost" type="button" id="deepSetupCancel">Cancelar</button><button class="btn" type="submit">Comenzar Deep Work</button></div></form></section>';
+ document.body.append(setup);
+ const fillSetup=()=>{
+  const sub=$("#deepSetupSubject"),cal=$("#deepSetupCalendar");if(!sub||!cal)return;
+  const list=subjects();sub.innerHTML='<option value="">Selecciona asignatura</option>'+list.map(x=>'<option value="'+String(x.id).replace(/"/g,"&quot;")+'">'+String(x.name).replace(/[&<>"']/g,"")+'</option>').join("");
+  const all=events().filter(x=>x.date>=new Date().toLocaleDateString("en-CA")).sort((a,b)=>(a.date||"").localeCompare(b.date||""));
+  cal.innerHTML='<option value="">Crear un bloque nuevo</option>'+all.map(x=>'<option value="'+x.id+'">'+String(x.date||"")+" · "+String(x.title||"Bloque")+" · "+String(x.subjectName||"Estudio")+'</option>').join("");
+ };
+ const openSetup=()=>{fillSetup();setup.classList.add("open");document.body.style.overflow="hidden"};
+ const closeSetup=()=>{setup.classList.remove("open");document.body.style.overflow=""};
+ $("#startDeepWork")?.addEventListener("click",e=>{e.preventDefault();e.stopImmediatePropagation();openSetup()},true);
+ $("#deepSetupClose").onclick=$("#deepSetupCancel").onclick=closeSetup;
+ $("#deepSetupWork").addEventListener("change",()=>{$("#deepSetupCustomWrap").hidden=$("#deepSetupWork").value!=="custom"});
+ let activeSession=null,deepCountdown=null,restMode=false;
+ const deepOverlay=$("#deepWorkOverlay");
+ if(deepOverlay){
+  const top=deepOverlay.querySelector(".deepwork-timer");
+  if(top&&!$("#deepRestButton")){const b=document.createElement("button");b.id="deepRestButton";b.type="button";b.textContent="Empezar descanso";top.append(b);b.hidden=true}
+ }
+ $("#deepSetupForm").addEventListener("submit",e=>{
+  e.preventDefault();const subjectId=$("#deepSetupSubject").value,subject=subjects().find(x=>x.id===subjectId);
+  if(!subject)return toast("Añade una asignatura y selecciónala antes de empezar.");
+  const raw=$("#deepSetupWork").value,work=raw==="custom"?Number($("#deepSetupCustom").value):Number(raw),rest=Number($("#deepSetupRest").value);
+  if(!Number.isInteger(work)||work<1||work>180)return toast("El bloque debe durar entre 1 y 180 minutos.");
+  const selected=events().find(x=>x.id===$("#deepSetupCalendar").value);
+  activeSession={id:crypto.randomUUID(),subjectId,subject:subject.name,workMinutes:work,restMinutes:rest,calendarEventId:selected?.id||null,startedAt:new Date().toISOString(),completed:false};
+  restMode=false;closeSetup();
+  const start=$("#startDeepWork");start.dataset.mancaveLaunch="1";start.click();delete start.dataset.mancaveLaunch;
+  const subLabel=document.createElement("span");subLabel.id="deepSessionSubject";subLabel.textContent=subject.name+" · "+work+" min";$("#deepClock")?.insertAdjacentElement("afterend",subLabel);
+  $("#deepRestButton").hidden=true;$("#deepRestButton").textContent="Empezar descanso";
+  let seconds=work*60;const render=()=>{$("#deepClock").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0")};
+  clearInterval(deepCountdown);render();deepCountdown=setInterval(()=>{
+   seconds--;render();
+   if(seconds<=0){clearInterval(deepCountdown);deepCountdown=null;activeSession.completed=true;activeSession.finishedAt=new Date().toISOString();const history=store.get("deepwork_sessions",[]);history.unshift({...activeSession});store.set("deepwork_sessions",history.slice(0,100));$("#deepRestButton").hidden=false;toast("Bloque completado. Ya puedes iniciar tu descanso.");}
+  },1000);
+ });
+ $("#deepRestButton")?.addEventListener("click",()=>{
+  if(!activeSession)return;restMode=true;let seconds=activeSession.restMinutes*60;$("#deepRestButton").hidden=true;$("#deepRestButton").textContent="Descanso en curso";const render=()=>{$("#deepClock").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0")};render();clearInterval(deepCountdown);deepCountdown=setInterval(()=>{seconds--;render();if(seconds<=0){clearInterval(deepCountdown);deepCountdown=null;$("#deepClock").textContent="00:00";toast("Descanso terminado. Cuando quieras, inicia otro bloque.");activeSession=null;const label=$("#deepSessionSubject");label?.remove()}},1000);
+ });
+ $("#deepWorkClose")?.addEventListener("click",()=>{
+  if(activeSession&&!activeSession.completed){activeSession.finishedAt=new Date().toISOString();activeSession.actualSeconds=Math.max(0,Math.round((Date.now()-new Date(activeSession.startedAt).getTime())/1000));const history=store.get("deepwork_sessions",[]);history.unshift({...activeSession,completed:false});store.set("deepwork_sessions",history.slice(0,100))}
+  clearInterval(deepCountdown);deepCountdown=null;activeSession=null;$("#deepSessionSubject")?.remove();$("#deepRestButton").hidden=true;
+ });
+ setup.addEventListener("click",e=>{if(e.target===setup)closeSetup()});
 })();
 </script>
 
