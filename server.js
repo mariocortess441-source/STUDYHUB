@@ -86,7 +86,7 @@ app.post("/api/auth/register", async (req, res) => {
   const email = String(req.body.email || "").trim().toLowerCase();
   const password = String(req.body.password || "");
   if (name.length < 2) return res.status(400).json({ error: "Escribe un nombre de al menos 2 caracteres." });
-  if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return res.status(400).json({ error: "Introduce un correo válido." });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: "Introduce un correo válido." });
   if (password.length < 10) return res.status(400).json({ error: "La contraseña debe tener al menos 10 caracteres." });
   const users = readJson(USERS_FILE);
   if (users[email]) return res.status(409).json({ error: "Ya existe una cuenta con ese correo." });
@@ -124,8 +124,7 @@ app.post("/api/auth/logout", (req, res) => {
   }
   res.clearCookie("sh_session", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" }).json({ ok: true });
 });
-app.use("/api/convert", requireAuth);
-app.use("/api/shares", requireAuth);
+// El acceso es opcional: las funciones de conversión y compartir también están disponibles como invitado.
 
 app.get("/api/health", (_, res) => res.json({ ok: true, service: "STUDYHUB", version: "1.0.0" }));
 
