@@ -1,4 +1,4 @@
-const CACHE_NAME = "aulivra-shell-v14";
+const CACHE_NAME = "aulivra-shell-v15";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/aulivra-mark.svg"];
 
 self.addEventListener("install", event => {
