@@ -3080,7 +3080,7 @@ main,.view,#home{min-width:0;max-width:100%}
   let seconds=work*60;const render=()=>{$("#deepClock").textContent=String(Math.floor(seconds/60)).padStart(2,"0")+":"+String(seconds%60).padStart(2,"0")};
   clearInterval(deepCountdown);render();deepCountdown=setInterval(()=>{
    seconds--;render();
-   if(seconds<=0){clearInterval(deepCountdown);deepCountdown=null;activeSession.completed=true;activeSession.finishedAt=new Date().toISOString();const history=store.get("deepwork_sessions",[]);history.unshift({...activeSession});store.set("deepwork_sessions",history.slice(0,100));$("#deepRestButton").hidden=false;toast("Bloque completado. Ya puedes iniciar tu descanso.");}
+   if(seconds<=0){clearInterval(deepCountdown);deepCountdown=null;activeSession.completed=true;activeSession.finishedAt=new Date().toISOString();const history=store.get("deepwork_sessions",[]);history.unshift({...activeSession});store.set("deepwork_sessions",history.slice(0,100));const studyHistory=store.get("sessions",[]);studyHistory.unshift({date:new Date().toLocaleDateString("en-CA"),subject:activeSession.subject,minutes:activeSession.workMinutes,at:new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"}),source:"deepwork"});store.set("sessions",studyHistory.slice(0,100));$("#deepRestButton").hidden=false;toast("Bloque completado. Ya puedes iniciar tu descanso.");}
   },1000);
  });
  $("#deepRestButton")?.addEventListener("click",()=>{
@@ -3090,6 +3090,13 @@ main,.view,#home{min-width:0;max-width:100%}
   if(activeSession&&!activeSession.completed){activeSession.finishedAt=new Date().toISOString();activeSession.actualSeconds=Math.max(0,Math.round((Date.now()-new Date(activeSession.startedAt).getTime())/1000));const history=store.get("deepwork_sessions",[]);history.unshift({...activeSession,completed:false});store.set("deepwork_sessions",history.slice(0,100))}
   clearInterval(deepCountdown);deepCountdown=null;activeSession=null;$("#deepSessionSubject")?.remove();$("#deepRestButton").hidden=true;
  });
+ // Put the income/expense shortcuts below the economy overview, ledger and savings goals.
+ const quickActions=$("#mcEconomyWheelCard .economy-actions"),economy=$("#economy");
+ if(quickActions&&economy&&!$("#economyBottomActions")){
+  const wrap=document.createElement("section");wrap.id="economyBottomActions";wrap.className="card economy-bottom-actions";
+  wrap.innerHTML='<h3>Registrar movimiento</h3><p>Al final de la sección, para añadir ingresos o gastos sin que compitan con el resumen y tus objetivos.</p>';
+  wrap.append(quickActions);economy.append(wrap);
+ }
  setup.addEventListener("click",e=>{if(e.target===setup)closeSetup()});
 })();
 </script>
