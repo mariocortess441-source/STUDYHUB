@@ -2706,7 +2706,7 @@ $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámene
  home.insertBefore(title,home.querySelector(".home-personal-shortcut")||null);home.insertBefore(grid,home.querySelector(".home-personal-shortcut")||null);
  function update(){
   if(typeof store==="undefined")return;
-  const days=Array.from({length:7},(_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-6+i);return d.toLocaleDateString("en-CA")});
+  const now=new Date(),monday=new Date(now.getFullYear(),now.getMonth(),now.getDate()-((now.getDay()+6)%7));const days=Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);return d.toLocaleDateString("en-CA")});
   const sessions=store.get("sessions",[]),work=store.get("aulivra_business_hours",[]),eco=store.get("aulivra_economy",{movements:[]}),movements=eco.movements||[],projects=(store.get("aulivra_projects",{projects:[]}).projects||[]);
   const subjects=store.get("aulivra_subjects",[]),pending=subjects.flatMap(x=>x.tasks||[]).filter(x=>!x.done).length;
   const values={
@@ -2996,7 +2996,7 @@ main,.view,#home{min-width:0;max-width:100%}
 (()=>{
  const $=s=>document.querySelector(s),home=$("#home"),personal=$("#personal");
  if(!home||!personal)return;
- const days7=()=>Array.from({length:7},(_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-6+i);return d});
+ const days7=()=>{const now=new Date();now.setHours(0,0,0,0);now.setDate(now.getDate()-((now.getDay()+6)%7));return Array.from({length:7},(_,i)=>{const d=new Date(now);d.setDate(now.getDate()+i);return d})};
  const dayKey=d=>{const x=new Date(d);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
  const fmt=n=>Number(n||0).toLocaleString("es-ES",{maximumFractionDigits:0});
  // Add a clear, full-width activity flow chart above the four area cards.
