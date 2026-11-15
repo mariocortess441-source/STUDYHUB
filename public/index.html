@@ -74,6 +74,7 @@ label{color:#58657b;font-size:13px}
 @media(max-width:900px){.app{grid-template-columns:76px 1fr}.app.sidebar-hidden{grid-template-columns:0 1fr}.card{padding:20px}}
 @media(max-width:560px){.app{display:block}.app.sidebar-hidden .sidebar{display:none}.sidebar{height:auto}.home-actions{grid-template-columns:1fr}.home-actions .quick{min-height:100px}.auth-card{padding:27px}.top{align-items:flex-start}}
 </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="auth-screen" id="authScreen"><div class="auth-card"><div class="auth-brand"><div class="logo">S</div><div><strong style="font:800 18px Manrope;letter-spacing:1px">STUDYHUB</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión para entrar en tu espacio de estudio.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit">Entrar en STUDYHUB</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div><div class="app" id="appShell">
@@ -92,6 +93,8 @@ label{color:#58657b;font-size:13px}
 
   <section class="view active" id="home">
     <div class="intro"><h2>Bienvenido a STUDYHUB.</h2><p>Organiza tus documentos, controla tus notas y aprovecha cada bloque de estudio.</p></div>
+    <div class="ad-container" aria-label="Publicidad" style="margin:24px 0;padding:12px 0;min-width:0;overflow:hidden;text-align:center"><div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#8a95a8;margin-bottom:8px">Publicidad</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955364701775135" data-ad-slot="2073225375" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+
     <div class="grid">
       <div class="card span-4"><div class="stat"><div class="stat-icon">▦</div><div><strong id="homeSubjects">0</strong><small>Asignaturas guardadas</small></div></div></div>
       <div class="card span-4"><div class="stat"><div class="stat-icon">◷</div><div><strong id="homeSessions">0</strong><small>Minutos de estudio hoy</small></div></div></div>
@@ -263,5 +266,7 @@ $("#logoutBtn").onclick=async()=>{await fetch("/api/auth/logout",{method:"POST"}
 function toggleSidebar(){$("#appShell").classList.toggle("sidebar-hidden")}
 $("#sidebarToggle").onclick=toggleSidebar;$("#sidebarToggleTop").onclick=toggleSidebar;
 $("#appShell").style.display="none";checkAuth();
+const homeAd=document.querySelector(".ad-container .adsbygoogle");
+if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle||[]).push({});homeAd.dataset.initialized="true";}
 </script>
 </body></html>
