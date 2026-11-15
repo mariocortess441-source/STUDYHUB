@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#7655e8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="AULIVRA">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/studyhub-symbol.svg">
 <meta name="description" content="AULIVRA: organizador de estudios online para planificar sesiones, controlar notas, concentrarte y gestionar archivos desde cualquier lugar.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://studyhub-u192.onrender.com/">
@@ -309,6 +314,13 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 .community-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0 18px}.community-stats>div{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:13px 15px;border:1px solid #40345f;border-radius:14px;background:#211a31}.community-stats strong{font:800 23px Manrope;color:#f6f1ff}.community-stats small{width:100%;padding-left:15px;color:#b7aacd;font-size:11px}.community-pulse{width:8px;height:8px;border-radius:50%;background:#5cdb9b;box-shadow:0 0 0 4px #5cdb9b22}.brand-summary{padding:14px;border-radius:13px;background:#211a31;color:#d9caff;font-size:13px;line-height:1.6;white-space:pre-wrap}#brandTaskList{margin-top:12px}.brand-task{display:flex;align-items:center;gap:10px;padding:12px 3px;border-bottom:1px solid var(--line);font-size:13px}.brand-task span{flex:1}.brand-task.done span{text-decoration:line-through;color:var(--muted)}.brand-task button{border:0;background:transparent;color:#ff9bad;font-size:18px}.business-assistant-launcher{position:fixed;right:24px;bottom:86px;z-index:1001;width:52px;height:52px;border:1px solid #6a4ca7;border-radius:17px;background:linear-gradient(135deg,#3d2b5e,#8055e8);color:#fff;font-size:23px;font-weight:800;box-shadow:0 10px 30px #0006}.business-assistant-panel{bottom:148px;z-index:1002}.business-assistant-panel.open{display:flex}@media(max-width:560px){.community-stats{grid-template-columns:1fr 1fr}.community-stats>div{padding:11px}.business-assistant-launcher{right:78px;bottom:14px;width:46px;height:46px}.business-assistant-panel{right:14px;bottom:75px}}
 
 .community-privacy{margin-top:-8px;margin-bottom:12px;color:#a99aba!important}
+
+/* Instalación PWA */
+.install-app-button{position:fixed;left:18px;bottom:18px;z-index:29;border:1px solid #d8d0f4;border-radius:999px;padding:12px 16px;background:#fff;color:#5135b5;font:700 12px "DM Sans",sans-serif;box-shadow:0 8px 24px #21183120}
+.install-app-button[hidden]{display:none}
+.fly-body{font:800 25px Manrope,sans-serif!important;transform:none!important;animation:none!important;letter-spacing:-1px}
+@media(max-width:560px){.install-app-button{left:12px;bottom:12px;padding:11px 13px}}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955364701775135" crossorigin="anonymous"></script>
 </head>
@@ -481,18 +493,19 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
   <button type="button" id="legalChangeChoice">Cambiar decisión</button>
 </div>
 </div>
+<button type="button" id="installAppButton" class="install-app-button" hidden>↓ Instalar aplicación</button>
 <div class="toast" id="toast"></div>
 
-<div class="assistant-panel" id="studyAssistant" role="dialog" aria-label="Asistente de ayuda guiada">
-  <div class="assistant-head"><div><strong>Asistente AULIVRA</strong><small>Ayuda guiada · funciona sin API ni coste</small></div><button class="assistant-close" id="assistantClose" aria-label="Cerrar">×</button></div>
-  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">¡Hola! Soy la ayuda guiada de AULIVRA. Puedo explicarte cómo usar cada apartado. ¿Qué necesitas?</div></div>
+<div class="assistant-panel" id="studyAssistant" role="dialog" aria-label="Chat con JAKE SULLY">
+  <div class="assistant-head"><div><strong>JAKE SULLY</strong><small>Tu asistente personal · ayuda guiada</small></div><button class="assistant-close" id="assistantClose" aria-label="Cerrar">×</button></div>
+  <div class="assistant-messages" id="assistantMessages" aria-live="polite"><div class="assistant-msg bot">¡Hola! Soy JAKE SULLY, tu asistente personal. Puedo ayudarte a organizarte y a utilizar las herramientas de la aplicación. ¿Qué necesitas hoy?</div></div>
   <div class="assistant-quick" id="assistantQuick"><button type="button" data-help="¿Cómo uso el temporizador?">Temporizador</button><button type="button" data-help="¿Cómo guardo mis notas?">Mis notas</button><button type="button" data-help="¿Cómo convierto un archivo?">Archivos</button><button type="button" data-help="¿Cómo comparto un archivo?">Compartir</button></div>
   <form class="assistant-form" id="assistantForm"><input id="assistantInput" autocomplete="off" placeholder="Escribe tu duda…" aria-label="Escribe tu duda"><button type="submit">Enviar</button></form>
-  <div class="assistant-note">Respuestas predefinidas dentro de la web. No envía tus mensajes a ningún servicio externo.</div>
+  <div class="assistant-note">JAKE utiliza respuestas guiadas predefinidas por ahora; todavía no es una IA generativa. Tus mensajes no se envían a un servicio externo.</div>
 </div>
 <div class="assistant-panel business-assistant-panel" id="businessAssistantPanel" role="dialog" aria-label="Asistente de emprendimiento"><div class="assistant-head"><div><strong>Asistente de emprendimiento</strong><small>Ideas, marca y planificación</small></div><button class="assistant-close" id="businessAssistantClose" aria-label="Cerrar">×</button></div><div class="assistant-messages" id="businessAssistantMessages" aria-live="polite"><div class="assistant-msg bot">¡Hola! Soy tu asistente de emprendimiento. Puedo ayudarte a definir tu marca, organizar tareas, pensar en clientes y preparar un lanzamiento.</div></div><div class="assistant-quick" id="businessAssistantQuick"><button type="button" data-business-help="Ayúdame a definir mi marca">Definir mi marca</button><button type="button" data-business-help="Hazme un plan de lanzamiento">Plan de lanzamiento</button><button type="button" data-business-help="Cómo consigo mis primeros clientes">Primeros clientes</button></div><form class="assistant-form" id="businessAssistantForm"><input id="businessAssistantInput" autocomplete="off" placeholder="Pregunta sobre tu proyecto…" aria-label="Pregunta sobre tu proyecto"><button type="submit">Enviar</button></form><div class="assistant-note">Asistente guiado local. No ejecuta acciones externas ni sustituye asesoramiento profesional.</div></div>
 <button class="business-assistant-launcher" id="businessAssistantLauncher" type="button" aria-label="Abrir asistente de emprendimiento" aria-expanded="false">↗</button>
-<button class="assistant-launcher fly-launcher" id="assistantLauncher" type="button" aria-label="Mosca asistente AULIVRA: arrastra para mover y toca para abrir" aria-expanded="false"><span class="fly-wing">◜</span><span class="fly-body">🪰</span><span class="fly-wing fly-wing-right">◝</span></button>
+<button class="assistant-launcher fly-launcher" id="assistantLauncher" type="button" aria-label="Abrir el chat de JAKE SULLY" aria-expanded="false"><span class="fly-wing">◜</span><span class="fly-body">J</span><span class="fly-wing fly-wing-right">◝</span></button>
 
 <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 <script>
@@ -852,4 +865,41 @@ $("#brandTaskList")?.addEventListener("click",e=>{const id=e.target.dataset.bran
 (()=>{const panel=$("#businessAssistantPanel"),launcher=$("#businessAssistantLauncher"),messages=$("#businessAssistantMessages"),form=$("#businessAssistantForm"),input=$("#businessAssistantInput");if(!panel||!launcher||!messages||!form||!input)return;const add=(t,w)=>{const el=document.createElement("div");el.className="assistant-msg "+w;el.textContent=t;messages.appendChild(el);messages.scrollTop=messages.scrollHeight};function reply(q){const s=q.toLowerCase(),b=getBrandData();if(/marca|nombre|identidad/.test(s))return "Para definir tu marca, concreta cuatro cosas: a quién ayudas, qué problema resuelves, qué ofreces y qué te diferencia. "+(b.name?"Tu proyecto actual se llama "+b.name+". ":"")+"Guarda el nombre, sector y descripción en Emprendimiento.";if(/lanzamiento|lanzar|plan/.test(s))return "Plan inicial: 1) valida la idea hablando con posibles clientes; 2) define una oferta sencilla; 3) calcula costes y precio; 4) prepara una muestra o prototipo; 5) publica contenido y recoge interés; 6) revisa resultados antes de invertir más.";if(/cliente|ventas|vender|marketing/.test(s))return "Empieza identificando un perfil de cliente concreto. Habla con personas de ese perfil, pregunta qué necesitan y prueba una propuesta pequeña. Publica contenido útil, mide consultas y conversiones y evita gastar en anuncios hasta validar que existe interés.";if(/dinero|presupuesto|coste|precio/.test(s))return "Haz una hoja con costes fijos, coste por unidad, precio previsto y margen. No confundas facturación con beneficio: resta producción, envíos, comisiones, impuestos y devoluciones. Para decisiones fiscales o contratos, consulta a un adulto responsable y a un profesional.";if(/tarea|organizar|prioridad/.test(s))return "Divide el objetivo en acciones de menos de una hora, ordénalas por impacto y empieza por validar la necesidad del cliente. Añade cada paso a tu Plan de acción en Emprendimiento.";return "Puedo ayudarte con identidad de marca, validación de ideas, clientes, marketing, precios y planificación. Cuéntame qué producto o servicio quieres desarrollar y en qué punto estás."}function ask(q){const v=String(q||"").trim();if(!v)return;add(v,"user");add(reply(v),"bot");input.value="";input.focus()}function toggle(open){panel.classList.toggle("open",open);launcher.setAttribute("aria-expanded",String(open));if(open)$("#studyAssistant")?.classList.remove("open")}launcher.addEventListener("click",()=>toggle(!panel.classList.contains("open")));$("#businessAssistantClose")?.addEventListener("click",()=>toggle(false));form.addEventListener("submit",e=>{e.preventDefault();ask(input.value)});$("#businessAssistantQuick")?.addEventListener("click",e=>{const b=e.target.closest("[data-business-help]");if(b)ask(b.dataset.businessHelp)})})();
 renderEntrepreneurship();
 </script>
+
+<script>
+(() => {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
+  }
+  const button = document.getElementById("installAppButton");
+  if (!button) return;
+  let installPrompt = null;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  if (isStandalone) return;
+  if (isIOS) button.hidden = false;
+  window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    installPrompt = event;
+    button.hidden = false;
+  });
+  window.addEventListener("appinstalled", () => {
+    button.hidden = true;
+    installPrompt = null;
+  });
+  button.addEventListener("click", async () => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      button.hidden = true;
+    } else if (isIOS) {
+      alert('Para instalar JAKE/AULIVRA en tu iPhone: pulsa el botón Compartir de Safari y elige «Añadir a pantalla de inicio».');
+    } else {
+      alert('Abre el menú del navegador y busca «Instalar aplicación» o «Añadir a pantalla de inicio».');
+    }
+  });
+})();
+</script>
+
 </body></html>
