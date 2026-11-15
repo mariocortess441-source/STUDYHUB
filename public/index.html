@@ -908,9 +908,7 @@ $("#appShell").style.display="grid";enterApp(null);checkAuth();
  function ask(q){const value=String(q||"").trim();if(!value)return;add(value,"user");add(reply(value),"bot");input.value="";input.focus()}
  function toggle(open){
  panel.classList.toggle("open",open);launcher.setAttribute("aria-expanded",String(open));
- if(open){const d=new Date(),key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-"),blocks=(store.get("aulivra_events",[])||[]).filter(x=>x.date===key).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
- const first=messages.querySelector(".assistant-msg.bot");if(first)first.textContent="¿Qué vamos a hacer hoy?"+(blocks.length?" Estos son tus bloques programados:\n"+blocks.map(x=>(x.time?x.time+" · ":"")+x.title+(x.subjectName?" ("+x.subjectName+")":"")).join("\n"):" Aún no tiene bloques programados. Si lo desea, podemos organizar el primero.");
- input.focus()}
+ if(open){const first=messages.querySelector(".assistant-msg.bot");if(first)first.textContent="Buenos días, señor. Soy JARVIS, su asistente personal. Estoy a su disposición para revisar su agenda y preparar su planificación diaria.";input.focus()}
 }
  launcher.addEventListener("click",()=>toggle(!panel.classList.contains("open")));
  document.getElementById("assistantClose").addEventListener("click",()=>toggle(false));
@@ -1453,8 +1451,8 @@ window.aulivraJarvisDailyPlan=function(){
 /* Gráfica de 7 días y avisos al superar el objetivo que el usuario ha elegido. */
 (()=>{
  const $=id=>document.getElementById(id),storeKey="aulivra_screen_time";
- const data=()=>{try{return JSON.parse(localStorage.getItem("sh_"+(window.activeUser?.id||"guest")+"_"+storeKey)||"{}")}catch{return {}}};
- const saveData=v=>{const key="sh_"+(window.activeUser?.id||"guest")+"_"+storeKey;localStorage.setItem(key,JSON.stringify(v));if(window.activeUser)fetch("/api/study-data/"+encodeURIComponent(storeKey),{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify({value:v})}).catch(()=>{})};
+ const data=()=>store.get(storeKey,{});
+ const saveData=v=>store.set(storeKey,v);
  function draw(){
   const chart=$("homeScreenChart");if(!chart)return;const values=data(),now=new Date(),days=[];
   for(let i=6;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i),k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");days.push({key:k,label:d.toLocaleDateString("es-ES",{weekday:"short"}).replace(".",""),mins:Number(values[k])||0})}
