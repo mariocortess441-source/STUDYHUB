@@ -2682,7 +2682,7 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
 </style>
 <script id="mancave-shared-calendar-home-v3-script">
 (()=>{
- const $=s=>document.querySelector(s),$=s=>[...document.querySelectorAll(s)];
+ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
  // Remove the second study calendar and its duplicate weekly-planning chart. Study keeps subjects, tasks, exams and Deep Work.
  $("#study .study-planned-card")?.remove();$("#study .study-week-card")?.remove();
  $("#study .study-section-label").forEach(el=>{if(/PLANIFICACIÓN SEMANAL|CALENDARIO SEMANAL/i.test(el.textContent))el.remove()});
