@@ -138,6 +138,24 @@ app.post("/api/auth/logout", (req, res) => {
   }
   res.clearCookie("sh_session", { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/" }).json({ ok: true });
 });
+// Anonymous aggregate presence metrics. Browser IDs are random tokens; no names or emails are stored.
+const PRESENCE_FILE = path.join(DATA_DIR, "presence.json");
+app.post("/api/presence", (req, res) => {
+  const id = String(req.body.id || "");
+  if (!/^[a-zA-Z0-9-]{16,80}$/.test(id)) return res.status(400).json({ error: "Identificador no válido." });
+  const all = readJson(PRESENCE_FILE, {}), now = Date.now(), day = new Date(now).toISOString().slice(0,10);
+  const item = all[id] || { days: [] };
+  item.lastSeen = now; item.days = [...new Set([...(item.days || []).filter(d => d >= new Date(now-30*86400000).toISOString().slice(0,10)), day])].slice(-30);
+  all[id] = item;
+  for (const [key, value] of Object.entries(all)) if (!value.lastSeen || value.lastSeen < now-45*86400000) delete all[key];
+  writeJson(PRESENCE_FILE, all);
+  res.json({ ok: true });
+});
+app.get("/api/presence/stats", (req, res) => {
+  const values = Object.values(readJson(PRESENCE_FILE, {})), now = Date.now(), cutoff = now-5*60*1000;
+  res.set("Cache-Control", "no-store").json({ active: values.filter(x => x.lastSeen >= cutoff).length, regular: values.filter(x => (x.days || []).length >= 3).length });
+});
+
 // Per-account academic data. On-disk persistence requires a persistent volume in production.
 const STUDY_DATA_FILE = path.join(DATA_DIR, "study-data.json");
 app.get("/api/study-data", requireAuth, (req,res) => {
