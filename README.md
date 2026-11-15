@@ -1,6 +1,6 @@
-# STUDYHUB
+# AULIVRA
 
-STUDYHUB es un starter funcional de una plataforma académica con cinco módulos: conversión de documentos, calculadora de notas, enlaces temporales para compartir archivos, biblioteca de recursos y temporizador de estudio.
+AULIVRA es un starter funcional de una plataforma académica con cinco módulos: conversión de documentos, calculadora de notas, enlaces temporales para compartir archivos, biblioteca de recursos y temporizador de estudio.
 
 ## Requisitos
 
