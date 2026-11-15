@@ -215,6 +215,38 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 @media(max-width:560px){.legal-actions{flex-direction:column-reverse}.legal-actions button{width:100%}.legal-card{border-radius:18px}}
 
  
+/* AULIVRA calendar and dashboard preferences */
+.calendar-card{padding:22px}
+.calendar-toolbar{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:20px}
+.calendar-toolbar h3{min-width:180px;text-align:center;font:800 18px Manrope;margin:0}
+.calendar-weekdays,.calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.calendar-weekdays span{text-align:center;color:var(--muted);font-size:11px;font-weight:700;padding:8px 0}
+.calendar-day{min-height:92px;border:1px solid var(--line);border-radius:12px;background:#0e1420;color:var(--text);padding:8px;text-align:left;display:flex;flex-direction:column;gap:5px;min-width:0}
+.calendar-day:hover{border-color:var(--accent)}
+.calendar-day.muted-day{opacity:.38}
+.calendar-day.today{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.calendar-day.selected{background:#25203b;border-color:#9b8cff}
+.calendar-day-number{font-size:12px;font-weight:800}
+.calendar-dot{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;padding:3px 5px;border-radius:5px;background:#2b2546;color:#d8d0ff}
+.calendar-dot.task-dot{background:#17352e;color:#a9f1d1}
+.calendar-selected{min-height:70px}
+.calendar-selected h3{margin-bottom:10px}
+.home-widget-options label{display:flex;align-items:center;gap:7px;color:#c8cede;font-size:12px}
+.home-widget-options input{width:auto;accent-color:var(--accent)}
+.calendar-event-line{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}
+.calendar-event-line:last-child{border-bottom:0}
+@media(max-width:700px){
+ .calendar-card{padding:12px!important}
+ .calendar-toolbar{gap:6px;margin-bottom:12px}
+ .calendar-toolbar h3{min-width:0;flex:1;font-size:15px}
+ .calendar-toolbar .btn{padding:8px 10px;min-height:38px}
+ .calendar-weekdays,.calendar-days{gap:3px}
+ .calendar-weekdays span{font-size:10px;padding:5px 0}
+ .calendar-day{min-height:65px;padding:4px;border-radius:8px;gap:3px}
+ .calendar-day-number{font-size:10px}
+ .calendar-dot{font-size:8px;padding:2px 3px}
+ .home-widget-options{display:grid!important;grid-template-columns:1fr 1fr;gap:12px!important}
+}
 /* AULIVRA mobile-first workspace */
 @media(max-width:700px){
  .app{display:block!important;min-height:100dvh}
@@ -275,6 +307,7 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
     <button data-view="timer"><span class="ico">◷</span><span class="navtext">Estudio</span></button>
     <button data-view="grades"><span class="ico">▦</span><span class="navtext">Mis notas</span></button>
     <button data-view="subjects"><span class="ico">▣</span><span class="navtext">Asignaturas</span></button>
+    <button data-view="calendar"><span class="ico">▦</span><span class="navtext">Calendario</span></button>
     <button data-view="files"><span class="ico">▤</span><span class="navtext">Archivos</span></button>
   </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
@@ -283,26 +316,41 @@ h1,h2,h3,.brand strong,.quick b,.subject-top b,.auth-card h1{font-weight:800!imp
 
   <section class="view active" id="home">
     <div class="intro"><h2>Bienvenido a AULIVRA.</h2><p>Organiza tus documentos, controla tus notas y aprovecha cada bloque de estudio.</p></div>
-    <section class="welcome-banner" aria-label="Bienvenida a AULIVRA"><div class="welcome-copy"><div class="welcome-kicker">TU ESPACIO PARA AVANZAR</div><h2>Cada sesión cuenta.</h2><p>Organiza tus tareas, mejora tus resultados y convierte tus objetivos en pequeños avances diarios.</p><div class="welcome-points"><span>✦ Enfócate</span><span>✓ Organízate</span><span>↗ Progresa</span></div></div><img class="welcome-art" src="/studyhub-hero.svg" alt="Ilustración de cuaderno, lista de tareas y lápiz"></section>
+    <section class="welcome-banner" data-home-widget="welcome" aria-label="Bienvenida a AULIVRA"><div class="welcome-copy"><div class="welcome-kicker">TU ESPACIO PARA AVANZAR</div><h2>Cada sesión cuenta.</h2><p>Organiza tus tareas, mejora tus resultados y convierte tus objetivos en pequeños avances diarios.</p><div class="welcome-points"><span>✦ Enfócate</span><span>✓ Organízate</span><span>↗ Progresa</span></div></div><img class="welcome-art" src="/studyhub-hero.svg" alt="Ilustración de cuaderno, lista de tareas y lápiz"></section>
 
     <div class="ad-container" aria-label="Publicidad" style="margin:24px 0;padding:12px 0;min-width:0;width:100%;text-align:center"><div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#8a95a8;margin-bottom:8px">Publicidad</div><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="ca-pub-1955364701775135" data-ad-slot="2073225375" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 
     <div class="grid">
-      <div class="card span-4"><div class="stat"><div class="stat-icon">▦</div><div><strong id="homeSubjects">0</strong><small>Asignaturas guardadas</small></div></div></div>
-      <div class="card span-4"><div class="stat"><div class="stat-icon">◷</div><div><strong id="homeSessions">0</strong><small>Minutos de estudio hoy</small></div></div></div>
-      <div class="card span-4"><div class="stat"><div class="stat-icon">★</div><div><strong id="homeAverage">—</strong><small>Media de notas guardadas</small></div></div></div>
-      <div class="card span-12"><h3 style="font-size:21px;margin-bottom:8px">Tu menú principal</h3><p style="margin-bottom:20px">Cuatro espacios para tener todo lo importante a mano.</p><div class="home-actions">
+      <div class="card span-4" data-home-widget="stats"><div class="stat"><div class="stat-icon">▦</div><div><strong id="homeSubjects">0</strong><small>Asignaturas guardadas</small></div></div></div>
+      <div class="card span-4" data-home-widget="stats"><div class="stat"><div class="stat-icon">◷</div><div><strong id="homeSessions">0</strong><small>Minutos de estudio hoy</small></div></div></div>
+      <div class="card span-4" data-home-widget="stats"><div class="stat"><div class="stat-icon">★</div><div><strong id="homeAverage">—</strong><small>Media de notas guardadas</small></div></div></div>
+      <div class="card span-12" data-home-widget="shortcuts"><h3 style="font-size:21px;margin-bottom:8px">Tu menú principal</h3><p style="margin-bottom:20px">Cuatro espacios para tener todo lo importante a mano.</p><div class="home-actions">
         <button class="quick" data-go="timer"><img class="quick-illustration" src="/studyhub-study.svg" alt=""><span><b>Estudio y concentración</b><small>Temporizador, Pomodoro y sesiones</small></span></button>
         <button class="quick" data-go="grades"><img class="quick-illustration" src="/studyhub-grades.svg" alt=""><span><b>Notas y calificaciones</b><small>Calcula medias y controla resultados</small></span></button>
         <button class="quick" data-go="files"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Archivos y documentos</b><small>Convertir, compartir y organizar</small></span></button>
         <button class="quick" data-go="library"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Biblioteca académica</b><small>Recursos para tus asignaturas</small></span></button>
       </div></div>
       <div class="card span-5"><h3>Tu próximo bloque</h3><p>Configura un temporizador y registra tus minutos de concentración.</p><div class="divider"></div><div style="display:flex;align-items:center;justify-content:space-between"><div><div style="font:800 26px Manrope">25:00</div><small class="muted">Pomodoro clásico</small></div><button class="btn" data-go="timer">Abrir timer →</button></div></div>
-      <div class="card span-12"><h3>Tu espacio, tus reglas.</h3><p>Los datos de notas y sesiones se guardan localmente en este navegador. Para sincronizarlos entre dispositivos necesitarás habilitar cuentas y una base de datos.</p></div>
+      <div class="card span-6" data-home-widget="upcoming"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><h3>Próximas fechas</h3><p>Exámenes y entregas que tienes a la vista.</p></div><button class="btn ghost" data-go="calendar">Ver calendario</button></div><div id="homeUpcoming" style="margin-top:12px"></div></div>
+      <div class="card span-6" data-home-widget="tasks"><div><h3>Tareas pendientes</h3><p>Lo siguiente que tienes que completar.</p></div><div id="homeTasks" style="margin-top:12px"></div></div>
+      <div class="card span-12" data-home-widget="settings"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div><h3>Personaliza tu inicio</h3><p>Elige qué apartados quieres ver en tu panel principal.</p></div><span class="tiny">Se guarda en tu cuenta</span></div><div class="home-widget-options" style="display:flex;gap:14px;flex-wrap:wrap;margin-top:15px">
+      <label><input type="checkbox" data-widget-toggle="welcome" checked> Bienvenida</label><label><input type="checkbox" data-widget-toggle="stats" checked> Estadísticas</label><label><input type="checkbox" data-widget-toggle="shortcuts" checked> Accesos directos</label><label><input type="checkbox" data-widget-toggle="upcoming" checked> Próximas fechas</label><label><input type="checkbox" data-widget-toggle="tasks" checked> Tareas pendientes</label></div></div>
+
     </div>
   </section>
 
-<section class="view" id="files"><div class="intro"><h2>Archivos y documentos</h2><p>Tus herramientas para trabajar con documentos desde un solo lugar.</p></div><div class="home-actions">
+<section class="view" id="calendar">
+    <div class="intro"><h2>Tu calendario académico</h2><p>Consulta tus exámenes, entregas y tareas con fecha en una vista mensual.</p></div>
+    <div class="card calendar-card">
+      <div class="calendar-toolbar"><button class="btn secondary" id="calendarPrev" aria-label="Mes anterior">←</button><h3 id="calendarMonth">Mes</h3><button class="btn secondary" id="calendarNext" aria-label="Mes siguiente">→</button><button class="btn ghost" id="calendarToday">Hoy</button></div>
+      <div class="calendar-weekdays"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div>
+      <div class="calendar-days" id="calendarDays"></div>
+      <div class="divider"></div><div class="calendar-selected"><h3 id="calendarSelectedTitle">Selecciona un día</h3><div id="calendarSelectedItems" class="empty">Aquí aparecerán tus exámenes, entregas y tareas.</div></div>
+    </div>
+    <div class="card" style="margin-top:14px"><h3>Añadir una fecha</h3><p>Las fechas que añadas aquí también aparecerán en Asignaturas.</p><div class="row" style="margin-top:12px"><div><label for="calendarEventTitle">Nombre</label><input id="calendarEventTitle" placeholder="Ej. Examen de Matemáticas"></div><div><label for="calendarEventSubject">Asignatura</label><select id="calendarEventSubject"><option value="">Selecciona asignatura</option></select></div><div><label for="calendarEventDate">Fecha</label><input id="calendarEventDate" type="date"></div><button class="btn" id="calendarAddEvent">Guardar fecha</button></div></div>
+  </section>
+
+  <section class="view" id="files"><div class="intro"><h2>Archivos y documentos</h2><p>Tus herramientas para trabajar con documentos desde un solo lugar.</p></div><div class="home-actions">
 <button class="quick" data-go="convert"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Conversor de archivos</b><small>PDF, Word, Excel y más formatos</small></span></button>
 <button class="quick" data-go="share"><img class="quick-illustration" src="/studyhub-files.svg" alt=""><span><b>Compartir archivos</b><small>Crear enlaces de descarga temporales</small></span></button>
 <button class="quick" data-go="library"><span class="stat-icon">▤</span><span><b>Biblioteca académica</b><small>Recursos y apuntes por asignatura</small></span></button>
@@ -588,6 +636,70 @@ if(homeAd && !homeAd.dataset.initialized){(window.adsbygoogle=window.adsbygoogle
 })();
 
 
+/* AULIVRA calendar and personal dashboard */
+let calendarCursor=new Date(),calendarSelected=new Date();
+const dateKey=d=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
+const dateFromKey=k=>{const [y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d)};
+function allCalendarItems(){
+ const events=store.get("aulivra_events",[]).map(e=>({...e,kind:"event"}));
+ const tasks=subjectsData().flatMap(s=>(s.tasks||[]).filter(t=>t.due&&!t.done).map(t=>({...t,kind:"task",subjectName:s.name,title:t.text})));
+ return [...events,...tasks];
+}
+function renderCalendar(){
+ const grid=$("#calendarDays");if(!grid)return;
+ const year=calendarCursor.getFullYear(),month=calendarCursor.getMonth();
+ $("#calendarMonth").textContent=new Intl.DateTimeFormat("es-ES",{month:"long",year:"numeric"}).format(calendarCursor);
+ const first=new Date(year,month,1),start=(first.getDay()+6)%7;
+ const startDate=new Date(year,month,1-start),items=allCalendarItems();
+ let html="";
+ for(let i=0;i<42;i++){
+  const day=new Date(startDate);day.setDate(startDate.getDate()+i);
+  if(i>=35&&day.getMonth()!==month)break;
+  const key=dateKey(day),dayItems=items.filter(x=>(x.date||x.due)===key);
+  const classes=["calendar-day",day.getMonth()!==month?"muted-day":"",key===dateKey(new Date())?"today":"",key===dateKey(calendarSelected)?"selected":""].filter(Boolean).join(" ");
+  html+='<button class="'+classes+'" data-calendar-day="'+key+'"><span class="calendar-day-number">'+day.getDate()+'</span>'+dayItems.slice(0,2).map(x=>'<span class="calendar-dot '+(x.kind==="task"?"task-dot":"")+'">'+esc(x.title)+'</span>').join("")+(dayItems.length>2?'<span class="tiny">+'+(dayItems.length-2)+' más</span>':"")+'</button>';
+ }
+ grid.innerHTML=html;
+ grid.querySelectorAll("[data-calendar-day]").forEach(b=>b.onclick=()=>{calendarSelected=dateFromKey(b.dataset.calendarDay);renderCalendar()});
+ const key=dateKey(calendarSelected),selected=items.filter(x=>(x.date||x.due)===key);
+ $("#calendarSelectedTitle").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"long",day:"numeric",month:"long"}).format(calendarSelected);
+ $("#calendarSelectedItems").innerHTML=selected.length?selected.map(x=>'<div class="calendar-event-line"><span class="stat-icon" style="width:30px;height:30px;font-size:13px">'+(x.kind==="task"?"✓":"▦")+'</span><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+(x.kind==="task"?" · Pendiente":" · Examen o entrega")+'</small></span></div>').join(""):'<div class="empty">No hay nada programado para este día.</div>';
+}
+$("#calendarPrev").onclick=()=>{calendarCursor.setMonth(calendarCursor.getMonth()-1);renderCalendar()};
+$("#calendarNext").onclick=()=>{calendarCursor.setMonth(calendarCursor.getMonth()+1);renderCalendar()};
+$("#calendarToday").onclick=()=>{calendarCursor=new Date();calendarSelected=new Date();renderCalendar()};
+function refreshCalendarSubjects(){
+ const sel=$("#calendarEventSubject");if(sel)sel.innerHTML='<option value="">Selecciona asignatura</option>'+subjectsData().map(s=>'<option value="'+esc(s.id)+'">'+esc(s.name)+'</option>').join("");
+}
+$("#calendarAddEvent").onclick=()=>{
+ const title=$("#calendarEventTitle").value.trim(),subjectId=$("#calendarEventSubject").value,date=$("#calendarEventDate").value,sub=subjectsData().find(s=>s.id===subjectId);
+ if(!title||!sub||!date)return toast("Completa el nombre, asignatura y fecha.");
+ const events=store.get("aulivra_events",[]);events.push({id:crypto.randomUUID(),title,subjectId,subjectName:sub.name,date});store.set("aulivra_events",events);
+ $("#calendarEventTitle").value="";calendarSelected=dateFromKey(date);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar();renderEvents();renderHome();toast("Fecha guardada en tu calendario.");
+};
+function applyHomeWidgets(){
+ const defaults={welcome:true,stats:true,shortcuts:true,upcoming:true,tasks:true};
+ const prefs={...defaults,...store.get("aulivra_home_widgets",{})};
+ document.querySelectorAll("[data-home-widget]").forEach(el=>{const k=el.dataset.homeWidget;if(k!=="settings")el.style.display=prefs[k]===false?"none":""});
+ document.querySelectorAll("[data-widget-toggle]").forEach(input=>{input.checked=prefs[input.dataset.widgetToggle]!==false;input.onchange=()=>{prefs[input.dataset.widgetToggle]=input.checked;store.set("aulivra_home_widgets",prefs);applyHomeWidgets()}});
+}
+function renderHomeExtras(){
+ const items=allCalendarItems().sort((a,b)=>(a.date||a.due).localeCompare(b.date||b.due));
+ const upcoming=items.filter(x=>(x.date||x.due)>=dateKey(new Date())).slice(0,5);
+ $("#homeUpcoming").innerHTML=upcoming.length?upcoming.map(x=>'<div class="calendar-event-line"><span style="flex:1"><b>'+esc(x.title)+'</b><small class="muted" style="display:block">'+esc(x.subjectName||"Tarea")+'</small></span><small>'+esc(x.date||x.due)+'</small></div>').join(""):'<div class="empty">No tienes fechas próximas.</div>';
+ const pending=subjectsData().flatMap(s=>(s.tasks||[]).filter(t=>!t.done).map(t=>({...t,subjectName:s.name}))).slice(0,5);
+ $("#homeTasks").innerHTML=pending.length?pending.map(t=>'<div class="calendar-event-line"><span style="flex:1"><b>'+esc(t.text)+'</b><small class="muted" style="display:block">'+esc(t.subjectName)+'</small></span><small>'+(t.due?esc(t.due):"Sin fecha")+'</small></div>').join(""):'<div class="empty">No tienes tareas pendientes.</div>';
+ applyHomeWidgets();
+}
+const previousHomeRenderer=renderHome;
+renderHome=function(){previousHomeRenderer();$("#homeSubjects").textContent=subjectsData().length;renderHomeExtras()};
+const previousSubjectsRenderer=renderSubjects;
+renderSubjects=function(){previousSubjectsRenderer();refreshCalendarSubjects();renderCalendar();renderHomeExtras()};
+const previousEventsRenderer=renderEvents;
+renderEvents=function(){previousEventsRenderer();renderCalendar();renderHomeExtras()};
+const previousGo=go;
+go=function(id){previousGo(id);if(id==="calendar"){refreshCalendarSubjects();renderCalendar()}if(id==="home")renderHomeExtras()};
+renderCalendar();renderHomeExtras();
 /* AULIVRA academic workspace + account sync */
 const academicColors=["#4569e8","#159568","#a16be8","#df8a35","#d84d61"];
 let selectedSubjectId=null;
