@@ -466,6 +466,32 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
 .home-mobile-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px}.home-mobile-actions>span{font-size:11px;color:#159c79}.home-mobile-note{font-size:10px;line-height:1.5;color:#8996a6;margin:12px 0 0}.home-swipe-note{text-align:right;font-size:11px;color:#8391a2;margin-top:12px}.home-swipe-note span{color:#1769df;font-size:16px}
 .study-hub-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.study-hub-card{min-height:205px;padding:23px;border-radius:22px;gap:10px}.study-hub-card>b{font-size:20px}.study-hub-card small{font-size:13px}.study-hub-card em{font-size:13px}
 @media(max-width:620px){.home-period-panel{padding:16px}.home-period-summary{gap:7px}.home-period-summary>div{padding:11px}.home-period-summary strong{font-size:20px}.home-calendar-day{min-height:39px}.home-calendar-grid{gap:3px}.home-mobile-usage{padding:14px}.home-mobile-inputs input{width:110px}.study-hub-grid{grid-template-columns:1fr}.study-hub-card{min-height:175px}}
+
+/* Agenda personal flotante y mejoras de escritorio */
+.personal-agenda-launch{position:fixed;right:24px;bottom:24px;z-index:998;width:48px;height:48px;border:1px solid #cbdcf1;border-radius:16px;background:#1769df;color:#fff;box-shadow:0 9px 26px #1769df38;font-size:21px;display:grid;place-items:center}
+.personal-agenda-launch:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.personal-agenda-modal{position:fixed;inset:0;z-index:1100;background:#10223866;backdrop-filter:blur(5px);display:none;place-items:center;padding:18px}
+.personal-agenda-modal.open{display:grid}
+.personal-agenda-card{width:min(760px,100%);max-height:min(88vh,900px);overflow:auto;background:#fff;color:#1d3045;border:1px solid #dce6ef;border-radius:22px;padding:24px;box-shadow:0 25px 90px #12263d40}
+.personal-agenda-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.personal-agenda-head h2{font:800 22px Manrope;margin:0;color:#17334d}
+.personal-agenda-close{border:0;background:#edf3f8;border-radius:10px;width:38px;height:38px;font-size:22px;color:#42566d}
+.personal-agenda-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.personal-agenda-form .wide{grid-column:1/-1}
+.personal-agenda-form textarea{width:100%;min-height:76px;resize:vertical;border:1px solid #dce5ed;border-radius:10px;padding:12px;font:inherit}
+.personal-agenda-form input,.personal-agenda-form select{background:#fbfdff;color:#15263b;border-color:#dce5ed}
+.personal-agenda-check{display:flex;align-items:center;gap:8px;color:#53677c;font-size:12px}
+.personal-agenda-check input{width:auto}
+.personal-agenda-actions{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
+.personal-agenda-list{display:grid;gap:8px;margin-top:18px}
+.personal-agenda-item{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid #e5ebf1;border-radius:12px;background:#f9fbfd}
+.personal-agenda-item>span:first-child{width:10px;height:34px;border-radius:9px;background:var(--event-color,#1769df);flex:none}
+.personal-agenda-item div{flex:1;min-width:0}.personal-agenda-item b{display:block;font-size:13px}.personal-agenda-item small{display:block;color:#77879a;font-size:11px;margin-top:3px}
+.personal-agenda-item button{border:0;background:transparent;color:#50657a;padding:6px;font-size:16px}
+@media(min-width:1100px){main{max-width:1720px;padding:42px clamp(38px,5vw,88px) 80px}.app{grid-template-columns:286px minmax(0,1fr)}.sidebar{padding:24px 20px}.nav button{padding:15px 14px}.grid{gap:20px}.card{padding:28px}.home-period-panel{padding:28px}.top{margin-bottom:46px}}
+@media(min-width:701px) and (max-width:1050px){main{padding:28px 28px 60px}.app{grid-template-columns:220px minmax(0,1fr)}.sidebar{padding:18px 12px}.nav button{font-size:12px;padding:12px 9px}}
+@media(max-width:700px){.personal-agenda-launch{right:14px;bottom:84px;width:44px;height:44px;border-radius:14px}.personal-agenda-card{padding:17px;border-radius:18px}.personal-agenda-form{grid-template-columns:1fr}.personal-agenda-form .wide{grid-column:auto}}
+
 </style>
 
 </head>
@@ -483,13 +509,38 @@ input,select,textarea{background:#fbfdff;color:#15263b;border-color:#dce5ed}
     <button id="legalReview" class="legal-review" type="button" hidden>Volver a revisar</button>
   </section>
 </div>
-<div class="auth-screen" id="authScreen" style="display:none"><div class="auth-card"><button class="btn ghost" id="closeAuth" type="button" style="float:right">Continuar como invitado</button><div class="auth-brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div><strong style="font:800 18px Manrope;letter-spacing:1px">AULIVRA</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión o crea una cuenta si quieres usar tu espacio personal. También puedes continuar como invitado.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit">Entrar en AULIVRA</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div><div class="app" id="appShell">
+<div class="auth-screen" id="authScreen" style="display:none"><div class="auth-card"><button class="btn ghost" id="closeAuth" type="button" style="float:right">Continuar como invitado</button><div class="auth-brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div><strong style="font:800 18px Manrope;letter-spacing:1px">AULIVRA</strong><div class="tiny">TU ESPACIO ACADÉMICO</div></div></div><h1 id="authTitle">Bienvenido de nuevo</h1><p id="authDescription">Inicia sesión o crea una cuenta si quieres usar tu espacio personal. También puedes continuar como invitado.</p><div class="auth-tabs"><button class="active" id="loginTab" type="button">Iniciar sesión</button><button id="registerTab" type="button">Crear cuenta</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label for="authName">Nombre</label><input id="authName" autocomplete="name" placeholder="Tu nombre"></div><div class="field"><label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@correo.com"></div><div class="field"><label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="current-password" required placeholder="Mínimo 10 caracteres"></div><div class="auth-error" id="authError"></div><button class="btn auth-submit" id="authSubmit">Entrar en AULIVRA</button></form><div class="auth-foot">Tus datos de cuenta se protegen con contraseña cifrada mediante hash.</div></div></div>
+<button type="button" class="personal-agenda-launch" id="personalAgendaLaunch" aria-label="Abrir agenda personal" title="Agenda personal">▦</button>
+<div class="personal-agenda-modal" id="personalAgendaModal" aria-hidden="true">
+ <section class="personal-agenda-card" role="dialog" aria-modal="true" aria-labelledby="personalAgendaTitle">
+  <div class="personal-agenda-head"><div><span class="home-section-kicker" style="color:#1769df">AGENDA PERSONAL</span><h2 id="personalAgendaTitle">Cumpleaños y eventos</h2></div><button type="button" class="personal-agenda-close" id="personalAgendaClose" aria-label="Cerrar">×</button></div>
+  <form id="personalAgendaForm" class="personal-agenda-form">
+   <input type="hidden" id="personalAgendaId">
+   <div class="wide"><label for="personalAgendaName">Nombre del evento</label><input id="personalAgendaName" required maxlength="100" placeholder="Ej. Cumpleaños de Ana"></div>
+   <div><label for="personalAgendaType">Tipo</label><select id="personalAgendaType"><option value="event">Evento personal</option><option value="birthday">Cumpleaños</option><option value="appointment">Cita</option><option value="reminder">Recordatorio</option><option value="holiday">Festividad</option></select></div>
+   <div><label for="personalAgendaDate">Fecha</label><input id="personalAgendaDate" type="date" required></div>
+   <div><label for="personalAgendaStart">Hora de inicio</label><input id="personalAgendaStart" type="time"></div>
+   <div><label for="personalAgendaEnd">Hora de fin</label><input id="personalAgendaEnd" type="time"></div>
+   <div><label for="personalAgendaRepeat">Repetición</label><select id="personalAgendaRepeat"><option value="none">No se repite</option><option value="daily">Cada día</option><option value="weekly">Cada semana</option><option value="monthly">Cada mes</option><option value="yearly">Cada año</option></select></div>
+   <div><label for="personalAgendaReminder">Aviso</label><select id="personalAgendaReminder"><option value="0">A la hora del evento</option><option value="5">5 minutos antes</option><option value="15" selected>15 minutos antes</option><option value="30">30 minutos antes</option><option value="60">1 hora antes</option><option value="1440">1 día antes</option></select></div>
+   <div><label for="personalAgendaColor">Color</label><select id="personalAgendaColor"><option value="#1769df">Azul</option><option value="#159b80">Verde</option><option value="#8a63d2">Violeta</option><option value="#dc8a32">Naranja</option><option value="#d85d72">Rosa</option></select></div>
+   <div class="wide"><label for="personalAgendaPlace">Lugar (opcional)</label><input id="personalAgendaPlace" maxlength="140" placeholder="Dirección o lugar"></div>
+   <div class="wide"><label for="personalAgendaNotes">Notas</label><textarea id="personalAgendaNotes" maxlength="1000" placeholder="Detalles, personas, cosas que llevar..."></textarea></div>
+   <label class="personal-agenda-check wide"><input id="personalAgendaAllDay" type="checkbox"> Todo el día</label>
+   <div class="personal-agenda-actions wide"><button type="button" class="btn ghost" id="personalAgendaExport">Exportar .ics</button><button type="button" class="btn secondary" id="personalAgendaCancelEdit" hidden>Cancelar edición</button><button type="submit" class="btn" id="personalAgendaSave">Guardar evento</button></div>
+  </form>
+  <div class="divider"></div><div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><b>Próximos eventos</b><input id="personalAgendaSearch" style="max-width:220px" placeholder="Buscar evento…"></div>
+  <div class="personal-agenda-list" id="personalAgendaList"><div class="empty">Todavía no hay eventos personales.</div></div>
+  <p class="tiny" style="margin-top:12px">Los avisos de esta agenda funcionan cuando AULIVRA está abierta y el navegador permite notificaciones. No se sincroniza automáticamente con Google Calendar.</p>
+ </section>
+</div>
+<div class="app" id="appShell">
 <aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú">☰</button>
   <div class="brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div class="brandtext"><strong>AULIVRA</strong><small>YOUR ACADEMIC SPACE</small></div></div>
   <div class="nav-label">TU ESPACIO</div><nav class="nav" id="nav">
     <button class="active" data-view="home"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span><span class="navtext">Inicio</span></button>
     <button data-view="study"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
-    <button data-view="entrepreneurship"><span class="ico"><svg viewBox="0 0 24 24"><path d="M5 19c2-5 5-8 10-10M13 4c3-1 6-1 7-1 0 1 0 4-1 7-2 5-7 8-12 8-1-5 2-10 6-12Z"/></svg></span><span class="navtext">Emprendimiento</span></button>
+    <button data-view="entrepreneurship"><span class="ico" aria-hidden="true">📈</span><span class="navtext">Emprendimiento</span></button>
     <button data-view="economy"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 15h2M7 5V3h10v2"/></svg></span><span class="navtext">Economía</span></button>
   </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
@@ -904,8 +955,9 @@ const dateKey=d=>{const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());ret
 const dateFromKey=k=>{const [y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d)};
 function allCalendarItems(){
  const events=store.get("aulivra_events",[]).map(e=>({...e,kind:"event"}));
+ const personal=expandPersonalAgenda();
  const tasks=subjectsData().flatMap(s=>(s.tasks||[]).filter(t=>t.due&&!t.done).map(t=>({...t,kind:"task",subjectId:s.id,subjectName:s.name,title:t.text,date:t.due,time:t.dueTime||"09:00"})));
- return [...events,...tasks];
+ return [...events,...personal,...tasks];
 }
 function renderCalendar(){
  const grid=$("#calendarDays");if(!grid)return;
@@ -1173,7 +1225,7 @@ window.renderEconomy=render;render()})();
  const dateIn=(v,a,b)=>{if(!v)return false;const d=fromKey(v);return d>=a&&d<b};
  const periodBounds=()=>{if(period==="week"){const start=startWeek(cursor);return{start,end:new Date(start.getFullYear(),start.getMonth(),start.getDate()+7)}}return{start:new Date(cursor.getFullYear(),cursor.getMonth(),1),end:new Date(cursor.getFullYear(),cursor.getMonth()+1,1)}};
  function allTasks(){return subjects().flatMap(sub=>(sub.tasks||[]).map(t=>({...t,kind:"task",title:t.text,subjectName:sub.name,subjectId:sub.id,date:t.due||"",done:!!t.done})))}
- function allItems(){return [...allTasks(),...(store.get("aulivra_events",[])||[]).map(e=>({...e,kind:"event",date:e.date||""}))]}
+ function allItems(){return [...allTasks(),...(store.get("aulivra_events",[])||[]).map(e=>({...e,kind:"event",date:e.date||""})),...expandPersonalAgenda()]}
  function periodStats(){
   const {start,end}=periodBounds(),ss=sessions().filter(x=>dateIn(x.date,start,end)),minutes=ss.reduce((a,x)=>a+(Number(x.minutes)||0),0),days=new Set(ss.map(x=>x.date)).size;
   const taskDone=allTasks().filter(t=>t.done&&dateIn(t.doneAt||"",start,end)).length,brandTasks=brand().tasks||[],brandDone=brandTasks.filter(t=>t.done&&dateIn(t.doneAt||"",start,end)).length;
@@ -1216,10 +1268,10 @@ window.renderEconomy=render;render()})();
  $("#homeScreenHelp").addEventListener("click",()=>toast("En iPhone: Ajustes → Tiempo de uso → Ver toda la actividad. Introduce aquí el total diario."));
  $("#homeScrollPause").addEventListener("click",()=>{const btn=$("#homeScrollPause"),status=$("#homeScrollPauseStatus");if(pauseTimer)clearInterval(pauseTimer);let left=120;btn.disabled=true;status.textContent="Pausa iniciada: 2:00";btn.textContent="En pausa…";pauseTimer=setInterval(()=>{left--;status.textContent="Pausa: "+Math.floor(left/60)+":"+pad(left%60);if(left<=0){clearInterval(pauseTimer);pauseTimer=null;btn.disabled=false;btn.textContent="Repetir pausa de 2 min";status.textContent="Pausa terminada. Decide qué ibas a hacer antes de abrir una app.";$("#homeJakeAdvice").textContent="JAKE: pausa completada. Vuelve a tu siguiente actividad con una intención clara."}},1000)});
  function setPeriod(next){period=next;const now=new Date();cursor=next==="week"?new Date(now.getFullYear(),now.getMonth(),now.getDate()):new Date(now.getFullYear(),now.getMonth(),1);selected=key(now);renderPeriod()}
- $("#homePeriodMonth").addEventListener("click",()=>setPeriod("month"));$("#homePeriodWeek").addEventListener("click",()=>setPeriod("week"));
+ $("#homePeriodMonth").onclick=e=>{e.preventDefault();e.stopPropagation();setPeriod("month")};$("#homePeriodWeek").onclick=e=>{e.preventDefault();e.stopPropagation();setPeriod("week")};
  $("#homePeriodPrev").addEventListener("click",()=>{if(period==="week")cursor.setDate(cursor.getDate()-7);else cursor.setMonth(cursor.getMonth()-1);selected=key(period==="week"?cursor:new Date(cursor.getFullYear(),cursor.getMonth(),1));renderPeriod()});
  $("#homePeriodNext").addEventListener("click",()=>{if(period==="week")cursor.setDate(cursor.getDate()+7);else cursor.setMonth(cursor.getMonth()+1);selected=key(period==="week"?cursor:new Date(cursor.getFullYear(),cursor.getMonth(),1));renderPeriod()});
- const panel=$("#homePeriodPanel");let touchX=null;panel.addEventListener("touchstart",e=>{touchX=e.changedTouches[0].clientX},{passive:true});panel.addEventListener("touchend",e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>55)setPeriod(dx>0?"week":"month");touchX=null},{passive:true});
+ const panel=$("#homePeriodPanel");let touchX=null;panel.addEventListener("touchstart",e=>{if(e.target.closest("button,input,select"))return;touchX=e.changedTouches[0].clientX},{passive:true});panel.addEventListener("touchend",e=>{if(touchX===null)return;const dx=e.changedTouches[0].clientX-touchX;if(Math.abs(dx)>55)setPeriod(dx>0?"week":"month");touchX=null},{passive:true});
  const prevHome=renderHome;renderHome=function(){prevHome();renderHomeExtras();renderPeriod()};
  const prevSubjects=renderSubjects;renderSubjects=function(){prevSubjects();renderHomeExtras();renderPeriod();renderStudyPreview()};
  const prevSessions=renderSessions;renderSessions=function(){prevSessions();renderPeriod();renderStudyPreview()};
@@ -1230,6 +1282,39 @@ window.renderEconomy=render;render()})();
   const upcoming=allItems().filter(x=>x.date>=todayKey()).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,2);$("#studyCalendarPreview").textContent=upcoming.length?upcoming.length+" próximas fechas · "+upcoming[0].date:"Sin fechas próximas";
  }
  renderPeriod();renderStudyPreview();window.aulivraRefreshHome=()=>{renderPeriod();renderStudyPreview();renderHomeExtras()};
+})();
+</script>
+
+<script>
+/* Agenda personal: eventos, cumpleaños recurrentes y exportación estándar ICS */
+(()=> {
+ const $=id=>document.getElementById(id),key="aulivra_personal_agenda";
+ const get=()=>store.get(key,[]),put=v=>store.set(key,v),pad=n=>String(n).padStart(2,"0");
+ const dateKey=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+ const parse=k=>{const [y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d)};
+ const safe=s=>String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const modal=$("personalAgendaModal"),form=$("personalAgendaForm");
+ function expandPersonalAgenda(){
+  const out=[],from=new Date();from.setHours(0,0,0,0);const until=new Date(from);until.setFullYear(until.getFullYear()+1);
+  for(const e of get()){
+   const base=parse(e.date);let d=new Date(base),guard=0;
+   while(d<from&&e.repeat!=="none"&&guard++<500){if(e.repeat==="daily")d.setDate(d.getDate()+1);else if(e.repeat==="weekly")d.setDate(d.getDate()+7);else if(e.repeat==="monthly")d.setMonth(d.getMonth()+1);else if(e.repeat==="yearly")d.setFullYear(d.getFullYear()+1);else break}
+   guard=0;
+   while(d<=until&&guard++<400){out.push({...e,id:e.id+"@"+dateKey(d),sourceId:e.id,date:dateKey(d),kind:"personal",title:e.title,time:e.allDay?"":e.start||"",subjectName:e.type==="birthday"?"Cumpleaños":e.type==="appointment"?"Cita":e.type==="reminder"?"Recordatorio":"Personal"});if(e.repeat==="none")break;if(e.repeat==="daily")d.setDate(d.getDate()+1);else if(e.repeat==="weekly")d.setDate(d.getDate()+7);else if(e.repeat==="monthly")d.setMonth(d.getMonth()+1);else if(e.repeat==="yearly")d.setFullYear(d.getFullYear()+1);else break}
+  }
+  return out;
+ }
+ window.expandPersonalAgenda=expandPersonalAgenda;
+ function reset(){form.reset();$("personalAgendaId").value="";$("personalAgendaDate").value=dateKey(new Date());$("personalAgendaStart").value="";$("personalAgendaEnd").value="";$("personalAgendaRepeat").value="none";$("personalAgendaReminder").value="15";$("personalAgendaColor").value="#1769df";$("personalAgendaSave").textContent="Guardar evento";$("personalAgendaCancelEdit").hidden=true}
+ function open(){modal.classList.add("open");modal.setAttribute("aria-hidden","false");if(!$("personalAgendaDate").value)reset();render();setTimeout(()=>$("personalAgendaName").focus(),50)}
+ function close(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true")}
+ function render(){const q=$("personalAgendaSearch").value.trim().toLowerCase(),items=expandPersonalAgenda().filter(x=>x.date>=dateKey(new Date())&&(!q||(x.title+" "+(x.place||"")+" "+(x.notes||"")).toLowerCase().includes(q))).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)).slice(0,35);
+  $("personalAgendaList").innerHTML=items.length?items.map(e=>'<div class="personal-agenda-item" style="--event-color:'+safe(e.color)+'"><span></span><div><b>'+safe(e.title)+'</b><small>'+parse(e.date).toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short",year:"numeric"})+(e.time?" · "+safe(e.time):" · Todo el día")+(e.repeat!=="none"?" · Repite "+safe(e.repeat):"")+(e.place?" · "+safe(e.place):"")+'</small></div><button type="button" data-agenda-edit="'+safe(e.sourceId)+'" aria-label="Editar">✎</button><button type="button" data-agenda-delete="'+safe(e.sourceId)+'" aria-label="Eliminar">×</button></div>').join(""):'<div class="empty">No hay próximos eventos que coincidan con la búsqueda.</div>';
+ }
+ function save(e){e.preventDefault();const id=$("personalAgendaId").value,title=$("personalAgendaName").value.trim(),date=$("personalAgendaDate").value,start=$("personalAgendaStart").value,end=$("personalAgendaEnd").value;if(!title||!date)return toast("Añade un nombre y una fecha.");if(start&&end&&end<=start)return toast("La hora de fin debe ser posterior a la de inicio.");const list=get(),item={id:id||crypto.randomUUID(),title,date,start,end,type:$("personalAgendaType").value,repeat:$("personalAgendaRepeat").value,reminder:Number($("personalAgendaReminder").value),color:$("personalAgendaColor").value,place:$("personalAgendaPlace").value.trim(),notes:$("personalAgendaNotes").value.trim(),allDay:$("personalAgendaAllDay").checked};const idx=list.findIndex(x=>x.id===id);if(idx>=0)list[idx]=item;else list.push(item);put(list);reset();render();renderCalendar?.();renderHome?.();window.aulivraRefreshHome?.();toast("Evento guardado en tu agenda personal.")}
+ function edit(id){const e=get().find(x=>x.id===id);if(!e)return;for(const [field,value] of Object.entries({personalAgendaId:e.id,personalAgendaName:e.title,personalAgendaType:e.type,personalAgendaDate:e.date,personalAgendaStart:e.start,personalAgendaEnd:e.end,personalAgendaRepeat:e.repeat,personalAgendaReminder:String(e.reminder),personalAgendaColor:e.color,personalAgendaPlace:e.place,personalAgendaNotes:e.notes,personalAgendaAllDay:e.allDay}))$(field).type==="checkbox"?$(field).checked=!!value:$(field).value=value??"";$("personalAgendaSave").textContent="Guardar cambios";$("personalAgendaCancelEdit").hidden=false}
+ function exportICS(){const events=get();if(!events.length)return toast("No hay eventos para exportar.");const stamp=d=>d.replace(/[-:]/g,"")+"T090000";const lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//AULIVRA//Agenda Personal//ES"];for(const e of events){lines.push("BEGIN:VEVENT","UID:"+e.id+"@aulivra","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,""),"DTSTART;VALUE=DATE:"+e.date.replace(/-/g,""),"SUMMARY:"+String(e.title).replace(/[\\,;]/g,"\\</body>"),"DESCRIPTION:"+String(e.notes||"").replace(/[\\,;]/g,"\\</body>"));if(e.repeat==="yearly")lines.push("RRULE:FREQ=YEARLY");if(e.repeat==="monthly")lines.push("RRULE:FREQ=MONTHLY");if(e.repeat==="weekly")lines.push("RRULE:FREQ=WEEKLY");if(e.repeat==="daily")lines.push("RRULE:FREQ=DAILY");lines.push("END:VEVENT")}lines.push("END:VCALENDAR");const blob=new Blob([lines.join("\r\n")],{type:"text/calendar;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="aulivra-agenda.ics";a.click();URL.revokeObjectURL(url)}
+ $("personalAgendaLaunch").addEventListener("click",open);$("personalAgendaClose").addEventListener("click",close);$("personalAgendaCancelEdit").addEventListener("click",reset);$("personalAgendaExport").addEventListener("click",exportICS);form.addEventListener("submit",save);$("personalAgendaSearch").addEventListener("input",render);modal.addEventListener("click",e=>{if(e.target===modal)close()});document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});$("personalAgendaList").addEventListener("click",e=>{const editBtn=e.target.closest("[data-agenda-edit]"),del=e.target.closest("[data-agenda-delete]");if(editBtn)edit(editBtn.dataset.agendaEdit);if(del&&confirm("¿Eliminar este evento de la agenda?")){put(get().filter(x=>x.id!==del.dataset.agendaDelete));render();renderCalendar?.();window.aulivraRefreshHome?.();toast("Evento eliminado.")}});reset();
 })();
 </script>
 </body></html>
