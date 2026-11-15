@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b12"><title>STUDYHUB — Tu espacio académico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#090b12;--panel:#111521;--panel2:#171d2b;--line:#252d3e;--text:#f3f5fa;--muted:#929bb0;--accent:#8b7cff;--accent2:#6d5dfc;--green:#5cdb9b;--red:#ff7777;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 72% -15%,#242044 0,transparent 38%),var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:252px 1fr;min-height:100vh}
+.sidebar{border-right:1px solid var(--line);padding:25px 16px;display:flex;flex-direction:column;background:#0b0e16;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:11px;padding:0 10px 30px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#9a8cff,#5d4be6);display:grid;place-items:center;font-weight:800;font-family:Manrope;font-size:17px;box-shadow:0 8px 28px #7967ff44}.brand strong{font:800 16px Manrope;letter-spacing:1.1px}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.5px;margin-top:2px}
+.nav-label{font-size:10px;letter-spacing:1.6px;color:#69748b;font-weight:700;padding:0 12px;margin:12px 0 9px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#aab2c3;text-align:left;padding:12px;border-radius:11px;display:flex;align-items:center;gap:12px;font-size:13px;transition:.2s}.nav button:hover,.nav button.active{background:#1a2030;color:#fff}.nav button.active{box-shadow:inset 2px 0 var(--accent)}.nav .ico{width:20px;text-align:center;font-size:16px}.side-bottom{margin-top:auto;padding:14px 10px;color:#758097;font-size:11px;line-height:1.6}.side-bottom b{color:#dce0ec}
+main{padding:34px clamp(20px,4vw,58px) 60px;max-width:1500px;width:100%;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:35px}.eyebrow{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}.top h1{font:800 clamp(25px,3vw,34px) Manrope;margin:7px 0 0;letter-spacing:-1.2px}.date{color:var(--muted);font-size:12px;background:var(--panel);border:1px solid var(--line);padding:10px 14px;border-radius:30px}
+.view{display:none}.view.active{display:block}.intro{margin-bottom:25px}.intro h2{font:700 22px Manrope;margin:0 0 7px}.intro p{color:var(--muted);font-size:13px;margin:0;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:15px}.card{background:linear-gradient(145deg,#141a28,#101521);border:1px solid var(--line);border-radius:var(--radius);padding:20px;min-width:0}.card h3{font:700 14px Manrope;margin:0 0 6px}.card p{color:var(--muted);font-size:12px;line-height:1.55;margin:0}.span-12{grid-column:span 12}.span-8{grid-column:span 8}.span-7{grid-column:span 7}.span-6{grid-column:span 6}.span-5{grid-column:span 5}.span-4{grid-column:span 4}
+.stat{display:flex;align-items:center;gap:13px}.stat-icon{width:42px;height:42px;border-radius:13px;background:#282448;color:#b8adff;display:grid;place-items:center;font-size:19px}.stat strong{font:800 23px Manrope;display:block}.stat small{color:var(--muted);font-size:11px}
+.quick{display:flex;align-items:center;gap:12px;padding:15px;border:1px solid var(--line);background:#121827;border-radius:14px;text-align:left;color:var(--text);width:100%;transition:.2s}.quick:hover{border-color:#7264e8;transform:translateY(-2px)}.quick .stat-icon{flex:none}.quick b{font:700 13px Manrope;display:block}.quick small{font-size:11px;color:var(--muted)}
+.btn{border:0;background:linear-gradient(135deg,#9285ff,#6b5af2);color:white;padding:11px 16px;border-radius:10px;font-weight:700;font-size:12px;box-shadow:0 7px 20px #7565f52c}.btn:hover{filter:brightness(1.1)}.btn.secondary{background:#222a3b;box-shadow:none;border:1px solid #303a50;color:#e5e9f4}.btn.ghost{background:transparent;box-shadow:none;border:1px solid var(--line);color:#c8cede}.btn.danger{background:#48242d;box-shadow:none;color:#ffb2b2}
+input,select{background:#0c111c;border:1px solid #2a3448;border-radius:10px;color:var(--text);padding:11px 12px;outline:none;width:100%;font-size:12px}input:focus,select:focus{border-color:var(--accent)}input::placeholder{color:#667187}label{display:block;font-size:11px;color:#aab3c6;margin-bottom:7px}.field{margin:13px 0}.row{display:flex;gap:10px;align-items:end}.row>*{flex:1;min-width:0}.muted{color:var(--muted)}.tiny{font-size:10px;color:var(--muted);line-height:1.5}.divider{height:1px;background:var(--line);margin:17px 0}
+.drop{border:1px dashed #46516d;border-radius:15px;background:#0d1320;padding:28px;text-align:center;transition:.2s}.drop.drag{border-color:var(--accent);background:#1b1930}.drop .big{font-size:27px;margin-bottom:8px}.drop b{display:block;font-size:13px}.drop p{margin:5px 0 15px}.drop input{display:none}.file-line{display:flex;align-items:center;gap:10px;padding:10px;background:#0c111b;border:1px solid var(--line);border-radius:10px;margin-top:12px;font-size:12px}.file-line span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.table{width:100%;border-collapse:collapse;font-size:12px}.table th{text-align:left;color:#8290a8;font-weight:600;padding:10px 8px;border-bottom:1px solid var(--line)}.table td{padding:11px 8px;border-bottom:1px solid #20283a}.table input{padding:8px;min-width:65px}.table .remove{background:none;border:0;color:#ff8e8e;font-size:16px}
+.grade-result{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px;border-radius:14px;background:#171a30;border:1px solid #343258;margin-top:16px}.grade-result strong{font:800 34px Manrope;color:#b5aaff}.grade-result small{color:var(--muted);font-size:11px}
+.timer{text-align:center;padding:28px 15px}.timer-mode{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}.timer-mode button{background:#171e2d;border:1px solid var(--line);color:#aeb8ca;border-radius:30px;padding:8px 13px;font-size:11px}.timer-mode button.active{background:#302a59;border-color:#7566e8;color:#fff}.clock{font:800 clamp(60px,10vw,90px) Manrope;letter-spacing:-5px;margin:23px 0 10px;font-variant-numeric:tabular-nums}.timer-sub{color:var(--muted);font-size:12px;margin-bottom:22px}.timer-actions{display:flex;justify-content:center;gap:10px}.timer-actions .btn{min-width:110px}.progress{height:5px;background:#262e40;border-radius:9px;overflow:hidden;max-width:390px;margin:20px auto 0}.progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,#9285ff,#5cdb9b);transition:width .3s}
+.subject{border:1px solid var(--line);border-radius:14px;padding:16px;background:#111827}.subject-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}.subject-top b{font:700 13px Manrope}.subject-tag{font-size:10px;color:#b6aaff;background:#282448;padding:5px 8px;border-radius:20px}.subject a{display:inline-block;margin-top:12px;color:#b4a8ff;font-size:11px;text-decoration:none}.subject a:hover{text-decoration:underline}
+.toast{position:fixed;bottom:22px;right:22px;background:#20283a;border:1px solid #3a4660;color:white;padding:13px 17px;border-radius:12px;font-size:12px;box-shadow:0 12px 40px #0008;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;z-index:9}.toast.show{opacity:1;transform:translateY(0)}
+.empty{padding:22px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:900px){.app{grid-template-columns:76px 1fr}.sidebar{padding:20px 9px}.brand{justify-content:center;padding:0 0 25px}.brand .brandtext,.nav-label,.nav button .navtext,.side-bottom{display:none}.nav button{justify-content:center;padding:13px}.nav .ico{font-size:18px}.span-8,.span-7,.span-6,.span-5,.span-4{grid-column:span 12}}
+@media(max-width:560px){.app{display:block}.sidebar{height:auto;position:sticky;z-index:5;top:0;flex-direction:row;padding:8px;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto}.brand{padding:0 8px}.brand .brandtext{display:none}.nav{display:flex}.nav button{padding:10px}.nav .ico{font-size:17px}.top{margin:20px 0 25px}.date{display:none}main{padding:16px 14px 45px}.card{padding:16px}.row{flex-wrap:wrap}.row>*{flex-basis:100%}.grade-result{align-items:flex-start;flex-direction:column}.clock{letter-spacing:-3px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">S</div><div class="brandtext"><strong>STUDYHUB</strong><small>YOUR ACADEMIC SPACE</small></div></div>
+  <div class="nav-label">WORKSPACE</div>
+  <nav class="nav" id="nav">
+    <button class="active" data-view="home"><span class="ico">⌂</span><span class="navtext">Inicio</span></button>
+    <button data-view="convert"><span class="ico">⇄</span><span class="navtext">Conversor</span></button>
+    <button data-view="grades"><span class="ico">▦</span><span class="navtext">Calculadora de notas</span></button>
+    <button data-view="share"><span class="ico">↗</span><span class="navtext">Compartir archivos</span></button>
+    <button data-view="library"><span class="ico">▤</span><span class="navtext">Biblioteca</span></button>
+    <button data-view="timer"><span class="ico">◷</span><span class="navtext">Temporizador</span></button>
+  </nav>
+  <div class="side-bottom">Hecho para estudiar mejor.<br><b>STUDYHUB</b> · v1.0</div>
+</aside>
+<main>
+  <header class="top"><div><div class="eyebrow">TU ESPACIO DE PRODUCTIVIDAD</div><h1 id="pageTitle">Todo en un mismo lugar.</h1></div><div class="date" id="today"></div></header>
+
+  <section class="view active" id="home">
+    <div class="intro"><h2>Bienvenido a STUDYHUB.</h2><p>Organiza tus documentos, controla tus notas y aprovecha cada bloque de estudio.</p></div>
+    <div class="grid">
+      <div class="card span-4"><div class="stat"><div class="stat-icon">▦</div><div><strong id="homeSubjects">0</strong><small>Asignaturas guardadas</small></div></div></div>
+      <div class="card span-4"><div class="stat"><div class="stat-icon">◷</div><div><strong id="homeSessions">0</strong><small>Minutos de estudio hoy</small></div></div></div>
+      <div class="card span-4"><div class="stat"><div class="stat-icon">★</div><div><strong id="homeAverage">—</strong><small>Media de notas guardadas</small></div></div></div>
+      <div class="card span-7"><h3>Acceso rápido</h3><p style="margin-bottom:14px">Abre directamente la herramienta que necesitas.</p><div class="grid">
+        <div class="span-6"><button class="quick" data-go="convert"><span class="stat-icon">⇄</span><span><b>Convertir archivo</b><small>PDF y otros formatos</small></span></button></div>
+        <div class="span-6"><button class="quick" data-go="grades"><span class="stat-icon">▦</span><span><b>Calcular nota</b><small>Medias ponderadas</small></span></button></div>
+        <div class="span-6"><button class="quick" data-go="share"><span class="stat-icon">↗</span><span><b>Enviar archivo</b><small>Compartir por enlace</small></span></button></div>
+        <div class="span-6"><button class="quick" data-go="timer"><span class="stat-icon">◷</span><span><b>Empezar a estudiar</b><small>Pomodoro y cronómetro</small></span></button></div>
+      </div></div>
+      <div class="card span-5"><h3>Tu próximo bloque</h3><p>Configura un temporizador y registra tus minutos de concentración.</p><div class="divider"></div><div style="display:flex;align-items:center;justify-content:space-between"><div><div style="font:800 26px Manrope">25:00</div><small class="muted">Pomodoro clásico</small></div><button class="btn" data-go="timer">Abrir timer →</button></div></div>
+      <div class="card span-12"><h3>Tu espacio, tus reglas.</h3><p>Los datos de notas y sesiones se guardan localmente en este navegador. Para sincronizarlos entre dispositivos necesitarás habilitar cuentas y una base de datos.</p></div>
+    </div>
+  </section>
+
+  <section class="view" id="convert">
+    <div class="intro"><h2>Conversor de archivos</h2><p>Convierte documentos entre formatos habituales. Para conversiones avanzadas en servidor se requiere LibreOffice instalado.</p></div>
+    <div class="grid">
+      <div class="card span-7"><h3>Sube tu archivo</h3><p>Selecciona un documento y el formato de salida.</p>
+        <div class="drop" id="convertDrop" style="margin-top:16px"><div class="big">⇧</div><b>Arrastra un archivo aquí</b><p>o selecciona uno desde tu dispositivo</p><label class="btn secondary" for="convertFile" style="display:inline-block;cursor:pointer">Elegir archivo</label><input id="convertFile" type="file"></div>
+        <div id="convertChosen"></div>
+        <div class="row" style="margin-top:15px"><div><label for="convertTo">Convertir a</label><select id="convertTo"><option value="pdf">PDF</option><option value="docx">Word (.docx)</option><option value="xlsx">Excel (.xlsx)</option><option value="pptx">PowerPoint (.pptx)</option><option value="txt">Texto (.txt)</option><option value="png">PNG</option><option value="jpg">JPG</option><option value="odt">OpenDocument (.odt)</option></select></div><button class="btn" id="convertBtn">Convertir archivo</button></div>
+        <p class="tiny" style="margin-top:12px">Los archivos se procesan en tu servidor cuando se usa LibreOffice. No subas documentos sensibles a servidores que no controles.</p>
+      </div>
+      <div class="card span-5"><h3>Herramientas PDF</h3><p>Accesos rápidos para operaciones frecuentes.</p><div class="divider"></div>
+        <div class="field"><label>Unir PDF</label><input id="mergeFiles" type="file" accept="application/pdf" multiple><button class="btn secondary" id="mergeBtn" style="margin-top:8px;width:100%">Unir documentos</button></div>
+        <div class="divider"></div><div class="field"><label>Comprimir / optimizar PDF</label><input id="compressFile" type="file" accept="application/pdf"><button class="btn secondary" id="compressBtn" style="margin-top:8px;width:100%">Optimizar PDF</button></div>
+        <p class="tiny">La unión y optimización se realizan en el navegador con PDF-Lib. La compresión depende del contenido y puede no reducir todos los archivos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="grades">
+    <div class="intro"><h2>Calculadora de notas</h2><p>Define los porcentajes de evaluación, calcula tu nota y guarda las configuraciones para reutilizarlas.</p></div>
+    <div class="grid">
+      <div class="card span-7"><div class="row"><div><label for="gradeSubject">Asignatura / evaluación</label><input id="gradeSubject" placeholder="Ej. Matemáticas · 1.ª evaluación"></div><button class="btn secondary" id="addGradeRow" style="flex:0 0 auto">+ Añadir criterio</button></div>
+        <div style="overflow-x:auto;margin-top:14px"><table class="table"><thead><tr><th>Concepto</th><th>Nota (0–10)</th><th>Peso (%)</th><th></th></tr></thead><tbody id="gradeRows"></tbody></table></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px"><span class="tiny" id="weightStatus">Peso total: 0%</span><button class="btn" id="calculateGrade">Calcular nota</button></div>
+        <div class="grade-result"><div><small>NOTA PONDERADA</small><div class="tiny" id="gradeExplanation">Introduce las notas y sus porcentajes.</div></div><strong id="gradeOutput">— / 10</strong></div>
+      </div>
+      <div class="card span-5"><h3>Guardar configuración</h3><p>Guarda los pesos de los criterios para aplicarlos a otras evaluaciones.</p>
+        <div class="field"><label>Nombre de la plantilla</label><input id="templateName" placeholder="Ej. Matemáticas estándar"></div><button class="btn secondary" id="saveTemplate" style="width:100%">Guardar porcentajes</button>
+        <div class="divider"></div><h3>Plantillas guardadas</h3><div id="templatesList" class="empty">Todavía no hay plantillas.</div>
+        <div class="divider"></div><h3>Historial de notas</h3><div id="gradesHistory" class="empty">Todavía no hay cálculos guardados.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="share">
+    <div class="intro"><h2>Compartir archivos grandes</h2><p>Sube un archivo al servidor, crea un enlace temporal y, si configuras el correo, envíalo directamente al destinatario.</p></div>
+    <div class="grid">
+      <div class="card span-7"><h3>Crear enlace de descarga</h3><div class="drop" id="shareDrop" style="margin-top:16px"><div class="big">⇧</div><b>Arrastra aquí el archivo que quieras compartir</b><p>o selecciona un archivo</p><label class="btn secondary" for="shareFile" style="display:inline-block;cursor:pointer">Seleccionar archivo</label><input id="shareFile" type="file"></div>
+        <div id="shareChosen"></div>
+        <div class="field"><label>Correo del destinatario (opcional)</label><input id="shareEmail" type="email" placeholder="nombre@ejemplo.com"></div>
+        <div class="row"><div><label>Caducidad del enlace</label><select id="shareExpiry"><option value="24">24 horas</option><option value="72" selected>3 días</option><option value="168">7 días</option></select></div><button class="btn" id="shareBtn">Subir y crear enlace</button></div>
+        <div id="shareResult" style="margin-top:14px"></div>
+      </div>
+      <div class="card span-5"><h3>Antes de compartir</h3><p>Los archivos se almacenan en el servidor donde despliegues STUDYHUB.</p><div class="divider"></div>
+        <p>• El tamaño máximo predeterminado es 2 GB.</p><p style="margin-top:9px">• Los enlaces caducan automáticamente.</p><p style="margin-top:9px">• El correo requiere credenciales SMTP.</p><p style="margin-top:9px">• Usa HTTPS y almacenamiento persistente en producción.</p>
+        <div class="divider"></div><p class="tiny">Este starter no incluye cifrado de extremo a extremo, escaneo antivirus ni cuentas de usuario. Añádelos antes de utilizarlo para compartir información confidencial.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="library">
+    <div class="intro"><h2>Biblioteca académica</h2><p>Accede a recursos y búsquedas de apuntes por asignatura. Los enlaces llevan a las fuentes originales; STUDYHUB no aloja ni copia materiales de terceros.</p></div>
+    <div class="grid" id="libraryGrid"></div>
+    <div class="card span-12" style="margin-top:15px"><h3>Tu biblioteca personal</h3><p>Guarda tus propios documentos de clase en tus dispositivos o en un almacenamiento privado conectado a tu instalación.</p><div class="field"><label>Selecciona apuntes propios</label><input id="personalNotes" type="file" multiple></div><div id="personalNotesList" class="tiny">No se han seleccionado archivos.</div></div>
+  </section>
+
+  <section class="view" id="timer">
+    <div class="intro"><h2>Temporizador de estudio</h2><p>Elige un método o crea bloques a tu medida. Al completar una sesión se registra tu tiempo de estudio.</p></div>
+    <div class="grid">
+      <div class="card span-8">
+        <div class="timer">
+          <div class="timer-mode" id="timerModes"><button class="active" data-work="25" data-break="5">Pomodoro 25/5</button><button data-work="50" data-break="10">50/10</button><button data-work="90" data-break="15">90/15</button><button data-work="custom" data-break="custom">Personalizado</button></div>
+          <div class="clock" id="clock">25:00</div><div class="timer-sub" id="timerLabel">Tiempo de concentración · Matemáticas</div>
+          <div class="timer-actions"><button class="btn" id="timerStart">Empezar</button><button class="btn secondary" id="timerReset">Reiniciar</button></div>
+          <div class="progress"><i id="timerProgress"></i></div>
+        </div>
+        <div class="divider"></div><div class="row"><div><label>Asignatura / actividad</label><input id="timerSubject" value="Matemáticas"></div><div><label>Duración personalizada (min)</label><input id="customWork" type="number" min="1" max="600" value="45"></div><div><label>Descanso (min)</label><input id="customBreak" type="number" min="1" max="120" value="10"></div></div>
+        <button class="btn secondary" id="applyCustom" style="margin-top:12px">Aplicar bloque personalizado</button>
+      </div>
+      <div class="card span-4"><h3>Estadísticas de hoy</h3><div class="stat" style="margin:18px 0"><div class="stat-icon">◷</div><div><strong id="todayMinutes">0</strong><small>Minutos completados</small></div></div><div class="divider"></div><h3>Últimas sesiones</h3><div id="sessionHistory" class="empty">Aún no hay sesiones.</div><p class="tiny" style="margin-top:12px">El registro se guarda en este navegador.</p></div>
+    </div>
+  </section>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const store = {
+ get(k,d){try{return JSON.parse(localStorage.getItem("sh_"+k)) ?? d}catch{return d}},
+ set(k,v){localStorage.setItem("sh_"+k,JSON.stringify(v))}
+};
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
+const titles={home:"Todo en un mismo lugar.",convert:"Conversor de archivos.",grades:"Tus notas, bajo control.",share:"Comparte sin complicaciones.",library:"Tu biblioteca académica.",timer:"Concéntrate. Una tarea cada vez."};
+function go(id){$$(".view").forEach(v=>v.classList.toggle("active",v.id===id));$$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));$("#pageTitle").textContent=titles[id];if(id==="grades")renderGrades();if(id==="timer")renderSessions();if(id==="home")renderHome();window.scrollTo({top:0,behavior:"smooth"})}
+$$(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.view));$$("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+$("#today").textContent=new Intl.DateTimeFormat("es-ES",{weekday:"short",day:"numeric",month:"short"}).format(new Date());
+function formatSize(n){if(n<1024)return n+" B";if(n<1048576)return (n/1024).toFixed(1)+" KB";return (n/1048576).toFixed(1)+" MB"}
+
+// Converter
+let convertFile=null, shareFile=null;
+$("#convertFile").onchange=e=>{convertFile=e.target.files[0];$("#convertChosen").innerHTML=convertFile?`<div class="file-line">📄 <span>${esc(convertFile.name)} · ${formatSize(convertFile.size)}</span></div>`:""};
+function setupDrop(id,input,cb){const el=$("#"+id);el.ondragover=e=>{e.preventDefault();el.classList.add("drag")};el.ondragleave=()=>el.classList.remove("drag");el.ondrop=e=>{e.preventDefault();el.classList.remove("drag");const f=e.dataTransfer.files[0];if(f)cb(f)};$("#"+input).onchange=e=>{if(e.target.files[0])cb(e.target.files[0])}}
+setupDrop("convertDrop","convertFile",f=>{convertFile=f;$("#convertFile").value="";$("#convertChosen").innerHTML=`<div class="file-line">📄 <span>${esc(f.name)} · ${formatSize(f.size)}</span></div>`});
+$("#convertBtn").onclick=async()=>{if(!convertFile)return toast("Selecciona un archivo primero.");const fd=new FormData();fd.append("file",convertFile);fd.append("to",$("#convertTo").value);const btn=$("#convertBtn");btn.disabled=true;btn.textContent="Convirtiendo…";try{const r=await fetch("/api/convert",{method:"POST",body:fd});if(!r.ok){const j=await r.json().catch(()=>({}));throw Error(j.error||"No se pudo convertir.")}const blob=await r.blob();download(blob,baseName(convertFile.name)+"."+$("#convertTo").value);toast("Conversión completada.")}catch(e){toast(e.message.includes("Failed to fetch")?"No se encuentra el servidor. Arranca STUDYHUB para convertir archivos.":e.message)}finally{btn.disabled=false;btn.textContent="Convertir archivo"}};
+function baseName(n){return n.replace(/\.[^.]+$/,"")}
+function download(blob,name){const a=document.createElement("a"),u=URL.createObjectURL(blob);a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)}
+$("#mergeBtn").onclick=async()=>{const files=[...$("#mergeFiles").files];if(files.length<2)return toast("Selecciona al menos dos PDF.");if(!window.PDFLib)return toast("No se ha cargado PDF-Lib.");try{const merged=await PDFLib.PDFDocument.create();for(const f of files){const doc=await PDFLib.PDFDocument.load(await f.arrayBuffer());const pages=await merged.copyPages(doc,doc.getPageIndices());pages.forEach(p=>merged.addPage(p))}download(new Blob([await merged.save()],{type:"application/pdf"}),"documentos-unidos.pdf");toast("PDF unidos correctamente.")}catch(e){toast("No se pudieron unir. Comprueba que no estén protegidos.")}};
+$("#compressBtn").onclick=async()=>{const f=$("#compressFile").files[0];if(!f)return toast("Selecciona un PDF.");try{const doc=await PDFLib.PDFDocument.load(await f.arrayBuffer());const bytes=await doc.save({useObjectStreams:true,addDefaultPage:false});download(new Blob([bytes],{type:"application/pdf"}),baseName(f.name)+"-optimizado.pdf");toast("PDF optimizado. El tamaño puede variar.")}catch(e){toast("No se pudo optimizar este PDF.")}};
+
+// Grades calculator, templates and history
+let rows=[{name:"Exámenes",grade:"",weight:70},{name:"Trabajos",grade:"",weight:20},{name:"Actitud",grade:"",weight:10}];
+function renderRows(){const tb=$("#gradeRows");tb.innerHTML=rows.map((r,i)=>`<tr><td><input data-i="${i}" data-k="name" value="${esc(r.name)}" aria-label="Concepto"></td><td><input data-i="${i}" data-k="grade" type="number" min="0" max="10" step=".01" placeholder="—" value="${r.grade}" aria-label="Nota"></td><td><input data-i="${i}" data-k="weight" type="number" min="0" max="100" step=".1" value="${r.weight}" aria-label="Porcentaje"></td><td><button class="remove" data-remove="${i}" title="Eliminar">×</button></td></tr>`).join("");tb.querySelectorAll("input").forEach(inp=>inp.oninput=()=>{rows[+inp.dataset.i][inp.dataset.k]=inp.dataset.k==="name"?inp.value:inp.value===""?"":Number(inp.value);weightStatus()});tb.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>{rows.splice(+b.dataset.remove,1);renderRows()});weightStatus()}
+function weightStatus(){const sum=rows.reduce((a,r)=>a+(Number(r.weight)||0),0);$("#weightStatus").textContent="Peso total: "+sum.toFixed(1)+"%";$("#weightStatus").style.color=Math.abs(sum-100)<.01?"var(--green)":"var(--red)"}
+$("#addGradeRow").onclick=()=>{rows.push({name:"Nuevo criterio",grade:"",weight:0});renderRows()};
+$("#calculateGrade").onclick=()=>{const total=rows.reduce((a,r)=>a+(Number(r.weight)||0),0);if(Math.abs(total-100)>.01)return toast("Los porcentajes deben sumar exactamente 100%.");if(rows.some(r=>r.grade===""||Number(r.grade)<0||Number(r.grade)>10))return toast("Introduce todas las notas entre 0 y 10.");const score=rows.reduce((a,r)=>a+Number(r.grade)*Number(r.weight)/100,0);$("#gradeOutput").textContent=score.toFixed(2)+" / 10";$("#gradeExplanation").textContent="Cálculo ponderado · "+rows.length+" criterios";const hist=store.get("grades",[]);hist.unshift({id:Date.now(),name:$("#gradeSubject").value||"Evaluación",score:+score.toFixed(2),date:new Date().toLocaleDateString("es-ES")});store.set("grades",hist.slice(0,30));renderGrades();renderHome();toast("Nota calculada y guardada en el historial.")};
+$("#saveTemplate").onclick=()=>{const total=rows.reduce((a,r)=>a+(Number(r.weight)||0),0);if(Math.abs(total-100)>.01)return toast("Los porcentajes deben sumar 100% antes de guardar.");const name=$("#templateName").value.trim();if(!name)return toast("Escribe un nombre para la plantilla.");const t=store.get("templates",[]);t.push({id:Date.now(),name,rows:rows.map(r=>({name:r.name,weight:Number(r.weight)||0}))});store.set("templates",t);$("#templateName").value="";renderGrades();toast("Plantilla guardada.")};
+function renderGrades(){renderRows();const ts=store.get("templates",[]);$("#templatesList").innerHTML=ts.length?ts.map(t=>`<div class="file-line"><span style="flex:1">${esc(t.name)}</span><button class="btn ghost" data-load="${t.id}">Cargar</button><button class="remove" data-del="${t.id}">×</button></div>`).join(""):"Todavía no hay plantillas.";$$("[data-load]").forEach(b=>b.onclick=()=>{const t=ts.find(x=>x.id==b.dataset.load);rows=t.rows.map(r=>({...r,grade:""}));renderRows();toast("Plantilla aplicada. Introduce las nuevas notas.")});$$("[data-del]").forEach(b=>b.onclick=()=>{store.set("templates",ts.filter(t=>t.id!=b.dataset.del));renderGrades()});const h=store.get("grades",[]);$("#gradesHistory").innerHTML=h.length?h.slice(0,7).map(x=>`<div class="file-line"><span style="flex:1">${esc(x.name)}<small class="muted"> · ${x.date}</small></span><b>${x.score.toFixed(2)}</b></div>`).join(""):"Todavía no hay cálculos guardados."}
+
+// Share
+setupDrop("shareDrop","shareFile",f=>{shareFile=f;$("#shareFile").value="";$("#shareChosen").innerHTML=`<div class="file-line">📦 <span>${esc(f.name)} · ${formatSize(f.size)}</span></div>`});
+$("#shareFile").onchange=e=>{shareFile=e.target.files[0];$("#shareChosen").innerHTML=shareFile?`<div class="file-line">📦 <span>${esc(shareFile.name)} · ${formatSize(shareFile.size)}</span></div>`:""};
+$("#shareBtn").onclick=async()=>{if(!shareFile)return toast("Selecciona un archivo.");const fd=new FormData();fd.append("file",shareFile);fd.append("email",$("#shareEmail").value);fd.append("expiryHours",$("#shareExpiry").value);const b=$("#shareBtn");b.disabled=true;b.textContent="Subiendo…";try{const r=await fetch("/api/shares",{method:"POST",body:fd});const j=await r.json();if(!r.ok)throw Error(j.error||"Error al subir.");$("#shareResult").innerHTML=`<div class="file-line" style="flex-wrap:wrap"><span style="flex:1;overflow-wrap:anywhere">${esc(j.link)}</span><button class="btn secondary" id="copyLink">Copiar enlace</button></div><p class="tiny" style="margin-top:8px">${esc(j.message)} Caduca: ${new Date(j.expiresAt).toLocaleString("es-ES")}</p>`;$("#copyLink").onclick=()=>navigator.clipboard.writeText(j.link).then(()=>toast("Enlace copiado."));toast(j.message)}catch(e){toast(e.message.includes("Failed to fetch")?"No se encuentra el servidor. Arranca STUDYHUB para compartir archivos.":e.message)}finally{b.disabled=false;b.textContent="Subir y crear enlace"}};
+
+// Library links: search pages and legitimate open learning materials.
+const subjects=[
+ {name:"Matemáticas",tag:"Cálculo · Álgebra · Análisis",icon:"∑",query:"matemáticas bachillerato",links:[["Buscar apuntes en Wuolah","https://www.wuolah.com/search?q=matem%C3%A1ticas"],["Khan Academy","https://es.khanacademy.org/math"]]},
+ {name:"Física",tag:"Mecánica · Electricidad · Ondas",icon:"⌁",query:"física bachillerato",links:[["Buscar apuntes en Wuolah","https://www.wuolah.com/search?q=f%C3%ADsica"],["OpenStax Física","https://openstax.org/subjects/science"]]},
+ {name:"Química",tag:"Estequiometría · Enlace · Equilibrio",icon:"⚗",query:"química bachillerato",links:[["Buscar apuntes en Wuolah","https://www.wuolah.com/search?q=qu%C3%ADmica"],["Khan Academy","https://es.khanacademy.org/science/chemistry"]]},
+ {name:"Tecnología",tag:"Digital · Electrónica · Sistemas",icon:"⌘",query:"tecnología bachillerato",links:[["Buscar apuntes en Wuolah","https://www.wuolah.com/search?q=tecnolog%C3%ADa"],["Recursos INTEF","https://intef.es/"]]},
+ {name:"Historia",tag:"España · Contemporánea · Comentario",icon:"◷",query:"historia de españa bachillerato",links:[["Buscar apuntes en Wuolah","https://www.wuolah.com/search?q=historia%20de%20espa%C3%B1a"],["Biblioteca Virtual Miguel de Cervantes","https://www.cervantesvirtual.com/"]]},
+ {name:"Filosofía",tag:"Autores · Ética · Metafísica",icon:"◇",query:"filosofía bachillerato",links:[["Buscar apuntes en Wuolah","https://www.wuolah.com/search?q=filosof%C3%ADa"],["Stanford Encyclopedia of Philosophy","https://plato.stanford.edu/"]]}
+];
+$("#libraryGrid").innerHTML=subjects.map(s=>`<div class="card span-4"><div class="subject"><div class="subject-top"><b>${s.icon} ${s.name}</b><span class="subject-tag">BACHILLERATO</span></div><p>${s.tag}</p>${s.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener noreferrer">${l[0]} ↗</a>`).join("<br>")}</div></div>`).join("");
+$("#personalNotes").onchange=e=>$("#personalNotesList").textContent=[...e.target.files].map(f=>f.name+" · "+formatSize(f.size)).join("  |  ")||"No se han seleccionado archivos.";
+
+// Timer
+let duration=25*60,remaining=duration,breakDuration=5*60,running=false,interval=null,mode="work",completed=0;
+function clock(){const m=Math.floor(remaining/60),s=remaining%60;$("#clock").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");$("#timerProgress").style.width=((duration-remaining)/duration*100)+"%";$("#timerLabel").textContent=(mode==="work"?"Tiempo de concentración":"Tiempo de descanso")+" · "+$("#timerSubject").value}
+function setTimer(work,rest){pauseTimer();mode="work";duration=work*60;remaining=duration;breakDuration=rest*60;clock();$("#timerStart").textContent="Empezar"}
+$$("#timerModes button").forEach(b=>b.onclick=()=>{$$("#timerModes button").forEach(x=>x.classList.remove("active"));b.classList.add("active");if(b.dataset.work!=="custom")setTimer(+b.dataset.work,+b.dataset.break)});
+$("#applyCustom").onclick=()=>{const w=Math.max(1,Math.min(600,Number($("#customWork").value)||45)),r=Math.max(1,Math.min(120,Number($("#customBreak").value)||10));$$("#timerModes button").forEach(x=>x.classList.remove("active"));$$('#timerModes button[data-work="custom"]')[0].classList.add("active");setTimer(w,r);toast("Bloque personalizado aplicado.")};
+function pauseTimer(){running=false;if(interval)clearInterval(interval);interval=null}
+function startTimer(){if(running){pauseTimer();$("#timerStart").textContent="Continuar";return}running=true;$("#timerStart").textContent="Pausar";interval=setInterval(()=>{remaining--;clock();if(remaining<=0){pauseTimer();if(mode==="work"){completed++;const sessions=store.get("sessions",[]);sessions.unshift({date:new Date().toLocaleDateString("en-CA"),subject:$("#timerSubject").value||"Estudio",minutes:Math.round(duration/60),at:new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})});store.set("sessions",sessions.slice(0,60));toast("¡Bloque completado! Toca descansar.");mode="break";duration=breakDuration;remaining=duration;$("#timerStart").textContent="Empezar descanso"}else{mode="work";duration=25*60;remaining=duration;breakDuration=5*60;$("#timerStart").textContent="Empezar";toast("Descanso terminado. ¡A por el siguiente bloque!")};clock();renderSessions();renderHome()}},1000)}
+$("#timerStart").onclick=startTimer;$("#timerReset").onclick=()=>{pauseTimer();remaining=duration;$("#timerStart").textContent="Empezar";clock()};clock();
+function renderSessions(){const all=store.get("sessions",[]),today=new Date().toLocaleDateString("en-CA"),mins=all.filter(s=>s.date===today).reduce((a,s)=>a+s.minutes,0);$("#todayMinutes").textContent=mins;$("#sessionHistory").innerHTML=all.length?all.slice(0,6).map(s=>`<div class="file-line"><span style="flex:1">${esc(s.subject)}<small class="muted"> · ${s.at}</small></span><b>${s.minutes} min</b></div>`).join(""):"Aún no hay sesiones."}
+function renderHome(){const h=store.get("grades",[]),t=store.get("templates",[]),today=new Date().toLocaleDateString("en-CA"),mins=store.get("sessions",[]).filter(s=>s.date===today).reduce((a,s)=>a+s.minutes,0);$("#homeSubjects").textContent=t.length;$("#homeSessions").textContent=mins;$("#homeAverage").textContent=h.length?(h.reduce((a,x)=>a+x.score,0)/h.length).toFixed(2):"—"}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+renderGrades();renderHome();renderSessions();
+</script>
+</body></html>
