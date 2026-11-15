@@ -635,6 +635,29 @@ main{padding-top:24px}
 /* Icon-first compact navigation, with accessible names retained */
 @media(max-width:560px){.nav button .navtext{display:none!important}.nav button{width:46px;height:42px;justify-content:center}.nav .ico{font-size:19px}.sidebar{justify-content:flex-start;gap:8px}.nav{gap:5px}}
 
+
+/* Navegación completa: todas las vistas existentes tienen un acceso visible. */
+.nav{gap:4px;overflow-y:auto;max-height:calc(100vh - 150px);padding-right:3px}
+.nav button{min-height:43px}
+.nav .ico{display:grid;place-items:center;flex:0 0 22px}
+.nav .ico svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:561px){
+ .sidebar{overflow:hidden}
+ .nav{flex:1;align-content:start}
+}
+@media(max-width:560px){
+ .app{display:block;padding-bottom:76px}
+ .sidebar{position:fixed;top:auto;bottom:0;left:0;right:0;width:100%;height:68px;min-height:68px;z-index:60;display:flex;flex-direction:row;align-items:center;gap:0;padding:6px 8px calc(6px + env(safe-area-inset-bottom));overflow:hidden;background:rgba(15,12,25,.97);backdrop-filter:blur(18px);border-top:1px solid #403451;border-bottom:0}
+ .sidebar>.sidebar-toggle,.sidebar>.brand,.sidebar>.nav-label,.sidebar>.side-bottom{display:none!important}
+ .sidebar .nav{display:flex;flex:1;flex-direction:row;align-items:center;gap:5px;max-height:none;height:100%;overflow-x:auto;overflow-y:hidden;padding:0 2px;scrollbar-width:none}
+ .sidebar .nav::-webkit-scrollbar{display:none}
+ .sidebar .nav button{display:flex;flex:0 0 48px;width:48px;min-width:48px;height:48px;min-height:48px;justify-content:center;align-items:center;padding:0;border-radius:14px}
+ .sidebar .nav button .navtext{display:none!important}
+ .sidebar .nav .ico{width:22px;flex:0 0 22px;font-size:0}
+ .sidebar .nav .ico svg{width:22px;height:22px}
+ .sidebar .nav button.active{box-shadow:inset 0 -2px var(--accent);background:#2b2042;color:#f3eaff}
+ main{padding-bottom:35px}
+}
 </style>
 
 <style>
@@ -684,11 +707,19 @@ main{padding-top:24px}
 <div class="app" id="appShell">
 <aside class="sidebar"><button class="sidebar-toggle" id="sidebarToggle" title="Ocultar menú" aria-label="Ocultar menú">☰</button>
   <div class="brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div class="brandtext"><strong>AULIVRA</strong><small>YOUR ACADEMIC SPACE</small></div></div>
-  <div class="nav-label">TU ESPACIO</div><nav class="nav" id="nav">
-    <button class="active" data-view="home"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span><span class="navtext">Inicio</span></button>
-    <button data-view="study"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
-    <button data-view="entrepreneurship" aria-label="Proyectos" title="Proyectos"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext">Proyectos</span></button>
-    <button data-view="economy"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 15h2M7 5V3h10v2"/></svg></span><span class="navtext">Economía</span></button>
+  <div class="nav-label">TU ESPACIO</div><nav class="nav" id="nav" aria-label="Navegación principal">
+    <button class="active" data-view="home" aria-label="Inicio" title="Inicio"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span><span class="navtext">Inicio</span></button>
+    <button data-view="study" aria-label="Estudio" title="Estudio"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
+    <button data-view="entrepreneurship" aria-label="Emprendimiento" title="Emprendimiento"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext">Emprendimiento</span></button>
+    <button data-view="economy" aria-label="Economía" title="Economía"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M16 15h2M7 5V3h10v2"/></svg></span><span class="navtext">Economía</span></button>
+    <button data-view="calendar" aria-label="Calendario" title="Calendario"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4m8-4v4M3 10h18M8 14h3m-3 3h3m3-3h3"/></svg></span><span class="navtext">Calendario</span></button>
+    <button data-view="subjects" aria-label="Asignaturas" title="Asignaturas"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5zM4 4.5v17M8 6h8m-8 4h8"/></svg></span><span class="navtext">Asignaturas</span></button>
+    <button data-view="grades" aria-label="Notas" title="Notas"><span class="ico"><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5zM8 8h8M8 12h3m2 0h3M8 16h8"/></svg></span><span class="navtext">Notas</span></button>
+    <button data-view="timer" aria-label="Temporizador" title="Temporizador"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6m-3 0v3"/></svg></span><span class="navtext">Temporizador</span></button>
+    <button data-view="files" aria-label="Archivos" title="Archivos"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="navtext">Archivos</span></button>
+    <button data-view="library" aria-label="Biblioteca" title="Biblioteca"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h4v16H4zM10 4h4v16h-4zM16 4h4v16h-4z"/></svg></span><span class="navtext">Biblioteca</span></button>
+    <button data-view="convert" aria-label="Conversor" title="Conversor"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h13l-3-3m6 13H7l3 3M17 4l3 3-3 3M7 14l-3 3 3 3"/></svg></span><span class="navtext">Conversor</span></button>
+    <button data-view="share" aria-label="Compartir" title="Compartir"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 7 6.6 4.1"/></svg></span><span class="navtext">Compartir</span></button>
   </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
 <main>
