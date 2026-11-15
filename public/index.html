@@ -938,7 +938,13 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
 @media(max-width:900px){.app{grid-template-columns:248px minmax(0,1fr)}.app.sidebar-hidden{grid-template-columns:0 minmax(0,1fr)}.sidebar{width:248px;min-width:248px}}
 @media(max-width:560px){.app{display:grid;grid-template-columns:0 minmax(0,1fr)}.sidebar{position:fixed;left:0;top:0;bottom:0;z-index:40;width:264px;min-width:264px;height:100dvh;transform:translateX(0);box-shadow:12px 0 36px #172b3a20;transition:transform .22s}.app.sidebar-hidden .sidebar{display:flex;width:264px;min-width:264px;transform:translateX(-105%);padding:20px 14px;border-right:1px solid var(--line)}main{grid-column:2;padding:16px 14px 45px}.top{margin:12px 0 20px}.top h1{font-size:24px}}
 </style>
-</head>
+<style id="aulivra-month-calendar-only">
+#calendarWeekMode,#calendarDayMode{display:none!important}
+.brand-home{border:0;background:transparent;color:inherit;text-align:left;cursor:pointer;display:flex;align-items:center;gap:11px;padding:0 10px 30px;width:100%}
+.brand-home:hover{opacity:.86}
+@media(max-width:900px){.brand-home{justify-content:center;padding:0 0 25px}.brand-home .brandtext{display:none}}
+@media(max-width:560px){.brand-home{padding:0 8px;width:auto}.brand-home .brandtext{display:none}}
+</style></head>
 <body>
 
 <div id="legalGate" class="legal-gate" role="dialog" aria-modal="true" aria-labelledby="legalGateTitle" aria-describedby="legalGateText">
@@ -986,7 +992,7 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
 </div>
 <div class="app" id="appShell">
 <aside class="sidebar">
-  <div class="brand"><img class="logo-img" src="/aulivra-mark.svg" alt="AULIVRA"><div class="brandtext"><strong>AULIVRA</strong><small>YOUR ACADEMIC SPACE</small></div></div>
+  <button class="brand brand-home" id="brandHome" type="button" aria-label="Volver al inicio"><img class="logo-img" src="/aulivra-mark.svg" alt=""><span class="brandtext"><strong>AULIVRA</strong><small>YOUR ACADEMIC SPACE</small></span></button>
   <div class="nav-label">TU ESPACIO</div><nav class="nav" id="nav" aria-label="Navegación principal">
   <button data-view="study" aria-label="Estudio" title="Estudio" type="button"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6.5 12 3l9 3.5v11L12 21l-9-3.5zM12 3v18M3 6.5l9 4 9-4"/></svg></span><span class="navtext">Estudio</span></button>
   <div class="nav-entry"><button data-view="entrepreneurship" aria-label="Emprendimiento" title="Emprendimiento" type="button"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4V2.8h8V4M3 9h18M9 13h6"/></svg></span><span class="navtext" id="businessNavLabel">Emprendimiento</span></button></div>
@@ -1082,7 +1088,7 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
 <section class="view" id="calendar">
 <div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>A su disposición, señor. Puedo ayudarle con su agenda y sus compromisos.</b><small>Organización por mes, semana y día; eventos, tareas y bloques de estudio.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar mi agenda semanal y encajar mis bloques de estudio.">Consultar a JAKE</button></div>
 
-    <div class="intro"><h2>Calendario</h2><p>Su agenda unificada: eventos personales, cumpleaños, citas, tareas, entregas y bloques de estudio en el mismo calendario.</p></div>
+    <div class="intro"><h2>Planificación y calendario de exámenes</h2><p>Vista mensual para organizar exámenes, entregas y fechas importantes. Debajo encontrará los próximos exámenes y los días que faltan.</p></div>
     <div class="card calendar-card">
       <div class="calendar-toolbar"><button class="btn secondary" id="calendarPrev" aria-label="Mes anterior" type="button">←</button><h3 id="calendarMonth">Mes</h3><button class="btn secondary" id="calendarNext" aria-label="Mes siguiente" type="button">→</button><button class="btn ghost" id="calendarToday" type="button">Hoy</button><div class="calendar-mode"><button class="btn secondary active" id="calendarMonthMode" type="button">Mes</button><button class="btn secondary" id="calendarWeekMode" type="button">Semana</button><button class="btn secondary" id="calendarDayMode" type="button">Día</button></div></div>
       <div class="calendar-weekdays"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div>
@@ -2104,6 +2110,7 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
  window.go=goView;window.renderHome=()=>{};window.aulivraRefreshHome=()=>{};window.renderHomeExtras=()=>{};
  document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b){e.preventDefault();goView(b.dataset.go)}const n=e.target.closest(".nav button[data-view]");if(n){e.preventDefault();goView(n.dataset.view)}});
  if(hamb){hamb.onclick=e=>{e.preventDefault();const hidden=app.classList.toggle("sidebar-hidden");hamb.setAttribute("aria-expanded",String(!hidden));hamb.title=hidden?"Mostrar menú":"Ocultar menú";hamb.setAttribute("aria-label",hamb.title)}}
+ const brandHome=$("#brandHome");if(brandHome)brandHome.addEventListener("click",()=>{goView("home");if(window.innerWidth<=560)app.classList.add("sidebar-hidden")});
  if(editTitle)editTitle.onclick=()=>{const value=prompt("Nombre de esta área:",areaNames.entrepreneurship);if(value===null)return;const clean=value.trim().slice(0,32);if(!clean)return toast("Escribe un nombre válido.");areaNames.entrepreneurship=clean;localStorage.setItem("aulivra_business_area_name",clean);title.textContent=clean;const navLabel=$("#businessNavLabel");if(navLabel){navLabel.textContent=clean;navLabel.closest("button").title=clean;navLabel.closest("button").setAttribute("aria-label",clean)}};
  const navLabel=$("#businessNavLabel");if(navLabel){navLabel.textContent=areaNames.entrepreneurship;navLabel.closest("button").title=areaNames.entrepreneurship;navLabel.closest("button").setAttribute("aria-label",areaNames.entrepreneurship)}
  /* Default course and subjects */
