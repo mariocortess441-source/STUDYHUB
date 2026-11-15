@@ -1045,6 +1045,22 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .home-community-number{display:grid;gap:2px;text-align:right}.home-community-number strong{font:800 22px Manrope;color:var(--text);font-variant-numeric:tabular-nums}.home-community-number span{font-size:10px;color:var(--muted)}
 @media(max-width:620px){.home-community-stats{grid-template-columns:1fr 1fr;gap:14px}.home-community-copy{grid-column:1/-1}.home-community-number{text-align:left}}
 </style>
+<style id="mancave-economy-restoration-v9">
+.economy-restored-details{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:16px;align-items:start}
+.economy-restored-details>.card{min-width:0}
+.economy-restored-details .economy-savings-restored{grid-column:1/-1}
+.economy-restored-details .economy-history-restored{grid-column:1/-1}
+.economy-restored-details #savingsForm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:12px;align-items:end}
+.economy-restored-details #savingsForm>div{min-width:0}
+.economy-restored-details #savingsForm input{width:100%;min-width:0}
+.economy-restored-details .savings-list{display:grid;gap:12px;margin-top:16px}
+.economy-restored-details .savings-forecast{display:grid;gap:12px;margin-top:14px}
+.economy-month-bars{height:90px;display:flex;align-items:end;gap:5px;justify-content:center}
+.economy-month-bars i{display:block;width:13px;border-radius:5px 5px 0 0;min-height:0}
+.economy-month-bars .income-bar{background:#34d399}
+.economy-month-bars .expense-bar{background:#fb7185}
+@media(max-width:760px){.economy-restored-details{grid-template-columns:1fr}.economy-restored-details .economy-savings-restored,.economy-restored-details .economy-history-restored{grid-column:auto}.economy-restored-details #savingsForm{grid-template-columns:1fr 1fr}.economy-restored-details #savingsForm button{grid-column:1/-1}}
+</style>
 </head>
 <body>
 
@@ -1851,6 +1867,7 @@ refreshCommunityStats();setInterval(refreshCommunityStats,60000);
  function createProject(){const d=data(),p={id:crypto.randomUUID(),name:"Nuevo proyecto",description:"",status:"Idea",deadline:"",blocks:[{id:crypto.randomUUID(),type:"heading",text:"Objetivo del proyecto"},{id:crypto.randomUUID(),type:"paragraph",text:"¿Qué queremos conseguir y para quién?"},{id:crypto.randomUUID(),type:"heading",text:"Lista de tareas"},{id:crypto.randomUUID(),type:"todo",text:"Definir el siguiente paso"},{id:crypto.randomUUID(),type:"heading",text:"Planificación"},{id:crypto.randomUUID(),type:"paragraph",text:"Hitos, fechas y responsables."},{id:crypto.randomUUID(),type:"heading",text:"Notas e ideas"},{id:crypto.randomUUID(),type:"paragraph",text:""}],createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()};d.projects.unshift(p);save(d);renderList();openProject(p.id);$id("projectTitleInput").focus();$id("projectTitleInput").select()}
  function saveDetails(){const p=activeProject();if(!p)return;p.name=$id("projectTitleInput").value.trim()||"Sin título";p.description=$id("projectDescriptionInput").value.trim();p.status=$id("projectStatus").value;p.deadline=$id("projectDeadline").value;p.updatedAt=new Date().toISOString();save(data());$id("projectBreadcrumbName").textContent=p.name;renderList();toast("Proyecto guardado.")}
  function addBlock(){const p=activeProject();if(!p)return;const type=$id("projectBlockType").value;p.blocks=p.blocks||[];p.blocks.push({id:crypto.randomUUID(),type,text:"",done:false});p.updatedAt=new Date().toISOString();save(data());renderBlocks();const fields=$id("projectBlocks").querySelectorAll("textarea");fields[fields.length-1]?.focus()}
+ window.aulivraCreateProjectDirect=()=>{createProject();return activeProject()};
  $id("createProjectBtn").addEventListener("click",createProject);
  $id("projectsGrid").addEventListener("click",e=>{if(e.target.closest("[data-create-first-project]")){createProject();return}const b=e.target.closest("[data-open-project]");if(b)openProject(b.dataset.openProject)});
  $id("projectSearch").addEventListener("input",renderList);$id("backToProjects").addEventListener("click",closeProject);
@@ -1914,32 +1931,28 @@ renderEntrepreneurship();
 
 <script>(()=>{
  const $=id=>document.getElementById(id),money=n=>Number(n||0).toLocaleString("es-ES",{style:"currency",currency:"EUR"}),today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")};
- const get=()=>{const d=store.get("aulivra_economy",{movements:[],savings:[]});d.movements=Array.isArray(d.movements)?d.movements:[];d.savings=Array.isArray(d.savings)?d.savings:[];d.cash=Number(d.cash??d.walletCash??0)||0;d.digital=Number(d.digital??d.walletDigital??0)||0;return d},save=d=>store.set("aulivra_economy",d);
+ const get=()=>{const d=store.get("aulivra_economy",{movements:[],savings:[],wallet:{cash:0,digital:0}});d.movements=Array.isArray(d.movements)?d.movements:[];d.savings=Array.isArray(d.savings)?d.savings:[];d.wallet=d.wallet&&typeof d.wallet==="object"?d.wallet:{cash:Number(d.cash??d.walletCash??0)||0,digital:Number(d.digital??d.walletDigital??0)||0};d.wallet.cash=Number(d.wallet.cash)||0;d.wallet.digital=Number(d.wallet.digital)||0;return d},save=d=>store.set("aulivra_economy",d);
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
- const signed=(d,channel)=>d.movements.filter(x=>(x.channel||"digital")===channel).reduce((a,x)=>a+(x.type==="income"?1:-1)*Number(x.amount||0),0);
- const totals=d=>({cash:d.cash+signed(d,"cash"),digital:d.digital+signed(d,"digital")});
  const date=$("economyDate");if(date&&!date.value)date.value=today();
  function render(){
-  const d=get(),list=d.movements.slice().sort((a,b)=>(b.date||"").localeCompare(a.date||"")),sum=totals(d),inc=list.filter(x=>x.type==="income").reduce((a,x)=>a+Number(x.amount||0),0),out=list.filter(x=>x.type==="expense").reduce((a,x)=>a+Number(x.amount||0),0),balance=sum.cash+sum.digital;
+  const d=get(),list=d.movements.slice().sort((a,b)=>(b.date||"").localeCompare(a.date||"")),wallet=d.wallet,balance=wallet.cash+wallet.digital,inc=list.filter(x=>x.type==="income").reduce((a,x)=>a+Number(x.amount||0),0),out=list.filter(x=>x.type==="expense").reduce((a,x)=>a+Number(x.amount||0),0);
   if($("economyBalance"))$("economyBalance").textContent=money(balance);
-  if($("economyCash"))$("economyCash").textContent=money(sum.cash);
-  if($("economyDigital"))$("economyDigital").textContent=money(sum.digital);
+  if($("economyCash"))$("economyCash").textContent=money(wallet.cash);
+  if($("economyDigital"))$("economyDigital").textContent=money(wallet.digital);
   if($("economyIncome"))$("economyIncome").textContent=money(inc);
   if($("economyExpense"))$("economyExpense").textContent=money(out);
-  if($("walletCash"))$("walletCash").value=d.cash;
-  if($("walletDigital"))$("walletDigital").value=d.digital;
+  if($("walletCash"))$("walletCash").value=wallet.cash;
+  if($("walletDigital"))$("walletDigital").value=wallet.digital;
   const now=new Date(),months=[];for(let i=5;i>=0;i--){const dt=new Date(now.getFullYear(),now.getMonth()-i,1);months.push({key:dt.getFullYear()+"-"+String(dt.getMonth()+1).padStart(2,"0"),label:dt.toLocaleDateString("es-ES",{month:"short"})})}
-  let running=d.cash+d.digital;const vals=months.map(m=>{running+=list.filter(x=>(x.date||"").slice(0,7)===m.key).reduce((a,x)=>a+(x.type==="income"?1:-1)*Number(x.amount||0),0);return{...m,value:running}}),max=Math.max(1,...vals.map(x=>Math.abs(x.value)));
-  if($("economyChart"))$("economyChart").innerHTML=vals.map(x=>'<div class="economy-month"><span class="economy-month-value">'+money(x.value)+'</span><div class="economy-month-bar" style="height:'+Math.max(3,Math.abs(x.value)/max*115)+'px"></div><span class="economy-month-label">'+esc(x.label)+'</span></div>').join("");
+  if($("economyChart"))$("economyChart").innerHTML=months.map(m=>{const income=list.filter(x=>(x.date||"").slice(0,7)===m.key&&x.type==="income").reduce((a,x)=>a+Number(x.amount||0),0),expense=list.filter(x=>(x.date||"").slice(0,7)===m.key&&x.type==="expense").reduce((a,x)=>a+Number(x.amount||0),0),net=income-expense,max=Math.max(1,income,expense);return '<div class="economy-month"><span class="economy-month-value">'+(net>=0?"+":"−")+money(Math.abs(net))+'</span><div class="economy-month-bars"><i class="income-bar" style="height:'+Math.max(income?3:0,income/max*75)+'px"></i><i class="expense-bar" style="height:'+Math.max(expense?3:0,expense/max*75)+'px"></i></div><span class="economy-month-label">'+esc(m.label)+'</span></div>'}).join("");
   if($("economyMovements"))$("economyMovements").innerHTML=list.length?list.map(x=>'<div class="economy-movement '+(x.type==="income"?"income":"expense")+'"><span class="economy-movement-icon">'+(x.type==="income"?"↗":"↘")+'</span><span class="economy-movement-copy"><b>'+esc(x.reason)+'</b><small>'+esc(x.date)+(x.channel?" · "+(x.channel==="cash"?"Efectivo":"Digital"):"")+(x.note?" · "+esc(x.note):"")+'</small></span><strong class="economy-movement-amount">'+(x.type==="income"?"+":"−")+money(x.amount)+'</strong><button type="button" data-economy-delete="'+esc(x.id)+'" aria-label="Eliminar movimiento">×</button></div>').join(""):'<div class="empty">Todavía no has añadido movimientos.</div>';
   if($("savingsList"))$("savingsList").innerHTML=d.savings.length?d.savings.map(x=>{const pct=x.target>0?Math.max(0,Math.min(100,Number(x.current||0)/Number(x.target)*100)):0;return '<div class="saving-item"><div class="saving-top"><b>'+esc(x.name)+'</b><button class="saving-delete" data-saving-add="'+esc(x.id)+'" type="button" title="Añadir dinero">＋</button><button class="saving-delete" data-saving-delete="'+esc(x.id)+'" type="button" aria-label="Eliminar objetivo">×</button></div><div class="saving-progress"><i style="width:'+pct+'%"></i></div><div class="saving-meta"><span>'+money(x.current)+' ahorrados · '+pct.toFixed(0)+'%</span><span>'+money(x.target)+' objetivo</span></div></div>'}).join(""):'<div class="empty">Crea tu primer objetivo de ahorro.</div>';
-  if($("savingsForecast"))$("savingsForecast").innerHTML=d.savings.length?d.savings.map(x=>{const pct=x.target>0?Math.max(0,Math.min(100,Number(x.current||0)/Number(x.target)*100)):0,remaining=Math.max(0,Number(x.target||0)-Number(x.current||0));return '<div class="savings-forecast-item"><div class="savings-gauge" style="--progress:'+pct+'%"><div><strong>'+pct.toFixed(0)+'%</strong><small>COMPLETADO</small></div></div><div><b>'+esc(x.name)+'</b><p>Te faltan <strong>'+money(remaining)+'</strong> para alcanzar tu objetivo. '+(remaining===0?"¡Objetivo conseguido!":"Sigue registrando tus aportaciones para ver tu progreso.")+'</p></div></div>'}).join(""):"";
-  const wheel=$("mcEconomyWheel");if(wheel){const total=Math.max(0,sum.cash)+Math.max(0,sum.digital),deg=total?Math.max(0,Math.min(360,Math.max(0,sum.cash)/total*360)):180;wheel.style.background='conic-gradient(#38bdf8 0deg '+deg+'deg,#a78bfa '+deg+'deg 360deg)';if($("mcEconomyTotal"))$("mcEconomyTotal").textContent=money(balance);if($("mcWheelCash"))$("mcWheelCash").textContent=money(sum.cash);if($("mcWheelDigital"))$("mcWheelDigital").textContent=money(sum.digital)}
+  const wheel=$("mcMoneyWheel");if(wheel){const total=Math.max(0,wallet.cash)+Math.max(0,wallet.digital),deg=total?Math.max(0,Math.min(360,Math.max(0,wallet.cash)/total*360)):180;wheel.style.background='conic-gradient(#38bdf8 0deg '+deg+'deg,#a78bfa '+deg+'deg 360deg)';if($("mcMoneyTotal"))$("mcMoneyTotal").textContent=money(balance);if($("mcMoneyCash"))$("mcMoneyCash").textContent=money(wallet.cash);if($("mcMoneyDigital"))$("mcMoneyDigital").textContent=money(wallet.digital);if($("mcMoneySavings"))$("mcMoneySavings").textContent=money(d.savings.reduce((a,x)=>a+Number(x.current||0),0))}
+  if($("economyMovements"))$("economyMovements").querySelectorAll("[data-economy-delete]").forEach(b=>{b.onclick=()=>{const data=get(),i=data.movements.findIndex(x=>x.id===b.dataset.economyDelete);if(i<0)return;const x=data.movements[i],channel=x.channel||"digital",sign=x.type==="income"?1:-1;data.wallet[channel]=Math.max(0,Number(data.wallet[channel]||0)-sign*Number(x.amount||0));data.movements.splice(i,1);save(data);render();window.mancaveRefreshHome?.();toast("Movimiento eliminado.")}});
  }
- $("saveWallet")?.addEventListener("click",()=>{const d=get();d.cash=Math.max(0,Number($("walletCash")?.value)||0);d.digital=Math.max(0,Number($("walletDigital")?.value)||0);save(d);render();toast("Saldos iniciales guardados.")});
- $("economyForm")?.addEventListener("submit",e=>{e.preventDefault();const amount=Number($("economyAmount")?.value),reason=$("economyReason")?.value.trim(),date=$("economyDate")?.value;if(!(amount>0)||!reason||!date)return toast("Comprueba los datos del movimiento.");const d=get();d.movements.push({id:crypto.randomUUID(),type:$("economyType").value,amount,reason,note:$("economyNote")?.value.trim()||"",date,channel:$("economyChannel")?.value||"digital"});save(d);e.target.reset();$("economyDate").value=date;render();toast("Movimiento guardado.")});
- $("economyMovements")?.addEventListener("click",e=>{const b=e.target.closest("[data-economy-delete]");if(!b)return;const d=get();d.movements=d.movements.filter(x=>x.id!==b.dataset.economyDelete);save(d);render();toast("Movimiento eliminado.")});
- $("savingsForm")?.addEventListener("submit",e=>{e.preventDefault();const name=$("savingName").value.trim(),target=Number($("savingTarget").value),current=Number($("savingCurrent").value||0);if(!name||!(target>0)||current<0)return toast("Comprueba el objetivo de ahorro.");const d=get();d.savings.push({id:crypto.randomUUID(),name,target,current});save(d);e.target.reset();$("savingCurrent").value="0";render();toast("Objetivo de ahorro creado.")});
+ $("saveWallet")?.addEventListener("click",()=>{const d=get();d.wallet={cash:Math.max(0,Number($("walletCash")?.value)||0),digital:Math.max(0,Number($("walletDigital")?.value)||0)};save(d);render();toast("Saldos guardados.")});
+ $("economyForm")?.addEventListener("submit",e=>{e.preventDefault();const amount=Number($("economyAmount")?.value),reason=$("economyReason")?.value.trim(),date=$("economyDate")?.value,channel=$("economyChannel")?.value||"digital",type=$("economyType")?.value;if(!(amount>0)||!reason||!date)return toast("Comprueba los datos del movimiento.");const d=get();d.movements.push({id:crypto.randomUUID(),type,amount,reason,note:$("economyNote")?.value.trim()||"",date,channel});d.wallet[channel]=Math.max(0,Number(d.wallet[channel]||0)+(type==="income"?1:-1)*amount);save(d);e.target.reset();if($("economyDate"))$("economyDate").value=date;render();window.mancaveRefreshHome?.();toast("Movimiento guardado.")});
+ $("savingsForm")?.addEventListener("submit",e=>{e.preventDefault();const name=$("savingName")?.value.trim(),target=Number($("savingTarget")?.value),current=Number($("savingCurrent")?.value||0);if(!name||!(target>0)||current<0)return toast("Comprueba el objetivo de ahorro.");const d=get();d.savings.push({id:crypto.randomUUID(),name,target,current});save(d);e.target.reset();if($("savingCurrent"))$("savingCurrent").value="0";render();toast("Objetivo de ahorro creado.")});
  $("savingsList")?.addEventListener("click",e=>{const del=e.target.closest("[data-saving-delete]"),add=e.target.closest("[data-saving-add]");if(del){const d=get();d.savings=d.savings.filter(x=>x.id!==del.dataset.savingDelete);save(d);render();return}if(add){const d=get(),goal=d.savings.find(x=>x.id===add.dataset.savingAdd);if(!goal)return;const amount=Number(prompt("¿Cuánto quieres añadir a "+goal.name+"?"));if(!(amount>0))return;goal.current=Number(goal.current||0)+amount;save(d);render();toast("Aportación añadida al ahorro.")}});
  window.renderEconomy=render;render();
 })();</script>
@@ -2341,16 +2354,17 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
  $("#personalOpenAgenda")?.addEventListener("click",()=>{window.openPersonalAgenda?.()});
  /* Economy wallet + visual savings forecast, preserving existing movements and savings */
  function refreshWalletAndSavings(){
-  const d=storeGet("aulivra_economy",{movements:[],savings:[]}),wallet=d.wallet||{cash:0,digital:0},list=d.movements||[];
-  if($("#walletCash"))$("#walletCash").value=wallet.cash||0;if($("#walletDigital"))$("#walletDigital").value=wallet.digital||0;
-  const channelNet=ch=>list.filter(x=>(x.channel||"digital")===ch).reduce((a,x)=>a+(x.type==="income"?1:-1)*Number(x.amount||0),0);
-  const cash=Number(wallet.cash||0)+channelNet("cash"),digital=Number(wallet.digital||0)+channelNet("digital");
-  if($("#economyCash"))$("#economyCash").textContent=money(cash);if($("#economyDigital"))$("#economyDigital").textContent=money(digital);if($("#economyBalance"))$("#economyBalance").textContent=money(cash+digital);
+  const d=storeGet("aulivra_economy",{movements:[],savings:[],wallet:{cash:0,digital:0}}),wallet=d.wallet||{cash:0,digital:0};
+  if($("#walletCash"))$("#walletCash").value=Number(wallet.cash)||0;
+  if($("#walletDigital"))$("#walletDigital").value=Number(wallet.digital)||0;
+  const cash=Number(wallet.cash)||0,digital=Number(wallet.digital)||0;
+  if($("#economyCash"))$("#economyCash").textContent=money(cash);
+  if($("#economyDigital"))$("#economyDigital").textContent=money(digital);
+  if($("#economyBalance"))$("#economyBalance").textContent=money(cash+digital);
   const host=$("#savingsForecast");if(!host)return;const savings=d.savings||[];
-  if(!savings.length){host.innerHTML="";return}
-  const target=savings[0],pct=Math.max(0,Math.min(100,target.current/target.target*100));
-  const since=new Date();since.setDate(1);const recent=list.filter(x=>x.date>=key(since)&&x.type==="income").reduce((a,x)=>a+Number(x.amount||0),0)-list.filter(x=>x.date>=key(since)&&x.type==="expense").reduce((a,x)=>a+Number(x.amount||0),0);
-  host.innerHTML=savings.map(target=>{const pct=Math.max(0,Math.min(100,target.current/target.target*100)),remaining=Math.max(0,target.target-target.current),eta=recent>0?Math.ceil(remaining/recent):null;return '<div class="savings-forecast-item"><div class="savings-gauge" style="--progress:'+pct+'%"><div><strong>'+pct.toFixed(0)+'%</strong><small>COMPLETADO</small></div></div><div><b>'+esc(target.name)+'</b><p>Objetivo: '+money(target.target)+' · Ahorrado: '+money(target.current)+'. '+(eta!==null?(remaining===0?"Objetivo alcanzado.":"Al ritmo neto de este mes: unos "+eta+" meses más."):"Aún no hay saldo neto positivo suficiente para estimar una fecha fiable.")+'</p><small class="tiny">Estimación orientativa, no garantizada.</small></div></div>'}).join("");
+  const list=d.movements||[],since=new Date();since.setDate(1);
+  const recent=list.filter(x=>x.date>=key(since)&&x.type==="income").reduce((a,x)=>a+Number(x.amount||0),0)-list.filter(x=>x.date>=key(since)&&x.type==="expense").reduce((a,x)=>a+Number(x.amount||0),0);
+  host.innerHTML=savings.map(goal=>{const pct=goal.target>0?Math.max(0,Math.min(100,goal.current/goal.target*100)):0,remaining=Math.max(0,goal.target-goal.current),eta=recent>0?Math.ceil(remaining/recent):null;return '<div class="savings-forecast-item"><div class="savings-gauge" style="--progress:'+pct+'%"><div><strong>'+pct.toFixed(0)+'%</strong><small>COMPLETADO</small></div></div><div><b>'+esc(goal.name)+'</b><p>Objetivo: '+money(goal.target)+' · Ahorrado: '+money(goal.current)+'. '+(remaining===0?"Objetivo alcanzado.":eta!==null?"Al ritmo neto de este mes: unos "+eta+" meses más.":"Aún no hay datos suficientes para estimar una fecha.")+'</p></div></div>'}).join("");
  }
  $("#saveWallet")?.addEventListener("click",()=>{const d=storeGet("aulivra_economy",{movements:[],savings:[]});d.wallet={cash:Math.max(0,Number($("#walletCash").value)||0),digital:Math.max(0,Number($("#walletDigital").value)||0)};storeSet("aulivra_economy",d);refreshWalletAndSavings();toast("Saldos guardados.")});
  const oldRenderEconomy=window.renderEconomy;if(typeof oldRenderEconomy==="function")window.renderEconomy=function(){oldRenderEconomy();refreshWalletAndSavings()};
@@ -2490,7 +2504,7 @@ $("#studyAddTask")?.addEventListener("click",()=>{if(!selectedSubject)return toa
  let creatingFromBrief=false;
  document.addEventListener("click",e=>{const create=e.target.closest("#createProjectBtn,[data-create-first-project]");if(!create)return;if(creatingFromBrief)return;e.preventDefault();e.stopImmediatePropagation();openModal("mcProjectBriefModal")},true);
  $("#mcProjectBriefModal")?.addEventListener("click",e=>{if(e.target.closest("[data-close]"))closeModal("mcProjectBriefModal")});
- $("#mcProjectBriefForm")?.addEventListener("submit",e=>{e.preventDefault();const v=Object.fromEntries(new FormData(e.target).entries());const btn=$("#createProjectBtn");if(!btn)return;creatingFromBrief=true;btn.click();creatingFromBrief=false;const title=$("#projectTitleInput");if(!title)return;title.value=v.name;$("#projectDescriptionInput").value=v.idea;$("#projectDeadline").value=v.deadline||"";$("#projectStatus").value="Planificación";$("#saveProjectDetails")?.click();const projectData=store.get("aulivra_projects",{projects:[]}),createdProject=(projectData.projects||[]).filter(p=>p.name===title.value.trim()).sort((a,b)=>new Date(b.updatedAt||b.createdAt||0)-new Date(a.updatedAt||a.createdAt||0))[0];if(createdProject)window.__mancaveCurrentProjectId=createdProject.id;const projectView=$("#projectWorkspace");if(projectView){projectView.hidden=false;projectView.style.display="block"}if($("#projectsGrid"))$("#projectsGrid").hidden=true;if($("#projectsToolbar"))$("#projectsToolbar").hidden=true;const legacy=$(".legacy-brand-section");if(legacy)legacy.hidden=true;hideProjectChrome(true);
+ $("#mcProjectBriefForm")?.addEventListener("submit",e=>{e.preventDefault();const v=Object.fromEntries(new FormData(e.target).entries());const newProject=window.aulivraCreateProjectDirect?.();if(!newProject)return toast("No se pudo crear el proyecto. Vuelve a intentarlo.");window.__mancaveCurrentProjectId=newProject.id;const title=$("#projectTitleInput");if(!title)return;title.value=v.name;$("#projectDescriptionInput").value=v.idea;$("#projectDeadline").value=v.deadline||"";$("#projectStatus").value="Planificación";$("#saveProjectDetails")?.click();const projectData=store.get("aulivra_projects",{projects:[]}),createdProject=(projectData.projects||[]).filter(p=>p.name===title.value.trim()).sort((a,b)=>new Date(b.updatedAt||b.createdAt||0)-new Date(a.updatedAt||a.createdAt||0))[0];if(createdProject)window.__mancaveCurrentProjectId=createdProject.id;const projectView=$("#projectWorkspace");if(projectView){projectView.hidden=false;projectView.style.display="block"}if($("#projectsGrid"))$("#projectsGrid").hidden=true;if($("#projectsToolbar"))$("#projectsToolbar").hidden=true;const legacy=$(".legacy-brand-section");if(legacy)legacy.hidden=true;hideProjectChrome(true);
   const days=v.deadline?Math.max(1,Math.ceil((new Date(v.deadline+"T00:00:00")-new Date(today()+"T00:00:00"))/86400000)):null;
   const plan=[["Validar la necesidad","2–3 días · Hablar con 5–10 personas del público objetivo y comprobar que el problema existe."],["Definir la propuesta","1–2 días · Explicar en una frase qué ofreces y por qué alguien lo elegiría."],["Investigar alternativas","2–4 días · Comparar 3 proyectos similares, sus precios, ventajas y puntos débiles."],["Preparar una primera versión","5–10 días · Crear una prueba pequeña antes de invertir demasiado tiempo o dinero."],["Medir y ajustar","Revisión semanal · Elegir 2–3 indicadores y revisar los resultados."]];
   let panel=$("#mcProjectRoadmap");if(!panel){panel=document.createElement("section");panel.id="mcProjectRoadmap";panel.className="card";panel.style.margin="18px 0";$("#projectWorkspace").insertBefore(panel,$("#projectWorkspace .project-document"))}
@@ -2577,8 +2591,7 @@ button:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-
   const subjects=store.get("aulivra_subjects",[]),tasks=subjects.flatMap(x=>x.tasks||[]),pending=tasks.filter(x=>!x.done).length;
   const projects=store.get("aulivra_projects",{projects:[]}).projects||[];
   const eco=store.get("aulivra_economy",{movements:[],savings:[],wallet:{cash:0,digital:0}}),wallet=eco.wallet||{cash:0,digital:0};
-  const movement=(eco.movements||[]).reduce((a,x)=>a+(x.type==="income"?1:-1)*Number(x.amount||0),0);
-  const balance=Number(wallet.cash||0)+Number(wallet.digital||0)+movement;
+  const balance=Number(wallet.cash||0)+Number(wallet.digital||0);
   const agenda=store.get("aulivra_events",[]).filter(x=>(x.date||x.due)>=new Date().toISOString().slice(0,10)).length;
   const put=(id,v)=>{const n=$("#"+id);if(n)n.textContent=v};
   put("hmStudy",pending);put("hmProjects",projects.filter(p=>p.status!=="Archivado").length);put("hmMoney",balance.toLocaleString("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0}));put("hmAgenda",agenda);
@@ -3167,5 +3180,14 @@ main,.view,#home{min-width:0;max-width:100%}
  card.innerHTML='<div class="home-community-copy"><span class="home-section-kicker">MANCAVE · COMUNIDAD</span><b>Actividad de la comunidad</b><small>Datos agregados y anónimos de uso de la aplicación.</small></div><div class="home-community-number"><strong id="activePeople">0</strong><span>activos ahora</span></div><div class="home-community-number"><strong id="regularPeople">0</strong><span>usuarios habituales</span></div>';
  const target=document.getElementById("homeFlowBreakdown")||document.getElementById("homeInsightGrid");if(target)target.insertAdjacentElement("afterend",card);else home.append(card);
  if(typeof refreshCommunityStats==="function")refreshCommunityStats();
+})();</script>
+<script id="mancave-economy-and-project-repair-v9">(()=>{
+ const economy=document.getElementById("economy"),legacy=document.getElementById("economyLegacyData"),shell=document.getElementById("economyWheelShell");if(!economy||!legacy||!shell||document.getElementById("economyRestoredDetails"))return;
+ const details=document.createElement("div");details.id="economyRestoredDetails";details.className="economy-restored-details";
+ const cards=[legacy.querySelector("#economyChart")?.closest(".card"),legacy.querySelector("#savingsForm")?.closest(".card"),legacy.querySelector("#economyMovements")?.closest(".card")].filter(Boolean);
+ cards.forEach(card=>{card.classList.remove("span-8","span-12");details.append(card)});
+ shell.insertAdjacentElement("afterend",details);
+ const savings=details.querySelector("#savingsForm");if(savings){const card=savings.closest(".card");card?.classList.add("economy-savings-restored")}
+ const movement=details.querySelector("#economyMovements")?.closest(".card");movement?.classList.add("economy-history-restored");
 })();</script>
 </body></html>
