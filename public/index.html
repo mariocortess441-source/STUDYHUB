@@ -924,7 +924,7 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
 </nav>  <div class="side-bottom">Hecho para estudiar mejor.<br><b>AULIVRA</b> · v1.0</div>
 </aside>
 <main>
-  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Abrir menú de herramientas" aria-label="Abrir menú de herramientas" type="button"><span class="hamburger-lines" aria-hidden="true"><i></i><i></i><i></i></span></button><div class="top-brand"><span id="pageTitle">Inicio</span></div></div><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none" type="button">Salir</button><div class="date" id="today"></div></div></header>
+  <header class="top"><div class="top-left"><button class="sidebar-toggle" id="sidebarToggleTop" title="Abrir menú de herramientas" aria-label="Abrir menú de herramientas" type="button"><span class="hamburger-lines" aria-hidden="true"><i></i><i></i><i></i></span></button><div class="top-brand"><span id="pageTitle">Estudio</span></div></div><div class="user-chip"><span id="userName">Invitado</span><button class="btn ghost" id="loginBtn" type="button">Iniciar sesión</button><button class="btn ghost" id="logoutBtn" style="display:none" type="button">Salir</button><div class="date" id="today"></div></div></header>
   <div class="aux-menu" id="auxMenu" hidden aria-label="Más herramientas">
     <div class="aux-menu-head"><span>HERRAMIENTAS</span><small>Accesos adicionales</small></div>
     <div class="aux-menu-grid">
@@ -940,7 +940,7 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
     </div>
   </div>
 
-  <section class="view active" id="home">
+  <section class="view" id="home">
 <section class="home-jake-greeting" aria-label="Mensaje de JAKE">
  <div class="home-jake-copy"><span>JAKE · ASISTENTE PERSONAL</span><p id="homeJakeMessage">Buenos días, señor. Su agenda está preparada. Aquí tiene sus prioridades y accesos principales.</p></div>
  <button type="button" data-jarvis-prompt="Revise mi día, mis tareas y mis compromisos. Dígame qué debería priorizar y proponga un plan realista.">Hablar con JAKE</button>
@@ -976,7 +976,7 @@ input::placeholder,textarea::placeholder{color:#79849a!important}
 <div class="card home-assistant-card"><div class="home-assistant-icon"><img src="/aulivra-mark.svg" alt=""></div><div class="home-assistant-copy"><span class="eyebrow">TU ASISTENTE</span><h3>¿Qué desea conseguir hoy?</h3><p id="homeTodayPlan">Estoy preparando tus prioridades.</p></div><button class="btn" id="openAssistantFromHome" type="button">Hablar con JAKE</button></div>
 </section>
 
-<section class="view" id="study">
+<section class="view active" id="study">
 <div class="jarvis-section-advisor"><div class="jarvis-avatar">J</div><div class="jarvis-advisor-copy"><span>JAKE · ASISTENTE PERSONAL</span><b>Permítame ayudarle con sus estudios.</b><small>Plan de estudio, repasos espaciados, bloques de concentración y seguimiento.</small></div><button type="button" data-jarvis-prompt="Ayúdeme a organizar las asignaturas, preparar los próximos exámenes y mejorar mi método de estudio.">Consultar a JAKE</button></div>
  <div class="study-welcome"><div><span class="home-section-kicker">TU ESPACIO ACADÉMICO</span><h2>Estudia con una visión clara.</h2><p>Accede a tus herramientas y consulta un anticipo de tu progreso sin tener que abrir cada apartado.</p></div><div class="study-welcome-mark">A</div></div>
  <div class="study-hub-grid">
@@ -2017,6 +2017,7 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
 (()=>{
  const menu=document.getElementById("auxMenu"),topToggle=document.getElementById("sidebarToggleTop");
  if(menu&&topToggle){
+  topToggle.onclick=null;
   topToggle.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();menu.hidden=!menu.hidden;topToggle.setAttribute("aria-expanded",String(!menu.hidden))});
   document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)&&!topToggle.contains(e.target))menu.hidden=true});
   document.addEventListener("keydown",e=>{if(e.key==="Escape")menu.hidden=true});
