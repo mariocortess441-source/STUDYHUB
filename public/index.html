@@ -3148,13 +3148,7 @@ main,.view,#home{min-width:0;max-width:100%}
   if(activeSession&&!activeSession.completed){activeSession.finishedAt=new Date().toISOString();activeSession.actualSeconds=Math.max(0,Math.round((Date.now()-new Date(activeSession.startedAt).getTime())/1000));const history=store.get("deepwork_sessions",[]);history.unshift({...activeSession,completed:false});store.set("deepwork_sessions",history.slice(0,100))}
   clearInterval(deepCountdown);deepCountdown=null;activeSession=null;$("#deepSessionSubject")?.remove();$("#deepRestButton").hidden=true;
  });
- // Bottom shortcuts open the same quick-entry form as the main economy controls.
- const economy=$("#economy");
- if(economy&&!$("#economyBottomActions")){
-  const wrap=document.createElement("section");wrap.id="economyBottomActions";wrap.className="card economy-bottom-actions";
-  wrap.innerHTML='<h3>Registrar movimiento</h3><p>Añade un ingreso o un gasto sin buscar el formulario.</p><div class="economy-quick-actions"><button class="quick-income" type="button" data-quick-money="income">＋ Añadir ingreso</button><button class="quick-expense" type="button" data-quick-money="expense">− Añadir gasto</button></div>';
-  economy.append(wrap);
- }
+ // One set of quick actions is kept in the main economy card.
  setup.addEventListener("click",e=>{if(e.target===setup)closeSetup()});
 })();
 </script>
