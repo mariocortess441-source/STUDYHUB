@@ -1224,6 +1224,40 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 }
 </style>
 
+
+<style id="studyhub-clean-light-contrast-fix">
+/* In light mode, keep all interface text dark and readable. */
+html[data-theme="clean-light"] body,
+html[data-theme="clean-light"] body * {
+  color: #17191c !important;
+}
+html[data-theme="clean-light"] button,
+html[data-theme="clean-light"] .btn,
+html[data-theme="clean-light"] input,
+html[data-theme="clean-light"] select,
+html[data-theme="clean-light"] textarea {
+  color: #17191c !important;
+}
+html[data-theme="clean-light"] button,
+html[data-theme="clean-light"] .btn:not(.ghost),
+html[data-theme="clean-light"] .btn.secondary,
+html[data-theme="clean-light"] .btn.ghost {
+  background: #eef0f2 !important;
+  border-color: #d5d9dd !important;
+}
+html[data-theme="clean-light"] input,
+html[data-theme="clean-light"] select,
+html[data-theme="clean-light"] textarea {
+  background: #fff !important;
+  border-color: #d5d9dd !important;
+  caret-color: #17191c !important;
+}
+html[data-theme="clean-light"] ::placeholder {
+  color: #626a72 !important;
+  opacity: 1 !important;
+}
+</style>
+
 </head>
 <body>
 
@@ -2913,7 +2947,6 @@ $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámene
 // The calendar remains a single shared source of truth; each workspace links to that same calendar.
  const shortcut=(label,detail)=>{const el=document.createElement("div");el.className="shared-calendar-shortcut";el.innerHTML='<div class="sc-copy"><b>'+label+'</b><small>'+detail+'</small></div><button type="button" data-open-shared-calendar>Ver calendario ↗</button>';return el};
  const targets=[
-  [$("#home"),$("#home .home-jake-greeting")],
   [$("#study"),$("#study .study-heading")],
   [$("#entrepreneurship"),$("#entrepreneurship .projects-heading")],
   [$("#personal"),$("#personal .intro")]
