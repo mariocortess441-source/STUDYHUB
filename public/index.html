@@ -229,7 +229,10 @@ var lampL=new T.PointLight(0xffb35c,1,4.5);lampL.position.set(-2.72,1,2.2);S.add
 var lampOn=true,night=false,ledMode=0,dayK=1;
 
 /* Datos de la app */
-var ST={},KEY='room-app-v1';
+var ST={},KEY='room-data-v1',accountSync=false,syncTimer=null,cloudRoot={};
+function readRoot(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(x){return {}}}
+function legacyMap(root){var out={},map={desk:'study.todo',pc:'pc.ideas',wardrobe:'closet.buy',bed:'bed.do',window:'window.adv',books:'shelf.next',calendar:'calendar.events',voide:'voide.tasks',chair:'chair.habits',bin:'bin.ideas'};Object.keys(map).forEach(function(k){if(Array.isArray(root[k]))out[map[k]]=root[k].map(function(x){return {t:x.text||x.t||'',m:x.date||x.priority||'',d:!!(x.done||x.d)}}).filter(function(x){return x.t})});return out}
+cloudRoot=readRoot();ST=cloudRoot.roomApp||legacyMap(cloudRoot);
 var DEF={
  'study.cal':[{t:'Bloque de estudio',w:0,a:'17:00',b:'19:00',y:'e'},{t:'Entrega pendiente',w:2,a:'20:00',b:'21:00',y:'t'},{t:'Repaso general',w:3,a:'18:00',b:'19:30',y:'e'},{t:'Descanso largo',w:5,a:'11:00',b:'13:00',y:'r'}],
  'study.todo':[{t:'Preparar el resumen de la semana',m:'Viernes'},{t:'Ordenar apuntes',m:'Domingo'}],
@@ -246,8 +249,10 @@ var DEF={
  'calendar.events':[], 'voide.tasks':[], 'voide.ideas':[], 'chair.habits':[], 'chair.routines':[], 'bin.ideas':[]
 };
 try{ST=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(x){ST={}}
-Object.keys(DEF).forEach(function(k){if(!Array.isArray(ST[k]))ST[k]=JSON.parse(JSON.stringify(DEF[k]))});
-function save(){try{localStorage.setItem(KEY,JSON.stringify(ST))}catch(x){}}
+function fillDefaults(){Object.keys(DEF).forEach(function(k){if(!Array.isArray(ST[k]))ST[k]=JSON.parse(JSON.stringify(DEF[k]))})}
+fillDefaults();
+function save(){try{cloudRoot=readRoot();cloudRoot.roomApp=ST;localStorage.setItem(KEY,JSON.stringify(cloudRoot))}catch(x){}if(accountSync){clearTimeout(syncTimer);syncTimer=setTimeout(async function(){try{var r=await fetch('/api/study-data/room',{method:'PUT',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({value:cloudRoot})});if(!r.ok)throw Error('sync')}catch(x){say('Guardado en este dispositivo')}},450)}}
+async function initializeStorage(){try{var me=await fetch('/api/auth/me',{credentials:'same-origin'});if(!me.ok)return;var user=await me.json();if(!user.user)return;var remote=await fetch('/api/study-data',{credentials:'same-origin'});if(!remote.ok)return;var payload=await remote.json(),cloud=payload.data&&payload.data.room;if(cloud&&typeof cloud==='object'&&Object.keys(cloud).length)cloudRoot=cloud;else cloudRoot=readRoot();ST=cloudRoot.roomApp||legacyMap(cloudRoot);fillDefaults();localStorage.setItem(KEY,JSON.stringify(cloudRoot));accountSync=true;save();if(cur)draw()}catch(x){}}
 var P={
  study:{t:'Estudios',s:'Organiza asignaturas, deberes, exámenes y objetivos. Separa lo urgente de lo importante y lleva el seguimiento de lo que terminas.',quick:['Repasar Matemáticas','Preparar próximo examen','Terminar ejercicios'],tabs:[{id:'cal',l:'Semana',ty:'cal'},{id:'todo',l:'Pendientes',ty:'list',ph:'Nueva tarea',meta:'Fecha límite',chk:1}]},
  pc:{t:'Proyectos',s:'Tu centro de creación: ideas, proyectos digitales, objetivos, tareas y próximos lanzamientos.',quick:['Avanzar en ROOM','Crear una nueva idea','Revisar próximos pasos'],tabs:[{id:'proj',l:'En marcha',ty:'proj'},{id:'ideas',l:'Ideas',ty:'list',ph:'Nueva idea',meta:'Nota',chk:0}]},
@@ -350,6 +355,7 @@ function loop(){requestAnimationFrame(loop);var t=(performance.now()-t0)/1000;
  for(var k=0;k<HS.length;k++){var h=HS[k];v.copy(h.v).project(cam);var b=h.b;
   if(v.z>1||!show){b.style.display='none'}else{b.style.display='block';b.style.transform='translate('+((v.x*.5+.5)*W)+'px,'+((-v.y*.5+.5)*H)+'px)'}}
  R.render(S,cam)}
+initializeStorage();
 loop();
 })();
 </script>
