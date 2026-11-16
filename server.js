@@ -13,8 +13,45 @@ const execFileAsync = promisify(execFile);
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
+
 const UPLOAD_DIR = path.join(DATA_DIR, "uploads");
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+
+// PostgreSQL is the primary store when DATABASE_URL is configured.
+// JSON files remain as a local-development fallback and as a one-time migration source.
+let pgPool = null;
+let studyTableReady = null;
+function getPgPool() {
+  if (!process.env.DATABASE_URL) return null;
+  if (!pgPool) {
+    const { Pool } = require("pg");
+    const needsTls = /(?:sslmode=require|PGSSLMODE=require)/i.test(process.env.DATABASE_URL) || process.env.PGSSLMODE === "require";
+    pgPool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      max: Number(process.env.PG_POOL_MAX || 5),
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
+      ...(needsTls ? { ssl: { rejectUnauthorized: false } } : {})
+    });
+    pgPool.on("error", err => console.error("PostgreSQL idle client error:", err.message));
+  }
+  return pgPool;
+}
+async function ensureStudyTable(pool) {
+  if (!studyTableReady) {
+    studyTableReady = pool.query(`
+      CREATE TABLE IF NOT EXISTS study_user_data (
+        user_id TEXT NOT NULL,
+        data_key TEXT NOT NULL,
+        value JSONB NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        PRIMARY KEY (user_id, data_key)
+      )
+    `).catch(err => { studyTableReady = null; throw err; });
+  }
+  await studyTableReady;
+}
+
 
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.json({ limit: "2mb" }));
@@ -385,22 +422,73 @@ app.get("/api/presence/stats", (req, res) => {
   res.set("Cache-Control", "no-store").json({ active: values.filter(x => x.lastSeen >= cutoff).length, regular: values.filter(x => (x.days || []).length >= 3).length });
 });
 
-// Per-account academic data. On-disk persistence requires a persistent volume in production.
+// Per-account data: PostgreSQL when DATABASE_URL exists, JSON fallback otherwise.
 const STUDY_DATA_FILE = path.join(DATA_DIR, "study-data.json");
-app.get("/api/study-data", requireAuth, (req,res) => {
-  const all = readJson(STUDY_DATA_FILE, {});
-  res.json({ data: all[req.user.id] || {} });
+app.get("/api/storage/status", requireAuth, async (req,res) => {
+  const pool = getPgPool();
+  if (!pool) return res.json({ backend: "json", connected: false, message: "DATABASE_URL no está configurada." });
+  try {
+    await ensureStudyTable(pool);
+    await pool.query("SELECT 1");
+    return res.json({ backend: "postgresql", connected: true });
+  } catch (err) {
+    console.error("PostgreSQL status check failed:", err.message);
+    return res.status(503).json({ backend: "postgresql", connected: false, error: "No se pudo conectar con PostgreSQL." });
+  }
 });
-app.put("/api/study-data/:key", requireAuth, (req,res) => {
+app.get("/api/study-data", requireAuth, async (req,res) => {
+  const pool = getPgPool();
+  if (!pool) {
+    const all = readJson(STUDY_DATA_FILE, {});
+    return res.json({ data: all[req.user.id] || {}, storage: "json" });
+  }
+  try {
+    await ensureStudyTable(pool);
+    let result = await pool.query("SELECT data_key, value FROM study_user_data WHERE user_id = $1", [req.user.id]);
+    // Import the user's legacy JSON data once, without overwriting newer database values.
+    if (result.rowCount === 0) {
+      const legacy = readJson(STUDY_DATA_FILE, {})[req.user.id] || {};
+      for (const [key, value] of Object.entries(legacy)) {
+        await pool.query(
+          "INSERT INTO study_user_data (user_id, data_key, value) VALUES ($1, $2, $3::jsonb) ON CONFLICT (user_id, data_key) DO NOTHING",
+          [req.user.id, key, JSON.stringify(value)]
+        );
+      }
+      result = await pool.query("SELECT data_key, value FROM study_user_data WHERE user_id = $1", [req.user.id]);
+    }
+    const data = Object.fromEntries(result.rows.map(row => [row.data_key, row.value]));
+    return res.set("Cache-Control", "no-store").json({ data, storage: "postgresql" });
+  } catch (err) {
+    console.error("PostgreSQL study-data read failed:", err.message);
+    return res.status(503).json({ error: "No se pudieron cargar tus datos desde PostgreSQL." });
+  }
+});
+app.put("/api/study-data/:key", requireAuth, async (req,res) => {
   const key = String(req.params.key || "");
   if (!/^[a-zA-Z0-9_-]{1,80}$/.test(key)) return res.status(400).json({error:"Clave no válida."});
-  const raw = JSON.stringify(req.body.value);
+  if (typeof req.body.value === "undefined") return res.status(400).json({error:"Falta el valor que quieres guardar."});
+  let raw;
+  try { raw = JSON.stringify(req.body.value); } catch { return res.status(400).json({error:"El contenido no es válido."}); }
   if (raw.length > 500000) return res.status(413).json({error:"El contenido supera el límite permitido."});
+  const pool = getPgPool();
+  if (pool) {
+    try {
+      await ensureStudyTable(pool);
+      await pool.query(
+        "INSERT INTO study_user_data (user_id, data_key, value) VALUES ($1, $2, $3::jsonb) ON CONFLICT (user_id, data_key) DO UPDATE SET value = EXCLUDED.value, updated_at = NOW()",
+        [req.user.id, key, raw]
+      );
+      return res.json({ok:true, storage:"postgresql"});
+    } catch (err) {
+      console.error("PostgreSQL study-data write failed:", err.message);
+      return res.status(503).json({error:"No se pudieron guardar tus datos en PostgreSQL."});
+    }
+  }
   const all = readJson(STUDY_DATA_FILE, {});
   all[req.user.id] = all[req.user.id] || {};
   all[req.user.id][key] = req.body.value;
   writeJson(STUDY_DATA_FILE, all);
-  res.json({ok:true});
+  return res.json({ok:true, storage:"json"});
 });
 
 // El acceso es opcional: las funciones de conversión y compartir también están disponibles como invitado.
