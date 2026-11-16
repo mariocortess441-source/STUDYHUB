@@ -2394,7 +2394,7 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
   if(mount&&folders){
    mount.append(folders);
    const selector=$("#mcFolderSubject");
-   if(selector){selector.value=sub.id;selector.dispatchEvent(new Event("change",{bubbles:true}))}
+   if(selector){selector.innerHTML=subs.map(x=>'<option value="'+esc(x.id)+'">'+esc(x.name)+'</option>').join("");selector.value=sub.id;folders.dataset.category=selectedSubjectFolder;folders.querySelectorAll("[data-mc-folder]").forEach(tab=>tab.classList.toggle("active",tab.dataset.mcFolder===selectedSubjectFolder));selector.dispatchEvent(new Event("change",{bubbles:true}))}
   }else if(mount){mount.innerHTML='<div class="empty">No se ha podido cargar el explorador de archivos. Recarga la página y vuelve a intentarlo.</div>'}
   list.querySelectorAll("[data-study-sub]").forEach(b=>b.onclick=()=>{selectedSubject=b.dataset.studySub;selectedSubjectFolder="Temario";renderStudySubjects()});
  }
