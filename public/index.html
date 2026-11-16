@@ -2850,37 +2850,24 @@ $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámene
  const workspace=q1("#projectWorkspace");
  if(workspace&&!q1("#projectToolsGrid")){
   const tools=document.createElement("div");tools.id="projectToolsGrid";tools.className="project-tools-grid";
-  tools.innerHTML='<section class="project-tool-card"><div class="project-tool-head"><h3>Calendario del proyecto</h3><div class="project-calendar-controls"><button type="button" data-project-month="-1" aria-label="Mes anterior">‹</button><span class="project-calendar-month" id="projectCalendarMonth"></span><button type="button" data-project-month="1" aria-label="Mes siguiente">›</button></div></div><div class="project-calendar-grid" id="projectCalendarGrid"></div><form class="project-event-form" id="projectEventForm"><input id="projectEventTitle" maxlength="100" required placeholder="Nuevo evento"><input id="projectEventDate" type="date" required aria-label="Fecha del evento"><input id="projectEventTime" type="time" aria-label="Hora"><button class="btn secondary" type="submit">Añadir</button></form><div class="project-event-list" id="projectEventList"></div></section><section class="project-tool-card"><div class="project-tool-head"><h3>To do list</h3><span class="tiny" id="projectTodoCount">0 tareas</span></div><form class="project-todo-form" id="projectTodoForm"><input id="projectTodoText" maxlength="180" required placeholder="Añadir una tarea…"><button class="btn secondary" type="submit">＋</button></form><div class="project-todo-list" id="projectTodoList"></div></section>';
+  tools.innerHTML='<section class="project-tool-card"><div class="project-tool-head"><h3>To do list</h3><span class="tiny" id="projectTodoCount">0 tareas</span></div><form class="project-todo-form" id="projectTodoForm"><input id="projectTodoText" maxlength="180" required placeholder="Añadir una tarea…"><button class="btn secondary" type="submit">＋</button></form><div class="project-todo-list" id="projectTodoList"></div></section>';
   const footer=workspace.querySelector(".project-workspace-footer");workspace.insertBefore(tools,footer||null);
  }
- let monthCursor=new Date();monthCursor.setDate(1);let selectedDate=new Date().toLocaleDateString("en-CA");
  const esc=s=>String(s??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
  const allProjects=()=>{const k="sh_"+(typeof activeUser!=="undefined"&&activeUser?.id||"guest")+"_aulivra_projects";try{const d=JSON.parse(localStorage.getItem(k)||"{}");return {key:k,data:d}}catch{return null}};
  const active=()=>{const p=allProjects();if(!p)return null;const name=q1("#projectBreadcrumbName")?.textContent;return p.data.projects.find(x=>x.id===window.__mancaveCurrentProjectId)||p.data.projects.find(x=>x.name===name)||null};
  const persist=(p)=>{const d=allProjects();if(!d||!p)return;p.updatedAt=new Date().toISOString();d.data.projects=d.data.projects.map(x=>x.id===p.id?p:x);localStorage.setItem(d.key,JSON.stringify(d.data));updateProjectLabel()};
  const renderTools=()=>{
   const p=active();if(!p)return;
-  p.projectTasks=p.projectTasks||[];p.calendarEvents=p.calendarEvents||[];
-  const grid=q1("#projectCalendarGrid"),month=q1("#projectCalendarMonth");if(!grid||!month)return;
-  month.textContent=monthCursor.toLocaleDateString("es-ES",{month:"long",year:"numeric"});
-  const year=monthCursor.getFullYear(),m=monthCursor.getMonth(),first=new Date(year,m,1),offset=(first.getDay()+6)%7,start=new Date(year,m,1-offset);
-  const days=["L","M","X","J","V","S","D"];grid.innerHTML=days.map(d=>'<div class="project-calendar-weekday">'+d+'</div>').join("");
-  for(let n=0;n<42;n++){const d=new Date(start);d.setDate(start.getDate()+n);const key=d.toLocaleDateString("en-CA"),outside=d.getMonth()!==m,has=p.calendarEvents.some(ev=>ev.date===key);grid.insertAdjacentHTML("beforeend",'<button type="button" class="project-calendar-day'+(outside?" muted":"")+(key===selectedDate?" selected":"")+(has?" has-event":"")+'" data-project-date="'+key+'">'+d.getDate()+'</button>')}
-  q1("#projectEventDate").value=selectedDate;
-  const events=p.calendarEvents.filter(ev=>ev.date===selectedDate).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
-  q1("#projectEventList").innerHTML=events.map(ev=>'<div class="project-event-row"><span><b>'+esc(ev.title)+'</b><br><small>'+esc(ev.time||"Sin hora")+'</small></span><button type="button" data-delete-project-event="'+esc(ev.id)+'" aria-label="Eliminar evento">×</button></div>').join("")||'<div class="project-tool-empty">No hay eventos para este día.</div>';
+  p.projectTasks=p.projectTasks||[];
   q1("#projectTodoCount").textContent=p.projectTasks.filter(t=>!t.done).length+" pendientes";
   q1("#projectTodoList").innerHTML=p.projectTasks.map(t=>'<div class="project-todo-row'+(t.done?" done":"")+'"><input type="checkbox" data-project-todo="'+esc(t.id)+'" '+(t.done?"checked":"")+'><span>'+esc(t.text)+(t.due?" · "+esc(t.due):"")+'</span><button type="button" data-delete-project-todo="'+esc(t.id)+'" aria-label="Eliminar tarea">×</button></div>').join("")||'<div class="project-tool-empty">Añade la primera tarea de este proyecto.</div>';
  };
  const refreshOnOpen=()=>{setTimeout(()=>{const name=q1("#projectBreadcrumbName")?.textContent;if(name&&q1("#projectWorkspace")&&!q1("#projectWorkspace").hidden){const d=allProjects()?.data;const p=d?.projects.find(x=>x.id===window.__mancaveCurrentProjectId)||d?.projects.filter(x=>x.name===name).sort((a,b)=>new Date(b.updatedAt||b.createdAt||0)-new Date(a.updatedAt||a.createdAt||0))[0];if(p){window.__mancaveCurrentProjectId=p.id;renderTools()}}},80)};
  document.addEventListener("click",e=>{
-  const month=e.target.closest("[data-project-month]");if(month){monthCursor.setMonth(monthCursor.getMonth()+Number(month.dataset.projectMonth));renderTools();return}
-  const day=e.target.closest("[data-project-date]");if(day){selectedDate=day.dataset.projectDate;renderTools();return}
-  const delEvent=e.target.closest("[data-delete-project-event]");if(delEvent){const p=active();if(p){p.calendarEvents=(p.calendarEvents||[]).filter(x=>x.id!==delEvent.dataset.deleteProjectEvent);persist(p);renderTools()}return}
   const delTodo=e.target.closest("[data-delete-project-todo]");if(delTodo){const p=active();if(p){p.projectTasks=(p.projectTasks||[]).filter(x=>x.id!==delTodo.dataset.deleteProjectTodo);persist(p);renderTools()}return}
   if(e.target.closest("#createProjectBtn,[data-create-first-project],[data-open-project]"))refreshOnOpen();
  });
- q1("#projectEventForm")?.addEventListener("submit",e=>{e.preventDefault();const p=active();if(!p)return;p.calendarEvents=p.calendarEvents||[];p.calendarEvents.push({id:crypto.randomUUID(),title:q1("#projectEventTitle").value.trim(),date:q1("#projectEventDate").value,time:q1("#projectEventTime").value});persist(p);q1("#projectEventTitle").value="";renderTools()});
  q1("#projectTodoForm")?.addEventListener("submit",e=>{e.preventDefault();const p=active();if(!p)return;p.projectTasks=p.projectTasks||[];p.projectTasks.push({id:crypto.randomUUID(),text:q1("#projectTodoText").value.trim(),done:false});persist(p);q1("#projectTodoText").value="";renderTools()});
  q1("#projectTodoList")?.addEventListener("change",e=>{const id=e.target.dataset.projectTodo;if(!id)return;const p=active(),t=p?.projectTasks?.find(x=>x.id===id);if(t){t.done=e.target.checked;persist(p);renderTools()}});
  q1("#projectTitleInput")?.addEventListener("change",()=>setTimeout(updateProjectLabel,60));
