@@ -2378,13 +2378,15 @@ refreshStatus();const params=new URLSearchParams(location.search);if(params.get(
   $("#studyPlannedTotal").textContent=(total/60).toFixed(1)+" h";
   $("#studyPlannedCaption").textContent="Semana del "+start.toLocaleDateString("es-ES",{day:"numeric",month:"short"})+" al "+addDays(start,6).toLocaleDateString("es-ES",{day:"numeric",month:"short"});
  }
- let selectedSubjectFolder="Temario";
+ let selectedSubjectFolder="Temario",renderedFolderSubject=null;
  function renderStudySubjects(){
   const list=$("#studySubjectList"),taskList=$("#studyTaskList");if(!list||!taskList)return;
   const subs=subjectData();$("#studySubjectCount").textContent=subs.length+" materias";
   if(!subs.some(x=>x.id===selectedSubject))selectedSubject=subs[0]?.id||null;
   list.innerHTML=subs.map(x=>'<button type="button" class="study-subject-choice '+(x.id===selectedSubject?"active":"")+'" data-study-sub="'+esc(x.id)+'"><i style="background:'+esc(x.color||"#20cfc8")+'"></i><span><b>'+esc(x.name)+'</b><small>'+((x.tasks||[]).filter(t=>!t.done).length)+' pendientes</small></span>›</button>').join("");
   const sub=subs.find(x=>x.id===selectedSubject);
+  const foldersBefore=$("#mcSubjectFolders");
+  if(sub&&renderedFolderSubject!==sub.id){selectedSubjectFolder="Temario";renderedFolderSubject=sub.id}else if(sub&&foldersBefore?.dataset.category){selectedSubjectFolder=foldersBefore.dataset.category}
   $("#studyTaskHeading").textContent=sub?sub.name:"Tareas";
   $("#studyTaskSubheading").textContent=sub?"Escritorio de la asignatura · carpetas y documentos":"Añade una asignatura para empezar";
   if(!sub){taskList.innerHTML='<div class="empty">Selecciona una asignatura para abrir su carpeta.</div>';return}
