@@ -194,6 +194,9 @@
     });
   });
   observer.observe(document.documentElement, { childList:true, subtree:true });
+  document.addEventListener("click", event => {
+    if (event.target.closest('[data-view="library"], [data-go="library"]')) setTimeout(renderPersonal, 120);
+  });
   document.addEventListener("DOMContentLoaded", refreshAll);
   if (document.readyState !== "loading") refreshAll();
   window.aulivraFileVault = { refresh:refreshAll };
