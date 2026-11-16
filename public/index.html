@@ -59,8 +59,9 @@ const objectDefs=[
  ['chair','Hábitos','Rutinas y hábitos','Pequeños hábitos que quiero construir y mantener.'],
  ['bin','Bandeja de ideas','Ideas rápidas','Apunta ideas sueltas y decide después dónde van.']
 ];
+const deskHit=new THREE.Mesh(new THREE.BoxGeometry(3.25,.2,1.2),new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));deskHit.position.set(-.1,1.72,-2.65);scene.add(deskHit);
 const targets={
- bed:[bed,new THREE.Vector3(-2.85,1.1,1.5)],desk:[desk,new THREE.Vector3(-.1,2.3,-2.7)],pc:[desk,new THREE.Vector3(-.1,2.4,-2.9)],books:[shelf,new THREE.Vector3(3.55,2.8,-3.5)],wardrobe:[wardrobe,new THREE.Vector3(4.05,2.8,.4)],window:[windowG,new THREE.Vector3(-2.7,2.55,-3.7)],voide:[picture,new THREE.Vector3(1.75,2.85,-3.65)],chair:[chair,new THREE.Vector3(1.9,1.7,-1.8)],bin:[bin,new THREE.Vector3(3,.7,2.7)]
+ bed:[bed,new THREE.Vector3(-2.85,1.1,1.5)],desk:[deskHit,new THREE.Vector3(-.1,1.85,-2.65)],pc:[desk,new THREE.Vector3(-.1,2.4,-2.9)],books:[shelf,new THREE.Vector3(3.55,2.8,-3.5)],wardrobe:[wardrobe,new THREE.Vector3(4.05,2.8,.4)],window:[windowG,new THREE.Vector3(-2.7,2.55,-3.7)],voide:[picture,new THREE.Vector3(1.75,2.85,-3.65)],chair:[chair,new THREE.Vector3(1.9,1.7,-1.8)],bin:[bin,new THREE.Vector3(3,.7,2.7)]
 };
 const clickables=[];for(const [id,[g]] of Object.entries(targets)){g.traverse(o=>{if(o.isMesh){o.userData.targetId=id;clickables.push(o)}})}
 const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let active=null,drag=null,lastX=0,lastY=0,down=false,labelsMap={};
