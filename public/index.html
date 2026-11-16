@@ -2788,27 +2788,18 @@ $("#study .study-upcoming-exams")?.setAttribute("aria-label","Próximos exámene
 .sidebar .nav .ico{display:grid!important;place-items:center;flex:0 0 24px;width:24px;height:24px;opacity:1!important}
 .sidebar .nav .ico svg{display:block!important;width:21px!important;height:21px!important;stroke:currentColor!important;fill:none!important;stroke-width:1.8!important;stroke-linecap:round;stroke-linejoin:round}
 .nav button[data-view="home"] .ico{color:#9fb8d5}.nav button[data-view="study"] .ico{color:#55c9c1}.nav-entry .ico{color:#b19ae9}.nav button[data-view="economy"] .ico{color:#e4bd70}
-.project-tools-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:14px;margin:18px 0}
+.project-tools-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:18px 0}
 .project-tool-card{min-width:0;padding:17px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}
 .project-tool-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
 .project-tool-head h3{margin:0;font-size:14px}
-.project-calendar-controls{display:flex;align-items:center;gap:7px}
-.project-calendar-controls button,.project-calendar-day{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px}
-.project-calendar-controls button{padding:5px 9px}
-.project-calendar-month{font-size:11px;color:var(--muted);min-width:95px;text-align:center}
-.project-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
-.project-calendar-weekday{text-align:center;color:var(--muted);font-size:9px;padding:4px 0}
-.project-calendar-day{min-height:31px;padding:4px 2px;font-size:10px;position:relative}
-.project-calendar-day.muted{opacity:.3}.project-calendar-day.selected{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-.project-calendar-day.has-event:after{content:"";position:absolute;bottom:3px;left:50%;width:4px;height:4px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}
-.project-event-form,.project-todo-form{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
-.project-event-form input,.project-todo-form input{min-width:0;flex:1;background:#0a1118;color:#f0f5fa;border:1px solid #34465a;border-radius:8px;padding:9px}
-.project-event-list,.project-todo-list{display:grid;gap:7px;margin-top:12px}
-.project-event-row,.project-todo-row{display:flex;align-items:center;gap:8px;padding:8px 9px;border:1px solid var(--line);border-radius:9px;font-size:11px}
-.project-event-row span,.project-todo-row span{flex:1;min-width:0;overflow-wrap:anywhere}
+.project-todo-form{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
+.project-todo-form input{min-width:0;flex:1;background:#0a1118;color:#f0f5fa;border:1px solid #34465a;border-radius:8px;padding:9px}
+.project-todo-list{display:grid;gap:7px;margin-top:12px}
+.project-todo-row{display:flex;align-items:center;gap:8px;padding:8px 9px;border:1px solid var(--line);border-radius:9px;font-size:11px}
+.project-todo-row span{flex:1;min-width:0;overflow-wrap:anywhere}
 .project-todo-row.done span{text-decoration:line-through;opacity:.55}
 .project-tool-empty{color:var(--muted);font-size:11px;padding:8px 0}
-.project-event-row button,.project-todo-row button{border:0;background:transparent;color:var(--muted);cursor:pointer}
+.project-todo-row button{border:0;background:transparent;color:var(--muted);cursor:pointer}
 @media(max-width:760px){.project-tools-grid{grid-template-columns:1fr}.home-personal-entry{align-items:flex-start}}
 @media(max-width:700px){.nav button .ico{display:grid!important}.nav button{min-width:54px;padding:9px 7px!important}}
 </style>
