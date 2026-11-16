@@ -87,6 +87,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
 <div id="hint">Arrastra para girar. Toca un objeto para abrirlo.</div>
 <div id="toast"></div>
 <div id="ov" hidden><div id="pn" role="dialog" aria-modal="true" aria-labelledby="pt"><header><div><h2 id="pt"></h2><p id="ps"></p></div><button id="px" aria-label="Cerrar">✕</button></header><nav id="tabs"></nav><div id="quick"></div><section id="bd"></section></div></div>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister()));if("caches" in window)caches.keys().then(keys=>keys.forEach(k=>caches.delete(k)));}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
