@@ -1,4 +1,4 @@
-const CACHE_NAME = "mancave-shell-v26";
+const CACHE_NAME = "mancave-shell-v27";
 const APP_SHELL = ["/", "/manifest.webmanifest", "/aulivra-mark.svg"];
 
 self.addEventListener("install", event => {
@@ -44,3 +44,5 @@ self.addEventListener("fetch", event => {
     }))
   );
 });
+
+self.addEventListener("notificationclick", event => { event.notification.close(); event.waitUntil(self.clients.matchAll({type:"window",includeUncontrolled:true}).then(clients => { const client=clients.find(c=>"focus" in c); return client ? client.focus() : self.clients.openWindow("/"); })); });
