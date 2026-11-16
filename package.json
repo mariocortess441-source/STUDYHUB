@@ -1,16 +1,11 @@
 {
-  "name": "mancave",
+  "name": "room-life",
   "version": "1.0.0",
   "private": true,
-  "description": "MANCAVE - online study planner and student tools",
+  "description": "ROOM — tu espacio personal interactivo en 3D",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
-  },
-  "engines": {
-    "node": ">=20"
-  },
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js" },
+  "engines": { "node": ">=20" },
   "dependencies": {
     "express": "^4.21.2",
     "multer": "^2.5.0",
