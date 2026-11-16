@@ -21,6 +21,7 @@
 </style>
 </head>
 <body><main id="app"><canvas id="scene" aria-label="Habitación 3D interactiva"></canvas><header class="topbar"><div class="brand">ROOM<span>.</span></div><div class="topnote">TU ESPACIO · TUS PLANES · TU VIDA</div></header><div id="labels"></div><div class="hint">Pulsa sobre los objetos para entrar en cada espacio</div><aside id="panel" aria-live="polite"><div class="panel-head"><div><div class="eyebrow" id="panel-kicker">TU ESPACIO</div><h1 class="panel-title" id="panel-title">Estudios</h1></div><button class="close" id="close" aria-label="Cerrar">×</button></div><p class="panel-desc" id="panel-desc"></p><div id="items"></div><form class="add" id="add-form"><input id="new-item" maxlength="140" placeholder="Añadir una idea..." autocomplete="off"><button type="submit">Añadir</button></form><div class="panel-foot"><span>SE GUARDA AUTOMÁTICAMENTE</span><span id="count">0 ELEMENTOS</span></div></aside><div id="toast"></div></main>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister()));if("caches" in window)caches.keys().then(keys=>keys.forEach(k=>caches.delete(k)));}</script>
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 const canvas=document.querySelector('#scene'),labels=document.querySelector('#labels');
