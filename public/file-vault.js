@@ -5,7 +5,6 @@
   const STORE = "files";
   const MAX_FILE_BYTES = 50 * 1024 * 1024;
   let dbPromise;
-  let ownerPromise;
 
   const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
@@ -25,14 +24,12 @@
       console.info("[AULIVRA]", message);
     }
   };
-  function ownerId() {
-    if (!ownerPromise) {
-      ownerPromise = fetch("/api/auth/me", { credentials:"same-origin", cache:"no-store" })
-        .then(r => r.ok ? r.json() : null)
-        .then(data => data?.user?.id || "guest")
-        .catch(() => "guest");
-    }
-    return ownerPromise;
+  async function ownerId() {
+    try {
+      const response = await fetch("/api/auth/me", { credentials:"same-origin", cache:"no-store" });
+      const data = response.ok ? await response.json() : null;
+      return data?.user?.id || "guest";
+    } catch { return "guest"; }
   }
   function openDb() {
     if (!("indexedDB" in window)) return Promise.reject(new Error("Este navegador no permite guardar archivos localmente."));
