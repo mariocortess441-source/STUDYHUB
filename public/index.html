@@ -123,4 +123,4 @@ canvas.addEventListener('wheel',e=>{if(panel.classList.contains('open'))return;c
 function animate(){requestAnimationFrame(animate);const t=performance.now()*.001;cyan.intensity=20+Math.sin(t*1.4)*2;violet.intensity=17+Math.sin(t*1.1+1)*2;renderer.render(scene,camera);positionLabels()}animate();
 initializeStorage();
 function resize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)}addEventListener('resize',resize);
-</script><script src="/features.js" defer></script></body></html>
+</script><script src="/features.js" defer></script><script src="/rest.js" defer></script></body></html>
