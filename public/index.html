@@ -1734,13 +1734,6 @@ $("#calendarDayMode").onclick=()=>{calendarViewMode="day";calendarCursor=new Dat
 function refreshCalendarSubjects(){
  const sel=$("#calendarEventSubject");if(sel)sel.innerHTML='<option value="">Selecciona asignatura</option>'+subjectsData().map(s=>'<option value="'+esc(s.id)+'">'+esc(s.name)+'</option>').join("");
 }
-$("#calendarAddEvent").onclick=()=>{
- const title=$("#calendarEventTitle").value.trim(),subjectId=$("#calendarEventSubject").value,date=$("#calendarEventDate").value,time=$("#calendarEventTime").value,end=$("#calendarEventEnd")?$("#calendarEventEnd").value:"",reminderMinutes=Number($("#calendarEventReminder").value),sub=subjectsData().find(s=>s.id===subjectId);
- if(!title||!date||!time)return toast("Complete el nombre, la fecha y la hora.");if(end&&end<=time)return toast("La hora de fin debe ser posterior a la de inicio.");
- const events=store.get("aulivra_events",[]);events.push({id:crypto.randomUUID(),title,subjectId:subjectId||"",subjectName:sub?.name||"Personal",date,time,end,reminderMinutes,color:$("#calendarEventColor")?.value||"#1769df",kind:"event"});store.set("aulivra_events",events);
- $("#calendarEventTitle").value="";if($("#calendarEventEnd"))$("#calendarEventEnd").value="";calendarSelected=dateFromKey(date);calendarCursor=new Date(calendarSelected.getFullYear(),calendarSelected.getMonth(),1);renderCalendar();renderEvents();renderHome();renderHomeExtras();toast("Bloque guardado en tu calendario.");
-};
-
 let editingCalendarEventId=null;
 function editCalendarEvent(id){const e=store.get("aulivra_events",[]).find(x=>x.id===id);if(!e)return;editingCalendarEventId=id;$("#calendarEventTitle").value=e.title||"";$("#calendarEventSubject").value=e.subjectId||"";$("#calendarEventDate").value=e.date||"";$("#calendarEventTime").value=e.time||"17:00";$("#calendarEventEnd").value=e.end||"";$("#calendarEventColor").value=e.color||"#1769df";$("#calendarEventReminder").value=String(e.reminderMinutes??5);if($("#calendarEventType"))$("#calendarEventType").value=e.type==="exam"?"exam":"event";$("#calendarAddEvent").textContent="Guardar cambios";$("#calendarCancelEdit").hidden=false;$("#calendarEventTitle").focus()}
 $("#calendarCancelEdit").onclick=()=>{editingCalendarEventId=null;$("#calendarEventTitle").value="";$("#calendarEventSubject").value="";$("#calendarEventEnd").value="";if($("#calendarEventType"))$("#calendarEventType").value="exam";$("#calendarAddEvent").textContent="Guardar en el calendario";$("#calendarCancelEdit").hidden=true};
