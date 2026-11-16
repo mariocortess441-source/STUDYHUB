@@ -19,7 +19,7 @@ $('#rest-form').addEventListener('submit',e=>{e.preventDefault();const f=e.curre
 }
 const launch=document.createElement('button');launch.id='rest-launch';launch.textContent='Descanso';launch.onclick=open;
 function addLaunch(){const bar=$('#rf-launch')||$('#sh-tools');if(bar&&!$('#rest-launch'))bar.append(launch)}
-function addQuick(){const title=($('#panel-title')?.textContent||'').toLowerCase(),q=$('#quick-actions');if(title.includes('descanso y planes')&&q&&!q.querySelector('[data-rest-open]')){const b=document.createElement('button');b.className='quick';b.dataset.restOpen='1';b.textContent='＋ Abrir panel de descanso';b.onclick=open;q.prepend(b)}}
+function addQuick(){const title=($('#pt')?.textContent||'').toLowerCase(),q=$('#quick');if(title.includes('descanso y planes')&&q&&!q.querySelector('[data-rest-open]')){const b=document.createElement('button');b.className='quick';b.dataset.restOpen='1';b.textContent='＋ Abrir panel de descanso';q.prepend(b)}}
 document.addEventListener('click',e=>{if(e.target.closest('.rest-close')||e.target===ov)close();if(e.target.closest('[data-rest-open]'))open()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 new MutationObserver(()=>{addLaunch();addQuick()}).observe(document.body,{childList:true,subtree:true,characterData:true});
 load().then(()=>{addLaunch();addQuick()});
