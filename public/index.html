@@ -230,8 +230,9 @@ var lampL=new T.PointLight(0xffb35c,1,4.5);lampL.position.set(-2.72,1,2.2);S.add
 var lampOn=true,night=false,ledMode=0,dayK=1;
 
 /* Datos de la app */
-var ST={},KEY='room-data-v1',accountSync=false,syncTimer=null,cloudRoot={};
-function readRoot(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(x){return {}}}
+var ST={},KEY='room-data-v1',accountSync=false,syncTimer=null,cloudRoot={},activeUserId=null;
+function activeStorageKey(){return activeUserId?KEY+'::'+activeUserId:KEY}
+function readRoot(storageKey){try{return JSON.parse(localStorage.getItem(storageKey||KEY)||'{}')||{}}catch(x){return {}}}
 function legacyMap(root){var out={},map={desk:'study.todo',pc:'pc.ideas',wardrobe:'closet.buy',bed:'bed.do',window:'window.adv',books:'shelf.next',calendar:'calendar.events',voide:'voide.tasks',chair:'chair.habits',bin:'bin.ideas'};Object.keys(map).forEach(function(k){if(Array.isArray(root[k]))out[map[k]]=root[k].map(function(x){return {t:x.text||x.t||'',m:x.date||x.priority||'',d:!!(x.done||x.d)}}).filter(function(x){return x.t})});return out}
 cloudRoot=readRoot();ST=cloudRoot.roomApp||legacyMap(cloudRoot);
 var DEF={
@@ -249,11 +250,51 @@ var DEF={
  'shelf.next':[{t:'Un libro por leer',m:'Autor'}],
  'calendar.events':[], 'voide.tasks':[], 'voide.ideas':[], 'chair.habits':[], 'chair.routines':[], 'bin.ideas':[]
 };
-try{ST=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(x){ST={}}
+ST=cloudRoot.roomApp||legacyMap(cloudRoot);
 function fillDefaults(){Object.keys(DEF).forEach(function(k){if(!Array.isArray(ST[k]))ST[k]=JSON.parse(JSON.stringify(DEF[k]))})}
 fillDefaults();
-function save(){try{cloudRoot=readRoot();cloudRoot.roomApp=ST;localStorage.setItem(KEY,JSON.stringify(cloudRoot))}catch(x){}if(accountSync){clearTimeout(syncTimer);syncTimer=setTimeout(async function(){try{var r=await fetch('/api/study-data/room',{method:'PUT',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({value:cloudRoot})});if(!r.ok)throw Error('sync')}catch(x){say('Guardado en este dispositivo')}},450)}}
-async function initializeStorage(){try{var me=await fetch('/api/auth/me',{credentials:'same-origin'});if(!me.ok)return;var user=await me.json();if(!user.user)return;var remote=await fetch('/api/study-data',{credentials:'same-origin'});if(!remote.ok)return;var payload=await remote.json(),cloud=payload.data&&payload.data.room;if(cloud&&typeof cloud==='object'&&Object.keys(cloud).length)cloudRoot=cloud;else cloudRoot=readRoot();ST=cloudRoot.roomApp||legacyMap(cloudRoot);fillDefaults();localStorage.setItem(KEY,JSON.stringify(cloudRoot));accountSync=true;save();if(cur)draw()}catch(x){}}
+function save(){
+ try{cloudRoot=readRoot(activeStorageKey());cloudRoot.roomApp=ST;localStorage.setItem(activeStorageKey(),JSON.stringify(cloudRoot))}catch(x){}
+ if(accountSync){
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(async function(){
+   try{
+    var r=await fetch('/api/study-data/room',{method:'PUT',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify({value:cloudRoot})});
+    if(!r.ok)throw Error('sync');
+    say('Guardado en tu cuenta');
+   }catch(x){say('Pendiente de sincronizar · copia local conservada')}
+  },450)
+ }
+}
+async function initializeStorage(){
+ var auth=null;
+ try{var me=await fetch('/api/auth/me',{credentials:'same-origin'});if(me.ok)auth=await me.json()}catch(x){}
+ if(!auth||!auth.user){
+  activeUserId=null;accountSync=false;cloudRoot=readRoot(KEY);ST=cloudRoot.roomApp||legacyMap(cloudRoot);fillDefaults();
+  try{localStorage.setItem(KEY,JSON.stringify(cloudRoot))}catch(x){}
+  if(cur)draw();return;
+ }
+ activeUserId=String(auth.user.id);
+ var cacheKey=activeStorageKey(),cached=readRoot(cacheKey);
+ accountSync=false;
+ try{
+  var remote=await fetch('/api/study-data',{credentials:'same-origin'});
+  if(!remote.ok)throw Error('No se pudieron cargar los datos de la cuenta');
+  var payload=await remote.json(),remoteRoom=payload.data&&payload.data.room;
+  cloudRoot=remoteRoom&&typeof remoteRoom==='object'&&Object.keys(remoteRoom).length?remoteRoom:cached;
+  ST=cloudRoot.roomApp||legacyMap(cloudRoot);fillDefaults();
+  localStorage.setItem(cacheKey,JSON.stringify(cloudRoot));
+  accountSync=true;
+  save();
+  if(cur)draw();
+ }catch(x){
+  cloudRoot=cached;ST=cloudRoot.roomApp||legacyMap(cloudRoot);fillDefaults();
+  try{localStorage.setItem(cacheKey,JSON.stringify(cloudRoot))}catch(e){}
+  accountSync=false;
+  if(cur)draw();
+ }
+}
+window.addEventListener('online',initializeStorage);
 var P={
  study:{t:'Estudios',s:'Organiza asignaturas, deberes, exámenes y objetivos. Separa lo urgente de lo importante y lleva el seguimiento de lo que terminas.',quick:['Repasar Matemáticas','Preparar próximo examen','Terminar ejercicios'],tabs:[{id:'cal',l:'Semana',ty:'cal'},{id:'todo',l:'Pendientes',ty:'list',ph:'Nueva tarea',meta:'Fecha límite',chk:1}]},
  pc:{t:'Proyectos',s:'Tu centro de creación: ideas, proyectos digitales, objetivos, tareas y próximos lanzamientos.',quick:['Avanzar en ROOM','Crear una nueva idea','Revisar próximos pasos'],tabs:[{id:'proj',l:'En marcha',ty:'proj'},{id:'ideas',l:'Ideas',ty:'list',ph:'Nueva idea',meta:'Nota',chk:0}]},
