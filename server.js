@@ -445,17 +445,16 @@ app.get("/api/study-data", requireAuth, async (req,res) => {
   try {
     await ensureStudyTable(pool);
     let result = await pool.query("SELECT data_key, value FROM study_user_data WHERE user_id = $1", [req.user.id]);
-    // Import the user's legacy JSON data once, without overwriting newer database values.
-    if (result.rowCount === 0) {
-      const legacy = readJson(STUDY_DATA_FILE, {})[req.user.id] || {};
-      for (const [key, value] of Object.entries(legacy)) {
-        await pool.query(
-          "INSERT INTO study_user_data (user_id, data_key, value) VALUES ($1, $2, $3::jsonb) ON CONFLICT (user_id, data_key) DO NOTHING",
-          [req.user.id, key, JSON.stringify(value)]
-        );
-      }
-      result = await pool.query("SELECT data_key, value FROM study_user_data WHERE user_id = $1", [req.user.id]);
+    // Import every missing legacy key, even when newer keys already exist in PostgreSQL.
+    // ON CONFLICT keeps database values authoritative and makes this safe to retry.
+    const legacy = readJson(STUDY_DATA_FILE, {})[req.user.id] || {};
+    for (const [key, value] of Object.entries(legacy)) {
+      await pool.query(
+        "INSERT INTO study_user_data (user_id, data_key, value) VALUES ($1, $2, $3::jsonb) ON CONFLICT (user_id, data_key) DO NOTHING",
+        [req.user.id, key, JSON.stringify(value)]
+      );
     }
+    result = await pool.query("SELECT data_key, value FROM study_user_data WHERE user_id = $1", [req.user.id]);
     const data = Object.fromEntries(result.rows.map(row => [row.data_key, row.value]));
     return res.set("Cache-Control", "no-store").json({ data, storage: "postgresql" });
   } catch (err) {
