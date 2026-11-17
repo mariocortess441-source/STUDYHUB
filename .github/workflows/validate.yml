@@ -1,0 +1,47 @@
+name: Validate Studyhub
+on:
+  push:
+    branches: [main, "fix/**"]
+  pull_request:
+    branches: [main]
+jobs:
+  syntax-and-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check server and browser JavaScript syntax
+        run: |
+          node --check server.js
+          node --check public/features.js
+          node --check public/rest.js
+          node <<'NODE'
+          const fs = require('node:fs');
+          const html = fs.readFileSync('public/index.html', 'utf8');
+          const scripts = [...html.matchAll(/<script>([\\s\\S]*?)<\\/script>/g)];
+          if (!scripts.length) throw new Error('No inline scripts found in index.html');
+          scripts.forEach((match, index) => fs.writeFileSync('/tmp/studyhub-inline-' + index + '.js', match[1]));
+          NODE
+          for file in /tmp/studyhub-inline-*.js; do node --check "$file"; done
+      - name: Check required integrations
+        run: |
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const fs = require('node:fs');
+          const features = fs.readFileSync('public/features.js', 'utf8');
+          const rest = fs.readFileSync('public/rest.js', 'utf8');
+          const room = fs.readFileSync('public/index.html', 'utf8');
+          const server = fs.readFileSync('server.js', 'utf8');
+          assert.match(features, /rf-calendar-filter/);
+          assert.match(features, /data-study-calendar/);
+          assert.match(features, /Saldos por apartado/);
+          assert.match(features, /\/api\/storage\/status/);
+          assert.match(rest, /room-sleep-v1::/);
+          assert.match(rest, /últimos 14 días/);
+          assert.match(room, /KEY\+'::'\+activeUserId/);
+          assert.match(room, /calendarGroup\.userData\.k='calendar'/);
+          assert.match(server, /ON CONFLICT \(user_id, data_key\) DO NOTHING/);
+          console.log('Studyhub integration assertions passed');
+          NODE
