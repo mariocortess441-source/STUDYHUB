@@ -5,6 +5,7 @@
   "description": "ROOM — tu espacio personal interactivo en 3D",
   "main": "server.js",
   "scripts": {
+    "prestart": "node scripts/validate-client.js",
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
